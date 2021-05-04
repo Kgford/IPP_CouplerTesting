@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PublishUrlHistory>\\ippdc\Test Automation\ATE_Publish\|\\ippfs\Test Automation\ATE_Publish\|C:\Publish\|\\CTBDC\Data\Test Automation\ATE_Publish\|publish\</PublishUrlHistory>
+    <InstallUrlHistory>\\ippdc\Test Automation\ATE_Publish\|\\CTBDC\Data\Test Automation\ATE_Publish\|\\CTBDC\Data\Test Automation\ATE_Publish\Application Files\</InstallUrlHistory>
+    <SupportUrlHistory />
+    <UpdateUrlHistory>\\ippfs\Test Automation\ATE_Publish\</UpdateUrlHistory>
+    <BootstrapperUrlHistory />
+    <ErrorReportUrlHistory />
+    <FallbackCulture>en-US</FallbackCulture>
+    <VerifyUploadedFiles>false</VerifyUploadedFiles>
+  </PropertyGroup>
+  <PropertyGroup>
+    <EnableSecurityDebugging>false</EnableSecurityDebugging>
+  </PropertyGroup>
+</Project>

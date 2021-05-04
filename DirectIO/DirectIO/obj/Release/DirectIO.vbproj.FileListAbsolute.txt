@@ -1,0 +1,18 @@
+C:\ATE.NET\EquipmentLibrary\DirectIO\DirectIO\obj\Release\DirectIO.Resources.resources
+C:\ATE.NET\EquipmentLibrary\DirectIO\DirectIO\obj\Release\DirectIO.vbproj.GenerateResource.Cache
+C:\ATE.NET\EquipmentLibrary\DirectIO\DirectIO\obj\Release\DirectIO.dll
+C:\ATE.NET\EquipmentLibrary\DirectIO\DirectIO\obj\Release\DirectIO.xml
+C:\ATE.NET\EquipmentLibrary\DirectIO\DirectIO\obj\Release\DirectIO.pdb
+C:\ATE.NET\EquipmentLibrary\DirectIO\DirectIO\bin\Release\DirectIO.dll
+C:\ATE.NET\EquipmentLibrary\DirectIO\DirectIO\bin\Release\DirectIO.pdb
+C:\ATE.NET\EquipmentLibrary\DirectIO\DirectIO\bin\Release\DirectIO.xml
+C:\ATE.NET\EquipmentLibrary\DirectIO\DirectIO\obj\Release\DirectIO.vbprojResolveAssemblyReference.cache
+C:\SRC\IPP_CouplerTesting_Ver 3.0.63\DirectIO\DirectIO\bin\Release\DirectIO.dll
+C:\SRC\IPP_CouplerTesting_Ver 3.0.63\DirectIO\DirectIO\bin\Release\DirectIO.pdb
+C:\SRC\IPP_CouplerTesting_Ver 3.0.63\DirectIO\DirectIO\bin\Release\DirectIO.xml
+C:\SRC\IPP_CouplerTesting_Ver 3.0.63\DirectIO\DirectIO\obj\Release\DirectIO.vbprojResolveAssemblyReference.cache
+C:\SRC\IPP_CouplerTesting_Ver 3.0.63\DirectIO\DirectIO\obj\Release\DirectIO.Resources.resources
+C:\SRC\IPP_CouplerTesting_Ver 3.0.63\DirectIO\DirectIO\obj\Release\DirectIO.vbproj.GenerateResource.Cache
+C:\SRC\IPP_CouplerTesting_Ver 3.0.63\DirectIO\DirectIO\obj\Release\DirectIO.dll
+C:\SRC\IPP_CouplerTesting_Ver 3.0.63\DirectIO\DirectIO\obj\Release\DirectIO.xml
+C:\SRC\IPP_CouplerTesting_Ver 3.0.63\DirectIO\DirectIO\obj\Release\DirectIO.pdb
