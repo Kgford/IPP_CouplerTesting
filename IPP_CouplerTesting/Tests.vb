@@ -567,10 +567,12 @@
 
             If Not ILSetDone Then
                 If VNAStr = "AG_E5071B" Then
+                    '************DEBUG CODE FOR JEN'S WORKSTATION*******************
                     ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:MEM OFF")  'Memory Off"
                     ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:STAT ON") ' Data On
                     ScanGPIB.BusWrite(":CALC1:MATH:FUNC NORM")
                     ScanGPIB.BusWrite(":CALC1:FORM MLOG")
+                    '************DEBUG CODE FOR JEN'S WORKSTATION*******************
                     ScanGPIB.BusWrite(":CALC1:PAR2:SEL")
                     ScanGPIB.BusWrite(":CALC1:FORM MLOG")
                     ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV " & GetLoss())
@@ -1313,11 +1315,13 @@
             Dim freq = GetSpecification("StopFreqMHz") * 10 ^ 9
             If Not ILSetDone Then
                 If VNAStr = "AG_E5071B" Then
+                    '************DEBUG CODE FOR JEN'S WORKSTATION*******************
                     ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:MEM OFF")  'Memory Off"
                     ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:STAT ON") ' Data On
                     ScanGPIB.BusWrite(":CALC1:MATH:FUNC NORM")
                     ScanGPIB.BusWrite(":CALC1:FORM MLOG")
                     ScanGPIB.BusWrite(":CALC1:MARK1 OFF")  'Marker1 off
+                    '************DEBUG CODE FOR JEN'S WORKSTATION*******************
                     ScanGPIB.BusWrite(":CALC1:MARK2 OFF")  'Marker2 off
                     ScanGPIB.BusWrite(":CALC1:MARK3 OFF")  'Marker3 off
                     ScanGPIB.BusWrite(":CALC1:PAR2:SEL")
@@ -5033,6 +5037,7 @@ Round:
 
             ' Put Back to IL so user can have a reference
             If VNAStr = "AG_E5071B" Then
+                '************DEBUG CODE FOR JEN'S WORKSTATION*******************
                 'ScanGPIB.BusWrite(":CALC1:PAR2:SEL")
                 'ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:MEM OFF")  'Memory Off"
                 'ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:STAT ON") ' Data On
@@ -5041,6 +5046,7 @@ Round:
                 ' ScanGPIB.BusWrite(":CALC1:FORM MLOG")
                 'ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV " & GetLoss())
                 'ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:PDIV " & GetSpecification("AmplitudeBalance"))
+                '************DEBUG CODE FOR JEN'S WORKSTATION*******************
             ElseIf VNAStr = "N3383A" Then
                 ScanGPIB.BusWrite("CALC1:PAR:SEL 'CH1_S21_1'")
                 ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:MEM OFF") 'Memory Off"
@@ -5066,10 +5072,17 @@ Round:
             End If
             End If
             ActiveTitle = Title
-            frmAUTOTEST.Refresh()
-        'SetSwitchPosition = 1
-        'status = SwitchCom.SetSwitchPosition(1) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
-        'frmAUTOTEST.cmbSwitch.Text = "Switch POS 1"
+        frmAUTOTEST.Refresh()
+        '************DEBUG CODE FOR JEN'S WORKSTATION*******************
+        If VNAStr = "AG_E5071B" Then
+            'SetSwitchPosition = 1
+            'status = SwitchCom.SetSwitchPosition(1) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+            'frmAUTOTEST.cmbSwitch.Text = "Switch POS 1"
+        Else
+            SetSwitchPosition = 1
+            status = SwitchCom.SetSwitchPosition(1) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+            frmAUTOTEST.cmbSwitch.Text = "Switch POS 1"
+        End If
     End Function
 
     Public Function PhaseBalance_Marker(SpecType As String, Optional ResumeTesting As Boolean = False, Optional TestID As Long = 1) As String
@@ -5329,6 +5342,7 @@ Round:
             ' Put Back to IL so user can have a reference
 
             If VNAStr = "AG_E5071B" Then
+                '************DEBUG CODE FOR JEN'S WORKSTATION*******************
                 ' ScanGPIB.BusWrite(":CALC1:PAR2:SEL")
                 ' ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:MEM OFF")  'Memory Off"
                 'ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:STAT ON") ' Data On
@@ -5338,6 +5352,7 @@ Round:
                 ' ScanGPIB.BusWrite(":CALC1:FORM MLOG")
                 ' ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV " & GetLoss())
                 ' ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:PDIV " & GetSpecification("AmplitudeBalance"))
+                '************DEBUG CODE FOR JEN'S WORKSTATION*******************
             ElseIf VNAStr = "N3383A" Then
                 ScanGPIB.BusWrite("CALC1:PAR:SEL 'CH1_S21_1'")
                 ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:MEM OFF") 'Memory Off"
@@ -5367,14 +5382,26 @@ Round:
 
         ActiveTitle = Title
         frmAUTOTEST.Refresh()
-        ' SetSwitchPosition = 1
-        'status = SwitchCom.SetSwitchPosition(1) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
-        'frmAUTOTEST.cmbSwitch.Text = "Switch POS 1"
+        '************DEBUG CODE FOR JEN'S WORKSTATION*******************
+        If VNAStr = "AG_E5071B" Then
+            ' SetSwitchPosition = 1
+            'status = SwitchCom.SetSwitchPosition(1) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+            'frmAUTOTEST.cmbSwitch.Text = "Switch POS 1"
+            'Turn off all markers
+        Else
+            SetSwitchPosition = 1
+            status = SwitchCom.SetSwitchPosition(1) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+            frmAUTOTEST.cmbSwitch.Text = "Switch POS 1"
+        End If
+        '************DEBUG CODE FOR JEN'S WORKSTATION*******************
+
         'Turn off all markers
         If VNAStr = "AG_E5071B" Then
+            '************DEBUG CODE FOR JEN'S WORKSTATION*******************
             'ScanGPIB.BusWrite(":CALC1:MARK1 OFF")  'Marker1 off
             'ScanGPIB.BusWrite(":CALC1:MARK2 OFF")  'Marker2 off
             'ScanGPIB.BusWrite(":CALC1:MARK3 OFF")  'Marker3 off
+            '************DEBUG CODE FOR JEN'S WORKSTATION*******************
         ElseIf VNAStr = "N3383A" Then
             ScanGPIB.BusWrite(":CALC1:MARK1 OFF")  'Marker1 off
             ScanGPIB.BusWrite(":CALC1:MARK2 OFF")  'Marker2 off
