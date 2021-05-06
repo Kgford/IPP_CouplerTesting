@@ -157,37 +157,10 @@ Partial Class frmSpecifications
         Me.txtStopFreq_4 = New System.Windows.Forms.TextBox()
         Me.txtStartFreq_4 = New System.Windows.Forms.TextBox()
         Me.Label110 = New System.Windows.Forms.Label()
-        Me.Label80 = New System.Windows.Forms.Label()
-        Me.Label56 = New System.Windows.Forms.Label()
         Me.Frame2 = New System.Windows.Forms.Panel()
-        Me.Label30 = New System.Windows.Forms.Label()
-        Me.Label31 = New System.Windows.Forms.Label()
-        Me.Label32 = New System.Windows.Forms.Label()
-        Me.Label33 = New System.Windows.Forms.Label()
-        Me.Label34 = New System.Windows.Forms.Label()
-        Me.Label35 = New System.Windows.Forms.Label()
-        Me.Label36 = New System.Windows.Forms.Label()
-        Me.Label37 = New System.Windows.Forms.Label()
-        Me.txtJ4J4_2 = New System.Windows.Forms.TextBox()
-        Me.txtJ3J4_2 = New System.Windows.Forms.TextBox()
-        Me.txtJ2J4_2 = New System.Windows.Forms.TextBox()
-        Me.txtJ1J4_2 = New System.Windows.Forms.TextBox()
-        Me.txtJ4J3_2 = New System.Windows.Forms.TextBox()
-        Me.txtJ3J3_2 = New System.Windows.Forms.TextBox()
-        Me.txtJ2J3_2 = New System.Windows.Forms.TextBox()
-        Me.txtJ1J3_2 = New System.Windows.Forms.TextBox()
-        Me.txtJ4J2_2 = New System.Windows.Forms.TextBox()
-        Me.txtJ3J2_2 = New System.Windows.Forms.TextBox()
-        Me.txtJ2J2_2 = New System.Windows.Forms.TextBox()
-        Me.txtJ1J2_2 = New System.Windows.Forms.TextBox()
-        Me.txtJ4J1_2 = New System.Windows.Forms.TextBox()
-        Me.txtJ3J1_2 = New System.Windows.Forms.TextBox()
-        Me.txtJ2J1_2 = New System.Windows.Forms.TextBox()
-        Me.txtJ1J1_2 = New System.Windows.Forms.TextBox()
         Me.Label38 = New System.Windows.Forms.Label()
         Me.Label39 = New System.Windows.Forms.Label()
         Me.Label40 = New System.Windows.Forms.Label()
-        Me.Label41 = New System.Windows.Forms.Label()
         Me.Label42 = New System.Windows.Forms.Label()
         Me.Label43 = New System.Windows.Forms.Label()
         Me.Label44 = New System.Windows.Forms.Label()
@@ -195,7 +168,6 @@ Partial Class frmSpecifications
         Me.Label46 = New System.Windows.Forms.Label()
         Me.Label47 = New System.Windows.Forms.Label()
         Me.Label48 = New System.Windows.Forms.Label()
-        Me.Label49 = New System.Windows.Forms.Label()
         Me.Label50 = New System.Windows.Forms.Label()
         Me.Label51 = New System.Windows.Forms.Label()
         Me.Label52 = New System.Windows.Forms.Label()
@@ -203,7 +175,6 @@ Partial Class frmSpecifications
         Me.txtPower_2 = New System.Windows.Forms.TextBox()
         Me.txtTest5_2 = New System.Windows.Forms.TextBox()
         Me.txtTest4_2 = New System.Windows.Forms.TextBox()
-        Me.txtTest3_2 = New System.Windows.Forms.TextBox()
         Me.txtTest2_2 = New System.Windows.Forms.TextBox()
         Me.txtTest1_2 = New System.Windows.Forms.TextBox()
         Me.txtStopFreq_2 = New System.Windows.Forms.TextBox()
@@ -217,6 +188,13 @@ Partial Class frmSpecifications
         Me.txtFail = New System.Windows.Forms.TextBox()
         Me.Label92 = New System.Windows.Forms.Label()
         Me.Label93 = New System.Windows.Forms.Label()
+        Me.Label33 = New System.Windows.Forms.Label()
+        Me.Label35 = New System.Windows.Forms.Label()
+        Me.Label36 = New System.Windows.Forms.Label()
+        Me.Label37 = New System.Windows.Forms.Label()
+        Me.txtJ1J3_2 = New System.Windows.Forms.TextBox()
+        Me.txtJ1J2_2 = New System.Windows.Forms.TextBox()
+        Me.txtJ1J1_2 = New System.Windows.Forms.TextBox()
         Me.Frame1.SuspendLayout()
         Me.Frame3.SuspendLayout()
         Me.Frame4.SuspendLayout()
@@ -228,9 +206,9 @@ Partial Class frmSpecifications
         Me.cmbSpecType.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbSpecType.FormattingEnabled = True
         Me.cmbSpecType.Location = New System.Drawing.Point(1076, 27)
-        Me.cmbSpecType.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.cmbSpecType.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbSpecType.Name = "cmbSpecType"
-        Me.cmbSpecType.Size = New System.Drawing.Size(581, 37)
+        Me.cmbSpecType.Size = New System.Drawing.Size(543, 37)
         Me.cmbSpecType.TabIndex = 1
         Me.cmbSpecType.Text = "90 DEGREE COUPLER"
         '
@@ -239,7 +217,7 @@ Partial Class frmSpecifications
         Me.cmbPart.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbPart.FormattingEnabled = True
         Me.cmbPart.Location = New System.Drawing.Point(592, 81)
-        Me.cmbPart.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.cmbPart.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbPart.Name = "cmbPart"
         Me.cmbPart.Size = New System.Drawing.Size(456, 33)
         Me.cmbPart.TabIndex = 2
@@ -249,7 +227,7 @@ Partial Class frmSpecifications
         '
         Me.cmbJob.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbJob.Location = New System.Drawing.Point(592, 28)
-        Me.cmbJob.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.cmbJob.Margin = New System.Windows.Forms.Padding(4)
         Me.cmbJob.Name = "cmbJob"
         Me.cmbJob.Size = New System.Drawing.Size(456, 30)
         Me.cmbJob.TabIndex = 3
@@ -259,7 +237,7 @@ Partial Class frmSpecifications
         '
         Me.txtTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtTitle.Location = New System.Drawing.Point(592, 134)
-        Me.txtTitle.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtTitle.Margin = New System.Windows.Forms.Padding(4)
         Me.txtTitle.Name = "txtTitle"
         Me.txtTitle.Size = New System.Drawing.Size(456, 30)
         Me.txtTitle.TabIndex = 4
@@ -379,9 +357,9 @@ Partial Class frmSpecifications
         Me.Frame1.Controls.Add(Me.txtStartFreq_1)
         Me.Frame1.Controls.Add(Me.Label5)
         Me.Frame1.Location = New System.Drawing.Point(29, 300)
-        Me.Frame1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Frame1.Margin = New System.Windows.Forms.Padding(4)
         Me.Frame1.Name = "Frame1"
-        Me.Frame1.Size = New System.Drawing.Size(1539, 489)
+        Me.Frame1.Size = New System.Drawing.Size(1586, 489)
         Me.Frame1.TabIndex = 9
         '
         'lbl1Stop
@@ -416,7 +394,7 @@ Partial Class frmSpecifications
         '
         Me.tx12Stop.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx12Stop.Location = New System.Drawing.Point(648, 315)
-        Me.tx12Stop.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx12Stop.Margin = New System.Windows.Forms.Padding(4)
         Me.tx12Stop.Name = "tx12Stop"
         Me.tx12Stop.Size = New System.Drawing.Size(83, 30)
         Me.tx12Stop.TabIndex = 121
@@ -427,7 +405,7 @@ Partial Class frmSpecifications
         '
         Me.tx12Start.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx12Start.Location = New System.Drawing.Point(543, 315)
-        Me.tx12Start.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx12Start.Margin = New System.Windows.Forms.Padding(4)
         Me.tx12Start.Name = "tx12Start"
         Me.tx12Start.Size = New System.Drawing.Size(88, 30)
         Me.tx12Start.TabIndex = 120
@@ -438,7 +416,7 @@ Partial Class frmSpecifications
         '
         Me.tx11Stop.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx11Stop.Location = New System.Drawing.Point(648, 268)
-        Me.tx11Stop.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx11Stop.Margin = New System.Windows.Forms.Padding(4)
         Me.tx11Stop.Name = "tx11Stop"
         Me.tx11Stop.Size = New System.Drawing.Size(83, 30)
         Me.tx11Stop.TabIndex = 119
@@ -449,7 +427,7 @@ Partial Class frmSpecifications
         '
         Me.tx11Start.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.tx11Start.Location = New System.Drawing.Point(543, 270)
-        Me.tx11Start.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.tx11Start.Margin = New System.Windows.Forms.Padding(4)
         Me.tx11Start.Name = "tx11Start"
         Me.tx11Start.Size = New System.Drawing.Size(88, 30)
         Me.tx11Start.TabIndex = 118
@@ -460,7 +438,7 @@ Partial Class frmSpecifications
         '
         Me.ck1Expanded.AutoSize = True
         Me.ck1Expanded.Location = New System.Drawing.Point(287, 316)
-        Me.ck1Expanded.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.ck1Expanded.Margin = New System.Windows.Forms.Padding(4)
         Me.ck1Expanded.Name = "ck1Expanded"
         Me.ck1Expanded.Size = New System.Drawing.Size(18, 17)
         Me.ck1Expanded.TabIndex = 117
@@ -497,7 +475,7 @@ Partial Class frmSpecifications
         Me.txtTest4_1_exp.Enabled = False
         Me.txtTest4_1_exp.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtTest4_1_exp.Location = New System.Drawing.Point(328, 308)
-        Me.txtTest4_1_exp.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtTest4_1_exp.Margin = New System.Windows.Forms.Padding(4)
         Me.txtTest4_1_exp.Name = "txtTest4_1_exp"
         Me.txtTest4_1_exp.Size = New System.Drawing.Size(131, 30)
         Me.txtTest4_1_exp.TabIndex = 114
@@ -611,7 +589,7 @@ Partial Class frmSpecifications
         '
         Me.txtJ4J4_1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtJ4J4_1.Location = New System.Drawing.Point(1395, 266)
-        Me.txtJ4J4_1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtJ4J4_1.Margin = New System.Windows.Forms.Padding(4)
         Me.txtJ4J4_1.Name = "txtJ4J4_1"
         Me.txtJ4J4_1.Size = New System.Drawing.Size(163, 30)
         Me.txtJ4J4_1.TabIndex = 105
@@ -622,7 +600,7 @@ Partial Class frmSpecifications
         '
         Me.txtJ3J4_1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtJ3J4_1.Location = New System.Drawing.Point(1395, 226)
-        Me.txtJ3J4_1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtJ3J4_1.Margin = New System.Windows.Forms.Padding(4)
         Me.txtJ3J4_1.Name = "txtJ3J4_1"
         Me.txtJ3J4_1.Size = New System.Drawing.Size(163, 30)
         Me.txtJ3J4_1.TabIndex = 104
@@ -633,7 +611,7 @@ Partial Class frmSpecifications
         '
         Me.txtJ2J4_1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtJ2J4_1.Location = New System.Drawing.Point(1395, 187)
-        Me.txtJ2J4_1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtJ2J4_1.Margin = New System.Windows.Forms.Padding(4)
         Me.txtJ2J4_1.Name = "txtJ2J4_1"
         Me.txtJ2J4_1.Size = New System.Drawing.Size(163, 30)
         Me.txtJ2J4_1.TabIndex = 103
@@ -644,7 +622,7 @@ Partial Class frmSpecifications
         '
         Me.txtJ1J4_1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtJ1J4_1.Location = New System.Drawing.Point(1395, 148)
-        Me.txtJ1J4_1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtJ1J4_1.Margin = New System.Windows.Forms.Padding(4)
         Me.txtJ1J4_1.Name = "txtJ1J4_1"
         Me.txtJ1J4_1.Size = New System.Drawing.Size(163, 30)
         Me.txtJ1J4_1.TabIndex = 102
@@ -655,7 +633,7 @@ Partial Class frmSpecifications
         '
         Me.txtJ4J3_1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtJ4J3_1.Location = New System.Drawing.Point(1223, 268)
-        Me.txtJ4J3_1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtJ4J3_1.Margin = New System.Windows.Forms.Padding(4)
         Me.txtJ4J3_1.Name = "txtJ4J3_1"
         Me.txtJ4J3_1.Size = New System.Drawing.Size(163, 30)
         Me.txtJ4J3_1.TabIndex = 101
@@ -666,7 +644,7 @@ Partial Class frmSpecifications
         '
         Me.txtJ3J3_1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtJ3J3_1.Location = New System.Drawing.Point(1223, 226)
-        Me.txtJ3J3_1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtJ3J3_1.Margin = New System.Windows.Forms.Padding(4)
         Me.txtJ3J3_1.Name = "txtJ3J3_1"
         Me.txtJ3J3_1.Size = New System.Drawing.Size(163, 30)
         Me.txtJ3J3_1.TabIndex = 100
@@ -677,7 +655,7 @@ Partial Class frmSpecifications
         '
         Me.txtJ2J3_1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtJ2J3_1.Location = New System.Drawing.Point(1223, 187)
-        Me.txtJ2J3_1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtJ2J3_1.Margin = New System.Windows.Forms.Padding(4)
         Me.txtJ2J3_1.Name = "txtJ2J3_1"
         Me.txtJ2J3_1.Size = New System.Drawing.Size(163, 30)
         Me.txtJ2J3_1.TabIndex = 99
@@ -688,7 +666,7 @@ Partial Class frmSpecifications
         '
         Me.txtJ1J3_1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtJ1J3_1.Location = New System.Drawing.Point(1223, 148)
-        Me.txtJ1J3_1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtJ1J3_1.Margin = New System.Windows.Forms.Padding(4)
         Me.txtJ1J3_1.Name = "txtJ1J3_1"
         Me.txtJ1J3_1.Size = New System.Drawing.Size(163, 30)
         Me.txtJ1J3_1.TabIndex = 98
@@ -699,7 +677,7 @@ Partial Class frmSpecifications
         '
         Me.txtJ4J2_1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtJ4J2_1.Location = New System.Drawing.Point(1051, 266)
-        Me.txtJ4J2_1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtJ4J2_1.Margin = New System.Windows.Forms.Padding(4)
         Me.txtJ4J2_1.Name = "txtJ4J2_1"
         Me.txtJ4J2_1.Size = New System.Drawing.Size(163, 30)
         Me.txtJ4J2_1.TabIndex = 97
@@ -710,7 +688,7 @@ Partial Class frmSpecifications
         '
         Me.txtJ3J2_1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtJ3J2_1.Location = New System.Drawing.Point(1051, 226)
-        Me.txtJ3J2_1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtJ3J2_1.Margin = New System.Windows.Forms.Padding(4)
         Me.txtJ3J2_1.Name = "txtJ3J2_1"
         Me.txtJ3J2_1.Size = New System.Drawing.Size(163, 30)
         Me.txtJ3J2_1.TabIndex = 96
@@ -721,7 +699,7 @@ Partial Class frmSpecifications
         '
         Me.txtJ2J2_1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtJ2J2_1.Location = New System.Drawing.Point(1051, 187)
-        Me.txtJ2J2_1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtJ2J2_1.Margin = New System.Windows.Forms.Padding(4)
         Me.txtJ2J2_1.Name = "txtJ2J2_1"
         Me.txtJ2J2_1.Size = New System.Drawing.Size(163, 30)
         Me.txtJ2J2_1.TabIndex = 95
@@ -732,7 +710,7 @@ Partial Class frmSpecifications
         '
         Me.txtJ1J2_1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtJ1J2_1.Location = New System.Drawing.Point(1051, 148)
-        Me.txtJ1J2_1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtJ1J2_1.Margin = New System.Windows.Forms.Padding(4)
         Me.txtJ1J2_1.Name = "txtJ1J2_1"
         Me.txtJ1J2_1.Size = New System.Drawing.Size(163, 30)
         Me.txtJ1J2_1.TabIndex = 94
@@ -743,7 +721,7 @@ Partial Class frmSpecifications
         '
         Me.txtJ4J1_1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtJ4J1_1.Location = New System.Drawing.Point(879, 266)
-        Me.txtJ4J1_1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtJ4J1_1.Margin = New System.Windows.Forms.Padding(4)
         Me.txtJ4J1_1.Name = "txtJ4J1_1"
         Me.txtJ4J1_1.Size = New System.Drawing.Size(163, 30)
         Me.txtJ4J1_1.TabIndex = 93
@@ -754,7 +732,7 @@ Partial Class frmSpecifications
         '
         Me.txtJ3J1_1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtJ3J1_1.Location = New System.Drawing.Point(879, 229)
-        Me.txtJ3J1_1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtJ3J1_1.Margin = New System.Windows.Forms.Padding(4)
         Me.txtJ3J1_1.Name = "txtJ3J1_1"
         Me.txtJ3J1_1.Size = New System.Drawing.Size(163, 30)
         Me.txtJ3J1_1.TabIndex = 92
@@ -765,7 +743,7 @@ Partial Class frmSpecifications
         '
         Me.txtJ2J1_1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtJ2J1_1.Location = New System.Drawing.Point(879, 187)
-        Me.txtJ2J1_1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtJ2J1_1.Margin = New System.Windows.Forms.Padding(4)
         Me.txtJ2J1_1.Name = "txtJ2J1_1"
         Me.txtJ2J1_1.Size = New System.Drawing.Size(163, 30)
         Me.txtJ2J1_1.TabIndex = 91
@@ -776,7 +754,7 @@ Partial Class frmSpecifications
         '
         Me.txtJ1J1_1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtJ1J1_1.Location = New System.Drawing.Point(879, 148)
-        Me.txtJ1J1_1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtJ1J1_1.Margin = New System.Windows.Forms.Padding(4)
         Me.txtJ1J1_1.Name = "txtJ1J1_1"
         Me.txtJ1J1_1.Size = New System.Drawing.Size(163, 30)
         Me.txtJ1J1_1.TabIndex = 90
@@ -995,7 +973,7 @@ Partial Class frmSpecifications
         '
         Me.txtPower_1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtPower_1.Location = New System.Drawing.Point(328, 386)
-        Me.txtPower_1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtPower_1.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPower_1.Name = "txtPower_1"
         Me.txtPower_1.Size = New System.Drawing.Size(131, 30)
         Me.txtPower_1.TabIndex = 73
@@ -1005,7 +983,7 @@ Partial Class frmSpecifications
         '
         Me.txtTest5_1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtTest5_1.Location = New System.Drawing.Point(328, 347)
-        Me.txtTest5_1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtTest5_1.Margin = New System.Windows.Forms.Padding(4)
         Me.txtTest5_1.Name = "txtTest5_1"
         Me.txtTest5_1.Size = New System.Drawing.Size(131, 30)
         Me.txtTest5_1.TabIndex = 72
@@ -1015,7 +993,7 @@ Partial Class frmSpecifications
         '
         Me.txtTest4_1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtTest4_1.Location = New System.Drawing.Point(328, 266)
-        Me.txtTest4_1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtTest4_1.Margin = New System.Windows.Forms.Padding(4)
         Me.txtTest4_1.Name = "txtTest4_1"
         Me.txtTest4_1.Size = New System.Drawing.Size(131, 30)
         Me.txtTest4_1.TabIndex = 71
@@ -1025,7 +1003,7 @@ Partial Class frmSpecifications
         '
         Me.txtTest3_1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtTest3_1.Location = New System.Drawing.Point(328, 226)
-        Me.txtTest3_1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtTest3_1.Margin = New System.Windows.Forms.Padding(4)
         Me.txtTest3_1.Name = "txtTest3_1"
         Me.txtTest3_1.Size = New System.Drawing.Size(131, 30)
         Me.txtTest3_1.TabIndex = 70
@@ -1035,7 +1013,7 @@ Partial Class frmSpecifications
         '
         Me.txtTest2_1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtTest2_1.Location = New System.Drawing.Point(328, 187)
-        Me.txtTest2_1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtTest2_1.Margin = New System.Windows.Forms.Padding(4)
         Me.txtTest2_1.Name = "txtTest2_1"
         Me.txtTest2_1.Size = New System.Drawing.Size(131, 30)
         Me.txtTest2_1.TabIndex = 69
@@ -1045,7 +1023,7 @@ Partial Class frmSpecifications
         '
         Me.txtTest1_1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtTest1_1.Location = New System.Drawing.Point(328, 148)
-        Me.txtTest1_1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtTest1_1.Margin = New System.Windows.Forms.Padding(4)
         Me.txtTest1_1.Name = "txtTest1_1"
         Me.txtTest1_1.Size = New System.Drawing.Size(131, 30)
         Me.txtTest1_1.TabIndex = 68
@@ -1055,7 +1033,7 @@ Partial Class frmSpecifications
         '
         Me.txtStopFreq_1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtStopFreq_1.Location = New System.Drawing.Point(328, 108)
-        Me.txtStopFreq_1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtStopFreq_1.Margin = New System.Windows.Forms.Padding(4)
         Me.txtStopFreq_1.Name = "txtStopFreq_1"
         Me.txtStopFreq_1.Size = New System.Drawing.Size(131, 30)
         Me.txtStopFreq_1.TabIndex = 67
@@ -1065,7 +1043,7 @@ Partial Class frmSpecifications
         '
         Me.txtStartFreq_1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtStartFreq_1.Location = New System.Drawing.Point(328, 69)
-        Me.txtStartFreq_1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtStartFreq_1.Margin = New System.Windows.Forms.Padding(4)
         Me.txtStartFreq_1.Name = "txtStartFreq_1"
         Me.txtStartFreq_1.Size = New System.Drawing.Size(131, 30)
         Me.txtStartFreq_1.TabIndex = 66
@@ -1115,7 +1093,7 @@ Partial Class frmSpecifications
         Me.Frame3.Controls.Add(Me.txtStartFreq_3)
         Me.Frame3.Controls.Add(Me.Label79)
         Me.Frame3.Location = New System.Drawing.Point(16, 314)
-        Me.Frame3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Frame3.Margin = New System.Windows.Forms.Padding(4)
         Me.Frame3.Name = "Frame3"
         Me.Frame3.Size = New System.Drawing.Size(1581, 487)
         Me.Frame3.TabIndex = 69
@@ -1127,7 +1105,7 @@ Partial Class frmSpecifications
         Me.Label74.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label74.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label74.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label74.Location = New System.Drawing.Point(117, 265)
+        Me.Label74.Location = New System.Drawing.Point(497, 273)
         Me.Label74.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label74.Name = "Label74"
         Me.Label74.Size = New System.Drawing.Size(132, 29)
@@ -1140,7 +1118,7 @@ Partial Class frmSpecifications
         Me.Label82.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label82.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label82.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label82.Location = New System.Drawing.Point(628, 261)
+        Me.Label82.Location = New System.Drawing.Point(1008, 269)
         Me.Label82.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label82.Name = "Label82"
         Me.Label82.Size = New System.Drawing.Size(37, 29)
@@ -1150,8 +1128,8 @@ Partial Class frmSpecifications
         'COUPPlusMinus
         '
         Me.COUPPlusMinus.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.COUPPlusMinus.Location = New System.Drawing.Point(675, 256)
-        Me.COUPPlusMinus.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.COUPPlusMinus.Location = New System.Drawing.Point(1055, 264)
+        Me.COUPPlusMinus.Margin = New System.Windows.Forms.Padding(4)
         Me.COUPPlusMinus.Name = "COUPPlusMinus"
         Me.COUPPlusMinus.Size = New System.Drawing.Size(68, 30)
         Me.COUPPlusMinus.TabIndex = 58
@@ -1163,7 +1141,7 @@ Partial Class frmSpecifications
         Me.Label63.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label63.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label63.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label63.Location = New System.Drawing.Point(564, 383)
+        Me.Label63.Location = New System.Drawing.Point(944, 391)
         Me.Label63.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label63.Name = "Label63"
         Me.Label63.Size = New System.Drawing.Size(36, 29)
@@ -1176,7 +1154,7 @@ Partial Class frmSpecifications
         Me.Label64.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label64.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label64.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label64.Location = New System.Drawing.Point(564, 341)
+        Me.Label64.Location = New System.Drawing.Point(944, 349)
         Me.Label64.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label64.Name = "Label64"
         Me.Label64.Size = New System.Drawing.Size(45, 29)
@@ -1189,7 +1167,7 @@ Partial Class frmSpecifications
         Me.Label65.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label65.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label65.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label65.Location = New System.Drawing.Point(564, 304)
+        Me.Label65.Location = New System.Drawing.Point(944, 312)
         Me.Label65.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label65.Name = "Label65"
         Me.Label65.Size = New System.Drawing.Size(45, 29)
@@ -1202,7 +1180,7 @@ Partial Class frmSpecifications
         Me.Label66.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label66.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label66.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label66.Location = New System.Drawing.Point(564, 265)
+        Me.Label66.Location = New System.Drawing.Point(944, 273)
         Me.Label66.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label66.Name = "Label66"
         Me.Label66.Size = New System.Drawing.Size(45, 29)
@@ -1215,7 +1193,7 @@ Partial Class frmSpecifications
         Me.Label67.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label67.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label67.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label67.Location = New System.Drawing.Point(564, 223)
+        Me.Label67.Location = New System.Drawing.Point(944, 231)
         Me.Label67.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label67.Name = "Label67"
         Me.Label67.Size = New System.Drawing.Size(41, 29)
@@ -1228,7 +1206,7 @@ Partial Class frmSpecifications
         Me.Label68.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label68.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label68.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label68.Location = New System.Drawing.Point(564, 186)
+        Me.Label68.Location = New System.Drawing.Point(944, 194)
         Me.Label68.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label68.Name = "Label68"
         Me.Label68.Size = New System.Drawing.Size(45, 29)
@@ -1241,7 +1219,7 @@ Partial Class frmSpecifications
         Me.Label69.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label69.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label69.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label69.Location = New System.Drawing.Point(564, 146)
+        Me.Label69.Location = New System.Drawing.Point(944, 154)
         Me.Label69.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label69.Name = "Label69"
         Me.Label69.Size = New System.Drawing.Size(67, 29)
@@ -1254,7 +1232,7 @@ Partial Class frmSpecifications
         Me.Label70.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label70.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label70.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label70.Location = New System.Drawing.Point(564, 107)
+        Me.Label70.Location = New System.Drawing.Point(944, 115)
         Me.Label70.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label70.Name = "Label70"
         Me.Label70.Size = New System.Drawing.Size(67, 29)
@@ -1267,7 +1245,7 @@ Partial Class frmSpecifications
         Me.Label71.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label71.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label71.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label71.Location = New System.Drawing.Point(152, 383)
+        Me.Label71.Location = New System.Drawing.Point(532, 391)
         Me.Label71.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label71.Name = "Label71"
         Me.Label71.Size = New System.Drawing.Size(132, 29)
@@ -1280,7 +1258,7 @@ Partial Class frmSpecifications
         Me.Label72.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label72.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label72.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label72.Location = New System.Drawing.Point(20, 341)
+        Me.Label72.Location = New System.Drawing.Point(400, 349)
         Me.Label72.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label72.Name = "Label72"
         Me.Label72.Size = New System.Drawing.Size(261, 29)
@@ -1293,7 +1271,7 @@ Partial Class frmSpecifications
         Me.Label73.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label73.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label73.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label73.Location = New System.Drawing.Point(117, 302)
+        Me.Label73.Location = New System.Drawing.Point(497, 310)
         Me.Label73.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label73.Name = "Label73"
         Me.Label73.Size = New System.Drawing.Size(156, 29)
@@ -1306,7 +1284,7 @@ Partial Class frmSpecifications
         Me.Label75.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label75.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label75.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label75.Location = New System.Drawing.Point(27, 223)
+        Me.Label75.Location = New System.Drawing.Point(407, 231)
         Me.Label75.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label75.Name = "Label75"
         Me.Label75.Size = New System.Drawing.Size(243, 29)
@@ -1319,7 +1297,7 @@ Partial Class frmSpecifications
         Me.Label76.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label76.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label76.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label76.Location = New System.Drawing.Point(64, 186)
+        Me.Label76.Location = New System.Drawing.Point(444, 194)
         Me.Label76.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label76.Name = "Label76"
         Me.Label76.Size = New System.Drawing.Size(212, 29)
@@ -1332,7 +1310,7 @@ Partial Class frmSpecifications
         Me.Label77.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label77.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label77.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label77.Location = New System.Drawing.Point(36, 146)
+        Me.Label77.Location = New System.Drawing.Point(416, 154)
         Me.Label77.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label77.Name = "Label77"
         Me.Label77.Size = New System.Drawing.Size(204, 29)
@@ -1345,7 +1323,7 @@ Partial Class frmSpecifications
         Me.Label78.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label78.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label78.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label78.Location = New System.Drawing.Point(29, 105)
+        Me.Label78.Location = New System.Drawing.Point(409, 113)
         Me.Label78.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label78.Name = "Label78"
         Me.Label78.Size = New System.Drawing.Size(211, 29)
@@ -1355,8 +1333,8 @@ Partial Class frmSpecifications
         'txtPower_3
         '
         Me.txtPower_3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtPower_3.Location = New System.Drawing.Point(321, 380)
-        Me.txtPower_3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtPower_3.Location = New System.Drawing.Point(701, 388)
+        Me.txtPower_3.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPower_3.Name = "txtPower_3"
         Me.txtPower_3.Size = New System.Drawing.Size(220, 30)
         Me.txtPower_3.TabIndex = 15
@@ -1365,8 +1343,8 @@ Partial Class frmSpecifications
         'txtTest5_3
         '
         Me.txtTest5_3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtTest5_3.Location = New System.Drawing.Point(321, 341)
-        Me.txtTest5_3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtTest5_3.Location = New System.Drawing.Point(701, 349)
+        Me.txtTest5_3.Margin = New System.Windows.Forms.Padding(4)
         Me.txtTest5_3.Name = "txtTest5_3"
         Me.txtTest5_3.Size = New System.Drawing.Size(220, 30)
         Me.txtTest5_3.TabIndex = 14
@@ -1375,8 +1353,8 @@ Partial Class frmSpecifications
         'txtTest4_3
         '
         Me.txtTest4_3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtTest4_3.Location = New System.Drawing.Point(321, 302)
-        Me.txtTest4_3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtTest4_3.Location = New System.Drawing.Point(701, 310)
+        Me.txtTest4_3.Margin = New System.Windows.Forms.Padding(4)
         Me.txtTest4_3.Name = "txtTest4_3"
         Me.txtTest4_3.Size = New System.Drawing.Size(220, 30)
         Me.txtTest4_3.TabIndex = 13
@@ -1385,8 +1363,8 @@ Partial Class frmSpecifications
         'txtTest3_3
         '
         Me.txtTest3_3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtTest3_3.Location = New System.Drawing.Point(321, 262)
-        Me.txtTest3_3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtTest3_3.Location = New System.Drawing.Point(701, 270)
+        Me.txtTest3_3.Margin = New System.Windows.Forms.Padding(4)
         Me.txtTest3_3.Name = "txtTest3_3"
         Me.txtTest3_3.Size = New System.Drawing.Size(220, 30)
         Me.txtTest3_3.TabIndex = 12
@@ -1395,8 +1373,8 @@ Partial Class frmSpecifications
         'txtTest2_3
         '
         Me.txtTest2_3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtTest2_3.Location = New System.Drawing.Point(321, 223)
-        Me.txtTest2_3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtTest2_3.Location = New System.Drawing.Point(701, 231)
+        Me.txtTest2_3.Margin = New System.Windows.Forms.Padding(4)
         Me.txtTest2_3.Name = "txtTest2_3"
         Me.txtTest2_3.Size = New System.Drawing.Size(220, 30)
         Me.txtTest2_3.TabIndex = 11
@@ -1405,8 +1383,8 @@ Partial Class frmSpecifications
         'txtTest1_3
         '
         Me.txtTest1_3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtTest1_3.Location = New System.Drawing.Point(321, 183)
-        Me.txtTest1_3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtTest1_3.Location = New System.Drawing.Point(701, 191)
+        Me.txtTest1_3.Margin = New System.Windows.Forms.Padding(4)
         Me.txtTest1_3.Name = "txtTest1_3"
         Me.txtTest1_3.Size = New System.Drawing.Size(220, 30)
         Me.txtTest1_3.TabIndex = 10
@@ -1415,8 +1393,8 @@ Partial Class frmSpecifications
         'txtStopFreq_3
         '
         Me.txtStopFreq_3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtStopFreq_3.Location = New System.Drawing.Point(321, 144)
-        Me.txtStopFreq_3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtStopFreq_3.Location = New System.Drawing.Point(701, 152)
+        Me.txtStopFreq_3.Margin = New System.Windows.Forms.Padding(4)
         Me.txtStopFreq_3.Name = "txtStopFreq_3"
         Me.txtStopFreq_3.Size = New System.Drawing.Size(220, 30)
         Me.txtStopFreq_3.TabIndex = 9
@@ -1425,8 +1403,8 @@ Partial Class frmSpecifications
         'txtStartFreq_3
         '
         Me.txtStartFreq_3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtStartFreq_3.Location = New System.Drawing.Point(321, 105)
-        Me.txtStartFreq_3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtStartFreq_3.Location = New System.Drawing.Point(701, 113)
+        Me.txtStartFreq_3.Margin = New System.Windows.Forms.Padding(4)
         Me.txtStartFreq_3.Name = "txtStartFreq_3"
         Me.txtStartFreq_3.Size = New System.Drawing.Size(220, 30)
         Me.txtStartFreq_3.TabIndex = 8
@@ -1438,7 +1416,7 @@ Partial Class frmSpecifications
         Me.Label79.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label79.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label79.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label79.Location = New System.Drawing.Point(612, 14)
+        Me.Label79.Location = New System.Drawing.Point(544, 14)
         Me.Label79.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label79.Name = "Label79"
         Me.Label79.Size = New System.Drawing.Size(511, 46)
@@ -1486,7 +1464,7 @@ Partial Class frmSpecifications
         Me.Frame4.Controls.Add(Me.txtStartFreq_4)
         Me.Frame4.Controls.Add(Me.Label110)
         Me.Frame4.Location = New System.Drawing.Point(71, 279)
-        Me.Frame4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Frame4.Margin = New System.Windows.Forms.Padding(4)
         Me.Frame4.Name = "Frame4"
         Me.Frame4.Size = New System.Drawing.Size(1576, 479)
         Me.Frame4.TabIndex = 73
@@ -1498,7 +1476,7 @@ Partial Class frmSpecifications
         Me.Label91.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label91.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label91.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label91.Location = New System.Drawing.Point(564, 420)
+        Me.Label91.Location = New System.Drawing.Point(805, 428)
         Me.Label91.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label91.Name = "Label91"
         Me.Label91.Size = New System.Drawing.Size(36, 29)
@@ -1508,8 +1486,8 @@ Partial Class frmSpecifications
         'txtOutputPorts
         '
         Me.txtOutputPorts.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtOutputPorts.Location = New System.Drawing.Point(995, 85)
-        Me.txtOutputPorts.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtOutputPorts.Location = New System.Drawing.Point(1236, 93)
+        Me.txtOutputPorts.Margin = New System.Windows.Forms.Padding(4)
         Me.txtOutputPorts.Name = "txtOutputPorts"
         Me.txtOutputPorts.Size = New System.Drawing.Size(68, 30)
         Me.txtOutputPorts.TabIndex = 68
@@ -1522,7 +1500,7 @@ Partial Class frmSpecifications
         Me.Label87.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label87.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label87.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label87.Location = New System.Drawing.Point(812, 91)
+        Me.Label87.Location = New System.Drawing.Point(1053, 99)
         Me.Label87.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label87.Name = "Label87"
         Me.Label87.Size = New System.Drawing.Size(158, 29)
@@ -1535,7 +1513,7 @@ Partial Class frmSpecifications
         Me.Label86.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label86.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label86.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label86.Location = New System.Drawing.Point(839, 383)
+        Me.Label86.Location = New System.Drawing.Point(1080, 391)
         Me.Label86.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label86.Name = "Label86"
         Me.Label86.Size = New System.Drawing.Size(64, 29)
@@ -1548,7 +1526,7 @@ Partial Class frmSpecifications
         Me.Label85.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label85.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label85.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label85.Location = New System.Drawing.Point(839, 346)
+        Me.Label85.Location = New System.Drawing.Point(1080, 354)
         Me.Label85.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label85.Name = "Label85"
         Me.Label85.Size = New System.Drawing.Size(64, 29)
@@ -1561,7 +1539,7 @@ Partial Class frmSpecifications
         Me.Label84.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label84.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label84.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label84.Location = New System.Drawing.Point(731, 377)
+        Me.Label84.Location = New System.Drawing.Point(972, 385)
         Me.Label84.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label84.Name = "Label84"
         Me.Label84.Size = New System.Drawing.Size(22, 29)
@@ -1571,8 +1549,8 @@ Partial Class frmSpecifications
         'txtISOFreq_4
         '
         Me.txtISOFreq_4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtISOFreq_4.Location = New System.Drawing.Point(761, 383)
-        Me.txtISOFreq_4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtISOFreq_4.Location = New System.Drawing.Point(1002, 391)
+        Me.txtISOFreq_4.Margin = New System.Windows.Forms.Padding(4)
         Me.txtISOFreq_4.Name = "txtISOFreq_4"
         Me.txtISOFreq_4.Size = New System.Drawing.Size(68, 30)
         Me.txtISOFreq_4.TabIndex = 63
@@ -1581,8 +1559,8 @@ Partial Class frmSpecifications
         'txtISOFreq_3
         '
         Me.txtISOFreq_3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtISOFreq_3.Location = New System.Drawing.Point(655, 383)
-        Me.txtISOFreq_3.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtISOFreq_3.Location = New System.Drawing.Point(896, 391)
+        Me.txtISOFreq_3.Margin = New System.Windows.Forms.Padding(4)
         Me.txtISOFreq_3.Name = "txtISOFreq_3"
         Me.txtISOFreq_3.Size = New System.Drawing.Size(68, 30)
         Me.txtISOFreq_3.TabIndex = 62
@@ -1591,8 +1569,8 @@ Partial Class frmSpecifications
         'txtISOFreq_2
         '
         Me.txtISOFreq_2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtISOFreq_2.Location = New System.Drawing.Point(761, 343)
-        Me.txtISOFreq_2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtISOFreq_2.Location = New System.Drawing.Point(1002, 351)
+        Me.txtISOFreq_2.Margin = New System.Windows.Forms.Padding(4)
         Me.txtISOFreq_2.Name = "txtISOFreq_2"
         Me.txtISOFreq_2.Size = New System.Drawing.Size(68, 30)
         Me.txtISOFreq_2.TabIndex = 61
@@ -1601,8 +1579,8 @@ Partial Class frmSpecifications
         'txtPower_4
         '
         Me.txtPower_4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtPower_4.Location = New System.Drawing.Point(321, 420)
-        Me.txtPower_4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtPower_4.Location = New System.Drawing.Point(562, 428)
+        Me.txtPower_4.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPower_4.Name = "txtPower_4"
         Me.txtPower_4.Size = New System.Drawing.Size(220, 30)
         Me.txtPower_4.TabIndex = 60
@@ -1614,7 +1592,7 @@ Partial Class frmSpecifications
         Me.Label83.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label83.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label83.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label83.Location = New System.Drawing.Point(732, 343)
+        Me.Label83.Location = New System.Drawing.Point(973, 351)
         Me.Label83.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label83.Name = "Label83"
         Me.Label83.Size = New System.Drawing.Size(22, 29)
@@ -1624,8 +1602,8 @@ Partial Class frmSpecifications
         'txtISOFreq_1
         '
         Me.txtISOFreq_1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtISOFreq_1.Location = New System.Drawing.Point(655, 343)
-        Me.txtISOFreq_1.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtISOFreq_1.Location = New System.Drawing.Point(896, 351)
+        Me.txtISOFreq_1.Margin = New System.Windows.Forms.Padding(4)
         Me.txtISOFreq_1.Name = "txtISOFreq_1"
         Me.txtISOFreq_1.Size = New System.Drawing.Size(68, 30)
         Me.txtISOFreq_1.TabIndex = 58
@@ -1637,7 +1615,7 @@ Partial Class frmSpecifications
         Me.Label94.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label94.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label94.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label94.Location = New System.Drawing.Point(564, 383)
+        Me.Label94.Location = New System.Drawing.Point(805, 391)
         Me.Label94.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label94.Name = "Label94"
         Me.Label94.Size = New System.Drawing.Size(45, 29)
@@ -1650,7 +1628,7 @@ Partial Class frmSpecifications
         Me.Label95.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label95.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label95.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label95.Location = New System.Drawing.Point(564, 341)
+        Me.Label95.Location = New System.Drawing.Point(805, 349)
         Me.Label95.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label95.Name = "Label95"
         Me.Label95.Size = New System.Drawing.Size(45, 29)
@@ -1663,7 +1641,7 @@ Partial Class frmSpecifications
         Me.Label96.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label96.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label96.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label96.Location = New System.Drawing.Point(564, 304)
+        Me.Label96.Location = New System.Drawing.Point(805, 312)
         Me.Label96.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label96.Name = "Label96"
         Me.Label96.Size = New System.Drawing.Size(61, 29)
@@ -1676,7 +1654,7 @@ Partial Class frmSpecifications
         Me.Label97.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label97.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label97.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label97.Location = New System.Drawing.Point(564, 265)
+        Me.Label97.Location = New System.Drawing.Point(805, 273)
         Me.Label97.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label97.Name = "Label97"
         Me.Label97.Size = New System.Drawing.Size(45, 29)
@@ -1689,7 +1667,7 @@ Partial Class frmSpecifications
         Me.Label98.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label98.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label98.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label98.Location = New System.Drawing.Point(564, 223)
+        Me.Label98.Location = New System.Drawing.Point(805, 231)
         Me.Label98.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label98.Name = "Label98"
         Me.Label98.Size = New System.Drawing.Size(41, 29)
@@ -1702,7 +1680,7 @@ Partial Class frmSpecifications
         Me.Label99.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label99.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label99.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label99.Location = New System.Drawing.Point(564, 186)
+        Me.Label99.Location = New System.Drawing.Point(805, 194)
         Me.Label99.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label99.Name = "Label99"
         Me.Label99.Size = New System.Drawing.Size(45, 29)
@@ -1715,7 +1693,7 @@ Partial Class frmSpecifications
         Me.Label100.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label100.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label100.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label100.Location = New System.Drawing.Point(564, 146)
+        Me.Label100.Location = New System.Drawing.Point(805, 154)
         Me.Label100.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label100.Name = "Label100"
         Me.Label100.Size = New System.Drawing.Size(67, 29)
@@ -1728,7 +1706,7 @@ Partial Class frmSpecifications
         Me.Label101.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label101.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label101.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label101.Location = New System.Drawing.Point(564, 107)
+        Me.Label101.Location = New System.Drawing.Point(805, 115)
         Me.Label101.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label101.Name = "Label101"
         Me.Label101.Size = New System.Drawing.Size(67, 29)
@@ -1741,7 +1719,7 @@ Partial Class frmSpecifications
         Me.Label102.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label102.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label102.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label102.Location = New System.Drawing.Point(145, 420)
+        Me.Label102.Location = New System.Drawing.Point(386, 428)
         Me.Label102.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label102.Name = "Label102"
         Me.Label102.Size = New System.Drawing.Size(132, 29)
@@ -1754,7 +1732,7 @@ Partial Class frmSpecifications
         Me.Label103.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label103.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label103.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label103.Location = New System.Drawing.Point(49, 302)
+        Me.Label103.Location = New System.Drawing.Point(290, 310)
         Me.Label103.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label103.Name = "Label103"
         Me.Label103.Size = New System.Drawing.Size(230, 29)
@@ -1767,7 +1745,7 @@ Partial Class frmSpecifications
         Me.Label104.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label104.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label104.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label104.Location = New System.Drawing.Point(0, 265)
+        Me.Label104.Location = New System.Drawing.Point(241, 273)
         Me.Label104.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label104.Name = "Label104"
         Me.Label104.Size = New System.Drawing.Size(274, 29)
@@ -1780,7 +1758,7 @@ Partial Class frmSpecifications
         Me.Label105.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label105.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label105.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label105.Location = New System.Drawing.Point(133, 343)
+        Me.Label105.Location = New System.Drawing.Point(374, 351)
         Me.Label105.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label105.Name = "Label105"
         Me.Label105.Size = New System.Drawing.Size(148, 29)
@@ -1793,7 +1771,7 @@ Partial Class frmSpecifications
         Me.Label106.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label106.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label106.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label106.Location = New System.Drawing.Point(156, 223)
+        Me.Label106.Location = New System.Drawing.Point(397, 231)
         Me.Label106.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label106.Name = "Label106"
         Me.Label106.Size = New System.Drawing.Size(123, 29)
@@ -1806,7 +1784,7 @@ Partial Class frmSpecifications
         Me.Label107.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label107.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label107.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label107.Location = New System.Drawing.Point(64, 186)
+        Me.Label107.Location = New System.Drawing.Point(305, 194)
         Me.Label107.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label107.Name = "Label107"
         Me.Label107.Size = New System.Drawing.Size(212, 29)
@@ -1819,7 +1797,7 @@ Partial Class frmSpecifications
         Me.Label108.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label108.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label108.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label108.Location = New System.Drawing.Point(36, 146)
+        Me.Label108.Location = New System.Drawing.Point(277, 154)
         Me.Label108.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label108.Name = "Label108"
         Me.Label108.Size = New System.Drawing.Size(204, 29)
@@ -1832,7 +1810,7 @@ Partial Class frmSpecifications
         Me.Label109.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label109.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label109.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label109.Location = New System.Drawing.Point(29, 105)
+        Me.Label109.Location = New System.Drawing.Point(270, 113)
         Me.Label109.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label109.Name = "Label109"
         Me.Label109.Size = New System.Drawing.Size(211, 29)
@@ -1842,8 +1820,8 @@ Partial Class frmSpecifications
         'txtTest3_5
         '
         Me.txtTest3_5.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtTest3_5.Location = New System.Drawing.Point(321, 380)
-        Me.txtTest3_5.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtTest3_5.Location = New System.Drawing.Point(562, 388)
+        Me.txtTest3_5.Margin = New System.Windows.Forms.Padding(4)
         Me.txtTest3_5.Name = "txtTest3_5"
         Me.txtTest3_5.Size = New System.Drawing.Size(220, 30)
         Me.txtTest3_5.TabIndex = 15
@@ -1852,8 +1830,8 @@ Partial Class frmSpecifications
         'txtTest3_4
         '
         Me.txtTest3_4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtTest3_4.Location = New System.Drawing.Point(321, 341)
-        Me.txtTest3_4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtTest3_4.Location = New System.Drawing.Point(562, 349)
+        Me.txtTest3_4.Margin = New System.Windows.Forms.Padding(4)
         Me.txtTest3_4.Name = "txtTest3_4"
         Me.txtTest3_4.Size = New System.Drawing.Size(220, 30)
         Me.txtTest3_4.TabIndex = 14
@@ -1862,8 +1840,8 @@ Partial Class frmSpecifications
         'txtTest5_4
         '
         Me.txtTest5_4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtTest5_4.Location = New System.Drawing.Point(321, 302)
-        Me.txtTest5_4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtTest5_4.Location = New System.Drawing.Point(562, 310)
+        Me.txtTest5_4.Margin = New System.Windows.Forms.Padding(4)
         Me.txtTest5_4.Name = "txtTest5_4"
         Me.txtTest5_4.Size = New System.Drawing.Size(220, 30)
         Me.txtTest5_4.TabIndex = 13
@@ -1872,8 +1850,8 @@ Partial Class frmSpecifications
         'txtTest4_4
         '
         Me.txtTest4_4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtTest4_4.Location = New System.Drawing.Point(321, 262)
-        Me.txtTest4_4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtTest4_4.Location = New System.Drawing.Point(562, 270)
+        Me.txtTest4_4.Margin = New System.Windows.Forms.Padding(4)
         Me.txtTest4_4.Name = "txtTest4_4"
         Me.txtTest4_4.Size = New System.Drawing.Size(220, 30)
         Me.txtTest4_4.TabIndex = 12
@@ -1882,8 +1860,8 @@ Partial Class frmSpecifications
         'txtTest2_4
         '
         Me.txtTest2_4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtTest2_4.Location = New System.Drawing.Point(321, 223)
-        Me.txtTest2_4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtTest2_4.Location = New System.Drawing.Point(562, 231)
+        Me.txtTest2_4.Margin = New System.Windows.Forms.Padding(4)
         Me.txtTest2_4.Name = "txtTest2_4"
         Me.txtTest2_4.Size = New System.Drawing.Size(220, 30)
         Me.txtTest2_4.TabIndex = 11
@@ -1892,8 +1870,8 @@ Partial Class frmSpecifications
         'txtTest1_4
         '
         Me.txtTest1_4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtTest1_4.Location = New System.Drawing.Point(321, 183)
-        Me.txtTest1_4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtTest1_4.Location = New System.Drawing.Point(562, 191)
+        Me.txtTest1_4.Margin = New System.Windows.Forms.Padding(4)
         Me.txtTest1_4.Name = "txtTest1_4"
         Me.txtTest1_4.Size = New System.Drawing.Size(220, 30)
         Me.txtTest1_4.TabIndex = 10
@@ -1902,8 +1880,8 @@ Partial Class frmSpecifications
         'txtStopFreq_4
         '
         Me.txtStopFreq_4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtStopFreq_4.Location = New System.Drawing.Point(321, 144)
-        Me.txtStopFreq_4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtStopFreq_4.Location = New System.Drawing.Point(562, 152)
+        Me.txtStopFreq_4.Margin = New System.Windows.Forms.Padding(4)
         Me.txtStopFreq_4.Name = "txtStopFreq_4"
         Me.txtStopFreq_4.Size = New System.Drawing.Size(220, 30)
         Me.txtStopFreq_4.TabIndex = 9
@@ -1912,8 +1890,8 @@ Partial Class frmSpecifications
         'txtStartFreq_4
         '
         Me.txtStartFreq_4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtStartFreq_4.Location = New System.Drawing.Point(321, 105)
-        Me.txtStartFreq_4.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtStartFreq_4.Location = New System.Drawing.Point(562, 113)
+        Me.txtStartFreq_4.Margin = New System.Windows.Forms.Padding(4)
         Me.txtStartFreq_4.Name = "txtStartFreq_4"
         Me.txtStartFreq_4.Size = New System.Drawing.Size(220, 30)
         Me.txtStartFreq_4.TabIndex = 8
@@ -1932,64 +1910,18 @@ Partial Class frmSpecifications
         Me.Label110.TabIndex = 7
         Me.Label110.Text = "COMBINER/DIVIDER"
         '
-        'Label80
-        '
-        Me.Label80.AutoSize = True
-        Me.Label80.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label80.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label80.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label80.Location = New System.Drawing.Point(1171, 107)
-        Me.Label80.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label80.Name = "Label80"
-        Me.Label80.Size = New System.Drawing.Size(135, 29)
-        Me.Label80.TabIndex = 56
-        Me.Label80.Text = "COUPLED"
-        '
-        'Label56
-        '
-        Me.Label56.AutoSize = True
-        Me.Label56.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label56.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label56.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label56.Location = New System.Drawing.Point(1176, 130)
-        Me.Label56.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label56.Name = "Label56"
-        Me.Label56.Size = New System.Drawing.Size(142, 29)
-        Me.Label56.TabIndex = 54
-        Me.Label56.Text = "FORWARD"
-        '
         'Frame2
         '
-        Me.Frame2.Controls.Add(Me.Label30)
-        Me.Frame2.Controls.Add(Me.Label31)
-        Me.Frame2.Controls.Add(Me.Label32)
-        Me.Frame2.Controls.Add(Me.Label80)
         Me.Frame2.Controls.Add(Me.Label33)
-        Me.Frame2.Controls.Add(Me.Label34)
-        Me.Frame2.Controls.Add(Me.Label56)
         Me.Frame2.Controls.Add(Me.Label35)
         Me.Frame2.Controls.Add(Me.Label36)
         Me.Frame2.Controls.Add(Me.Label37)
-        Me.Frame2.Controls.Add(Me.txtJ4J4_2)
-        Me.Frame2.Controls.Add(Me.txtJ3J4_2)
-        Me.Frame2.Controls.Add(Me.txtJ2J4_2)
-        Me.Frame2.Controls.Add(Me.txtJ1J4_2)
-        Me.Frame2.Controls.Add(Me.txtJ4J3_2)
-        Me.Frame2.Controls.Add(Me.txtJ3J3_2)
-        Me.Frame2.Controls.Add(Me.txtJ2J3_2)
         Me.Frame2.Controls.Add(Me.txtJ1J3_2)
-        Me.Frame2.Controls.Add(Me.txtJ4J2_2)
-        Me.Frame2.Controls.Add(Me.txtJ3J2_2)
-        Me.Frame2.Controls.Add(Me.txtJ2J2_2)
         Me.Frame2.Controls.Add(Me.txtJ1J2_2)
-        Me.Frame2.Controls.Add(Me.txtJ4J1_2)
-        Me.Frame2.Controls.Add(Me.txtJ3J1_2)
-        Me.Frame2.Controls.Add(Me.txtJ2J1_2)
         Me.Frame2.Controls.Add(Me.txtJ1J1_2)
         Me.Frame2.Controls.Add(Me.Label38)
         Me.Frame2.Controls.Add(Me.Label39)
         Me.Frame2.Controls.Add(Me.Label40)
-        Me.Frame2.Controls.Add(Me.Label41)
         Me.Frame2.Controls.Add(Me.Label42)
         Me.Frame2.Controls.Add(Me.Label43)
         Me.Frame2.Controls.Add(Me.Label44)
@@ -1997,7 +1929,6 @@ Partial Class frmSpecifications
         Me.Frame2.Controls.Add(Me.Label46)
         Me.Frame2.Controls.Add(Me.Label47)
         Me.Frame2.Controls.Add(Me.Label48)
-        Me.Frame2.Controls.Add(Me.Label49)
         Me.Frame2.Controls.Add(Me.Label50)
         Me.Frame2.Controls.Add(Me.Label51)
         Me.Frame2.Controls.Add(Me.Label52)
@@ -2005,298 +1936,17 @@ Partial Class frmSpecifications
         Me.Frame2.Controls.Add(Me.txtPower_2)
         Me.Frame2.Controls.Add(Me.txtTest5_2)
         Me.Frame2.Controls.Add(Me.txtTest4_2)
-        Me.Frame2.Controls.Add(Me.txtTest3_2)
         Me.Frame2.Controls.Add(Me.txtTest2_2)
         Me.Frame2.Controls.Add(Me.txtTest1_2)
         Me.Frame2.Controls.Add(Me.txtStopFreq_2)
         Me.Frame2.Controls.Add(Me.txtStartFreq_2)
         Me.Frame2.Controls.Add(Me.Label54)
         Me.Frame2.Location = New System.Drawing.Point(48, 287)
-        Me.Frame2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Frame2.Margin = New System.Windows.Forms.Padding(4)
         Me.Frame2.Name = "Frame2"
         Me.Frame2.Size = New System.Drawing.Size(1571, 478)
         Me.Frame2.TabIndex = 56
         Me.Frame2.Visible = False
-        '
-        'Label30
-        '
-        Me.Label30.AutoSize = True
-        Me.Label30.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label30.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label30.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label30.Location = New System.Drawing.Point(743, 304)
-        Me.Label30.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label30.Name = "Label30"
-        Me.Label30.Size = New System.Drawing.Size(40, 29)
-        Me.Label30.TabIndex = 55
-        Me.Label30.Text = "J4"
-        '
-        'Label31
-        '
-        Me.Label31.AutoSize = True
-        Me.Label31.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label31.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label31.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label31.Location = New System.Drawing.Point(743, 265)
-        Me.Label31.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label31.Name = "Label31"
-        Me.Label31.Size = New System.Drawing.Size(40, 29)
-        Me.Label31.TabIndex = 54
-        Me.Label31.Text = "J3"
-        '
-        'Label32
-        '
-        Me.Label32.AutoSize = True
-        Me.Label32.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label32.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label32.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label32.Location = New System.Drawing.Point(743, 223)
-        Me.Label32.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label32.Name = "Label32"
-        Me.Label32.Size = New System.Drawing.Size(40, 29)
-        Me.Label32.TabIndex = 53
-        Me.Label32.Text = "J2"
-        '
-        'Label33
-        '
-        Me.Label33.AutoSize = True
-        Me.Label33.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label33.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label33.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label33.Location = New System.Drawing.Point(743, 183)
-        Me.Label33.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label33.Name = "Label33"
-        Me.Label33.Size = New System.Drawing.Size(40, 29)
-        Me.Label33.TabIndex = 52
-        Me.Label33.Text = "J1"
-        '
-        'Label34
-        '
-        Me.Label34.AutoSize = True
-        Me.Label34.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label34.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label34.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label34.Location = New System.Drawing.Point(1376, 144)
-        Me.Label34.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label34.Name = "Label34"
-        Me.Label34.Size = New System.Drawing.Size(40, 29)
-        Me.Label34.TabIndex = 51
-        Me.Label34.Text = "J4"
-        '
-        'Label35
-        '
-        Me.Label35.AutoSize = True
-        Me.Label35.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label35.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label35.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label35.Location = New System.Drawing.Point(1209, 146)
-        Me.Label35.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label35.Name = "Label35"
-        Me.Label35.Size = New System.Drawing.Size(40, 29)
-        Me.Label35.TabIndex = 50
-        Me.Label35.Text = "J3"
-        '
-        'Label36
-        '
-        Me.Label36.AutoSize = True
-        Me.Label36.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label36.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label36.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label36.Location = New System.Drawing.Point(1037, 144)
-        Me.Label36.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label36.Name = "Label36"
-        Me.Label36.Size = New System.Drawing.Size(40, 29)
-        Me.Label36.TabIndex = 49
-        Me.Label36.Text = "J2"
-        '
-        'Label37
-        '
-        Me.Label37.AutoSize = True
-        Me.Label37.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label37.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label37.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label37.Location = New System.Drawing.Point(879, 146)
-        Me.Label37.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label37.Name = "Label37"
-        Me.Label37.Size = New System.Drawing.Size(33, 29)
-        Me.Label37.TabIndex = 48
-        Me.Label37.Text = "JI"
-        '
-        'txtJ4J4_2
-        '
-        Me.txtJ4J4_2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtJ4J4_2.Location = New System.Drawing.Point(1325, 302)
-        Me.txtJ4J4_2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.txtJ4J4_2.Name = "txtJ4J4_2"
-        Me.txtJ4J4_2.Size = New System.Drawing.Size(163, 30)
-        Me.txtJ4J4_2.TabIndex = 47
-        Me.txtJ4J4_2.Text = "----"
-        Me.txtJ4J4_2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'txtJ3J4_2
-        '
-        Me.txtJ3J4_2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtJ3J4_2.Location = New System.Drawing.Point(1325, 262)
-        Me.txtJ3J4_2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.txtJ3J4_2.Name = "txtJ3J4_2"
-        Me.txtJ3J4_2.Size = New System.Drawing.Size(163, 30)
-        Me.txtJ3J4_2.TabIndex = 46
-        Me.txtJ3J4_2.Text = "ISOLATION"
-        Me.txtJ3J4_2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'txtJ2J4_2
-        '
-        Me.txtJ2J4_2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtJ2J4_2.Location = New System.Drawing.Point(1325, 223)
-        Me.txtJ2J4_2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.txtJ2J4_2.Name = "txtJ2J4_2"
-        Me.txtJ2J4_2.Size = New System.Drawing.Size(163, 30)
-        Me.txtJ2J4_2.TabIndex = 45
-        Me.txtJ2J4_2.Text = "-3dB < 0 DEG"
-        Me.txtJ2J4_2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'txtJ1J4_2
-        '
-        Me.txtJ1J4_2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtJ1J4_2.Location = New System.Drawing.Point(1325, 183)
-        Me.txtJ1J4_2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.txtJ1J4_2.Name = "txtJ1J4_2"
-        Me.txtJ1J4_2.Size = New System.Drawing.Size(163, 30)
-        Me.txtJ1J4_2.TabIndex = 44
-        Me.txtJ1J4_2.Text = "-3dB < -90 DEG"
-        Me.txtJ1J4_2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'txtJ4J3_2
-        '
-        Me.txtJ4J3_2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtJ4J3_2.Location = New System.Drawing.Point(1153, 304)
-        Me.txtJ4J3_2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.txtJ4J3_2.Name = "txtJ4J3_2"
-        Me.txtJ4J3_2.Size = New System.Drawing.Size(163, 30)
-        Me.txtJ4J3_2.TabIndex = 43
-        Me.txtJ4J3_2.Text = "ISOLATION"
-        Me.txtJ4J3_2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'txtJ3J3_2
-        '
-        Me.txtJ3J3_2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtJ3J3_2.Location = New System.Drawing.Point(1153, 262)
-        Me.txtJ3J3_2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.txtJ3J3_2.Name = "txtJ3J3_2"
-        Me.txtJ3J3_2.Size = New System.Drawing.Size(163, 30)
-        Me.txtJ3J3_2.TabIndex = 42
-        Me.txtJ3J3_2.Text = "----"
-        Me.txtJ3J3_2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'txtJ2J3_2
-        '
-        Me.txtJ2J3_2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtJ2J3_2.Location = New System.Drawing.Point(1153, 223)
-        Me.txtJ2J3_2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.txtJ2J3_2.Name = "txtJ2J3_2"
-        Me.txtJ2J3_2.Size = New System.Drawing.Size(163, 30)
-        Me.txtJ2J3_2.TabIndex = 41
-        Me.txtJ2J3_2.Text = "-3dB < -90 DEG"
-        Me.txtJ2J3_2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'txtJ1J3_2
-        '
-        Me.txtJ1J3_2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtJ1J3_2.Location = New System.Drawing.Point(1153, 183)
-        Me.txtJ1J3_2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.txtJ1J3_2.Name = "txtJ1J3_2"
-        Me.txtJ1J3_2.Size = New System.Drawing.Size(163, 30)
-        Me.txtJ1J3_2.TabIndex = 40
-        Me.txtJ1J3_2.Text = "-3dB < 0 DEG"
-        Me.txtJ1J3_2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'txtJ4J2_2
-        '
-        Me.txtJ4J2_2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtJ4J2_2.Location = New System.Drawing.Point(981, 302)
-        Me.txtJ4J2_2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.txtJ4J2_2.Name = "txtJ4J2_2"
-        Me.txtJ4J2_2.Size = New System.Drawing.Size(163, 30)
-        Me.txtJ4J2_2.TabIndex = 39
-        Me.txtJ4J2_2.Text = "-3dB < 0 DEG"
-        Me.txtJ4J2_2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'txtJ3J2_2
-        '
-        Me.txtJ3J2_2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtJ3J2_2.Location = New System.Drawing.Point(981, 262)
-        Me.txtJ3J2_2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.txtJ3J2_2.Name = "txtJ3J2_2"
-        Me.txtJ3J2_2.Size = New System.Drawing.Size(163, 30)
-        Me.txtJ3J2_2.TabIndex = 38
-        Me.txtJ3J2_2.Text = "-3dB < -90 DEG"
-        Me.txtJ3J2_2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'txtJ2J2_2
-        '
-        Me.txtJ2J2_2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtJ2J2_2.Location = New System.Drawing.Point(981, 223)
-        Me.txtJ2J2_2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.txtJ2J2_2.Name = "txtJ2J2_2"
-        Me.txtJ2J2_2.Size = New System.Drawing.Size(163, 30)
-        Me.txtJ2J2_2.TabIndex = 37
-        Me.txtJ2J2_2.Text = "----"
-        Me.txtJ2J2_2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'txtJ1J2_2
-        '
-        Me.txtJ1J2_2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtJ1J2_2.Location = New System.Drawing.Point(981, 183)
-        Me.txtJ1J2_2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.txtJ1J2_2.Name = "txtJ1J2_2"
-        Me.txtJ1J2_2.Size = New System.Drawing.Size(163, 30)
-        Me.txtJ1J2_2.TabIndex = 36
-        Me.txtJ1J2_2.Text = "ISOLATION"
-        Me.txtJ1J2_2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'txtJ4J1_2
-        '
-        Me.txtJ4J1_2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtJ4J1_2.Location = New System.Drawing.Point(809, 302)
-        Me.txtJ4J1_2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.txtJ4J1_2.Name = "txtJ4J1_2"
-        Me.txtJ4J1_2.Size = New System.Drawing.Size(163, 30)
-        Me.txtJ4J1_2.TabIndex = 35
-        Me.txtJ4J1_2.Text = "-3dB < -90 DEG"
-        Me.txtJ4J1_2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'txtJ3J1_2
-        '
-        Me.txtJ3J1_2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtJ3J1_2.Location = New System.Drawing.Point(809, 265)
-        Me.txtJ3J1_2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.txtJ3J1_2.Name = "txtJ3J1_2"
-        Me.txtJ3J1_2.Size = New System.Drawing.Size(163, 30)
-        Me.txtJ3J1_2.TabIndex = 34
-        Me.txtJ3J1_2.Text = "-3dB < 0 DEG"
-        Me.txtJ3J1_2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'txtJ2J1_2
-        '
-        Me.txtJ2J1_2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtJ2J1_2.Location = New System.Drawing.Point(809, 223)
-        Me.txtJ2J1_2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.txtJ2J1_2.Name = "txtJ2J1_2"
-        Me.txtJ2J1_2.Size = New System.Drawing.Size(163, 30)
-        Me.txtJ2J1_2.TabIndex = 33
-        Me.txtJ2J1_2.Text = "ISOLATION"
-        Me.txtJ2J1_2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'txtJ1J1_2
-        '
-        Me.txtJ1J1_2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtJ1J1_2.Location = New System.Drawing.Point(809, 183)
-        Me.txtJ1J1_2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.txtJ1J1_2.Name = "txtJ1J1_2"
-        Me.txtJ1J1_2.Size = New System.Drawing.Size(163, 30)
-        Me.txtJ1J1_2.TabIndex = 32
-        Me.txtJ1J1_2.Text = "----"
-        Me.txtJ1J1_2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'Label38
         '
@@ -2304,7 +1954,7 @@ Partial Class frmSpecifications
         Me.Label38.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label38.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label38.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label38.Location = New System.Drawing.Point(564, 383)
+        Me.Label38.Location = New System.Drawing.Point(564, 342)
         Me.Label38.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label38.Name = "Label38"
         Me.Label38.Size = New System.Drawing.Size(36, 29)
@@ -2317,7 +1967,7 @@ Partial Class frmSpecifications
         Me.Label39.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label39.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label39.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label39.Location = New System.Drawing.Point(564, 341)
+        Me.Label39.Location = New System.Drawing.Point(564, 300)
         Me.Label39.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label39.Name = "Label39"
         Me.Label39.Size = New System.Drawing.Size(61, 29)
@@ -2330,25 +1980,12 @@ Partial Class frmSpecifications
         Me.Label40.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label40.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label40.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label40.Location = New System.Drawing.Point(564, 304)
+        Me.Label40.Location = New System.Drawing.Point(564, 263)
         Me.Label40.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label40.Name = "Label40"
         Me.Label40.Size = New System.Drawing.Size(45, 29)
         Me.Label40.TabIndex = 29
         Me.Label40.Text = "dB"
-        '
-        'Label41
-        '
-        Me.Label41.AutoSize = True
-        Me.Label41.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label41.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label41.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label41.Location = New System.Drawing.Point(564, 265)
-        Me.Label41.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label41.Name = "Label41"
-        Me.Label41.Size = New System.Drawing.Size(45, 29)
-        Me.Label41.TabIndex = 28
-        Me.Label41.Text = "dB"
         '
         'Label42
         '
@@ -2408,7 +2045,7 @@ Partial Class frmSpecifications
         Me.Label46.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label46.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label46.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label46.Location = New System.Drawing.Point(152, 383)
+        Me.Label46.Location = New System.Drawing.Point(152, 342)
         Me.Label46.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label46.Name = "Label46"
         Me.Label46.Size = New System.Drawing.Size(132, 29)
@@ -2421,7 +2058,7 @@ Partial Class frmSpecifications
         Me.Label47.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label47.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label47.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label47.Location = New System.Drawing.Point(59, 341)
+        Me.Label47.Location = New System.Drawing.Point(59, 300)
         Me.Label47.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label47.Name = "Label47"
         Me.Label47.Size = New System.Drawing.Size(230, 29)
@@ -2434,25 +2071,12 @@ Partial Class frmSpecifications
         Me.Label48.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label48.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label48.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label48.Location = New System.Drawing.Point(11, 304)
+        Me.Label48.Location = New System.Drawing.Point(11, 263)
         Me.Label48.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label48.Name = "Label48"
         Me.Label48.Size = New System.Drawing.Size(274, 29)
         Me.Label48.TabIndex = 21
         Me.Label48.Text = "Amplitude Balance: +_"
-        '
-        'Label49
-        '
-        Me.Label49.AutoSize = True
-        Me.Label49.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label49.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label49.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label49.Location = New System.Drawing.Point(133, 265)
-        Me.Label49.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
-        Me.Label49.Name = "Label49"
-        Me.Label49.Size = New System.Drawing.Size(148, 29)
-        Me.Label49.TabIndex = 20
-        Me.Label49.Text = "Isolation:  >"
         '
         'Label50
         '
@@ -2509,8 +2133,8 @@ Partial Class frmSpecifications
         'txtPower_2
         '
         Me.txtPower_2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtPower_2.Location = New System.Drawing.Point(321, 380)
-        Me.txtPower_2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtPower_2.Location = New System.Drawing.Point(321, 339)
+        Me.txtPower_2.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPower_2.Name = "txtPower_2"
         Me.txtPower_2.Size = New System.Drawing.Size(220, 30)
         Me.txtPower_2.TabIndex = 15
@@ -2519,8 +2143,8 @@ Partial Class frmSpecifications
         'txtTest5_2
         '
         Me.txtTest5_2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtTest5_2.Location = New System.Drawing.Point(321, 341)
-        Me.txtTest5_2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtTest5_2.Location = New System.Drawing.Point(321, 300)
+        Me.txtTest5_2.Margin = New System.Windows.Forms.Padding(4)
         Me.txtTest5_2.Name = "txtTest5_2"
         Me.txtTest5_2.Size = New System.Drawing.Size(220, 30)
         Me.txtTest5_2.TabIndex = 14
@@ -2529,28 +2153,18 @@ Partial Class frmSpecifications
         'txtTest4_2
         '
         Me.txtTest4_2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtTest4_2.Location = New System.Drawing.Point(321, 302)
-        Me.txtTest4_2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtTest4_2.Location = New System.Drawing.Point(321, 261)
+        Me.txtTest4_2.Margin = New System.Windows.Forms.Padding(4)
         Me.txtTest4_2.Name = "txtTest4_2"
         Me.txtTest4_2.Size = New System.Drawing.Size(220, 30)
         Me.txtTest4_2.TabIndex = 13
         Me.txtTest4_2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
-        'txtTest3_2
-        '
-        Me.txtTest3_2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtTest3_2.Location = New System.Drawing.Point(321, 262)
-        Me.txtTest3_2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
-        Me.txtTest3_2.Name = "txtTest3_2"
-        Me.txtTest3_2.Size = New System.Drawing.Size(220, 30)
-        Me.txtTest3_2.TabIndex = 12
-        Me.txtTest3_2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
-        '
         'txtTest2_2
         '
         Me.txtTest2_2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtTest2_2.Location = New System.Drawing.Point(321, 223)
-        Me.txtTest2_2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtTest2_2.Margin = New System.Windows.Forms.Padding(4)
         Me.txtTest2_2.Name = "txtTest2_2"
         Me.txtTest2_2.Size = New System.Drawing.Size(220, 30)
         Me.txtTest2_2.TabIndex = 11
@@ -2560,7 +2174,7 @@ Partial Class frmSpecifications
         '
         Me.txtTest1_2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtTest1_2.Location = New System.Drawing.Point(321, 183)
-        Me.txtTest1_2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtTest1_2.Margin = New System.Windows.Forms.Padding(4)
         Me.txtTest1_2.Name = "txtTest1_2"
         Me.txtTest1_2.Size = New System.Drawing.Size(220, 30)
         Me.txtTest1_2.TabIndex = 10
@@ -2570,7 +2184,7 @@ Partial Class frmSpecifications
         '
         Me.txtStopFreq_2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtStopFreq_2.Location = New System.Drawing.Point(321, 144)
-        Me.txtStopFreq_2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtStopFreq_2.Margin = New System.Windows.Forms.Padding(4)
         Me.txtStopFreq_2.Name = "txtStopFreq_2"
         Me.txtStopFreq_2.Size = New System.Drawing.Size(220, 30)
         Me.txtStopFreq_2.TabIndex = 9
@@ -2580,7 +2194,7 @@ Partial Class frmSpecifications
         '
         Me.txtStartFreq_2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtStartFreq_2.Location = New System.Drawing.Point(321, 105)
-        Me.txtStartFreq_2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtStartFreq_2.Margin = New System.Windows.Forms.Padding(4)
         Me.txtStartFreq_2.Name = "txtStartFreq_2"
         Me.txtStartFreq_2.Size = New System.Drawing.Size(220, 30)
         Me.txtStartFreq_2.TabIndex = 8
@@ -2592,18 +2206,18 @@ Partial Class frmSpecifications
         Me.Label54.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label54.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label54.ForeColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label54.Location = New System.Drawing.Point(612, 14)
+        Me.Label54.Location = New System.Drawing.Point(665, 13)
         Me.Label54.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
         Me.Label54.Name = "Label54"
-        Me.Label54.Size = New System.Drawing.Size(396, 46)
+        Me.Label54.Size = New System.Drawing.Size(187, 46)
         Me.Label54.TabIndex = 7
-        Me.Label54.Text = "180 Degree Coupler"
+        Me.Label54.Text = "BALUNS"
         '
         'txtQuantity
         '
         Me.txtQuantity.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtQuantity.Location = New System.Drawing.Point(592, 176)
-        Me.txtQuantity.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtQuantity.Margin = New System.Windows.Forms.Padding(4)
         Me.txtQuantity.Name = "txtQuantity"
         Me.txtQuantity.Size = New System.Drawing.Size(85, 30)
         Me.txtQuantity.TabIndex = 10
@@ -2615,7 +2229,7 @@ Partial Class frmSpecifications
         Me.cmdSaveDatabase.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdSaveDatabase.ForeColor = System.Drawing.Color.OrangeRed
         Me.cmdSaveDatabase.Location = New System.Drawing.Point(1325, 111)
-        Me.cmdSaveDatabase.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.cmdSaveDatabase.Margin = New System.Windows.Forms.Padding(4)
         Me.cmdSaveDatabase.Name = "cmdSaveDatabase"
         Me.cmdSaveDatabase.Size = New System.Drawing.Size(201, 75)
         Me.cmdSaveDatabase.TabIndex = 11
@@ -2626,7 +2240,7 @@ Partial Class frmSpecifications
         '
         Me.txtPPH.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtPPH.Location = New System.Drawing.Point(592, 223)
-        Me.txtPPH.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtPPH.Margin = New System.Windows.Forms.Padding(4)
         Me.txtPPH.Name = "txtPPH"
         Me.txtPPH.Size = New System.Drawing.Size(85, 30)
         Me.txtPPH.TabIndex = 62
@@ -2651,7 +2265,7 @@ Partial Class frmSpecifications
         Me.sup_bypass.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.sup_bypass.ForeColor = System.Drawing.SystemColors.ButtonHighlight
         Me.sup_bypass.Location = New System.Drawing.Point(1317, 208)
-        Me.sup_bypass.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.sup_bypass.Margin = New System.Windows.Forms.Padding(4)
         Me.sup_bypass.Name = "sup_bypass"
         Me.sup_bypass.Size = New System.Drawing.Size(189, 24)
         Me.sup_bypass.TabIndex = 74
@@ -2662,7 +2276,7 @@ Partial Class frmSpecifications
         '
         Me.txtFail.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtFail.Location = New System.Drawing.Point(1475, 240)
-        Me.txtFail.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.txtFail.Margin = New System.Windows.Forms.Padding(4)
         Me.txtFail.Name = "txtFail"
         Me.txtFail.Size = New System.Drawing.Size(49, 30)
         Me.txtFail.TabIndex = 75
@@ -2694,12 +2308,97 @@ Partial Class frmSpecifications
         Me.Label93.TabIndex = 77
         Me.Label93.Text = "Fail Percentage Alert :"
         '
+        'Label33
+        '
+        Me.Label33.AutoSize = True
+        Me.Label33.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Label33.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label33.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Label33.Location = New System.Drawing.Point(836, 201)
+        Me.Label33.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label33.Name = "Label33"
+        Me.Label33.Size = New System.Drawing.Size(40, 29)
+        Me.Label33.TabIndex = 134
+        Me.Label33.Text = "J1"
+        '
+        'Label35
+        '
+        Me.Label35.AutoSize = True
+        Me.Label35.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Label35.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label35.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Label35.Location = New System.Drawing.Point(1303, 164)
+        Me.Label35.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label35.Name = "Label35"
+        Me.Label35.Size = New System.Drawing.Size(40, 29)
+        Me.Label35.TabIndex = 132
+        Me.Label35.Text = "J3"
+        '
+        'Label36
+        '
+        Me.Label36.AutoSize = True
+        Me.Label36.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Label36.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label36.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Label36.Location = New System.Drawing.Point(1131, 161)
+        Me.Label36.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label36.Name = "Label36"
+        Me.Label36.Size = New System.Drawing.Size(40, 29)
+        Me.Label36.TabIndex = 131
+        Me.Label36.Text = "J2"
+        '
+        'Label37
+        '
+        Me.Label37.AutoSize = True
+        Me.Label37.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Label37.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label37.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Label37.Location = New System.Drawing.Point(972, 164)
+        Me.Label37.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label37.Name = "Label37"
+        Me.Label37.Size = New System.Drawing.Size(33, 29)
+        Me.Label37.TabIndex = 130
+        Me.Label37.Text = "JI"
+        '
+        'txtJ1J3_2
+        '
+        Me.txtJ1J3_2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtJ1J3_2.Location = New System.Drawing.Point(1247, 201)
+        Me.txtJ1J3_2.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtJ1J3_2.Name = "txtJ1J3_2"
+        Me.txtJ1J3_2.Size = New System.Drawing.Size(176, 30)
+        Me.txtJ1J3_2.TabIndex = 122
+        Me.txtJ1J3_2.Text = "-6dB < -180 DEG"
+        Me.txtJ1J3_2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'txtJ1J2_2
+        '
+        Me.txtJ1J2_2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtJ1J2_2.Location = New System.Drawing.Point(1075, 201)
+        Me.txtJ1J2_2.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtJ1J2_2.Name = "txtJ1J2_2"
+        Me.txtJ1J2_2.Size = New System.Drawing.Size(163, 30)
+        Me.txtJ1J2_2.TabIndex = 118
+        Me.txtJ1J2_2.Text = "-6dB < 0 DEG"
+        Me.txtJ1J2_2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'txtJ1J1_2
+        '
+        Me.txtJ1J1_2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtJ1J1_2.Location = New System.Drawing.Point(903, 201)
+        Me.txtJ1J1_2.Margin = New System.Windows.Forms.Padding(4)
+        Me.txtJ1J1_2.Name = "txtJ1J1_2"
+        Me.txtJ1J1_2.Size = New System.Drawing.Size(163, 30)
+        Me.txtJ1J1_2.TabIndex = 114
+        Me.txtJ1J1_2.Text = "----"
+        Me.txtJ1J1_2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
         'frmSpecifications
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.ClientSize = New System.Drawing.Size(1697, 843)
+        Me.ClientSize = New System.Drawing.Size(1714, 843)
         Me.Controls.Add(Me.Label93)
         Me.Controls.Add(Me.Label92)
         Me.Controls.Add(Me.txtFail)
@@ -2716,12 +2415,12 @@ Partial Class frmSpecifications
         Me.Controls.Add(Me.cmbJob)
         Me.Controls.Add(Me.cmbPart)
         Me.Controls.Add(Me.cmbSpecType)
-        Me.Controls.Add(Me.Frame1)
         Me.Controls.Add(Me.Frame2)
         Me.Controls.Add(Me.Frame4)
         Me.Controls.Add(Me.Frame3)
+        Me.Controls.Add(Me.Frame1)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.Margin = New System.Windows.Forms.Padding(4)
         Me.Name = "frmSpecifications"
         Me.ShowInTaskbar = False
         Me.Text = "Specifications"
@@ -2747,34 +2446,9 @@ Partial Class frmSpecifications
     Friend WithEvents Label4 As System.Windows.Forms.Label
     Friend WithEvents txtQuantity As System.Windows.Forms.TextBox
     Friend WithEvents Frame2 As System.Windows.Forms.Panel
-    Friend WithEvents Label30 As System.Windows.Forms.Label
-    Friend WithEvents Label31 As System.Windows.Forms.Label
-    Friend WithEvents Label32 As System.Windows.Forms.Label
-    Friend WithEvents Label33 As System.Windows.Forms.Label
-    Friend WithEvents Label34 As System.Windows.Forms.Label
-    Friend WithEvents Label35 As System.Windows.Forms.Label
-    Friend WithEvents Label36 As System.Windows.Forms.Label
-    Friend WithEvents Label37 As System.Windows.Forms.Label
-    Friend WithEvents txtJ4J4_2 As System.Windows.Forms.TextBox
-    Friend WithEvents txtJ3J4_2 As System.Windows.Forms.TextBox
-    Friend WithEvents txtJ2J4_2 As System.Windows.Forms.TextBox
-    Friend WithEvents txtJ1J4_2 As System.Windows.Forms.TextBox
-    Friend WithEvents txtJ4J3_2 As System.Windows.Forms.TextBox
-    Friend WithEvents txtJ3J3_2 As System.Windows.Forms.TextBox
-    Friend WithEvents txtJ2J3_2 As System.Windows.Forms.TextBox
-    Friend WithEvents txtJ1J3_2 As System.Windows.Forms.TextBox
-    Friend WithEvents txtJ4J2_2 As System.Windows.Forms.TextBox
-    Friend WithEvents txtJ3J2_2 As System.Windows.Forms.TextBox
-    Friend WithEvents txtJ2J2_2 As System.Windows.Forms.TextBox
-    Friend WithEvents txtJ1J2_2 As System.Windows.Forms.TextBox
-    Friend WithEvents txtJ4J1_2 As System.Windows.Forms.TextBox
-    Friend WithEvents txtJ3J1_2 As System.Windows.Forms.TextBox
-    Friend WithEvents txtJ2J1_2 As System.Windows.Forms.TextBox
-    Friend WithEvents txtJ1J1_2 As System.Windows.Forms.TextBox
     Friend WithEvents Label38 As System.Windows.Forms.Label
     Friend WithEvents Label39 As System.Windows.Forms.Label
     Friend WithEvents Label40 As System.Windows.Forms.Label
-    Friend WithEvents Label41 As System.Windows.Forms.Label
     Friend WithEvents Label42 As System.Windows.Forms.Label
     Friend WithEvents Label43 As System.Windows.Forms.Label
     Friend WithEvents Label44 As System.Windows.Forms.Label
@@ -2782,7 +2456,6 @@ Partial Class frmSpecifications
     Friend WithEvents Label46 As System.Windows.Forms.Label
     Friend WithEvents Label47 As System.Windows.Forms.Label
     Friend WithEvents Label48 As System.Windows.Forms.Label
-    Friend WithEvents Label49 As System.Windows.Forms.Label
     Friend WithEvents Label50 As System.Windows.Forms.Label
     Friend WithEvents Label51 As System.Windows.Forms.Label
     Friend WithEvents Label52 As System.Windows.Forms.Label
@@ -2790,15 +2463,12 @@ Partial Class frmSpecifications
     Friend WithEvents txtPower_2 As System.Windows.Forms.TextBox
     Friend WithEvents txtTest5_2 As System.Windows.Forms.TextBox
     Friend WithEvents txtTest4_2 As System.Windows.Forms.TextBox
-    Friend WithEvents txtTest3_2 As System.Windows.Forms.TextBox
     Friend WithEvents txtTest2_2 As System.Windows.Forms.TextBox
     Friend WithEvents txtTest1_2 As System.Windows.Forms.TextBox
     Friend WithEvents txtStopFreq_2 As System.Windows.Forms.TextBox
     Friend WithEvents txtStartFreq_2 As System.Windows.Forms.TextBox
     Friend WithEvents Label54 As System.Windows.Forms.Label
     Friend WithEvents cmdSaveDatabase As System.Windows.Forms.Button
-    Friend WithEvents Label80 As System.Windows.Forms.Label
-    Friend WithEvents Label56 As System.Windows.Forms.Label
     Friend WithEvents txtPPH As System.Windows.Forms.TextBox
     Friend WithEvents Label88 As System.Windows.Forms.Label
     Friend WithEvents Frame1 As System.Windows.Forms.Panel
@@ -2931,4 +2601,11 @@ Partial Class frmSpecifications
     Friend WithEvents txtTest1_1 As System.Windows.Forms.TextBox
     Friend WithEvents txtStopFreq_1 As System.Windows.Forms.TextBox
     Friend WithEvents txtStartFreq_1 As System.Windows.Forms.TextBox
+    Friend WithEvents Label33 As System.Windows.Forms.Label
+    Friend WithEvents Label35 As System.Windows.Forms.Label
+    Friend WithEvents Label36 As System.Windows.Forms.Label
+    Friend WithEvents Label37 As System.Windows.Forms.Label
+    Friend WithEvents txtJ1J3_2 As System.Windows.Forms.TextBox
+    Friend WithEvents txtJ1J2_2 As System.Windows.Forms.TextBox
+    Friend WithEvents txtJ1J1_2 As System.Windows.Forms.TextBox
 End Class

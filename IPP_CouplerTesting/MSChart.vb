@@ -47,7 +47,7 @@ Module MSChart
 
         SQLstr = ""
         'Clear the Chart Data
-        If InStr(SpecType, "90 DEGREE COUPLER") Or InStr(SpecType, "180 DEGREE COUPLER") Or InStr(SpecType, "COMBINER/DIVIDER") Then SQLstr = "select * from graphdb_3dB where Statename = '" & Test & "'"
+        If InStr(SpecType, "90 DEGREE COUPLER") Or InStr(SpecType, "BALUN") Or InStr(SpecType, "COMBINER/DIVIDER") Then SQLstr = "select * from graphdb_3dB where Statename = '" & Test & "'"
         If InStr(SpecType, "SINGLE DIRECTIONAL COUPLER") Or InStr(SpecType, "DUAL DIRECTIONAL COUPLER") Or InStr(SpecType, "BI DIRECTIONAL COUPLER") Then SQLstr = "select * from graphdb_Dir where Statename = '" & Test & "'"
         Try
             'Get value from database
@@ -79,7 +79,7 @@ Module MSChart
             Table = "graphdb_3dB"
             'update database
             Expression = " where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "'"
-            If InStr(SpecType, "90 DEGREE COUPLER") Or InStr(SpecType, "180 DEGREE COUPLER") Or InStr(SpecType, "COMBINER/DIVIDER") Then Table = "graphdb_3dB"
+            If InStr(SpecType, "90 DEGREE COUPLER") Or InStr(SpecType, "BALUN") Or InStr(SpecType, "COMBINER/DIVIDER") Then Table = "graphdb_3dB"
             If InStr(SpecType, "SINGLE DIRECTIONAL COUPLER") Or InStr(SpecType, "DUAL DIRECTIONAL COUPLER") Or InStr(SpecType, "BI DIRECTIONAL COUPLER") Then Table = "graphdb_Dir"
             If SQLAccess Then
                 Dim ats1 As SqlConnection = New SqlConnection(SQLConnStr)
@@ -153,8 +153,8 @@ Module MSChart
         Dim SQLstr As String = ""
         If SpecType = "" Then Exit Sub
         'Clear the Chart Data
-        If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Or SpecType = "COMBINER/DIVIDER" Then SQLstr = "UPDATE from Graphdb_3dB Set "
-        If SpecType = "90 DEGREE COUPLER SMD" Or SpecType = "180 DEGREE COUPLER SMD" Or SpecType = "COMBINER/DIVIDER SMD" Then SQLstr = "UPDATE from Graphdb_3dB Set "
+        If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType = "COMBINER/DIVIDER" Then SQLstr = "UPDATE from Graphdb_3dB Set "
+        If SpecType = "90 DEGREE COUPLER SMD" Or SpecType = "BALUN SMD" Or SpecType = "COMBINER/DIVIDER SMD" Then SQLstr = "UPDATE from Graphdb_3dB Set "
         If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then SQLstr = "UPDATE from Graphdb_Dir Set "
         If SpecType = "SINGLE DIRECTIONAL COUPLER SMD" Or SpecType = "DUAL DIRECTIONAL COUPLER SMD" Or SpecType = "BI DIRECTIONAL COUPLER SMD" Then SQLstr = "UPDATE from Graphdb_Dir Set "
         If SpecType = "COMBINER/DIVIDER" Or SpecType = "COMBINER/DIVIDER SMD" Then SQLstr = "UPDATE from Graphdb_3dB Set "
@@ -210,8 +210,8 @@ Module MSChart
         '    Dim SQLstr As String
         '    Dim ATS As ADODB.Recordset
         '    If SpecType = "" Then Exit Function
-        '    If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Or SpecType = "COMBINER/DIVIDER" Then SQLstr = "select * from Graphdb_3dB"
-        '    If SpecType = "90 DEGREE COUPLER SMD" Or SpecType = "180 DEGREE COUPLER SMD" Or SpecType = "COMBINER/DIVIDER SMD" Then SQLstr = "select * from Graphdb_3dB"
+        '    If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType = "COMBINER/DIVIDER" Then SQLstr = "select * from Graphdb_3dB"
+        '    If SpecType = "90 DEGREE COUPLER SMD" Or SpecType = "BALUN SMD" Or SpecType = "COMBINER/DIVIDER SMD" Then SQLstr = "select * from Graphdb_3dB"
         '    If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then SQLstr = "select * from Graphdb_Dir"
         '    If SpecType = "SINGLE DIRECTIONAL COUPLER SMD" Or SpecType = "DUAL DIRECTIONAL COUPLER SMD" Or SpecType = "BI DIRECTIONAL COUPLER SMD" Then SQLstr = "select * from Graphdb_Dir"
         '    If SpecType = "COMBINER/DIVIDER" Or SpecType = "COMBINER/DIVIDER SMD" Then SQLstr = "select * from Graphdb_3dB"

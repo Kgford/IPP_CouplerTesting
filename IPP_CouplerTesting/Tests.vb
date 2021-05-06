@@ -496,7 +496,7 @@
         SwitchCom.Connect()
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset1.Text)
-            If RetrnVal <= Spec Then
+            If Math.Round(RetrnVal, 2) <= Spec Then
                 InsertionLoss3dB = "Pass"
             Else
                 InsertionLoss3dB = "Fail"
@@ -531,7 +531,11 @@
                 Else
                     IL = IL2
                 End If
-                IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
+                If SpecType.Contains("BALUN") Then
+                    IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text) - 3
+                Else
+                    IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
+                End If
                 IL = Format(Math.Round(IL, 2), "0.00")
 
                 If IL <= Spec Then
@@ -539,13 +543,13 @@
                 Else
                     InsertionLoss3dB = "Fail"
                 End If
-            ElseIf PassChecked Then
-                IL = Spec
-                InsertionLoss3dB = "Pass"
-            ElseIf FailChecked Then
-                IL = Spec + 10
-                InsertionLoss3dB = "Fail"
-            End If
+        ElseIf PassChecked Then
+            IL = Spec
+            InsertionLoss3dB = "Pass"
+        ElseIf FailChecked Then
+            IL = Spec + 10
+            InsertionLoss3dB = "Fail"
+        End If
             frmAUTOTEST.Refresh()
         Else
             ActiveTitle = "     TESTING INSERTION LOSS    SW POSITION 1      "
@@ -567,12 +571,6 @@
 
             If Not ILSetDone Then
                 If VNAStr = "AG_E5071B" Then
-                    '************DEBUG CODE FOR JEN'S WORKSTATION*******************
-                    ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:MEM OFF")  'Memory Off"
-                    ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:STAT ON") ' Data On
-                    ScanGPIB.BusWrite(":CALC1:MATH:FUNC NORM")
-                    ScanGPIB.BusWrite(":CALC1:FORM MLOG")
-                    '************DEBUG CODE FOR JEN'S WORKSTATION*******************
                     ScanGPIB.BusWrite(":CALC1:PAR2:SEL")
                     ScanGPIB.BusWrite(":CALC1:FORM MLOG")
                     ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV " & GetLoss())
@@ -660,17 +658,11 @@
                     ScanGPIB.BusWrite(":CALC:MATH:MEM") 'Data into Memory
                 Else
                     ScanGPIB.BusWrite("OPC?;CHAN2;")
-                    'If VNAStr = "HP_8753C" Then ScanGPIB.BusRead()
                     ScanGPIB.BusWrite("OPC?;LOGM;")
-                    'If VNAStr = "HP_8753C" Then ScanGPIB.BusRead()
                     ScanGPIB.BusWrite("OPC?;REFV " & GetLoss())
-                    'If VNAStr = "HP_8753C" Then ScanGPIB.BusRead()
                     ScanGPIB.BusWrite("OPC?;SCAL " & GetSpecification("AmplitudeBalance"))
-                    'If VNAStr = "HP_8753C" Then ScanGPIB.BusRead()
                     ScanGPIB.BusWrite("OPC?;INPUDATA," & gBuffer & ";") ' Input Trace1 data to VNA Memory
-                    'If VNAStr = "HP_8753C" Then ScanGPIB.BusRead()
                     ScanGPIB.BusWrite("OPC?;DATI;") 'Data into Memory
-                    'If VNAStr = "HP_8753C" Then ScanGPIB.BusRead()
                 End If
             End If
             ExtraAvg(2)
@@ -726,12 +718,11 @@
             '    IL2Data = YArray
             'End If
 
-            For i = 0 To Pts - 1
+            For i = 0 To Pts
                 IL1 = 1 / (10 ^ (Math.Abs(IL1Data(i)) * 0.1))
                 IL2 = 1 / (10 ^ (Math.Abs(IL2Data(i)) * 0.1))
                 ILArray(i) = 10 * Log10(IL1 + IL2)
             Next
-
             IL1 = MaxNoZero(ILArray)
             IL2 = MinNoZero(ILArray)
 
@@ -746,7 +737,11 @@
             Else
                 IL = IL2
             End If
-            IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
+            If SpecType.Contains("BALUN") Then
+                IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text) - 3
+            Else
+                IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
+            End If
             IL = Format(Math.Round(IL, 3), "0.00")
 
 
@@ -764,16 +759,15 @@
                 ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:STAT ON") ' Data On
             Else
                 ScanGPIB.BusWrite("OPC?;DISPDATA")
-                'If VNAStr = "HP_8753C" Then ScanGPIB.BusRead()
             End If
-            End If
-            ABTraceID1 = TraceID1
-            ABTraceID2 = TraceID2
-            frmAUTOTEST.Refresh()
-            ActiveTitle = Title
-            SetSwitchPosition = 1
-            status = SwitchCom.SetSwitchPosition(1) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
-            frmAUTOTEST.Refresh()
+        End If
+        ABTraceID1 = TraceID1
+        ABTraceID2 = TraceID2
+        frmAUTOTEST.Refresh()
+        ActiveTitle = Title
+        SetSwitchPosition = 1
+        status = SwitchCom.SetSwitchPosition(1) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+        frmAUTOTEST.Refresh()
     End Function
     Public Function InsertionLoss3dB_multiband(Optional ResumeTesting As Boolean = False, Optional TestID As Long = 1) As String
         Dim status As String
@@ -815,7 +809,7 @@
         SwitchCom.Connect()
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset1.Text)
-            If RetrnVal <= Spec Then
+            If Math.Round(RetrnVal, 2) <= Spec Then
                 InsertionLoss3dB_multiband = "Pass"
             Else
                 InsertionLoss3dB_multiband = "Fail"
@@ -1244,7 +1238,7 @@
         SwitchCom.Connect()
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset1.Text)
-            If RetrnVal <= Spec Then
+            If Math.Round(RetrnVal, 2) <= Spec Then
                 InsertionLoss3dB_marker = "Pass"
             Else
                 InsertionLoss3dB_marker = "Fail"
@@ -1279,7 +1273,12 @@
                 Else
                     IL = IL2
                 End If
-                IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
+
+                If SpecType.Contains("BALUN") Then
+                    IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text) - 3
+                Else
+                    IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
+                End If
                 IL = Format(Math.Round(IL, 2), "0.00")
 
                 If IL <= Spec Then
@@ -1315,13 +1314,7 @@
             Dim freq = GetSpecification("StopFreqMHz") * 10 ^ 9
             If Not ILSetDone Then
                 If VNAStr = "AG_E5071B" Then
-                    '************DEBUG CODE FOR JEN'S WORKSTATION*******************
-                    ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:MEM OFF")  'Memory Off"
-                    ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:STAT ON") ' Data On
-                    ScanGPIB.BusWrite(":CALC1:MATH:FUNC NORM")
-                    ScanGPIB.BusWrite(":CALC1:FORM MLOG")
                     ScanGPIB.BusWrite(":CALC1:MARK1 OFF")  'Marker1 off
-                    '************DEBUG CODE FOR JEN'S WORKSTATION*******************
                     ScanGPIB.BusWrite(":CALC1:MARK2 OFF")  'Marker2 off
                     ScanGPIB.BusWrite(":CALC1:MARK3 OFF")  'Marker3 off
                     ScanGPIB.BusWrite(":CALC1:PAR2:SEL")
@@ -1331,15 +1324,8 @@
                     ScanGPIB.BusWrite(":CALC1:MARK1 ON")  'Marker 1 on
                     ScanGPIB.BusWrite(":CALC1:MARK1:X " & freq)  'set Marker1 Max freq
                     ExtraAvg()
-                    Delay(500)
+                    Delay(100)
                     IL1 = ScanGPIB.MarkerQuery(":CALC1:MARK1:Y?")  'Get Marker1 val
-                    ScanGPIB.BusWrite(":CALC1:MARK2 ON")  'Marker 2 on
-                    ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:EXEC")
-                    ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:TYPE MAX")  'Marker 1 max
-                    ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:EXEC")
-                    Delay(50)
-                    ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:TYPE MAX")  'Marker 1 max
-                    IL1AB = ScanGPIB.MarkerQuery(":CALC1:MARK2:Y?")  'Get Marker2 val
                 ElseIf VNAStr = "N3383A" Then
                     ScanGPIB.BusWrite(":CALC1:MARK1 OFF")  'Marker1 off
                     ScanGPIB.BusWrite(":CALC1:MARK2 OFF")  'Marker2 off
@@ -1351,15 +1337,11 @@
                     ScanGPIB.BusWrite(":CALC1:MARK1 ON")  'Marker 1 on
                     ScanGPIB.BusWrite(":CALC1:MARK1:X " & freq)  'set Marker1 Max freq
                     ExtraAvg(1)
-                    Delay(500)
+                    If VNAStr = "HP_8753C" Then System.Threading.Thread.Sleep(2000)
+                    If VNAStr = "AG_E5071B" Then ScanGPIB.BusWrite(":CALC1:MATH:MEM") 'Data into Memory
+                    If VNAStr = "N3383A" Then ScanGPIB.BusWrite(":CALC1:MATH:MEM") 'Data into Memory
+                    If VNAStr <> "AG_E5071B" And VNAStr <> "N3383A" Then ScanGPIB.BusWrite("OPC?;DATI;") 'Data into Memory
                     IL1 = ScanGPIB.MarkerQuery(":CALC1:MARK1:Y?")  'Get Marker1 val
-                    ScanGPIB.BusWrite(":CALC1:MARK2 ON")  'Marker 2 on
-                    ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:EXEC")
-                    ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:TYPE MAX")  'Marker 1 max
-                    Delay(50)
-                    ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:EXEC")
-                    ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:TYPE MAX")  'Marker 1 max
-                    IL1AB = ScanGPIB.MarkerQuery(":CALC1:MARK2:Y?")  'Get Marker2 val
                 Else
                     If VNAStr = "HP_8753C" Then System.Threading.Thread.Sleep(2000)
                     ScanGPIB.BusWrite("OPC?;CHAN2;")
@@ -1371,14 +1353,9 @@
                     ExtraAvg(2)
                     Delay(1000)
                     ScanGPIB.BusWrite("OPC?;CHAN2;")
-                    ScanGPIB.BusWrite("MARK2;")  'Marker 2 on
                     IL1 = ScanGPIB.MarkerQuery("OUTPMARK;")  'Get Marker1 val
-                    ScanGPIB.BusWrite("MARKMAXI;")  'Marker 2 max 
-                    Delay(500)
-                    IL1AB = ScanGPIB.MarkerQuery("OUTPMARK;")  'Get Marker2 val
                 End If
             End If
-
             If VNAStr = "HP_8753C" Then System.Threading.Thread.Sleep(2000)
             If VNAStr = "AG_E5071B" Then ScanGPIB.BusWrite(":CALC1:MATH:MEM") 'Data into Memory
             If VNAStr = "N3383A" Then ScanGPIB.BusWrite(":CALC1:MATH:MEM") 'Data into Memory
@@ -1398,8 +1375,9 @@
                 SetSwitchPosition = 2
                 MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
             End If
-
+            ExtraAvg(2)
             frmAUTOTEST.Refresh()
+           
             If VNAStr = "AG_E5071B" Then
                 ScanGPIB.BusWrite(":CALC1:MARK1 OFF")  'Marker1 off
                 ScanGPIB.BusWrite(":CALC1:MARK2 OFF")  'Marker2 off
@@ -1407,13 +1385,8 @@
                 ScanGPIB.BusWrite(":CALC1:MARK1 ON")  'Marker1 on
                 ScanGPIB.BusWrite(":CALC1:MARK1:X " & freq)  'set Marker1 Max freq
                 ExtraAvg()
+                Delay(100)
                 IL2 = ScanGPIB.MarkerQuery(":CALC1:MARK1:Y?")  'Get Marker1 val
-                ScanGPIB.BusWrite(":CALC1:MARK2 ON")  'Marker2 on
-                ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:EXEC")
-                ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:TYPE MIN")  'Marker 2 min
-                ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:EXEC")
-                ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:TYPE MIN")  'Marker 2 min
-                IL2AB = ScanGPIB.MarkerQuery(":CALC1:MARK2:Y?")  'Get Marker2 val
             ElseIf VNAStr = "N3383A" Then
                 ScanGPIB.BusWrite(":CALC1:MARK1 OFF")  'Marker1 off
                 ScanGPIB.BusWrite(":CALC1:MARK2 OFF")  'Marker2 off
@@ -1422,12 +1395,6 @@
                 ScanGPIB.BusWrite(":CALC1:MARK1:X " & freq)  'set Marker2 Max freq
                 ExtraAvg()
                 IL2 = ScanGPIB.MarkerQuery(":CALC1:MARK1:Y?")  'Get Marker1 val
-                ScanGPIB.BusWrite(":CALC1:MARK2 ON")  'Marker2 on
-                ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:EXEC")
-                ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:TYPE MIN")  'Marker 2 min
-                ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:EXEC")
-                ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:TYPE MIN")  'Marker 2 min
-                IL2AB = ScanGPIB.MarkerQuery(":CALC1:MARK2:Y?")  'Get Marker2 val
             Else
                 ScanGPIB.BusWrite("MARKOFF;")  'All Markers Off
                 ScanGPIB.BusWrite("MARK1;")  'Marker 1 on
@@ -1435,48 +1402,108 @@
                 ScanGPIB.BusWrite("MARKBUCK 200;")  'Marker 1 max freq
                 ExtraAvg(2)
                 IL2 = ScanGPIB.MarkerQuery("OUTPMARK;")  'Get Marker1 val
+            End If
+            If VNAStr = "AG_E5071B" Then
+                ScanGPIB.BusWrite(":INIT:CONT ON")  'Memory On"
+                'ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:MEM ON") 'Memory On"
+                ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:STAT ON") ' Data On
+                ScanGPIB.BusWrite(":CALC1:MATH:FUNC DIV") 'Data/Memory
+                ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV 0")
+                ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:PDIV 0.5")
+                ScanGPIB.BusWrite(":CALC1:MARK2 ON")  'Marker2 on
+                ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:EXEC")
+                ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:TYPE MIN")  'Marker 2 min
+                ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:EXEC")
+                ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:TYPE MIN")  'Marker 2 min
+                Delay(100)
+                IL1AB = ScanGPIB.MarkerQuery(":CALC1:MARK2:Y?")  'Get Marker2 val
+                ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:EXEC")
+                ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:TYPE MAX")  'Marker 2 max
+                ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:EXEC")
+                ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:TYPE MAX")  'Marker 2 max
+                Delay(100)
+                IL2AB = ScanGPIB.MarkerQuery(":CALC1:MARK2:Y?")  'Get Marker2 val
+            ElseIf VNAStr = "N3383A" Then
+                ScanGPIB.BusWrite(":INIT:CONT ON")  'Memory On"
+                'ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:MEM ON") 'Memory On"
+                ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:STAT ON")  ' Data On
+                ScanGPIB.BusWrite(":CALC1:MATH:FUNC DIV") 'Data/Memory
+                ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV 0")
+                ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:PDIV 0.5")
+                ScanGPIB.BusWrite(":CALC1:MARK2 ON")  'Marker2 on
+                ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:EXEC")
+                ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:TYPE MIN")  'Marker 2 min
+                ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:EXEC")
+                ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:TYPE MIN")  'Marker 2 min
+                IL1AB = ScanGPIB.MarkerQuery(":CALC1:MARK2:Y?")  'Get Marker2 val
+                ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:EXEC")
+                ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:TYPE MAX")  'Marker 2 max
+                ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:EXEC")
+                ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:TYPE MAX")  'Marker 2 max
+                IL2AB = ScanGPIB.MarkerQuery(":CALC1:MARK2:Y?")  'Get Marker2 val
+            Else
+                ScanGPIB.BusWrite("OPC?;CONT") ' and start another sweep
+                'ScanGPIB.BusWrite("DISPDATM;")  'Data and Memory
+                ScanGPIB.BusWrite("OPC?;DISPDDM;") 'Data/Memory
+                ScanGPIB.BusWrite("OPC?;REFV 0")
+                ScanGPIB.BusWrite("OPC?;SCAL 0.5")
                 ScanGPIB.BusWrite("MARK2;")  'Marker2 on
                 ScanGPIB.BusWrite("MARKMINI;")  'Marker 2 min 
+                IL1AB = ScanGPIB.MarkerQuery("OUTPMARK;")  'Get Marker2 val
+                ScanGPIB.BusWrite("MARKMAXI;")  'Marker 2 max
                 IL2AB = ScanGPIB.MarkerQuery("OUTPMARK;")  'Get Marker2 val
             End If
+        End If
+        frmAUTOTEST.Refresh()
 
-            IL1 = 1 / (10 ^ ((Math.Abs(IL1) * 0.1)))
-            IL2 = 1 / (10 ^ ((Math.Abs(IL2) * 0.1)))
+        IL1 = 1 / (10 ^ ((Math.Abs(IL1) * 0.1)))
+        IL2 = 1 / (10 ^ ((Math.Abs(IL2) * 0.1)))
 
-            IL1 = Math.Round(IL1, 3)
-            If Right(IL1, 1) = "." Then IL1 = "0" & IL1
-            IL2 = Math.Round(IL2, 3)
-            If Right(IL2, 1) = "." Then IL2 = "0" & IL2
+        IL1 = Math.Round(IL1, 3)
+        If Right(IL1, 1) = "." Then IL1 = "0" & IL1
+        IL2 = Math.Round(IL2, 3)
+        If Right(IL2, 1) = "." Then IL2 = "0" & IL2
 
-            If IL1 < IL2 Then
-                IL = IL1
-            Else
-                IL = IL2
-            End If
-            IL = 10 * Log10(IL1 + IL2)
-            IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
+        If IL1 < IL2 Then
+            IL = IL1
+        Else
+            IL = IL2
+        End If
+        IL = 10 * Log10(IL1 + IL2)
+        IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
+        If SpecType.Contains("BALUN") Then
+            IL = Format(Math.Round(IL, 3), "0.00") - 3
+        Else
             IL = Format(Math.Round(IL, 3), "0.00")
+        End If
 
-            If IL <= Spec Then
-                InsertionLoss3dB_marker = "Pass"
-            Else
-                InsertionLoss3dB_marker = "Fail"
-            End If
+        If IL <= Spec Then
+            InsertionLoss3dB_marker = "Pass"
+        Else
+            InsertionLoss3dB_marker = "Fail"
+        End If
 
-            If VNAStr = "AG_E5071B" Then
-                ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:MEM OFF")  'Memory Off"
-                ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:STAT ON")  ' Data On
-                ScanGPIB.BusWrite(":CALC1:MARK1 OFF")  'Marker1 off
-                ScanGPIB.BusWrite(":CALC1:MARK2 OFF")  'Marker2 off
-            ElseIf VNAStr = "N3383A" Then
-                ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:MEM OFF")  'Memory Off"
-                ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:STAT ON") ' Data On
-                ScanGPIB.BusWrite(":CALC1:MARK1 OFF")  'Marker1 off
-                ScanGPIB.BusWrite(":CALC1:MARK2 OFF")  'Marker2 off
-            Else
-                ScanGPIB.BusWrite("OPC?;DISPDATA")
-                ScanGPIB.BusWrite("MARKOFF;")  'All Markers Off
-            End If
+        If VNAStr = "AG_E5071B" Then
+            ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:RLEV " & GetLoss())
+            ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:PDIV " & GetSpecification("AmplitudeBalance") / 10 ^ 3)
+            ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:MEM OFF")  'Memory Off"
+            ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:STAT ON")  ' Data On
+            ScanGPIB.BusWrite(":CALC1:MATH:FUNC NORM") 'turn off Math
+            ScanGPIB.BusWrite(":CALC1:MARK1 OFF")  'Marker1 off
+            ScanGPIB.BusWrite(":CALC1:MARK2 OFF")  'Marker2 off
+        ElseIf VNAStr = "N3383A" Then
+            ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:RLEV " & GetLoss())
+            ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:PDIV " & GetSpecification("AmplitudeBalance") / 10 ^ 3)
+            ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:MEM OFF")  'Memory Off"
+            ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:STAT ON") ' Data On
+            ScanGPIB.BusWrite(":CALC1:MATH:FUNC NORM") 'turn off Math
+            ScanGPIB.BusWrite(":CALC1:MARK1 OFF")  'Marker1 off
+            ScanGPIB.BusWrite(":CALC1:MARK2 OFF")  'Marker2 off
+        Else
+            ScanGPIB.BusWrite("OPC?;REFV " & GetLoss())
+            ScanGPIB.BusWrite("OPC?;SCAL " & GetSpecification("AmplitudeBalance"))
+            ScanGPIB.BusWrite("OPC?;DISPDATA")
+            ScanGPIB.BusWrite("MARKOFF;")  'All Markers Off
         End If
         ABTraceID1 = TraceID1
         ABTraceID2 = TraceID2
@@ -1510,7 +1537,7 @@
         SwitchCom.Connect()
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset2.Text)
-            If RetrnVal <= Spec Then
+            If Math.Round(RetrnVal, 2) <= Spec Then
                 InsertionLossDIR = "Pass"
             Else
                 InsertionLossDIR = "Fail"
@@ -1662,7 +1689,7 @@
         SwitchCom.Connect()
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset2.Text)
-            If RetrnVal <= Spec Then
+            If Math.Round(RetrnVal, 2) <= Spec Then
                 InsertionLossDIR_Marker = "Pass"
             Else
                 InsertionLossDIR_Marker = "Fail"
@@ -1794,7 +1821,7 @@
         SwitchCom.Connect()
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset1.Text)
-            If RetrnVal <= Spec Then
+            If Math.Round(RetrnVal, 2) <= Spec Then
                 Return "Pass"
             Else
                 Return "Fail"
@@ -1957,7 +1984,7 @@
         SwitchCom.Connect()
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset1.Text)
-            If RetrnVal <= Spec Then
+            If Math.Round(RetrnVal, 2) <= Spec Then
                 Return "Pass"
             Else
                 Return "Fail"
@@ -2091,7 +2118,7 @@
         status = SwitchCom.SetSwitchPosition(1) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
         frmAUTOTEST.cmbSwitch.Text = "Switch POS 1"
     End Function
-
+    
     Public Function ReturnLoss(Optional ResumeTesting As Boolean = False, Optional TestID As Long = 1) As String
         Dim status As String
         Dim StatusRet As Integer
@@ -2112,7 +2139,7 @@
         t1 = New Trace
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset2.Text)
-            If RetrnVal <= Spec Then
+            If Math.Round(RetrnVal, 2) <= Spec Then
                 ReturnLoss = "Pass"
             Else
                 ReturnLoss = "Fail"
@@ -2227,7 +2254,7 @@
         t1 = New Trace
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset2.Text)
-            If RetrnVal <= Spec Then
+            If Math.Round(RetrnVal, 2) <= Spec Then
                 ReturnLoss_Marker = "Pass"
             Else
                 ReturnLoss_Marker = "Fail"
@@ -2348,7 +2375,7 @@
         Spec = 0 - GetSpecification("Isolation")
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset3.Text)
-            If RetrnVal <= Spec Then
+            If Math.Round(RetrnVal, 2) <= Spec Then
                 Isolation = "Pass"
             Else
                 Isolation = "Fail"
@@ -2484,7 +2511,7 @@
         Spec = 0 - GetSpecification("Isolation")
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset3.Text)
-            If RetrnVal <= Spec Then
+            If Math.Round(RetrnVal, 2) <= Spec Then
                 Isolation_Marker = "Pass"
             Else
                 Isolation_Marker = "Fail"
@@ -2617,7 +2644,7 @@
         Spec = 0 - GetSpecification("Isolation")
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset3.Text)
-            If RetrnVal <= Spec Then
+            If Math.Round(RetrnVal, 2) <= Spec Then
                 Return "Pass"
             Else
                 Return "Fail"
@@ -2814,7 +2841,7 @@ SetPoints:
         Spec = 0 - GetSpecification("Isolation")
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset3.Text)
-            If RetrnVal <= Spec Then
+            If Math.Round(RetrnVal, 2) <= Spec Then
                 Return "Pass"
             Else
                 Return "Fail"
@@ -3002,7 +3029,7 @@ SetPoints:
         SpecPM = GetSpecification("CouplingPM")
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset2.Text)
-            If RetrnVal <= Spec Then
+            If Math.Round(RetrnVal, 2) <= Spec Then
                 Coupling = "Pass"
             Else
                 Coupling = "Fail"
@@ -3231,7 +3258,7 @@ SetPoints:
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset4.Text)
             AB = RetrnVal
-            If RetrnVal <= Spec Then
+            If Math.Round(RetrnVal, 2) <= Spec Then
                 AmplitudeBalance = "Pass"
             Else
                 AmplitudeBalance = "Fail"
@@ -3346,7 +3373,7 @@ Round:
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset4.Text)
             AB = RetrnVal
-            If RetrnVal <= Spec Then
+            If Math.Round(RetrnVal, 2) <= Spec Then
                 AmplitudeBalance_Marker = "Pass"
             Else
                 AmplitudeBalance_Marker = "Fail"
@@ -3400,7 +3427,12 @@ Round:
             End If
         Else
             frmAUTOTEST.Refresh()
-            AB = Math.Abs(Math.Abs(IL1AB) - Math.Abs(IL2AB))
+
+            If Math.Abs(IL1AB) > Math.Abs(IL2AB) Then
+                AB = Math.Abs(IL1AB)
+            Else
+                AB = Math.Abs(IL2AB)
+            End If
             AB = AB / 2
 
             If AB < Spec Then
@@ -3430,7 +3462,7 @@ Round:
             ScanGPIB.BusWrite(":CALC1:MARK2 OFF")  'Marker2 off
             ScanGPIB.BusWrite(":CALC1:MARK3 OFF")  'Marker3 off
         Else
-           ScanGPIB.BusWrite("MARKOFF;")  'All Markers Off
+            ScanGPIB.BusWrite("MARKOFF;")  'All Markers Off
         End If
         ActiveTitle = Title
     End Function
@@ -3459,7 +3491,7 @@ Round:
         Dim ABStrArray
         Dim Workstation As String
         Dim Title As String
-
+        AmplitudeBalance_multiband = "Fail"
         Title = ActiveTitle
         ActiveTitle = "     TESTING AMPLITUDE BALANCE     "
         Workstation = GetComputerName()
@@ -3656,7 +3688,7 @@ Round:
         Spec = GetSpecification("AmplitudeBalance")
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset4.Text)
-            If RetrnVal <= Spec Then
+            If Math.Round(RetrnVal, 2) <= Spec Then
                 Return "Pass"
             Else
                 Return "Fail"
@@ -3857,7 +3889,6 @@ Round:
         Dim Trace1Freq(Points) As Double
         Dim Trace2Data(Points) As Double
         Dim Trace2Freq(Points) As Double
-        Dim TraceID1 As Long
         Dim x As Long
         Dim t1 As Trace
         Dim ABMin As Double
@@ -3882,7 +3913,7 @@ Round:
         Spec = GetSpecification("AmplitudeBalance")
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset4.Text)
-            If RetrnVal <= Spec Then
+            If Math.Round(RetrnVal, 2) <= Spec Then
                 Return "Pass"
             Else
                 Return "Fail"
@@ -4095,7 +4126,7 @@ Round:
         Spec = GetSpecification("Directivity")
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset4.Text)
-            If RetrnVal <= Spec Then
+            If Math.Round(RetrnVal, 2) <= Spec Then
                 Directivity = "Pass"
             Else
                 Directivity = "Fail"
@@ -4319,7 +4350,6 @@ Round:
         Dim Spec As Double
         Dim TraceData(Points) As Double
         Dim TraceFreq(Points) As Double
-        Dim x As Long
         Dim t1 As Trace
         Dim COUPArray(Points) As Double
         Dim i As Integer
@@ -4336,7 +4366,7 @@ Round:
         Spec = GetSpecification("Directivity")
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset4.Text)
-            If RetrnVal <= Spec Then
+            If Math.Round(RetrnVal, 2) <= Spec Then
                 Directivity_Marker = "Pass"
             Else
                 Directivity_Marker = "Fail"
@@ -4539,7 +4569,7 @@ Round:
         Spec = GetSpecification("CoupledFlatness")
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset4.Text)
-            If RetrnVal <= Spec Then
+            If Math.Round(RetrnVal, 2) <= Spec Then
                 CoupledFlatness = "Pass"
             Else
                 CoupledFlatness = "Fail"
@@ -4754,7 +4784,7 @@ Round:
         If frmAUTOTEST.txtOffset5.Text = "" Then frmAUTOTEST.txtOffset5.Text = 0
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset5.Text)
-            If RetrnVal <= Spec Then
+            If Math.Round(RetrnVal, 2) <= Spec Then
                 PhaseBalance = "Pass"
             Else
                 PhaseBalance = "Fail"
@@ -4891,8 +4921,11 @@ Round:
                     ScanGPIB.BusWrite(":CALC1:DATA:SMEM " & gBuffer) ' Input Trace1 data to VNA Memory
                     ScanGPIB.BusWrite(":INIT1:CONT ON") ' and start another sweep
                     ScanGPIB.BusWrite(":CALC1:MATH:MEM") 'Data into Memory
-                    If SpecType = "90 DEGREE COUPLER" Then ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -90")
-                    If SpecType = "180 DEGREE COUPLER" Then ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -180")
+                    If SpecType = "90 DEGREE COUPLER" Then
+                        ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -90")
+                    ElseIf SpecType.Contains("BALUN") Then
+                        ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -180")
+                    End If
                     ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:MEM OFF") 'Memory On"
                     ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:STAT ON") ' Data On
                 ElseIf VNAStr = "N3383A" Then
@@ -4903,8 +4936,11 @@ Round:
                     ScanGPIB.BusWrite(":CALC1:DATA:SMEM " & gBuffer) ' Input Trace1 data to VNA Memory
                     ScanGPIB.BusWrite(":INIT1:CONT ON") ' and start another sweep
                     ScanGPIB.BusWrite(":CALC1:MATH:MEM") 'Data into Memory
-                    If SpecType = "90 DEGREE COUPLER" Then ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:RLEV -90")
-                    If SpecType = "180 DEGREE COUPLER" Then ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:RLEV -180")
+                    If SpecType = "90 DEGREE COUPLER" Then
+                        ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -90")
+                    ElseIf SpecType.Contains("BALUN") Then
+                        ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -180")
+                    End If
                     ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:MEM OFF") 'Memory On"
                     ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:STAT ON")  ' Data On
                 Else
@@ -4914,6 +4950,11 @@ Round:
                     ScanGPIB.BusWrite("OPC?;SCAL 10")
                     ScanGPIB.BusWrite("OPC?;INPUDATA," & gBuffer & ";") ' Input Trace1 data to VNA Memory
                     ScanGPIB.BusWrite(gBuffer & ";")
+                    If SpecType = "90 DEGREE COUPLER" Then
+                        ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -90")
+                    ElseIf SpecType.Contains("BALUN") Then
+                        ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -180")
+                    End If
                     ScanGPIB.BusWrite("OPC?;DATI;") 'Data into Memory
                     ScanGPIB.BusWrite("OPC?;CONT") ' and start another sweep
                 End If
@@ -4924,21 +4965,32 @@ Round:
                     ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:MEM ON")  'Data On
                     ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:STAT ON") ' Data On
                 End If
-                If SpecType = "90 DEGREE COUPLER" Then ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -90")
-                If SpecType = "180 DEGREE COUPLER" Then ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -180")
+                If SpecType = "90 DEGREE COUPLER" Then
+                    ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -90")
+                ElseIf SpecType.Contains("BALUN") Then
+                    ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -180")
+                End If
+
             ElseIf (VNAStr = "N3383A") And Not MutiCalChecked Then
                 If MutiCalChecked = 0 Then
                     ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:MEM ON") 'Data On
                     ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:STAT ON") ' Data On
                 End If
-                If SpecType = "90 DEGREE COUPLER" Then ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:RLEV -90")
-                If SpecType = "180 DEGREE COUPLER" Then ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:RLEV -180")
+                If SpecType = "90 DEGREE COUPLER" Then
+                    ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -90")
+                ElseIf SpecType.Contains("BALUN") Then
+                    ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -180")
+                End If
             Else
                 If MutiCalChecked = 0 Then ScanGPIB.BusWrite("OPC?;DISPDATM;") 'Data and Memory
                 'If VNAStr = "HP_8753C" Then ScanGPIB.BusRead()
                 If SpecType = "90 DEGREE COUPLER" Then ScanGPIB.BusWrite("OPC?;REFV -90")
                 'If VNAStr = "HP_8753C" Then ScanGPIB.BusRead()
-                If SpecType = "180 DEGREE COUPLER" Then ScanGPIB.BusWrite("OPC?;REFV -180")
+                If SpecType = "90 DEGREE COUPLER" Then
+                    ScanGPIB.BusWrite("OPC?;REFV 90")
+                ElseIf SpecType.Contains("BALUN") Then
+                    ScanGPIB.BusWrite("OPC?;REFV -180")
+                End If
             End If
 
             If (VNAStr = "AG_E5071B") And Not MutiCalChecked Then
@@ -5036,8 +5088,9 @@ Round:
 
 
             ' Put Back to IL so user can have a reference
-            If VNAStr = "AG_E5071B" Then
-                '************DEBUG CODE FOR JEN'S WORKSTATION*******************
+
+            If VNAStr = "AG_E5071B" And User = "JEN" Then
+                 '************DEBUG CODE FOR JEN'S WORKSTATION*******************
                 'ScanGPIB.BusWrite(":CALC1:PAR2:SEL")
                 'ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:MEM OFF")  'Memory Off"
                 'ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:STAT ON") ' Data On
@@ -5047,6 +5100,15 @@ Round:
                 'ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV " & GetLoss())
                 'ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:PDIV " & GetSpecification("AmplitudeBalance"))
                 '************DEBUG CODE FOR JEN'S WORKSTATION*******************
+            ElseIf VNAStr = "AG_E5071B" Then
+                ScanGPIB.BusWrite(":CALC1:PAR2:SEL")
+                ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:MEM OFF")  'Memory Off"
+                ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:STAT ON") ' Data On
+                ScanGPIB.BusWrite(":CALC1:MATH:FUNC NORM")
+
+                ScanGPIB.BusWrite(":CALC1:FORM MLOG")
+                ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV " & GetLoss())
+                ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:PDIV " & GetSpecification("AmplitudeBalance"))
             ElseIf VNAStr = "N3383A" Then
                 ScanGPIB.BusWrite("CALC1:PAR:SEL 'CH1_S21_1'")
                 ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:MEM OFF") 'Memory Off"
@@ -5070,11 +5132,11 @@ Round:
             Else
                 PhaseBalance = "Fail"
             End If
-            End If
+        End If
             ActiveTitle = Title
-        frmAUTOTEST.Refresh()
-        '************DEBUG CODE FOR JEN'S WORKSTATION*******************
-        If VNAStr = "AG_E5071B" Then
+            frmAUTOTEST.Refresh()
+            '************DEBUG CODE FOR JEN'S WORKSTATION*******************
+        If VNAStr = "AG_E5071B" And User = "JEN" Then
             'SetSwitchPosition = 1
             'status = SwitchCom.SetSwitchPosition(1) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
             'frmAUTOTEST.cmbSwitch.Text = "Switch POS 1"
@@ -5111,7 +5173,7 @@ Round:
         If frmAUTOTEST.txtOffset5.Text = "" Then frmAUTOTEST.txtOffset5.Text = 0
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset5.Text)
-            If RetrnVal <= Spec Then
+            If Math.Round(RetrnVal, 2) <= Spec Then
                 PhaseBalance_Marker = "Pass"
             Else
                 PhaseBalance_Marker = "Fail"
@@ -5220,7 +5282,8 @@ Round:
                     ScanGPIB.BusWrite(":INIT1:CONT ON") ' and start another sweep
                     ScanGPIB.BusWrite(":CALC1:MATH:MEM") 'Data into Memory
                     If SpecType = "90 DEGREE COUPLER" Then ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -90")
-                    If SpecType = "180 DEGREE COUPLER" Then ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -180")
+                    If SpecType.Contains("BALUN") Then ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -180")
+                    Delay(100)
                     ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:MEM OFF") 'Memory On"
                     ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:STAT ON") ' Data On
                 ElseIf VNAStr = "N3383A" Then
@@ -5232,7 +5295,7 @@ Round:
                     ScanGPIB.BusWrite(":INIT1:CONT ON") ' and start another sweep
                     ScanGPIB.BusWrite(":CALC1:MATH:MEM") 'Data into Memory
                     If SpecType = "90 DEGREE COUPLER" Then ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:RLEV -90")
-                    If SpecType = "180 DEGREE COUPLER" Then ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:RLEV -180")
+                    If SpecType.Contains("BALUN") Then ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:RLEV -180")
                     ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:MEM OFF") 'Memory On"
                     ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:STAT ON")  ' Data On
                 Else
@@ -5253,18 +5316,18 @@ Round:
                     ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:STAT ON") ' Data On
                 End If
                 If SpecType = "90 DEGREE COUPLER" Then ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -90")
-                If SpecType = "180 DEGREE COUPLER" Then ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -180")
+                If SpecType.Contains("BALUN") Then ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -180")
             ElseIf (VNAStr = "N3383A") And Not MutiCalChecked Then
                 If MutiCalChecked = 0 Then
                     ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:MEM ON") 'Data On
                     ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:STAT ON") ' Data On
                 End If
                 If SpecType = "90 DEGREE COUPLER" Then ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:RLEV -90")
-                If SpecType = "180 DEGREE COUPLER" Then ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:RLEV -180")
+                If SpecType.Contains("BALUN") Then ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:RLEV -180")
             Else
                 If MutiCalChecked = 0 Then ScanGPIB.BusWrite("OPC?;DISPDATM;") 'Data and Memory
                 If SpecType = "90 DEGREE COUPLER" Then ScanGPIB.BusWrite("OPC?;REFV -90")
-                If SpecType = "180 DEGREE COUPLER" Then ScanGPIB.BusWrite("OPC?;REFV -180")
+                If SpecType.Contains("BALUN") Then ScanGPIB.BusWrite("OPC?;REFV -180")
             End If
 
             If (VNAStr = "AG_E5071B") And Not MutiCalChecked Then
@@ -5284,14 +5347,14 @@ Round:
                 ExtraAvg()
                 ScanGPIB.BusWrite(":CALC1:MARK1:FUNC:EXEC")
                 ScanGPIB.BusWrite(":CALC1:MARK1:FUNC:TYPE MAX")  'Marker 1 max
-                Delay(50)
+                Delay(100)
                 ScanGPIB.BusWrite(":CALC1:MARK1:FUNC:EXEC")
                 ScanGPIB.BusWrite(":CALC1:MARK1:FUNC:TYPE MAX")  'Marker 1 max
                 PB1 = ScanGPIB.MarkerQuery(":CALC1:MARK1:Y?")  'Get Marker1 val
                 ScanGPIB.BusWrite(":CALC1:MARK2 ON")  'Marker2 on
                 ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:EXEC")
                 ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:TYPE MIN")  'Marker2 min
-                Delay(50)
+                Delay(100)
                 ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:EXEC")
                 ScanGPIB.BusWrite(":CALC1:MARK2:FUNC:TYPE MIN")  'Marker2 min
                 PB2 = ScanGPIB.MarkerQuery(":CALC1:MARK2:Y?")  'Get Marker2 val
@@ -5342,17 +5405,15 @@ Round:
             ' Put Back to IL so user can have a reference
 
             If VNAStr = "AG_E5071B" Then
-                '************DEBUG CODE FOR JEN'S WORKSTATION*******************
-                ' ScanGPIB.BusWrite(":CALC1:PAR2:SEL")
-                ' ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:MEM OFF")  'Memory Off"
-                'ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:STAT ON") ' Data On
-                ' ScanGPIB.BusWrite(":CALC1:MATH:FUNC NORM")
-                ' ScanGPIB.BusWrite(":CALC1:MARK1 OFF")  'Marker1 off
-                ' ScanGPIB.BusWrite(":CALC1:MARK2 OFF")  'Marker2 off
-                ' ScanGPIB.BusWrite(":CALC1:FORM MLOG")
-                ' ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV " & GetLoss())
-                ' ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:PDIV " & GetSpecification("AmplitudeBalance"))
-                '************DEBUG CODE FOR JEN'S WORKSTATION*******************
+                ScanGPIB.BusWrite(":CALC1:PAR2:SEL")
+                ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:MEM OFF")  'Memory Off"
+                ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:STAT ON") ' Data On
+                ScanGPIB.BusWrite(":CALC1:MATH:FUNC NORM")
+                ScanGPIB.BusWrite(":CALC1:MARK1 OFF")  'Marker1 off
+                ScanGPIB.BusWrite(":CALC1:MARK2 OFF")  'Marker2 off
+                ScanGPIB.BusWrite(":CALC1:FORM MLOG")
+                ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV " & GetLoss())
+                ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:PDIV " & GetSpecification("AmplitudeBalance"))
             ElseIf VNAStr = "N3383A" Then
                 ScanGPIB.BusWrite("CALC1:PAR:SEL 'CH1_S21_1'")
                 ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:MEM OFF") 'Memory Off"
@@ -5382,26 +5443,15 @@ Round:
 
         ActiveTitle = Title
         frmAUTOTEST.Refresh()
-        '************DEBUG CODE FOR JEN'S WORKSTATION*******************
-        If VNAStr = "AG_E5071B" Then
-            ' SetSwitchPosition = 1
-            'status = SwitchCom.SetSwitchPosition(1) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
-            'frmAUTOTEST.cmbSwitch.Text = "Switch POS 1"
-            'Turn off all markers
-        Else
-            SetSwitchPosition = 1
-            status = SwitchCom.SetSwitchPosition(1) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
-            frmAUTOTEST.cmbSwitch.Text = "Switch POS 1"
-        End If
-        '************DEBUG CODE FOR JEN'S WORKSTATION*******************
+        SetSwitchPosition = 1
+        status = SwitchCom.SetSwitchPosition(1) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+        frmAUTOTEST.cmbSwitch.Text = "Switch POS 1"
 
         'Turn off all markers
         If VNAStr = "AG_E5071B" Then
-            '************DEBUG CODE FOR JEN'S WORKSTATION*******************
-            'ScanGPIB.BusWrite(":CALC1:MARK1 OFF")  'Marker1 off
-            'ScanGPIB.BusWrite(":CALC1:MARK2 OFF")  'Marker2 off
-            'ScanGPIB.BusWrite(":CALC1:MARK3 OFF")  'Marker3 off
-            '************DEBUG CODE FOR JEN'S WORKSTATION*******************
+            ScanGPIB.BusWrite(":CALC1:MARK1 OFF")  'Marker1 off
+            ScanGPIB.BusWrite(":CALC1:MARK2 OFF")  'Marker2 off
+            ScanGPIB.BusWrite(":CALC1:MARK3 OFF")  'Marker3 off
         ElseIf VNAStr = "N3383A" Then
             ScanGPIB.BusWrite(":CALC1:MARK1 OFF")  'Marker1 off
             ScanGPIB.BusWrite(":CALC1:MARK2 OFF")  'Marker2 off
@@ -5442,7 +5492,7 @@ Round:
         If frmAUTOTEST.txtOffset5.Text = "" Then frmAUTOTEST.txtOffset5.Text = 0
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset5.Text)
-            If RetrnVal <= Spec Then
+            If Math.Round(RetrnVal, 2) <= Spec Then
                 Return "Pass"
             Else
                 Return "Fail"
@@ -5463,7 +5513,6 @@ Round:
 
                 PB = MaxNoZero(ABArray)
                 PB = PB + CDbl(frmAUTOTEST.txtOffset5.Text)
-
 
                 If PB < Spec Then
                     Return "Pass"
@@ -5688,7 +5737,7 @@ Round:
         If frmAUTOTEST.txtOffset5.Text = "" Then frmAUTOTEST.txtOffset5.Text = 0
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset5.Text)
-            If RetrnVal <= Spec Then
+            If Math.Round(RetrnVal, 2) <= Spec Then
                 Return "Pass"
             Else
                 Return "Fail"
@@ -5902,7 +5951,6 @@ Round:
             ScanGPIB.BusWrite("MARKOFF;")  'All Markers Off
         End If
     End Function
-
     Public Function InitializeSwitch(retSwitchNumber As Integer, retSerialList As String, retFirmware As Integer) As String
         Dim ConnectionGood As Integer
 

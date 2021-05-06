@@ -547,8 +547,9 @@ Skip4:
                     JobClicked()
                     Me.Refresh()
                     'RecallCal(1)
-                    SetupVNA(False, 1)
+
                     LoadSpecs()
+                    SetupVNA(False, 1)
                     VNAStr = cmbVNA.Text
                     Me.Refresh()
                     'PartClicked()
@@ -648,16 +649,32 @@ Skip4:
                             End If
                             SpecIndex = 0
                             SpecType = "90 DEGREE COUPLER"
+                            ckTest3.Checked = True
+                            TestLabel3.Visible = True
+                            Spec3Min.Visible = True
+                            Spec3Max.Visible = True
+                            Data3.Visible = True
+                            ckTest3.Visible = True
+                            PF3.Visible = True
+                            txtOffset3.Visible = True
                             SwPos = "          J3(3dB) = SW1, J4(3dB) = SW2, J2(ISO) = SW3"
-                        ElseIf dr.Item(1) = "180 DEGREE COUPLER" Or dr.Item(1) = "180 DEGREE COUPLER SMD" Then
-                            If dr.Item(1) = "180 DEGREE COUPLER SMD" Then
+                        ElseIf dr.Item(1) = "BALUN" Or dr.Item(1) = "BALUN SMD" Then
+                            If dr.Item(1) = "BALUN SMD" Then
                                 SMD = True
                             Else
                                 SMD = False
                             End If
                             SpecIndex = 1
-                            SpecType = "180 DEGREE COUPLER"
-                            SwPos = "          J3(3dB) = SW1, J4(3dB) = SW2, J2(ISO) = SW3"
+                            SpecType = "BALUN"
+                            SwPos = "          J2(6dB) = SW1, J2(6dB) = SW2"
+                            ckTest3.Checked = False
+                            TestLabel3.Visible = False
+                            Spec3Min.Visible = False
+                            Spec3Max.Visible = False
+                            Data3.Visible = False
+                            ckTest3.Visible = False
+                            PF3.Visible = False
+                            txtOffset3.Visible = False
                         ElseIf dr.Item(1) = "SINGLE DIRECTIONAL COUPLER" Or dr.Item(1) = "SINGLE DIRECTIONAL COUPLER SMD" Then
                             If dr.Item(1) = "SINGLE DIRECTIONAL COUPLER SMD" Then
                                 SMD = True
@@ -666,6 +683,14 @@ Skip4:
                             End If
                             SpecIndex = 2
                             SpecType = "SINGLE DIRECTIONAL COUPLER"
+                            ckTest3.Checked = True
+                            TestLabel3.Visible = True
+                            Spec3Min.Visible = True
+                            Spec3Max.Visible = True
+                            Data3.Visible = True
+                            ckTest3.Visible = True
+                            PF3.Visible = True
+                            txtOffset3.Visible = True
                             SwPos = "          OUT = SW1, CPL = SW2, ISO = SW3"
                         ElseIf dr.Item(1) = "DUAL DIRECTIONAL COUPLER" Or dr.Item(1) = "DUAL DIRECTIONAL COUPLER SMD" Then
                             If dr.Item(1) = "DUAL DIRECTIONAL COUPLER SMD" Then
@@ -676,6 +701,14 @@ Skip4:
                             SpecIndex = 2
                             SwPos = "          OUT = SW1, CPL = SW2, RFLD = SW3"
                             SpecType = "DUAL DIRECTIONAL COUPLER"
+                            ckTest3.Checked = True
+                            TestLabel3.Visible = True
+                            Spec3Min.Visible = True
+                            Spec3Max.Visible = True
+                            Data3.Visible = True
+                            ckTest3.Visible = True
+                            PF3.Visible = True
+                            txtOffset3.Visible = True
                         ElseIf dr.Item(1) = "BI DIRECTIONAL COUPLER" Or dr.Item(1) = "BI DIRECTIONAL COUPLER SMD" Then
                             If dr.Item(1) = "BI DIRECTIONAL COUPLER SMD" Then
                                 SMD = True
@@ -684,6 +717,14 @@ Skip4:
                             End If
                             SpecIndex = 2
                             SpecType = "BI DIRECTIONAL COUPLER"
+                            ckTest3.Checked = True
+                            TestLabel3.Visible = True
+                            Spec3Min.Visible = True
+                            Spec3Max.Visible = True
+                            Data3.Visible = True
+                            ckTest3.Visible = True
+                            PF3.Visible = True
+                            txtOffset3.Visible = True
                             SwPos = "          OUT = SW1, CPL = SW2, RFLD = SW3"
                         ElseIf dr.Item(1) = "COMBINER/DIVIDER" Or dr.Item(1) = "COMBINER/DIVIDER SMD" Then
                             If dr.Item(1) = "COMBINER/DIVIDER SMD" Then
@@ -692,6 +733,14 @@ Skip4:
                                 SMD = False
                             End If
                             SpecIndex = 3
+                            ckTest3.Checked = True
+                            TestLabel3.Visible = True
+                            Spec3Min.Visible = True
+                            Spec3Max.Visible = True
+                            Data3.Visible = True
+                            ckTest3.Visible = True
+                            PF3.Visible = True
+                            txtOffset3.Visible = True
                             SpecType = "COMBINER/DIVIDER"
                             If dr.Item(9) = 2 Then SwPos = "          J2 = SW1, J3 = SW2"
                             If dr.Item(9) = 3 Then SwPos = "          J2 = SW1, J3 = SW2, J3 = SW4"
@@ -701,6 +750,14 @@ Skip4:
                     Else
                         SpecIndex = 0
                         SpecType = "90 DEGREE COUPLER"
+                        ckTest3.Checked = True
+                        TestLabel3.Visible = True
+                        Spec3Min.Visible = True
+                        Spec3Max.Visible = True
+                        Data3.Visible = True
+                        ckTest3.Visible = True
+                        PF3.Visible = True
+                        txtOffset3.Visible = True
                         SwPos = "        J3(3dB) = SW1, J4(3dB) = SW2, J2(ISO) = SW3"
                         SMD = False
                     End If
@@ -726,16 +783,33 @@ Skip4:
                             End If
                             SpecIndex = 0
                             SpecType = "90 DEGREE COUPLER"
+                            ckTest3.Checked = True
+                            TestLabel3.Visible = True
+                            Spec3Min.Visible = True
+                            Spec3Max.Visible = True
+                            Data3.Visible = True
+                            ckTest3.Visible = True
+                            PF3.Visible = True
+                            txtOffset3.Visible = True
                             SwPos = "          J3(3dB) = SW1, J4(3dB) = SW2, J2(ISO) = SW3"
-                        ElseIf drLocal.Item(1) = "180 DEGREE COUPLER" Or drLocal.Item(1) = "180 DEGREE COUPLER SMD" Then
-                            If drLocal.Item(1) = "180 DEGREE COUPLER SMD" Then
+                        ElseIf drLocal.Item(1) = "BALUN" Or drLocal.Item(1) = "BALUN SMD" Then
+                            If drLocal.Item(1) = "BALUN SMD" Then
                                 SMD = True
                             Else
                                 SMD = False
                             End If
                             SpecIndex = 1
-                            SpecType = "180 DEGREE COUPLER"
-                            SwPos = "          J3(3dB) = SW1, J4(3dB) = SW2, J2(ISO) = SW3"
+                            SpecType = "BALUN"
+                            SwPos = "          J2(6dB) = SW1, J2(6dB) = SW2"
+                            ckTest3.Checked = False
+                            TestLabel3.Visible = False
+                            Spec3Min.Visible = False
+                            Spec3Max.Visible = False
+                            Data3.Visible = False
+                            ckTest3.Visible = False
+                            PF3.Visible = False
+                            txtOffset3.Visible = False
+                            txtOffset3.Enabled = False
                         ElseIf drLocal.Item(1) = "SINGLE DIRECTIONAL COUPLER" Or drLocal.Item(1) = "SINGLE DIRECTIONAL COUPLER SMD" Then
                             If drLocal.Item(1) = "SINGLE DIRECTIONAL COUPLER SMD" Then
                                 SMD = True
@@ -744,6 +818,14 @@ Skip4:
                             End If
                             SpecIndex = 2
                             SpecType = "SINGLE DIRECTIONAL COUPLER"
+                            ckTest3.Checked = True
+                            TestLabel3.Visible = True
+                            Spec3Min.Visible = True
+                            Spec3Max.Visible = True
+                            Data3.Visible = True
+                            ckTest3.Visible = True
+                            PF3.Visible = True
+                            txtOffset3.Visible = True
                             SwPos = "          OUT = SW3, CPL = SW1"
                         ElseIf drLocal.Item(1) = "DUAL DIRECTIONAL COUPLER" Or drLocal.Item(1) = "DUAL DIRECTIONAL COUPLER SMD" Then
                             If drLocal.Item(1) = "DUAL DIRECTIONAL COUPLER SMD" Then
@@ -754,6 +836,14 @@ Skip4:
                             SpecIndex = 2
                             SwPos = "          OUT = SW3, CPL = SW1, RFLD = SW2"
                             SpecType = "DUAL DIRECTIONAL COUPLER"
+                            ckTest3.Checked = True
+                            TestLabel3.Visible = True
+                            Spec3Min.Visible = True
+                            Spec3Max.Visible = True
+                            Data3.Visible = True
+                            ckTest3.Visible = True
+                            PF3.Visible = True
+                            txtOffset3.Visible = True
                         ElseIf drLocal.Item(1) = "BI DIRECTIONAL COUPLER" Or drLocal.Item(1) = "BI DIRECTIONAL COUPLER SMD" Then
                             If drLocal.Item(1) = "BI DIRECTIONAL COUPLER SMD" Then
                                 SMD = True
@@ -762,6 +852,14 @@ Skip4:
                             End If
                             SpecIndex = 2
                             SpecType = "BI DIRECTIONAL COUPLER"
+                            ckTest3.Checked = True
+                            TestLabel3.Visible = True
+                            Spec3Min.Visible = True
+                            Spec3Max.Visible = True
+                            Data3.Visible = True
+                            ckTest3.Visible = True
+                            PF3.Visible = True
+                            txtOffset3.Visible = True
                             SwPos = "          OUT = SW3, CPL = SW1, RFLD = SW2"
                         ElseIf drLocal.Item(1) = "COMBINER/DIVIDER" Or drLocal.Item(1) = "COMBINER/DIVIDER SMD" Then
                             If drLocal.Item(1) = "COMBINER/DIVIDER SMD" Then
@@ -988,9 +1086,6 @@ Skip4:
             Part = cmbPart.Text
             PartClicked()
         End If
-
-
-
     End Sub
     Private Sub cmbPart_Click(sender As Object, e As EventArgs) Handles cmbPart.Click
         Me.cmbPart.Text = Trim(Me.cmbPart.GetItemText(Me.cmbPart.SelectedItem))
@@ -1038,15 +1133,23 @@ Skip4:
                             SpecIndex = 0
                             SpecType = "90 DEGREE COUPLER"
                             SwPos = "          J3(3dB) = SW1, J4(3dB) = SW2, J2(ISO) = SW3"
-                        ElseIf dr.Item(1) = "180 DEGREE COUPLER" Or dr.Item(1) = "180 DEGREE COUPLER SMD" Then
-                            If dr.Item(1) = "180 DEGREE COUPLER SMD" Then
+                        ElseIf dr.Item(1) = "BALUN" Or dr.Item(1) = "BALUN SMD" Then
+                            If dr.Item(1) = "BALUN SMD" Then
                                 SMD = True
                             Else
                                 SMD = False
                             End If
                             SpecIndex = 1
-                            SpecType = "180 DEGREE COUPLER"
-                            SwPos = "          J3(3dB) = SW1, J4(3dB) = SW2, J2(ISO) = SW3"
+                            SpecType = "BALUN"
+                            SwPos = "          J2(6dB) = SW1, J2(6dB) = SW2"
+                            ckTest3.Checked = False
+                            TestLabel3.Enabled = False
+                            Spec3Min.Enabled = False
+                            Spec3Max.Enabled = False
+                            Data3.Enabled = False
+                            ckTest3.Enabled = False
+                            PF3.Enabled = False
+                            txtOffset3.Enabled = False
                         ElseIf dr.Item(1) = "SINGLE DIRECTIONAL COUPLER" Or dr.Item(1) = "SINGLE DIRECTIONAL COUPLER SMD" Then
                             If dr.Item(1) = "SINGLE DIRECTIONAL COUPLER SMD" Then
                                 SMD = True
@@ -1114,15 +1217,23 @@ Skip4:
                             SpecIndex = 0
                             SpecType = "90 DEGREE COUPLER"
                             SwPos = "          J3(3dB) = SW1, J4(3dB) = SW2, J2(ISO) = SW3"
-                        ElseIf drLocal.Item(1) = "180 DEGREE COUPLER" Or drLocal.Item(1) = "180 DEGREE COUPLER SMD" Then
-                            If drLocal.Item(1) = "180 DEGREE COUPLER SMD" Then
+                        ElseIf drLocal.Item(1) = "BALUN" Or drLocal.Item(1) = "BALUN SMD" Then
+                            If drLocal.Item(1) = "BALUN SMD" Then
                                 SMD = True
                             Else
                                 SMD = False
                             End If
                             SpecIndex = 1
-                            SpecType = "180 DEGREE COUPLER"
-                            SwPos = "          J3(3dB) = SW1, J4(3dB) = SW2, J2(ISO) = SW3"
+                            SpecType = "BALUN"
+                            SwPos = "          J2(6dB) = SW1, J2(6dB) = SW2"
+                            ckTest3.Checked = False
+                            TestLabel3.Enabled = False
+                            Spec3Min.Enabled = False
+                            Spec3Max.Enabled = False
+                            Data3.Enabled = False
+                            ckTest3.Enabled = False
+                            PF3.Enabled = False
+                            txtOffset3.Enabled = False
                         ElseIf drLocal.Item(1) = "SINGLE DIRECTIONAL COUPLER" Or drLocal.Item(1) = "SINGLE DIRECTIONAL COUPLER SMD" Then
                             If drLocal.Item(1) = "SINGLE DIRECTIONAL COUPLER SMD" Then
                                 SMD = True
@@ -1853,13 +1964,14 @@ GetOut:
             'Insertion Loss
             If Me.ckTest1.Checked Then
                 If TraceChecked Then
-                    If (SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER") And SpecAB_TF Then PassFail = Tests.InsertionLoss3dB_multiband(, TestID)
-                    If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Then PassFail = Tests.InsertionLoss3dB(, TestID)
+                    If (SpecType = "90 DEGREE COUPLER" Or SpecType = "BALUN") And SpecAB_TF Then PassFail = Tests.InsertionLoss3dB_multiband(, TestID)
+                    If SpecType = "90 DEGREE COUPLER" Or SpecType = "BALUN" Then PassFail = Tests.InsertionLoss3dB(, TestID)
+
                     If SpecType = "COMBINER/DIVIDER" Then PassFail = Tests.InsertionLossCOMB(, TestID)
                     If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then PassFail = Tests.InsertionLossDIR(, TestID)
                 ElseIf Not MutiCalChecked Then
-                    If (SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER") And SpecAB_TF Then PassFail = Tests.InsertionLoss3dB_multiband(, TestID)
-                    If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Then PassFail = Tests.InsertionLoss3dB_marker(, TestID)
+                    If (SpecType = "90 DEGREE COUPLER" Or SpecType = "BALUN") And SpecAB_TF Then PassFail = Tests.InsertionLoss3dB_multiband(, TestID)
+                    If SpecType = "90 DEGREE COUPLER" Or SpecType = "BALUN" Then PassFail = Tests.InsertionLoss3dB_marker(, TestID)
                     If SpecType = "COMBINER/DIVIDER" Then PassFail = Tests.InsertionLossCOMB_Marker(, TestID)
                     If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then PassFail = Tests.InsertionLossDIR_Marker(, TestID)
                 End If
@@ -1953,13 +2065,13 @@ Test2SubRet:
             'Directivity
             If Me.ckTest4.Checked Then
                 If TraceChecked Then
-                    If (SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER") And SpecAB_TF Then PassFail = Tests.AmplitudeBalance_multiband(, TestID)
-                    If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Then PassFail = Tests.AmplitudeBalance(, TestID)
+                    If (SpecType = "90 DEGREE COUPLER" Or SpecType = "BALUN") And SpecAB_TF Then PassFail = Tests.AmplitudeBalance_multiband(, TestID)
+                    If SpecType = "90 DEGREE COUPLER" Or SpecType = "BALUN" Then PassFail = Tests.AmplitudeBalance(, TestID)
                     If SpecType = "COMBINER/DIVIDER" Then PassFail = Tests.AmplitudeBalanceCOMB(, TestID)
                     If SpecType = "BI DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Then PassFail = Tests.Directivity(1, SpecType, , TestID)
                 ElseIf Not MutiCalChecked Then
-                    If (SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER") And SpecAB_TF Then PassFail = Tests.AmplitudeBalance_multiband(, TestID)
-                    If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Then PassFail = Tests.AmplitudeBalance_Marker(, TestID)
+                    If (SpecType = "90 DEGREE COUPLER" Or SpecType = "BALUN") And SpecAB_TF Then PassFail = Tests.AmplitudeBalance_multiband(, TestID)
+                    If SpecType = "90 DEGREE COUPLER" Or SpecType = "BALUN" Then PassFail = Tests.AmplitudeBalance_Marker(, TestID)
                     If SpecType = "COMBINER/DIVIDER" Then PassFail = Tests.AmplitudeBalanceCOMB_Marker(, TestID)
                     If SpecType = "BI DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Then PassFail = Tests.Directivity_Marker(1, SpecType, , TestID)
                 End If
@@ -2084,11 +2196,11 @@ Test2SubRet:
             'CoupledFlatness
             If Me.ckTest5.Checked Then
                 If TraceChecked Then
-                    If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Then PassFail = Tests.PhaseBalance(SpecType, , TestID)
+                    If SpecType = "90 DEGREE COUPLER" Or SpecType = "BALUN" Then PassFail = Tests.PhaseBalance(SpecType, , TestID)
                     If SpecType = "COMBINER/DIVIDER" Then PassFail = Tests.PhaseBalanceCOMB(SpecType, , TestID)
                     If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then PassFail = Tests.CoupledFlatness(1, SpecType, , TestID)
                 ElseIf Not MutiCalChecked Then
-                    If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Then PassFail = Tests.PhaseBalance_Marker(SpecType, , TestID)
+                    If SpecType = "90 DEGREE COUPLER" Or SpecType = "BALUN" Then PassFail = Tests.PhaseBalance_Marker(SpecType, , TestID)
                     If SpecType = "COMBINER/DIVIDER" Then PassFail = Tests.PhaseBalanceCOMB_Marker(SpecType, , TestID)
                     If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then PassFail = Tests.CoupledFlatness(1, SpecType, , TestID)
                 End If
@@ -2141,25 +2253,24 @@ Test2Sub:
             'Coupling
             If Me.ckTest3.Checked Then
                 If TraceChecked Then
-                    If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Then PassFail = Tests.Isolation(, TestID)
+                    If SpecType = "90 DEGREE COUPLER" Then PassFail = Tests.Isolation(, TestID)
+                    If SpecType = "BALUN" Then PassFail = "N/A"
                     If SpecType = "COMBINER/DIVIDER" Then PassFail = Tests.IsolationCOMB(, TestID)
                     If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then PassFail = Tests.Coupling(1, SpecType, , TestID)
                 ElseIf Not MutiCalChecked Then
-                    If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Then PassFail = Tests.Isolation_Marker(, TestID)
+                    If SpecType = "90 DEGREE COUPLER" Then PassFail = Tests.Isolation_Marker(, TestID)
+                    If SpecType = "BALUN" Then PassFail = "Pass"
                     If SpecType = "COMBINER/DIVIDER" Then PassFail = Tests.IsolationCOMB(, TestID)
                     If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then PassFail = Tests.Coupling(1, SpecType, , TestID)
                 End If
-                If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Or SpecType = "COMBINER/DIVIDER" Then
+                If SpecType = "90 DEGREE COUPLER" Or SpecType = "COMBINER/DIVIDER" Then
                     RetrnVal = ISo
                 Else
                     RetrnVal = COuP
                 End If
-                If SQLAccess Then
-                    SaveTestData("Isolation", RetrnVal)
-                Else
-                    SaveTestData("Iso", RetrnVal)
-                End If
-                If SpecType = "BI DIRECTIONAL COUPLER" Then
+                If SpecType = "BALUN" Then
+                    'DO NOTHING
+                ElseIf SpecType = "BI DIRECTIONAL COUPLER" Then
                     SaveTestData("Coupling", RetrnVal)
                 ElseIf SpecType <> "DUAL DIRECTIONAL COUPLER" And SpecType <> "SINGLE DIRECTIONAL COUPLER" Then
                     'DO NOTHING
@@ -2173,6 +2284,8 @@ Test2Sub:
                 status("Blue", "TEST3")
                 Data3.Text = Format(RetrnVal, "0.0")
                 If PassFail = "Pass" Then
+
+                ElseIf PassFail = "Pass" Then
                     TEST3PASS = True
                     status("Green", "TEST3", True)
                     PF3.Text = PassFail
@@ -2205,228 +2318,228 @@ Test2Sub:
                 'PF3.Text = "Pass"
                 'Me.Total3.Text = UUTNum
             End If
-            If SpecType <> "COMBINER/DIVIDER" Then GoTo Test2SubRet
-TestComplete:  ' For everything except Directional Couplers
+                If SpecType <> "COMBINER/DIVIDER" Then GoTo Test2SubRet
+TestComplete:   ' For everything except Directional Couplers
 
-            'Directonal Couplers reverse direction
-            If SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Or (SpecType = "SINGLE DIRECTIONAL COUPLER" And Me.ckTest4.Checked) Then
-                If SpecType = "DUAL DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, REFL = SW3"
-                If SpecType = "SINGLE DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, ISO = SW3"
-                If SpecType = "BI DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, REFL = SW3"
-                txtTitle.Text = SpecType & SwPos
-                MsgBox("Please turn the Directional Coupler in the Reverse direction")
-            End If
-
-            'Reverse Coupling
-            If SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" And Me.ckTest3.Checked Then
-                PassFail = Tests.Coupling(2, SpecType, , TestID)
-                RetrnVal = COuP
-                SaveTestData("Coupling", RetrnVal)
-                status("Blue", "TEST3")
-                Data3.Text = Format(RetrnVal, "0.0")
-                If PassFail = "Pass" Then
-                    TEST3PASS = True
-                    status("Green", "TEST3", True)
-                    PF3.Text = PassFail
-                    If TEST3Fail > 0 Then TEST3Fail = TEST3Fail - 1
-                    If RetEST3Fail > 0 Then RetEST3Fail = 0
-                ElseIf PassFail = "Fail" Then
-                    Passed = False
-                    status("Red", "TEST4", True)
-                    If RetEST3Fail > retestFailMax And Not TEST3Fail_bypass And Not Master_bypass And Not Retest_bypass Then
-                        TEST3Failing = True
-                        ErrorTimer.Start()
-                        Dim ERR As New Failures_Manager
-                        ERR.StartPosition = FormStartPosition.Manual
-                        ERR.Location = New Point(globals.XLocation, globals.YLocation + 50)
-                        ERR.ShowDialog()
-                        TEST3Failing = False
-                        Retest_bypass = True
-                        ErrorTimer.Stop()
-                    End If
-                    TEST3PASS = False
-                    PF3.Text = PassFail
-                    status("Red", "TEST3", True)
-                    UUTFail = 1
+                'Directonal Couplers reverse direction
+                If SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Or (SpecType = "SINGLE DIRECTIONAL COUPLER" And Me.ckTest4.Checked) Then
+                    If SpecType = "DUAL DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, REFL = SW3"
+                    If SpecType = "SINGLE DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, ISO = SW3"
+                    If SpecType = "BI DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, REFL = SW3"
+                    txtTitle.Text = SpecType & SwPos
+                    MsgBox("Please turn the Directional Coupler in the Reverse direction")
                 End If
-                Me.Total3.Text = UUTNum
-            Else
-                'TEST3PASS = True
-                'status("Blue", "TEST3")
-                'PF3.Text = "Pass"
-                'Me.Total3.Text = UUTNum
-            End If
 
-            ' Reverse Directivity
-            If (SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Or SpecType = "SINGLE DIRECTIONAL COUPLER") And Me.ckTest4.Checked Then
-                If TraceChecked And Not TweakMode Then
-                    PassFail = Tests.Directivity(2, SpecType, , TestID)
+                'Reverse Coupling
+                If SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" And Me.ckTest3.Checked Then
+                    PassFail = Tests.Coupling(2, SpecType, , TestID)
+                    RetrnVal = COuP
+                    SaveTestData("Coupling", RetrnVal)
+                    status("Blue", "TEST3")
+                    Data3.Text = Format(RetrnVal, "0.0")
+                    If PassFail = "Pass" Then
+                        TEST3PASS = True
+                        status("Green", "TEST3", True)
+                        PF3.Text = PassFail
+                        If TEST3Fail > 0 Then TEST3Fail = TEST3Fail - 1
+                        If RetEST3Fail > 0 Then RetEST3Fail = 0
+                    ElseIf PassFail = "Fail" Then
+                        Passed = False
+                        status("Red", "TEST4", True)
+                        If RetEST3Fail > retestFailMax And Not TEST3Fail_bypass And Not Master_bypass And Not Retest_bypass Then
+                            TEST3Failing = True
+                            ErrorTimer.Start()
+                            Dim ERR As New Failures_Manager
+                            ERR.StartPosition = FormStartPosition.Manual
+                            ERR.Location = New Point(globals.XLocation, globals.YLocation + 50)
+                            ERR.ShowDialog()
+                            TEST3Failing = False
+                            Retest_bypass = True
+                            ErrorTimer.Stop()
+                        End If
+                        TEST3PASS = False
+                        PF3.Text = PassFail
+                        status("Red", "TEST3", True)
+                        UUTFail = 1
+                    End If
+                    Me.Total3.Text = UUTNum
                 Else
-                    PassFail = Tests.Directivity_Marker(2, SpecType, , TestID)
+                    'TEST3PASS = True
+                    'status("Blue", "TEST3")
+                    'PF3.Text = "Pass"
+                    'Me.Total3.Text = UUTNum
                 End If
-                RetrnVal = DIR
-                SaveTestData("Directivity", RetrnVal)
-                status("Blue", "TEST4")
-                Data4.Text = Format(RetrnVal, "0.0")
-                If PassFail = "Pass" Then
-                    TEST4PASS = True
-                    status("Green", "TEST4", True)
-                    PF4.Text = PassFail
-                    If TEST4Fail > 0 Then TEST4Fail = TEST4Fail - 1
-                    If RetEST4Fail > 0 Then RetEST4Fail = 0
-                ElseIf PassFail = "Fail" Then
-                    Passed = False
-                    status("Red", "TEST4", True)
-                    If RetEST4Fail > retestFailMax And Not TEST4Fail_bypass And Not Master_bypass And Not Retest_bypass Then
-                        TEST4Failing = True
-                        ErrorTimer.Start()
-                        Dim ERR As New Failures_Manager
-                        ERR.StartPosition = FormStartPosition.Manual
-                        ERR.Location = New Point(globals.XLocation, globals.YLocation + 50)
-                        ERR.ShowDialog()
-                        TEST4Failing = False
-                        Retest_bypass = True
-                        ErrorTimer.Stop()
+
+                ' Reverse Directivity
+                If (SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Or SpecType = "SINGLE DIRECTIONAL COUPLER") And Me.ckTest4.Checked Then
+                    If TraceChecked And Not TweakMode Then
+                        PassFail = Tests.Directivity(2, SpecType, , TestID)
+                    Else
+                        PassFail = Tests.Directivity_Marker(2, SpecType, , TestID)
                     End If
-                    TEST4PASS = False
-                    PF4.Text = PassFail
-                    status("Red", "TEST4", True)
-                    UUTFail = 1
-                End If
-                Me.Total4.Text = UUTNum
-            Else
-                'TEST4PASS = True
-                'status("Blue", "TEST4")
-                'PF4.Text = "Pass"
-                'Me.Total4.Text = UUTNum
-            End If
-
-            ' Reverse Coupled Flatness
-            If SpecType = "DUAL DIRECTIONAL COUPLER" And Me.ckTest5.Checked Then
-                PassFail = Tests.CoupledFlatness(2, SpecType, , TestID)
-                RetrnVal = COuP
-                SaveTestData("CoupledFlatness", RetrnVal)
-                status("Blue", "TEST5")
-                Data5.Text = Format(RetrnVal, "0.00")
-                If PassFail = "Pass" Then
-                    TEST5PASS = True
-                    status("Green", "TEST5", True)
-                    PF5.Text = PassFail
-                    If TEST5Fail > 0 Then TEST5Fail = TEST5Fail - 1
-                    If RetEST5Fail > 0 Then RetEST5Fail = 0
-                    If Not GlobalFailed Then GlobalFail = GlobalFail - 1
-
-                ElseIf PassFail = "Fail" Then
-                    TEST5PASS = False
-                    status("Red", "TEST5", True)
-                    If RetEST5Fail > retestFailMax And Not TEST5Fail_bypass And Not Master_bypass And Not Retest_bypass Then
-                        TEST5Failing = True
-                        ErrorTimer.Start()
-                        Dim ERR As New Failures_Manager
-                        ERR.StartPosition = FormStartPosition.Manual
-                        ERR.Location = New Point(globals.XLocation, globals.YLocation + 50)
-                        ERR.ShowDialog()
-                        TEST5Failing = False
-                        Retest_bypass = True
-                        ErrorTimer.Stop()
+                    RetrnVal = DIR
+                    SaveTestData("Directivity", RetrnVal)
+                    status("Blue", "TEST4")
+                    Data4.Text = Format(RetrnVal, "0.0")
+                    If PassFail = "Pass" Then
+                        TEST4PASS = True
+                        status("Green", "TEST4", True)
+                        PF4.Text = PassFail
+                        If TEST4Fail > 0 Then TEST4Fail = TEST4Fail - 1
+                        If RetEST4Fail > 0 Then RetEST4Fail = 0
+                    ElseIf PassFail = "Fail" Then
+                        Passed = False
+                        status("Red", "TEST4", True)
+                        If RetEST4Fail > retestFailMax And Not TEST4Fail_bypass And Not Master_bypass And Not Retest_bypass Then
+                            TEST4Failing = True
+                            ErrorTimer.Start()
+                            Dim ERR As New Failures_Manager
+                            ERR.StartPosition = FormStartPosition.Manual
+                            ERR.Location = New Point(globals.XLocation, globals.YLocation + 50)
+                            ERR.ShowDialog()
+                            TEST4Failing = False
+                            Retest_bypass = True
+                            ErrorTimer.Stop()
+                        End If
+                        TEST4PASS = False
+                        PF4.Text = PassFail
+                        status("Red", "TEST4", True)
+                        UUTFail = 1
                     End If
-                    PF5.Text = PassFail
-                    status("Red", "TEST5", True)
-                    Passed = False
-                    UUTFail = 1
+                    Me.Total4.Text = UUTNum
+                Else
+                    'TEST4PASS = True
+                    'status("Blue", "TEST4")
+                    'PF4.Text = "Pass"
+                    'Me.Total4.Text = UUTNum
                 End If
-                Me.Total5.Text = UUTNum
-            Else
-                'TEST5PASS = True
-                'status("Blue", "TEST5")
-                'PF5.Text = "Pass"
-                'Me.Total5.Text = UUTNum
-            End If
 
-            If TEST1PASS And TEST2PASS And TEST3PASS And TEST4PASS And TEST5PASS Then
-                status("Green", "TEST1")
-                status("Green", "TEST2")
-                status("Green", "TEST3")
-                status("Green", "TEST4")
-                status("Green", "TEST5")
-                Me.UUTStatusColor.BackColor = Color.LawnGreen
-                Me.StartTestFrame.BackColor = Color.LawnGreen
-                Me.ReTestFrame.BackColor = Color.LawnGreen
-                If Not TweakMode Then SaveFailureLog("UUT Number: " & UUTNum & " Job Number: " & Job & " Part Number: " & Part & "  Insertion Loss: " & Me.PF1.Text & "  Return Loss: " & Me.PF2.Text & "  Coupling: " & Me.PF3.Text & "  Directivity: " & TEST4PASS & "  Coupled Balance: " & Me.PF5.Text)
-                TestRunning = False
-                TestComplete = True
-                TestPassFail = True
-                LOTFail = LOTFail - 1
-                UUTFail = UUTFail - 1
-                Me.LotFailure.Text = FormatPercent(((LOTFail / UUTNum)), 1)
-                cmdRetest.Enabled = False
-                If Not GlobalFailed Then
-                    GlobalFail = GlobalFail + 1
-                    GlobalFailed = True
+                ' Reverse Coupled Flatness
+                If SpecType = "DUAL DIRECTIONAL COUPLER" And Me.ckTest5.Checked Then
+                    PassFail = Tests.CoupledFlatness(2, SpecType, , TestID)
+                    RetrnVal = COuP
+                    SaveTestData("CoupledFlatness", RetrnVal)
+                    status("Blue", "TEST5")
+                    Data5.Text = Format(RetrnVal, "0.00")
+                    If PassFail = "Pass" Then
+                        TEST5PASS = True
+                        status("Green", "TEST5", True)
+                        PF5.Text = PassFail
+                        If TEST5Fail > 0 Then TEST5Fail = TEST5Fail - 1
+                        If RetEST5Fail > 0 Then RetEST5Fail = 0
+                        If Not GlobalFailed Then GlobalFail = GlobalFail - 1
+
+                    ElseIf PassFail = "Fail" Then
+                        TEST5PASS = False
+                        status("Red", "TEST5", True)
+                        If RetEST5Fail > retestFailMax And Not TEST5Fail_bypass And Not Master_bypass And Not Retest_bypass Then
+                            TEST5Failing = True
+                            ErrorTimer.Start()
+                            Dim ERR As New Failures_Manager
+                            ERR.StartPosition = FormStartPosition.Manual
+                            ERR.Location = New Point(globals.XLocation, globals.YLocation + 50)
+                            ERR.ShowDialog()
+                            TEST5Failing = False
+                            Retest_bypass = True
+                            ErrorTimer.Stop()
+                        End If
+                        PF5.Text = PassFail
+                        status("Red", "TEST5", True)
+                        Passed = False
+                        UUTFail = 1
+                    End If
+                    Me.Total5.Text = UUTNum
+                Else
+                    'TEST5PASS = True
+                    'status("Blue", "TEST5")
+                    'PF5.Text = "Pass"
+                    'Me.Total5.Text = UUTNum
+                End If
+
+                If TEST1PASS And TEST2PASS And TEST3PASS And TEST4PASS And TEST5PASS Then
+                    status("Green", "TEST1")
+                    status("Green", "TEST2")
+                    status("Green", "TEST3")
+                    status("Green", "TEST4")
+                    status("Green", "TEST5")
+                    Me.UUTStatusColor.BackColor = Color.LawnGreen
+                    Me.StartTestFrame.BackColor = Color.LawnGreen
+                    Me.ReTestFrame.BackColor = Color.LawnGreen
+                    If Not TweakMode Then SaveFailureLog("UUT Number: " & UUTNum & " Job Number: " & Job & " Part Number: " & Part & "  Insertion Loss: " & Me.PF1.Text & "  Return Loss: " & Me.PF2.Text & "  Coupling: " & Me.PF3.Text & "  Directivity: " & TEST4PASS & "  Coupled Balance: " & Me.PF5.Text)
+                    TestRunning = False
+                    TestComplete = True
+                    TestPassFail = True
+                    LOTFail = LOTFail - 1
+                    UUTFail = UUTFail - 1
+                    Me.LotFailure.Text = FormatPercent(((LOTFail / UUTNum)), 1)
+                    cmdRetest.Enabled = False
+                    If Not GlobalFailed Then
+                        GlobalFail = GlobalFail + 1
+                        GlobalFailed = True
+                    End If
+                Else
+                    cmdRetest.Enabled = True
+                    TestRunning = False
+                    TestComplete = True
+                    TestPassFail = False
+                End If
+                If TEST1PASS And TEST1FailRetest >= 1 Then  ' Only update if the last run failed
+                    ' If Test1Fail > 0 Then Test1Fail = Test1Fail - 1
+                    Me.FailTotal1.Text = Test1Fail
+                    Me.Failures1.Text = FormatPercent(((Test1Fail / UUTNum)), 1)
+                End If
+
+                If TEST2PASS And TEST2FailRetest >= 1 Then  ' Only update if the last run failed
+                    'If Test2Fail > 0 Then Test2Fail = Test2Fail - 1
+                    Me.FailTotal2.Text = Test2Fail
+                    Me.Failures2.Text = FormatPercent(((Test2Fail / UUTNum)), 1)
+                End If
+
+                If TEST3PASS And TEST3FailRetest >= 1 Then  ' Only update if the last run failed
+                    'If TEST3Fail > 0 Then TEST3Fail = TEST3Fail - 1
+                    Me.FailTotal3.Text = TEST3Fail
+                    Me.Failures3.Text = FormatPercent(((TEST3Fail / UUTNum)), 1)
+                End If
+
+                If TEST4PASS And TEST4FailRetest >= 1 Then  ' Only update if the last run failed
+                    ' If TEST4Fail > 0 Then TEST4Fail = TEST4Fail - 1
+                    Me.FailTotal4.Text = TEST4Fail
+                    Me.Failures4.Text = FormatPercent(((TEST4Fail / UUTNum)), 1)
+                End If
+                If TEST5PASS And TEST5FailRetest >= 1 Then  ' Only update if the last run failed
+                    'If TEST5Fail > 0 Then TEST5Fail = TEST5Fail - 1
+                    Me.FailTotal5.Text = TEST5Fail
+                    Me.Failures5.Text = FormatPercent(((TEST5Fail / UUTNum)), 1)
+                End If
+                If LOTFail = 0 Then Me.LotTestFrame.BackColor = Color.LawnGreen
+                If LOTFail = 0 Then Me.LotFailureFrame.BackColor = Color.LawnGreen
+                If LOTFail > 0 Then Me.LotTestFrame.BackColor = Color.Red
+                If LOTFail > 0 Then Me.LotFailureFrame.BackColor = Color.Red
+                Me.cmdRetest.Enabled = True
+                If UUTFail = 1 Then Me.cmdRetest.Text = "Re - Test"
+                If UUTFail = 0 Then Me.cmdRetest.Text = "Undo"
+
+                If Passed Then Removed = RemoveLastEntryFailureLog()
+                If TweakMode Then
+                    UUTMessage.Text = "  UUT TESTS  -- Tweak Mode. No Data Logging"
+                ElseIf TraceChecked Then
+                    UUTMessage.Text = "  UUT TESTS Marker Mode  --   Load Unit #" & UUTNum + 1
+                Else
+                    UUTMessage.Text = "  UUT TESTS  --  Load Unit #" & UUTNum + 1
+                End If
+
+                Me.cmdStartTest.Text = "Next UUT"
+                cmdStartTest.Enabled = True
+
+                MSChart.UpDateChart(SpecType)
+                If LastUUT <> 0 Then
+                    UUTNum = LastUUT
+                    UUTCount.Text = LastUUT
                 End If
             Else
-                cmdRetest.Enabled = True
-                TestRunning = False
-                TestComplete = True
-                TestPassFail = False
+                If UUTFail = 1 Then UndoUUT(True)
+                If UUTFail = 0 Then UndoUUT(False)
             End If
-            If TEST1PASS And TEST1FailRetest >= 1 Then  ' Only update if the last run failed
-                ' If Test1Fail > 0 Then Test1Fail = Test1Fail - 1
-                Me.FailTotal1.Text = Test1Fail
-                Me.Failures1.Text = FormatPercent(((Test1Fail / UUTNum)), 1)
-            End If
-
-            If TEST2PASS And TEST2FailRetest >= 1 Then  ' Only update if the last run failed
-                'If Test2Fail > 0 Then Test2Fail = Test2Fail - 1
-                Me.FailTotal2.Text = Test2Fail
-                Me.Failures2.Text = FormatPercent(((Test2Fail / UUTNum)), 1)
-            End If
-
-            If TEST3PASS And TEST3FailRetest >= 1 Then  ' Only update if the last run failed
-                'If TEST3Fail > 0 Then TEST3Fail = TEST3Fail - 1
-                Me.FailTotal3.Text = TEST3Fail
-                Me.Failures3.Text = FormatPercent(((TEST3Fail / UUTNum)), 1)
-            End If
-
-            If TEST4PASS And TEST4FailRetest >= 1 Then  ' Only update if the last run failed
-                ' If TEST4Fail > 0 Then TEST4Fail = TEST4Fail - 1
-                Me.FailTotal4.Text = TEST4Fail
-                Me.Failures4.Text = FormatPercent(((TEST4Fail / UUTNum)), 1)
-            End If
-            If TEST5PASS And TEST5FailRetest >= 1 Then  ' Only update if the last run failed
-                'If TEST5Fail > 0 Then TEST5Fail = TEST5Fail - 1
-                Me.FailTotal5.Text = TEST5Fail
-                Me.Failures5.Text = FormatPercent(((TEST5Fail / UUTNum)), 1)
-            End If
-            If LOTFail = 0 Then Me.LotTestFrame.BackColor = Color.LawnGreen
-            If LOTFail = 0 Then Me.LotFailureFrame.BackColor = Color.LawnGreen
-            If LOTFail > 0 Then Me.LotTestFrame.BackColor = Color.Red
-            If LOTFail > 0 Then Me.LotFailureFrame.BackColor = Color.Red
-            Me.cmdRetest.Enabled = True
-            If UUTFail = 1 Then Me.cmdRetest.Text = "Re - Test"
-            If UUTFail = 0 Then Me.cmdRetest.Text = "Undo"
-
-            If Passed Then Removed = RemoveLastEntryFailureLog()
-            If TweakMode Then
-                UUTMessage.Text = "  UUT TESTS  -- Tweak Mode. No Data Logging"
-            ElseIf TraceChecked Then
-                UUTMessage.Text = "  UUT TESTS Marker Mode  --   Load Unit #" & UUTNum + 1
-            Else
-                UUTMessage.Text = "  UUT TESTS  --  Load Unit #" & UUTNum + 1
-            End If
-
-            Me.cmdStartTest.Text = "Next UUT"
-            cmdStartTest.Enabled = True
-
-            MSChart.UpDateChart(SpecType)
-            If LastUUT <> 0 Then
-                UUTNum = LastUUT
-                UUTCount.Text = LastUUT
-            End If
-        Else
-            If UUTFail = 1 Then UndoUUT(True)
-            If UUTFail = 0 Then UndoUUT(False)
-        End If
         RetestReset()
     End Sub
 
@@ -2617,13 +2730,13 @@ TestComplete:  ' For everything except Directional Couplers
         If Me.ckTest1.Checked Then
             If Me.ckROBOT.Checked Then RobotStatus()
             If TraceChecked Then
-                If (SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER") And SpecAB_TF Then PassFail = Tests.InsertionLoss3dB_multiband(, TestID)
-                If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Then PassFail = Tests.InsertionLoss3dB(, TestID)
+                If (SpecType = "90 DEGREE COUPLER" Or SpecType = "BALUN") And SpecAB_TF Then PassFail = Tests.InsertionLoss3dB_multiband(, TestID)
+                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.InsertionLoss3dB(, TestID)
                 If SpecType = "COMBINER/DIVIDER" Then PassFail = Tests.InsertionLossCOMB(, TestID)
                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then PassFail = Tests.InsertionLossDIR(, TestID)
             ElseIf Not MutiCalChecked Then
-                If (SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER") And SpecAB_TF Then PassFail = Tests.InsertionLoss3dB_multiband(, TestID)
-                If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Then PassFail = Tests.InsertionLoss3dB_marker(, TestID)
+                If (SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN")) And SpecAB_TF Then PassFail = Tests.InsertionLoss3dB_multiband(, TestID)
+                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.InsertionLoss3dB_marker(, TestID)
                 If SpecType = "COMBINER/DIVIDER" Then PassFail = Tests.InsertionLossCOMB_Marker(, TestID)
                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then PassFail = Tests.InsertionLossDIR_Marker(, TestID)
             End If
@@ -2752,13 +2865,13 @@ Test2SubRet:
         If Me.ckTest4.Checked Then
             If Me.ckROBOT.Checked Then RobotStatus()
             If TraceChecked Then
-                If (SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER") And SpecAB_TF Then PassFail = Tests.AmplitudeBalance_multiband(, TestID)
-                If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Then PassFail = Tests.AmplitudeBalance(, TestID)
+                If (SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN")) And SpecAB_TF Then PassFail = Tests.AmplitudeBalance_multiband(, TestID)
+                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.AmplitudeBalance(, TestID)
                 If SpecType = "COMBINER/DIVIDER" Then PassFail = Tests.AmplitudeBalanceCOMB(, TestID)
                 If SpecType = "BI DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Then PassFail = Tests.Directivity(1, SpecType, , TestID)
             ElseIf Not MutiCalChecked Then
-                If (SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER") And SpecAB_TF Then PassFail = Tests.AmplitudeBalance_multiband(, TestID)
-                If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Then PassFail = Tests.AmplitudeBalance_Marker(, TestID)
+                If (SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN")) And SpecAB_TF Then PassFail = Tests.AmplitudeBalance_multiband(, TestID)
+                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.AmplitudeBalance_Marker(, TestID)
                 If SpecType = "COMBINER/DIVIDER" Then PassFail = Tests.AmplitudeBalanceCOMB_Marker(, TestID)
                 If SpecType = "BI DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Then PassFail = Tests.Directivity_Marker(1, SpecType, , TestID)
             End If
@@ -2885,11 +2998,11 @@ Test2SubRet:
         If Me.ckTest5.Checked Then
             If Me.ckROBOT.Checked Then RobotStatus()
             If TraceChecked Then
-                If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Then PassFail = Tests.PhaseBalance(SpecType, , TestID)
+                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.PhaseBalance(SpecType, , TestID)
                 If SpecType = "COMBINER/DIVIDER" Then PassFail = Tests.PhaseBalanceCOMB(SpecType, , TestID)
                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then PassFail = Tests.CoupledFlatness(1, SpecType, , TestID)
             ElseIf Not MutiCalChecked Then
-                If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Then PassFail = Tests.PhaseBalance_Marker(SpecType, , TestID)
+                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.PhaseBalance_Marker(SpecType, , TestID)
                 If SpecType = "COMBINER/DIVIDER" Then PassFail = Tests.PhaseBalanceCOMB_Marker(SpecType, , TestID)
                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then PassFail = Tests.CoupledFlatness(1, SpecType, , TestID)
             End If
@@ -2951,7 +3064,7 @@ Test2SubRet:
         Else
             TEST5PASS = True
             status("Blue", "TEST5")
-            If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Or SpecType = "COMBINER/DIVIDER" Then SaveTestData("PhaseBalance", GetSpecification("PhaseBalance"))
+            If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType = "COMBINER/DIVIDER" Then SaveTestData("PhaseBalance", GetSpecification("PhaseBalance"))
             If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then SaveTestData("CoupledFlatness", GetSpecification("CoupledFlatness"))
 
             Me.Failures5.Text = FormatPercent(((TEST5Fail / UUTNum)), 1)
@@ -2974,15 +3087,15 @@ Test2Sub:
         If Me.ckTest3.Checked Then
             If Me.ckROBOT.Checked Then RobotStatus()
             If TraceChecked Then
-                If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Then PassFail = Tests.Isolation(, TestID)
+                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.Isolation(, TestID)
                 If SpecType = "COMBINER/DIVIDER" Then PassFail = Tests.IsolationCOMB(, TestID)
                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then PassFail = Tests.Coupling(1, SpecType, , TestID)
             ElseIf Not MutiCalChecked Then
-                If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Then PassFail = Tests.Isolation_Marker(, TestID)
+                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.Isolation_Marker(, TestID)
                 If SpecType = "COMBINER/DIVIDER" Then PassFail = Tests.IsolationCOMB(, TestID)
                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then PassFail = Tests.Coupling(1, SpecType, , TestID)
             End If
-            If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Or SpecType = "COMBINER/DIVIDER"" Then" Then
+            If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType = "COMBINER/DIVIDER"" Then" Then
                 RetrnVal = ISo
                 If SQLAccess Then
                     SaveTestData("Isolation", RetrnVal)
@@ -3047,11 +3160,11 @@ Test2Sub:
             TEST3PASS = True
             status("Blue", "TEST3")
             If SQLAccess Then
-                If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Or SpecType = "COMBINER/DIVIDER" And SQLAccess Then SaveTestData("Isolation", 0 - GetSpecification("Isolation"))
-                If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Or SpecType = "COMBINER/DIVIDER" And Not SQLAccess Then SaveTestData("Isolation", 0 - GetSpecification("Isolation"))
+                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType = "COMBINER/DIVIDER" And SQLAccess Then SaveTestData("Isolation", 0 - GetSpecification("Isolation"))
+                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType = "COMBINER/DIVIDER" And Not SQLAccess Then SaveTestData("Isolation", 0 - GetSpecification("Isolation"))
             Else
-                If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Or SpecType = "COMBINER/DIVIDER" And SQLAccess Then SaveTestData("Iso", 0 - GetSpecification("Isolation"))
-                If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Or SpecType = "COMBINER/DIVIDER" And Not SQLAccess Then SaveTestData("Iso", 0 - GetSpecification("Isolation"))
+                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType = "COMBINER/DIVIDER" And SQLAccess Then SaveTestData("Iso", 0 - GetSpecification("Isolation"))
+                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType = "COMBINER/DIVIDER" And Not SQLAccess Then SaveTestData("Iso", 0 - GetSpecification("Isolation"))
             End If
 
             If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then SaveTestData("Coupling", 0 - GetSpecification("Coupling"))
@@ -3464,7 +3577,7 @@ TestComplete:  ' For everything except Directional Couplers
     Private Sub UpdateFailureLog(Test1 As String, TEST2 As String, TEST3 As String, TEST4 As String, TEST5 As String)
         Dim Index As Integer
         If TweakMode Then Exit Sub
-        If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Or SpecType = "COMBINER/DIVIDER" Then
+        If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType = "COMBINER/DIVIDER" Then
             If Not TEST2PASS Or Not TEST1PASS Or Not TEST3PASS Or Not TEST4PASS Or Not TEST5PASS Then
                 FailureLog.Items.Add("UUT Number: " & UUTNum & "         Job Number: " & Me.cmbJob.Text & "    Part Number: " & Me.cmbPart.Text & "              Insertion Loss: " & Test1 & "      Return Loss: " & TEST2 & "      Isolation: " & TEST3 & "      Amplitude Balance: " & TEST4 & "      Phase Balance: " & TEST5)
             End If
@@ -3951,7 +4064,7 @@ StartResume:
 
                         'Isolation
                         'Coupling
-                        If (SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER") And Not IsDBNull(dr.Item(9)) Then
+                        If (SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN")) And Not IsDBNull(dr.Item(9)) Then
                             RetrnVal = CDbl(dr.Item(9))
                         ElseIf (SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER") And Not IsDBNull(dr.Item(8)) Then
                             RetrnVal = CDbl(dr.Item(8))
@@ -3966,7 +4079,7 @@ StartResume:
                             End If
                             If Not TEST3PASS Then
                                 status("Green", "TEST3")
-                                If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Or SpecType = "COMBINER/DIVIDER" Then MSChart.UpDateChartData(SpecType, "ISO", "Pass")
+                                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType = "COMBINER/DIVIDER" Then MSChart.UpDateChartData(SpecType, "ISO", "Pass")
                                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then MSChart.UpDateChartData(SpecType, "COU", "Pass")
                             End If
                             If Not Incomplete Then
@@ -3996,7 +4109,7 @@ StartResume:
 
                         'AmplitudeBalance
                         'Directivity
-                        If (SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER") And Not IsDBNull(dr.Item(11)) Then
+                        If (SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN")) And Not IsDBNull(dr.Item(11)) Then
                             If SpecAB_TF Then
                                 AB1 = CDbl(dr.Item(16))
                                 AB2 = CDbl(dr.Item(17))
@@ -4016,13 +4129,13 @@ StartResume:
                                 'MSChart.UpDateChartData(SpecType, "RL", "Pass")
                             End If
                             If Not TEST3PASS Then
-                               status("Green", "TEST3")
-                                If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Or SpecType = "COMBINER/DIVIDER" Then MSChart.UpDateChartData(SpecType, "ISO", "Pass")
+                                status("Green", "TEST3")
+                                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType = "COMBINER/DIVIDER" Then MSChart.UpDateChartData(SpecType, "ISO", "Pass")
                                 If (SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER") Then MSChart.UpDateChartData(SpecType, "COU", "Pass")
                             End If
                             If Not TEST4PASS Then
                                 status("Green", "TEST4")
-                                If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Or SpecType = "COMBINER/DIVIDER" Then MSChart.UpDateChartData(SpecType, "AB", "Pass")
+                                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType = "COMBINER/DIVIDER" Then MSChart.UpDateChartData(SpecType, "AB", "Pass")
                                 If (SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER") Then MSChart.UpDateChartData(SpecType, "DIR", "Pass")
                             End If
                             If Not Incomplete Then
@@ -4079,7 +4192,7 @@ StartResume:
 
                         'PhaseBalance
                         'Coupled Flatness
-                        If (SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER") And Not IsDBNull(dr.Item(13)) Then
+                        If (SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN")) And Not IsDBNull(dr.Item(13)) Then
                             RetrnVal = CDbl(dr.Item(13))
                         ElseIf (SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER") And Not IsDBNull(dr.Item(12)) Then
                             RetrnVal = CDbl(dr.Item(12))
@@ -4094,17 +4207,17 @@ StartResume:
                             End If
                             If Not TEST3PASS Then
                                 status("Green", "TEST3")
-                                If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Or SpecType = "COMBINER/DIVIDER" Then MSChart.UpDateChartData(SpecType, "ISO", "Pass")
+                                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType = "COMBINER/DIVIDER" Then MSChart.UpDateChartData(SpecType, "ISO", "Pass")
                                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then MSChart.UpDateChartData(SpecType, "COU", "Pass")
                             End If
                             If Not TEST4PASS Then
-                               status("Green", "TEST4")
-                                If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Or SpecType = "COMBINER/DIVIDER" Then MSChart.UpDateChartData(SpecType, "AB", "Pass")
+                                status("Green", "TEST4")
+                                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType = "COMBINER/DIVIDER" Then MSChart.UpDateChartData(SpecType, "AB", "Pass")
                                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then MSChart.UpDateChartData(SpecType, "DIR", "Pass")
                             End If
                             If Not TEST5PASS Then
                                 status("Green", "TEST5")
-                                If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Or SpecType = "COMBINER/DIVIDER" Then MSChart.UpDateChartData(SpecType, "PB", "Pass")
+                                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType = "COMBINER/DIVIDER" Then MSChart.UpDateChartData(SpecType, "PB", "Pass")
                                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then MSChart.UpDateChartData(SpecType, "CB", "Pass")
                             End If
                             If Not Incomplete Then
@@ -4256,7 +4369,7 @@ Recap:
 
                         'Isolation
                         'Coupling
-                        If (SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER") And Not IsDBNull(drLocal.Item(9)) Then
+                        If (SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN")) And Not IsDBNull(drLocal.Item(9)) Then
                             RetrnVal = CDbl(drLocal.Item(9))
                         ElseIf (SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER") And Not IsDBNull(drLocal.Item(8)) Then
                             RetrnVal = CDbl(drLocal.Item(8))
@@ -4300,7 +4413,7 @@ Recap:
 
                         'AmplitudeBalance
                         'Directivity
-                        If (SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER") And Not IsDBNull(drLocal.Item(11)) Then
+                        If (SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN")) And Not IsDBNull(drLocal.Item(11)) Then
                             RetrnVal = CDbl(drLocal.Item(11))
                         ElseIf (SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER") And Not IsDBNull(drLocal.Item(10)) Then
                             RetrnVal = CDbl(drLocal.Item(10))
@@ -4350,7 +4463,7 @@ Recap:
 
                         'PhaseBalance
                         'Coupled Flatness
-                        If (SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER") And Not IsDBNull(drLocal.Item(13)) Then
+                        If (SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN")) And Not IsDBNull(drLocal.Item(13)) Then
                             RetrnVal = CDbl(drLocal.Item(13))
                         ElseIf (SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER") And Not IsDBNull(drLocal.Item(12)) Then
                             RetrnVal = CDbl(drLocal.Item(12))
@@ -4362,7 +4475,7 @@ Recap:
                                 status("Green", "TEST2")
                             End If
                             If Not TEST3PASS Then
-                               status("Green", "TEST3")
+                                status("Green", "TEST3")
                             End If
                             If Not TEST4PASS Then
                                 status("Green", "TEST4")
@@ -5416,14 +5529,14 @@ Trap:
             If Me.ckTest1.Checked Then
                 Me.txtTitle.Text = "     FINDING INSERTION LOSS Offset   SW POSITION 1      "
                 Me.MutiCal.Checked = False
-                If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Then PassFail = Tests.InsertionLoss3dB(, TestID)
+                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.InsertionLoss3dB(, TestID)
                 If SpecType = "COMBINER/DIVIDER" Then PassFail = Tests.InsertionLossCOMB(, TestID)
                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then PassFail = Tests.InsertionLossDIR(, TestID)
                 RetrnVal1 = IL
 
                 Me.MutiCal.Checked = False
                 SetupVNA(True, 1)
-                If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Then PassFail = Tests.InsertionLoss3dB(, TestID)
+                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.InsertionLoss3dB(, TestID)
                 If SpecType = "COMBINER/DIVIDER" Then PassFail = Tests.InsertionLossCOMB(, TestID)
                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then PassFail = Tests.InsertionLossDIR(, TestID)
                 RetrnVal2 = IL
@@ -5454,14 +5567,14 @@ Test2SubRet:
             If Me.ckTest4.Checked Then
                 Me.txtTitle.Text = "     FINDING AMPLITUDE BALANCE Offset   SW POSITION 1      "
                 Me.MutiCal.Checked = 1
-                If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Then PassFail = Tests.AmplitudeBalance(, 1)
+                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.AmplitudeBalance(, 1)
                 If SpecType = "COMBINER/DIVIDER" Then PassFail = Tests.AmplitudeBalanceCOMB(, 1)
                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then Tests.Directivity(1, SpecType)
                 RetrnVal1 = AB
 
                 Me.MutiCal.Checked = 0
                 SetupVNA(True, 1)
-                If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Then PassFail = Tests.AmplitudeBalance(, 1)
+                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.AmplitudeBalance(, 1)
                 If SpecType = "COMBINER/DIVIDER" Then PassFail = Tests.AmplitudeBalanceCOMB(, 1)
                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then Tests.Directivity(1, SpecType)
                 RetrnVal2 = AB
@@ -5484,7 +5597,7 @@ Test2SubRet:
             If Me.ckTest5.Checked Then
                 ActiveTitle = "     FINDING PHASE BALANCE Offset   SW POSITION 1      "
                 Me.MutiCal.Checked = True
-                If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Then PassFail = Tests.PhaseBalance(SpecType)
+                If SpecType = "90 DEGREE COUPLER" Or SpecType = "BALUN" Then PassFail = Tests.PhaseBalance(SpecType)
                 If SpecType = "COMBINER/DIVIDER" Then PassFail = Tests.PhaseBalanceCOMB(SpecType)
                 RetrnVal1 = PB
                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then Tests.CoupledFlatness(1, SpecType)
@@ -5492,7 +5605,7 @@ Test2SubRet:
 
                 Me.MutiCal.Checked = False
                 SetupVNA(True, 1)
-                If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Then PassFail = Tests.PhaseBalance(SpecType)
+                If SpecType = "90 DEGREE COUPLER" Or SpecType = "BALUN" Then PassFail = Tests.PhaseBalance(SpecType)
                 If SpecType = "COMBINER/DIVIDER" Then PassFail = Tests.PhaseBalanceCOMB(SpecType, RetrnVal2)
                 RetrnVal1 = PB
                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then Tests.CoupledFlatness(1, SpecType)
@@ -5513,7 +5626,7 @@ Test2Sub:
             If Me.ckTest3.Checked Then
                 ActiveTitle = "     FINDING ISOLATION Offset   SW POSITION 1      "
                 Me.MutiCal.Checked = True
-                If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Then PassFail = Tests.Isolation(RetrnVal1)
+                If SpecType = "90 DEGREE COUPLER" Or SpecType = "BALUN" Then PassFail = Tests.Isolation(RetrnVal1)
                 If SpecType = "COMBINER/DIVIDER" Then PassFail = Tests.IsolationCOMB(RetrnVal1)
                 RetrnVal1 = ISo
                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then Tests.Coupling(RetrnVal1, 1, SpecType)
@@ -5521,7 +5634,7 @@ Test2Sub:
 
                 Me.MutiCal.Checked = False
                 SetupVNA(True, 1)
-                If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Then PassFail = Tests.Isolation(RetrnVal2)
+                If SpecType = "90 DEGREE COUPLER" Or SpecType = "BALUN" Then PassFail = Tests.Isolation(RetrnVal2)
                 If SpecType = "COMBINER/DIVIDER" Then PassFail = Tests.IsolationCOMB(RetrnVal2)
                 RetrnVal2 = ISo
                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then Tests.Coupling(RetrnVal2, 1, SpecType)
@@ -5799,14 +5912,14 @@ TestComplete:  ' For everything except Directional Couplers
                 End If
             Else
                 If VNAStr = "AG_E5071B" Then
-                    ScanGPIB.BusWrite("SENS:AVER OFF" & CStr(AvgS.Text))
+                    ScanGPIB.BusWrite("SENS:AVER OFF")
                 ElseIf VNAStr = "N3383A" Then
-                    ScanGPIB.BusWrite("SENS:AVER OFF" & CStr(AvgS.Text))
+                    ScanGPIB.BusWrite("SENS:AVER OFF")
                 Else
                     ScanGPIB.BusWrite("OPC?;CHAN1;")
-                    ScanGPIB.BusWrite("AVERO OFF" & CStr(AvgS.Text))
+                    ScanGPIB.BusWrite("AVERO OFF")
                     ScanGPIB.BusWrite("OPC?;CHAN2;")
-                    ScanGPIB.BusWrite("AVERO OFF" & CStr(AvgS.Text))
+                    ScanGPIB.BusWrite("AVERO OFF")
                 End If
             End If
         End If
@@ -5981,7 +6094,13 @@ TestComplete:  ' For everything except Directional Couplers
                         Row = Row + 1
                     End While
                 Else
-                    ExcelReports.DataToCells("E5", "Isolation")
+
+                    If Not SpecType.Contains("BALUN") Then
+                        ExcelReports.DataToCells("E5", "Isolation")
+                    Else
+                        ExcelReports.DataToCells("E5", "No Test")
+                    End If
+
                     ExcelReports.DataToCells("F5", "Amplitude Balance")
                     ExcelReports.DataToCells("G5", "Phase Balance")
                     While Not dr.Read = Nothing
@@ -5989,7 +6108,7 @@ TestComplete:  ' For everything except Directional Couplers
                         If Not IsDBNull(dr.Item(5)) Then ExcelReports.DataToCells("B" & Row, dr.Item(5))
                         If Not IsDBNull(dr.Item(6)) Then ExcelReports.DataToCells("C" & Row, Format(dr.Item(6), "0.00"))
                         If Not IsDBNull(dr.Item(7)) Then ExcelReports.DataToCells("D" & Row, Format(dr.Item(7), "0.00"))
-                        If Not IsDBNull(dr.Item(9)) Then ExcelReports.DataToCells("E" & Row, Format(dr.Item(9), "0.00"))
+                        If Not SpecType.Contains("BALUN") Then If Not IsDBNull(dr.Item(9)) Then ExcelReports.DataToCells("E" & Row, Format(dr.Item(9), "0.00"))
                         If SpecAB_TF Then
                             If Not IsDBNull(dr.Item(16)) And Not IsDBNull(dr.Item(17)) Then ExcelReports.DataToCells("F" & Row, dr.Item(16) & " / " & dr.Item(17))
                         Else
@@ -6034,7 +6153,11 @@ TestComplete:  ' For everything except Directional Couplers
                         Row = Row + 1
                     End While
                 Else
-                    ExcelReports.DataToCells("E5", "Iso")
+                    If Not SpecType.Contains("BALUN") Then
+                        ExcelReports.DataToCells("E5", "Iso")
+                    Else
+                        ExcelReports.DataToCells("E5", "No Test")
+                    End If
                     ExcelReports.DataToCells("F5", "Amplitude Balance")
                     ExcelReports.DataToCells("G5", "Phase Balance")
                     While Not drLocal.Read = Nothing
@@ -6042,7 +6165,7 @@ TestComplete:  ' For everything except Directional Couplers
                         If Not IsDBNull(drLocal.Item(5)) Then ExcelReports.DataToCells("B" & Row, drLocal.Item(5))
                         If Not IsDBNull(drLocal.Item(6)) Then ExcelReports.DataToCells("C" & Row, drLocal.Item(6))
                         If Not IsDBNull(drLocal.Item(7)) Then ExcelReports.DataToCells("D" & Row, drLocal.Item(7))
-                        If Not IsDBNull(drLocal.Item(9)) Then ExcelReports.DataToCells("E" & Row, drLocal.Item(9))
+                        If Not SpecType.Contains("BALUN") Then If Not IsDBNull(drLocal.Item(9)) Then ExcelReports.DataToCells("E" & Row, drLocal.Item(9))
                         If SpecAB_TF Then
                             If Not IsDBNull(drLocal.Item(16)) And Not IsDBNull(drLocal.Item(17)) Then ExcelReports.DataToCells("F" & Row, drLocal.Item(16) & "/" & drLocal.Item(17))
                         Else
@@ -6062,6 +6185,7 @@ TestComplete:  ' For everything except Directional Couplers
             TraceDataReport()
             TopFolder = "90_Degree\"
             If SpecType = "90 DEGREE COUPLER" Then TopFolder = "90_Degree\"
+            If SpecType.Contains("BALUN") Then TopFolder = "Balun\"
             If SpecType = "90 DEGREE COUPLER SMD" Then TopFolder = "90_Degree_SMD\"
             If InStr(SpecType, "DIRECTIONAL COUPLER") Then TopFolder = "Directional_Couplers\"
             If InStr(SpecType, "DIRECTIONAL COUPLER SMD") Then TopFolder = "Directional_Couplers_SMD\"
@@ -6091,7 +6215,7 @@ TestComplete:  ' For everything except Directional Couplers
     End Sub
 
     Public Sub TraceDataReport()
-        If SpecType.Contains("90 DEGREE COUPLER") Then
+        If SpecType.Contains("90 DEGREE COUPLER") Or SpecType.Contains("BALUN") Then
 
             For x = 0 To 4
                 SerialNumber = "UUT " & x + 1

@@ -49,8 +49,8 @@ Public Class frmSpecifications
             Me.cmbSpecType.Items.Clear()
             Me.cmbSpecType.Items.Add("90 DEGREE COUPLER")
             Me.cmbSpecType.Items.Add("90 DEGREE COUPLER SMD")
-            Me.cmbSpecType.Items.Add("180 DEGREE COUPLER")
-            Me.cmbSpecType.Items.Add("180 DEGREE COUPLER SMD")
+            Me.cmbSpecType.Items.Add("BALUN")
+            Me.cmbSpecType.Items.Add("BALUN SMD")
             Me.cmbSpecType.Items.Add("BI DIRECTIONAL COUPLER")
             Me.cmbSpecType.Items.Add("BI DIRECTIONAL COUPLER SMD")
             Me.cmbSpecType.Items.Add("SINGLE DIRECTIONAL COUPLER")
@@ -167,11 +167,9 @@ Public Class frmSpecifications
                         If Not IsDBNull(dr.GetValue(11)) Then Me.txtTest1_2.Text = dr.Item(11)
                         If Not IsDBNull(dr.GetValue(10)) Then Me.txtTest2_2.Text = dr.Item(10)
                         If Index = 0 Or Index = 1 Or Index = 3 Then
-                            If Not IsDBNull(dr.GetValue(12)) Then Me.txtTest3_2.Text = dr.Item(12)
                             If Not IsDBNull(dr.GetValue(14)) Then Me.txtTest4_2.Text = dr.Item(14)
                             If Not IsDBNull(dr.GetValue(18)) Then Me.txtTest5_2.Text = dr.Item(18)
                         ElseIf Index = 2 Then
-                            If Not IsDBNull(dr.GetValue(15)) Then Me.txtTest3_2.Text = dr.Item(15)
                             If Not IsDBNull(dr.GetValue(17)) Then Me.txtTest4_2.Text = dr.Item(17)
                             If Not IsDBNull(dr.GetValue(19)) Then Me.txtTest5_2.Text = dr.Item(19)
                         End If
@@ -191,7 +189,6 @@ Public Class frmSpecifications
                             If Not IsDBNull(dr.GetValue(13)) Then Me.txtTest3_1.Text = dr.Item(13)
                             If Not IsDBNull(dr.GetValue(14)) Then Me.txtTest4_1.Text = dr.Item(14)
                             If Not IsDBNull(dr.GetValue(19)) Then Me.txtTest5_1.Text = dr.Item(19)
-                            If Not IsDBNull(dr.GetValue(13)) Then Me.txtTest3_2.Text = dr.Item(13)
                             If Not IsDBNull(dr.GetValue(14)) Then Me.txtTest4_2.Text = dr.Item(14)
                             If Not IsDBNull(dr.GetValue(19)) Then Me.txtTest5_2.Text = dr.Item(19)
                             If Not IsDBNull(dr.GetValue(13)) Then Me.txtTest3_4.Text = dr.Item(13)
@@ -267,11 +264,9 @@ Public Class frmSpecifications
                         If Not IsDBNull(drLocal.GetValue(11)) Then Me.txtTest1_2.Text = drLocal.Item(11)
                         If Not IsDBNull(drLocal.GetValue(10)) Then Me.txtTest2_2.Text = drLocal.Item(10)
                         If Index = 0 Or Index = 1 Or Index = 3 Then
-                            If Not IsDBNull(drLocal.GetValue(12)) Then Me.txtTest3_2.Text = drLocal.Item(12)
                             If Not IsDBNull(drLocal.GetValue(14)) Then Me.txtTest4_2.Text = drLocal.Item(14)
                             If Not IsDBNull(drLocal.GetValue(18)) Then Me.txtTest5_2.Text = drLocal.Item(18)
                         ElseIf Index = 2 Then
-                            If Not IsDBNull(drLocal.GetValue(15)) Then Me.txtTest3_2.Text = drLocal.Item(15)
                             If Not IsDBNull(drLocal.GetValue(17)) Then Me.txtTest4_2.Text = drLocal.Item(17)
                             If Not IsDBNull(drLocal.GetValue(19)) Then Me.txtTest5_2.Text = drLocal.Item(19)
                         End If
@@ -333,21 +328,8 @@ Public Class frmSpecifications
                 Me.txtJ4J4_1.Text = "----"
             ElseIf Index = 1 Then
                 Me.txtJ1J1_2.Text = "----"
-                Me.txtJ1J2_2.Text = "ISOLATION"
-                Me.txtJ1J3_2.Text = "-3dB < 0 DEG"
-                Me.txtJ1J4_2.Text = "-3dB < -180 DEG"
-                Me.txtJ2J1_2.Text = "ISOLATION"
-                Me.txtJ2J2_2.Text = "----"
-                Me.txtJ2J3_2.Text = "-3dB < -180 DEG"
-                Me.txtJ2J4_2.Text = "-3dB < 0 DEG"
-                Me.txtJ3J1_2.Text = "-3dB < 0 DEG"
-                Me.txtJ3J2_2.Text = "-3dB < -180 DEG"
-                Me.txtJ3J3_2.Text = "----"
-                Me.txtJ3J4_2.Text = "ISOLATION"
-                Me.txtJ4J1_2.Text = "-3dB < -180 DEG"
-                Me.txtJ4J2_2.Text = "-3dB < 0 DEG"
-                Me.txtJ4J3_2.Text = "ISOLATION"
-                Me.txtJ4J4_2.Text = "----"
+                Me.txtJ1J2_2.Text = "-6dB < 0 DEG"
+                Me.txtJ1J3_2.Text = "-6dB < -180 DEG"
             End If
 
             SQLstr = "SELECT * from PortConfig where PartNumber = '" & Me.cmbPart.Text & "'"
@@ -379,20 +361,8 @@ Public Class frmSpecifications
                         If Not IsDBNull(dr.GetValue(3)) Then Me.txtJ1J1_2.Text = dr.Item(3)
                         If Not IsDBNull(dr.GetValue(4)) Then Me.txtJ1J2_2.Text = dr.Item(4)
                         If Not IsDBNull(dr.GetValue(5)) Then Me.txtJ1J3_2.Text = dr.Item(5)
-                        If Not IsDBNull(dr.GetValue(6)) Then Me.txtJ1J4_2.Text = dr.Item(6)
-                        If Not IsDBNull(dr.GetValue(8)) Then Me.txtJ2J1_2.Text = dr.Item(8)
-                        If Not IsDBNull(dr.GetValue(9)) Then Me.txtJ2J2_2.Text = dr.Item(9)
-                        If Not IsDBNull(dr.GetValue(10)) Then Me.txtJ2J3_2.Text = dr.Item(10)
-                        If Not IsDBNull(dr.GetValue(11)) Then Me.txtJ2J4_2.Text = dr.Item(11)
-                        If Not IsDBNull(dr.GetValue(12)) Then Me.txtJ3J1_2.Text = dr.Item(12)
-                        If Not IsDBNull(dr.GetValue(13)) Then Me.txtJ3J2_2.Text = dr.Item(13)
-                        If Not IsDBNull(dr.GetValue(14)) Then Me.txtJ3J3_2.Text = dr.Item(14)
-                        If Not IsDBNull(dr.GetValue(15)) Then Me.txtJ3J4_2.Text = dr.Item(15)
-                        If Not IsDBNull(dr.GetValue(16)) Then Me.txtJ4J1_2.Text = dr.Item(16)
-                        If Not IsDBNull(dr.GetValue(17)) Then Me.txtJ4J2_2.Text = dr.Item(17)
-                        If Not IsDBNull(dr.GetValue(18)) Then Me.txtJ4J3_2.Text = dr.Item(18)
-                        If Not IsDBNull(dr.GetValue(19)) Then Me.txtJ4J4_2.Text = dr.Item(19)
                     End If
+
                 End While
                 ats.Close()
             Else
@@ -425,19 +395,6 @@ Public Class frmSpecifications
                         If Not IsDBNull(drLocal.GetValue(3)) Then Me.txtJ1J1_2.Text = drLocal.Item(3)
                         If Not IsDBNull(drLocal.GetValue(4)) Then Me.txtJ1J2_2.Text = drLocal.Item(4)
                         If Not IsDBNull(drLocal.GetValue(5)) Then Me.txtJ1J3_2.Text = drLocal.Item(5)
-                        If Not IsDBNull(drLocal.GetValue(6)) Then Me.txtJ1J4_2.Text = drLocal.Item(6)
-                        If Not IsDBNull(drLocal.GetValue(8)) Then Me.txtJ2J1_2.Text = drLocal.Item(8)
-                        If Not IsDBNull(drLocal.GetValue(9)) Then Me.txtJ2J2_2.Text = drLocal.Item(9)
-                        If Not IsDBNull(drLocal.GetValue(10)) Then Me.txtJ2J3_2.Text = drLocal.Item(10)
-                        If Not IsDBNull(drLocal.GetValue(11)) Then Me.txtJ2J4_2.Text = drLocal.Item(11)
-                        If Not IsDBNull(drLocal.GetValue(12)) Then Me.txtJ3J1_2.Text = drLocal.Item(12)
-                        If Not IsDBNull(drLocal.GetValue(13)) Then Me.txtJ3J2_2.Text = drLocal.Item(13)
-                        If Not IsDBNull(drLocal.GetValue(14)) Then Me.txtJ3J3_2.Text = drLocal.Item(14)
-                        If Not IsDBNull(drLocal.GetValue(15)) Then Me.txtJ3J4_2.Text = drLocal.Item(15)
-                        If Not IsDBNull(drLocal.GetValue(16)) Then Me.txtJ4J1_2.Text = drLocal.Item(16)
-                        If Not IsDBNull(drLocal.GetValue(17)) Then Me.txtJ4J2_2.Text = drLocal.Item(17)
-                        If Not IsDBNull(drLocal.GetValue(18)) Then Me.txtJ4J3_2.Text = drLocal.Item(18)
-                        If Not IsDBNull(drLocal.GetValue(19)) Then Me.txtJ4J4_2.Text = drLocal.Item(19)
                     End If
                 End While
                 atsLocal.Close()
@@ -510,11 +467,9 @@ Public Class frmSpecifications
                         If Not IsDBNull(dr.GetValue(11)) Then Me.txtTest1_2.Text = dr.Item(11)
                         If Not IsDBNull(dr.GetValue(10)) Then Me.txtTest2_2.Text = dr.Item(10)
                         If Index = 0 Or Index = 1 Or Index = 3 Then
-                            If Not IsDBNull(dr.GetValue(12)) Then Me.txtTest3_2.Text = dr.Item(12)
-                            If Not IsDBNull(dr.GetValue(14)) Then Me.txtTest4_2.Text = dr.Item(14)
+                             If Not IsDBNull(dr.GetValue(14)) Then Me.txtTest4_2.Text = dr.Item(14)
                             If Not IsDBNull(dr.GetValue(18)) Then Me.txtTest5_2.Text = dr.Item(18)
                         ElseIf Index = 2 Then
-                            If Not IsDBNull(dr.GetValue(15)) Then Me.txtTest3_2.Text = dr.Item(15)
                             If Not IsDBNull(dr.GetValue(17)) Then Me.txtTest4_2.Text = dr.Item(17)
                             If Not IsDBNull(dr.GetValue(19)) Then Me.txtTest5_2.Text = dr.Item(19)
                         End If
@@ -532,7 +487,7 @@ Public Class frmSpecifications
                             If Not IsDBNull(dr.GetValue(13)) Then Me.txtTest3_1.Text = dr.Item(13)
                             If Not IsDBNull(dr.GetValue(14)) Then Me.txtTest4_1.Text = dr.Item(14)
                             If Not IsDBNull(dr.GetValue(19)) Then Me.txtTest5_1.Text = dr.Item(19)
-                            If Not IsDBNull(dr.GetValue(13)) Then Me.txtTest3_2.Text = dr.Item(13)
+                            'If Not IsDBNull(dr.GetValue(13)) Then Me.txtTest3_2.Text = dr.Item(13)
                             If Not IsDBNull(dr.GetValue(14)) Then Me.txtTest4_2.Text = dr.Item(14)
                             If Not IsDBNull(dr.GetValue(19)) Then Me.txtTest5_2.Text = dr.Item(19)
                             If Not IsDBNull(dr.GetValue(13)) Then Me.txtTest3_4.Text = dr.Item(13)
@@ -587,11 +542,9 @@ Public Class frmSpecifications
                         If Not IsDBNull(drLocal.GetValue(11)) Then Me.txtTest1_2.Text = drLocal.Item(11)
                         If Not IsDBNull(drLocal.GetValue(10)) Then Me.txtTest2_2.Text = drLocal.Item(10)
                         If Index = 0 Or Index = 1 Or Index = 3 Then
-                            If Not IsDBNull(drLocal.GetValue(12)) Then Me.txtTest3_2.Text = drLocal.Item(12)
-                            If Not IsDBNull(drLocal.GetValue(14)) Then Me.txtTest4_2.Text = drLocal.Item(14)
+                             If Not IsDBNull(drLocal.GetValue(14)) Then Me.txtTest4_2.Text = drLocal.Item(14)
                             If Not IsDBNull(drLocal.GetValue(18)) Then Me.txtTest5_2.Text = drLocal.Item(18)
                         ElseIf Index = 2 Then
-                            If Not IsDBNull(drLocal.GetValue(15)) Then Me.txtTest3_2.Text = drLocal.Item(15)
                             If Not IsDBNull(drLocal.GetValue(17)) Then Me.txtTest4_2.Text = drLocal.Item(17)
                             If Not IsDBNull(drLocal.GetValue(19)) Then Me.txtTest5_2.Text = drLocal.Item(19)
                         End If
@@ -636,21 +589,8 @@ Public Class frmSpecifications
                 Me.txtJ4J4_1.Text = "----"
             ElseIf Index = 1 Then
                 Me.txtJ1J1_2.Text = "----"
-                Me.txtJ1J2_2.Text = "ISOLATION"
-                Me.txtJ1J3_2.Text = "-3dB < 0 DEG"
-                Me.txtJ1J4_2.Text = "-3dB < -180 DEG"
-                Me.txtJ2J1_2.Text = "ISOLATION"
-                Me.txtJ2J2_2.Text = "----"
-                Me.txtJ2J3_2.Text = "-3dB < -180 DEG"
-                Me.txtJ2J4_2.Text = "-3dB < 0 DEG"
-                Me.txtJ3J1_2.Text = "-3dB < 0 DEG"
-                Me.txtJ3J2_2.Text = "-3dB < -180 DEG"
-                Me.txtJ3J3_2.Text = "----"
-                Me.txtJ3J4_2.Text = "ISOLATION"
-                Me.txtJ4J1_2.Text = "-3dB < -180 DEG"
-                Me.txtJ4J2_2.Text = "-3dB < 0 DEG"
-                Me.txtJ4J3_2.Text = "ISOLATION"
-                Me.txtJ4J4_2.Text = "----"
+                Me.txtJ1J2_2.Text = "-6dB < 0 DEG"
+                Me.txtJ1J3_2.Text = "-6dB < -180 DEG"
             End If
             SQLstr = "SELECT * from PortConfig where PartNumber = '" & Me.cmbPart.Text & "'"
             If SQLAccess Then
@@ -681,19 +621,6 @@ Public Class frmSpecifications
                         Me.txtJ1J1_2.Text = dr.Item(3)
                         Me.txtJ1J2_2.Text = dr.Item(4)
                         Me.txtJ1J3_2.Text = dr.Item(5)
-                        Me.txtJ1J4_2.Text = dr.Item(6)
-                        Me.txtJ2J1_2.Text = dr.Item(8)
-                        Me.txtJ2J2_2.Text = dr.Item(9)
-                        Me.txtJ2J3_2.Text = dr.Item(10)
-                        Me.txtJ2J4_2.Text = dr.Item(11)
-                        Me.txtJ3J1_2.Text = dr.Item(12)
-                        Me.txtJ3J2_2.Text = dr.Item(13)
-                        Me.txtJ3J3_2.Text = dr.Item(14)
-                        Me.txtJ3J4_2.Text = dr.Item(15)
-                        Me.txtJ4J1_2.Text = dr.Item(16)
-                        Me.txtJ4J2_2.Text = dr.Item(17)
-                        Me.txtJ4J3_2.Text = dr.Item(18)
-                        Me.txtJ4J4_2.Text = dr.Item(19)
                     End If
                     ats.Close()
                 End While
@@ -727,20 +654,6 @@ Public Class frmSpecifications
                         Me.txtJ1J1_2.Text = drLocal.Item(3)
                         Me.txtJ1J2_2.Text = drLocal.Item(4)
                         Me.txtJ1J3_2.Text = drLocal.Item(5)
-                        Me.txtJ1J4_2.Text = drLocal.Item(6)
-                        Me.txtJ2J1_2.Text = drLocal.Item(8)
-                        Me.txtJ2J2_2.Text = drLocal.Item(9)
-                        Me.txtJ2J3_2.Text = drLocal.Item(10)
-                        Me.txtJ2J4_2.Text = drLocal.Item(11)
-                        Me.txtJ3J1_2.Text = drLocal.Item(12)
-                        Me.txtJ3J2_2.Text = drLocal.Item(13)
-                        Me.txtJ3J3_2.Text = drLocal.Item(14)
-                        Me.txtJ3J4_2.Text = drLocal.Item(15)
-                        Me.txtJ4J1_2.Text = drLocal.Item(16)
-                        Me.txtJ4J2_2.Text = drLocal.Item(17)
-                        Me.txtJ4J3_2.Text = drLocal.Item(18)
-                        Me.txtJ4J4_2.Text = drLocal.Item(19)
-                    Else
                     End If
                     atsLocal.Close()
                 End While
@@ -769,7 +682,7 @@ Public Class frmSpecifications
 
             txtTitle.Text = cmbSpecType.Text
             Index = 0
-        ElseIf Me.cmbSpecType.Text = "180 DEGREE COUPLER" Or Me.cmbSpecType.Text = "180 DEGREE COUPLER SMD" Then
+        ElseIf Me.cmbSpecType.Text = "BALUN" Or Me.cmbSpecType.Text = "BALUN SMD" Then
             Frame1.Visible = False
             Frame2.Visible = True
             Frame3.Visible = False
@@ -921,10 +834,10 @@ Public Class frmSpecifications
                         'cmd.ExecuteNonQuery()
                     Case 1
                         If Index = 0 Or Index = 1 Or Index = 3 Then
-                            If Me.txtTest3_2.Text = "" Or Me.txtTest4_2.Text = "" Or Me.txtTest5_2.Text = "" Then GoTo StupidUser
-                            If Not IsNumeric(Me.txtTest3_2.Text) Or Not IsNumeric(Me.txtTest4_2.Text) Or Not IsNumeric(Me.txtTest5_2.Text) Then GoTo NotNumber
-                            cmd.CommandText = "UPDATE Specifications SET  Isolation = '" & Me.txtTest3_2.Text & "'" & Expression
-                            cmd.ExecuteNonQuery()
+                            'If Me.txtTest3_2.Text = "" Or Me.txtTest4_2.Text = "" Or Me.txtTest5_2.Text = "" Then GoTo StupidUser
+                            ' If Not IsNumeric(Me.txtTest3_2.Text) Or Not IsNumeric(Me.txtTest4_2.Text) Or Not IsNumeric(Me.txtTest5_2.Text) Then GoTo NotNumber
+                            'cmd.CommandText = "UPDATE Specifications SET  Isolation = '" & Me.txtTest3_2.Text & "'" & Expression
+                            'cmd.ExecuteNonQuery()
                             cmd.CommandText = "UPDATE Specifications SET  AmplitudeBalance = '" & Me.txtTest4_2.Text & "'" & Expression
                             cmd.ExecuteNonQuery()
                             cmd.CommandText = "UPDATE Specifications SET  PhaseBalance = '" & Me.txtTest5_2.Text & "'" & Expression
@@ -1166,9 +1079,9 @@ Public Class frmSpecifications
                         'cmd.ExecuteNonQuery()
                     Case 1
                         If Index = 0 Or Index = 1 Or Index = 3 Then
-                            If Me.txtTest3_2.Text = "" Or Me.txtTest4_2.Text = "" Or Me.txtTest5_2.Text = "" Then GoTo StupidUser
-                            If Not IsNumeric(Me.txtTest3_2.Text) Or Not IsNumeric(Me.txtTest4_2.Text) Or Not IsNumeric(Me.txtTest5_2.Text) Then GoTo NotNumber
-                            cmd.CommandText = "UPDATE Specifications SET  Iso = '" & Me.txtTest3_2.Text & "'" & Expression
+                            'If Me.txtTest3_2.Text = "" Or Me.txtTest4_2.Text = "" Or Me.txtTest5_2.Text = "" Then GoTo StupidUser
+                            ' If Not IsNumeric(Me.txtTest3_2.Text) Or Not IsNumeric(Me.txtTest4_2.Text) Or Not IsNumeric(Me.txtTest5_2.Text) Then GoTo NotNumber
+                            'cmd.CommandText = "UPDATE Specifications SET  Iso = '" & Me.txtTest3_2.Text & "'" & Expression
                             cmd.ExecuteNonQuery()
                             cmd.CommandText = "UPDATE Specifications SET  AmplitudeBalance = '" & Me.txtTest4_2.Text & "'" & Expression
                             cmd.ExecuteNonQuery()
@@ -1350,39 +1263,47 @@ Public Class frmSpecifications
                     ats.Open()
                     cmd.Connection = ats
                     '"~~>************************SQL Or Access Conection****************************
-
-                    cmd.CommandText = "UPDATE PortConfig SET  J1J1 = '" & txtJ1J1_1.Text & "'" & Expression
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "UPDATE PortConfig SET  J1J2 = '" & txtJ1J2_1.Text & "'" & Expression
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "UPDATE PortConfig SET  J1J3 = '" & txtJ1J3_1.Text & "'" & Expression
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "UPDATE PortConfig SET  J1J4 = '" & txtJ1J4_1.Text & "'" & Expression
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "UPDATE PortConfig SET  J2J1 = '" & txtJ2J1_1.Text & "'" & Expression
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "UPDATE PortConfig SET  J2J2 = '" & txtJ2J2_1.Text & "'" & Expression
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "UPDATE PortConfig SET  J2J3 = '" & txtJ2J3_1.Text & "'" & Expression
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "UPDATE PortConfig SET  J2J4 = '" & txtJ2J4_1.Text & "'" & Expression
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "UPDATE PortConfig SET  J3J1 = '" & txtJ3J1_1.Text & "'" & Expression
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "UPDATE PortConfig SET  J3J2 = '" & txtJ3J2_1.Text & "'" & Expression
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "UPDATE PortConfig SET  J3J3 = '" & txtJ3J3_1.Text & "'" & Expression
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "UPDATE PortConfig SET  J3J4 = '" & txtJ3J4_1.Text & "'" & Expression
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "UPDATE PortConfig SET  J4J1 = '" & txtJ4J1_1.Text & "'" & Expression
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "UPDATE PortConfig SET  J4J2 = '" & txtJ4J2_1.Text & "'" & Expression
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "UPDATE PortConfig SET  J4J3 = '" & txtJ4J3_1.Text & "'" & Expression
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "UPDATE PortConfig SET  J4J4 = '" & txtJ4J4_1.Text & "'" & Expression
-                    cmd.ExecuteNonQuery()
+                    If Index = 1 Then
+                        cmd.CommandText = "UPDATE PortConfig SET  J1J1 = '" & txtJ1J1_2.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE PortConfig SET  J1J2 = '" & txtJ1J2_2.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE PortConfig SET  J1J3 = '" & txtJ1J3_2.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                    Else
+                        cmd.CommandText = "UPDATE PortConfig SET  J1J1 = '" & txtJ1J1_1.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE PortConfig SET  J1J2 = '" & txtJ1J2_1.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE PortConfig SET  J1J3 = '" & txtJ1J3_1.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE PortConfig SET  J1J4 = '" & txtJ1J4_1.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE PortConfig SET  J2J1 = '" & txtJ2J1_1.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE PortConfig SET  J2J2 = '" & txtJ2J2_1.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE PortConfig SET  J2J3 = '" & txtJ2J3_1.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE PortConfig SET  J2J4 = '" & txtJ2J4_1.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE PortConfig SET  J3J1 = '" & txtJ3J1_1.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE PortConfig SET  J3J2 = '" & txtJ3J2_1.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE PortConfig SET  J3J3 = '" & txtJ3J3_1.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE PortConfig SET  J3J4 = '" & txtJ3J4_1.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE PortConfig SET  J4J1 = '" & txtJ4J1_1.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE PortConfig SET  J4J2 = '" & txtJ4J2_1.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE PortConfig SET  J4J3 = '" & txtJ4J3_1.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE PortConfig SET  J4J4 = '" & txtJ4J4_1.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                    End If
                     ats.Close()
                 Else
                     Dim strConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & AccessDatabaseFolder("NetworkSpecs")
@@ -1392,90 +1313,97 @@ Public Class frmSpecifications
                     atsLocal.Open()
                     cmd.Connection = atsLocal
                     '"~~>************************SQL Or Access Conection****************************
-
-                    cmd.CommandText = "UPDATE PortConfig SET  J1J1 = '" & txtJ1J1_1.Text & "'" & Expression
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "UPDATE PortConfig SET  J1J2 = '" & txtJ1J2_1.Text & "'" & Expression
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "UPDATE PortConfig SET  J1J3 = '" & txtJ1J3_1.Text & "'" & Expression
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "UPDATE PortConfig SET  J1J4 = '" & txtJ1J4_1.Text & "'" & Expression
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "UPDATE PortConfig SET  J2J1 = '" & txtJ2J1_1.Text & "'" & Expression
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "UPDATE PortConfig SET  J2J2 = '" & txtJ2J2_1.Text & "'" & Expression
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "UPDATE PortConfig SET  J2J3 = '" & txtJ2J3_1.Text & "'" & Expression
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "UPDATE PortConfig SET  J2J4 = '" & txtJ2J4_1.Text & "'" & Expression
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "UPDATE PortConfig SET  J3J1 = '" & txtJ3J1_1.Text & "'" & Expression
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "UPDATE PortConfig SET  J3J2 = '" & txtJ3J2_1.Text & "'" & Expression
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "UPDATE PortConfig SET  J3J3 = '" & txtJ3J3_1.Text & "'" & Expression
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "UPDATE PortConfig SET  J3J4 = '" & txtJ3J4_1.Text & "'" & Expression
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "UPDATE PortConfig SET  J4J1 = '" & txtJ4J1_1.Text & "'" & Expression
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "UPDATE PortConfig SET  J4J2 = '" & txtJ4J2_1.Text & "'" & Expression
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "UPDATE PortConfig SET  J4J3 = '" & txtJ4J3_1.Text & "'" & Expression
-                    cmd.ExecuteNonQuery()
-                    cmd.CommandText = "UPDATE PortConfig SET  J4J4 = '" & txtJ4J4_1.Text & "'" & Expression
-                    cmd.ExecuteNonQuery()
+                    If Index = 1 Then
+                        cmd.CommandText = "UPDATE PortConfig SET  J1J1 = '" & txtJ1J1_2.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE PortConfig SET  J1J2 = '" & txtJ1J2_2.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE PortConfig SET  J1J3 = '" & txtJ1J3_2.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                    Else
+                        cmd.CommandText = "UPDATE PortConfig SET  J1J1 = '" & txtJ1J1_1.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE PortConfig SET  J1J2 = '" & txtJ1J2_1.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE PortConfig SET  J1J3 = '" & txtJ1J3_1.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE PortConfig SET  J1J4 = '" & txtJ1J4_1.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE PortConfig SET  J2J1 = '" & txtJ2J1_1.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE PortConfig SET  J2J2 = '" & txtJ2J2_1.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE PortConfig SET  J2J3 = '" & txtJ2J3_1.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE PortConfig SET  J2J4 = '" & txtJ2J4_1.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE PortConfig SET  J3J1 = '" & txtJ3J1_1.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE PortConfig SET  J3J2 = '" & txtJ3J2_1.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE PortConfig SET  J3J3 = '" & txtJ3J3_1.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE PortConfig SET  J3J4 = '" & txtJ3J4_1.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE PortConfig SET  J4J1 = '" & txtJ4J1_1.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE PortConfig SET  J4J2 = '" & txtJ4J2_1.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE PortConfig SET  J4J3 = '" & txtJ4J3_1.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE PortConfig SET  J4J4 = '" & txtJ4J4_1.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                    End If
                     atsLocal.Close()
-
                 End If
             End If
 
-            Dim Count As Integer = 0
-            frmAUTOTEST.cmbJob.Items.Clear()
-            frmAUTOTEST.cmbJob.Items.Add(" ")
-            frmAUTOTEST.cmbJob.Items.Add("Add New")
-            If SQLAccess Then
-                Dim ats As SqlConnection = New SqlConnection(SQLConnStr)
-                Dim cmd As SqlCommand = New SqlCommand("SELECT DISTINCT JobNumber from Specifications", ats)
-                ats.Open()
-                System.Threading.Thread.Sleep(10)
-                Dim dr As SqlDataReader = cmd.ExecuteReader()
-                While dr.Read
-                    frmAUTOTEST.cmbJob.Items.Add(CType(dr.GetValue(0), String))
-                    Count = Count + 1
-                End While
-                ats.Close()
-            Else
-                Dim strConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source= " & AccessDatabaseFolder("NetworkSpecs")
-                Dim atsLocal As New OleDb.OleDbConnection
-                atsLocal.ConnectionString = strConnectionString
-                Dim cmd As OleDb.OleDbCommand = New OleDb.OleDbCommand("SELECT DISTINCT JobNumber from Specifications", atsLocal)
-                atsLocal.Open()
-                System.Threading.Thread.Sleep(10)
-                Dim drLocal As OleDb.OleDbDataReader = cmd.ExecuteReader
-                While Not drLocal.Read = Nothing
-                    frmAUTOTEST.cmbJob.Items.Add(CType(drLocal.GetValue(0), String))
-                    Count = Count + 1
-                End While
-                atsLocal.Close()
-            End If
-            frmAUTOTEST.cmbJob.Text = Job
-            frmAUTOTEST.cmbPart.Text = Part
-            frmAUTOTEST.txtStartFreq.Text = SpecStartFreq
-            frmAUTOTEST.txtStopFreq.Text = SpecStopFreq
+                Dim Count As Integer = 0
+                frmAUTOTEST.cmbJob.Items.Clear()
+                frmAUTOTEST.cmbJob.Items.Add(" ")
+                frmAUTOTEST.cmbJob.Items.Add("Add New")
+                If SQLAccess Then
+                    Dim ats As SqlConnection = New SqlConnection(SQLConnStr)
+                    Dim cmd As SqlCommand = New SqlCommand("SELECT DISTINCT JobNumber from Specifications", ats)
+                    ats.Open()
+                    System.Threading.Thread.Sleep(10)
+                    Dim dr As SqlDataReader = cmd.ExecuteReader()
+                    While dr.Read
+                        frmAUTOTEST.cmbJob.Items.Add(CType(dr.GetValue(0), String))
+                        Count = Count + 1
+                    End While
+                    ats.Close()
+                Else
+                    Dim strConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source= " & AccessDatabaseFolder("NetworkSpecs")
+                    Dim atsLocal As New OleDb.OleDbConnection
+                    atsLocal.ConnectionString = strConnectionString
+                    Dim cmd As OleDb.OleDbCommand = New OleDb.OleDbCommand("SELECT DISTINCT JobNumber from Specifications", atsLocal)
+                    atsLocal.Open()
+                    System.Threading.Thread.Sleep(10)
+                    Dim drLocal As OleDb.OleDbDataReader = cmd.ExecuteReader
+                    While Not drLocal.Read = Nothing
+                        frmAUTOTEST.cmbJob.Items.Add(CType(drLocal.GetValue(0), String))
+                        Count = Count + 1
+                    End While
+                    atsLocal.Close()
+                End If
+                frmAUTOTEST.cmbJob.Text = Job
+                frmAUTOTEST.cmbPart.Text = Part
+                frmAUTOTEST.txtStartFreq.Text = SpecStartFreq
+                frmAUTOTEST.txtStopFreq.Text = SpecStopFreq
 
 
-            Me.Hide()
-            frmAUTOTEST.Show()
-            Exit Sub
+                Me.Hide()
+                frmAUTOTEST.Show()
+                Exit Sub
 StupidUser:
-            MsgBox("Please fill out all required fields")
-            Exit Sub
+                MsgBox("Please fill out all required fields")
+                Exit Sub
 NoRatio:
-            MsgBox("Ratio is already included in VSWR Spec. Please remove the :")
+                MsgBox("Ratio is already included in VSWR Spec. Please remove the :")
 NotNumber:
-            MsgBox("Please recheck out all required fields. You must have all Numerials and no Characters")
-            Exit Sub
+                MsgBox("Please recheck out all required fields. You must have all Numerials and no Characters")
+                Exit Sub
         Catch ex As Exception
             Me.Hide()
             frmAUTOTEST.Show()

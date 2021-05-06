@@ -9,7 +9,7 @@
         ' This call is required by the designer.
         InitializeComponent()
 
-        If SpecType = "90 DEGREE COUPLER" Or SpecType = "180 DEGREE COUPLER" Or SpecType = "COMBINER/DIVIDER" Then
+        If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType = "COMBINER/DIVIDER" Then
             test1 = "Insertion Loss"
             test2 = "Return Loss"
             test3 = "Isolation"
