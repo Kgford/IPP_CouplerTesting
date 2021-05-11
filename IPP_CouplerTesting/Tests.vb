@@ -2566,6 +2566,8 @@
                 ExtraAvg()
                 ScanGPIB.BusWrite(":CALC1:MARK1:FUNC:EXEC")
                 ScanGPIB.BusWrite(":CALC1:MARK1:FUNC:TYPE MAX")  'Marker 1 max
+                ScanGPIB.BusWrite(":CALC1:MARK1:FUNC:EXEC")
+                ScanGPIB.BusWrite(":CALC1:MARK1:FUNC:TYPE MAX")  'Marker 1 max
                 ISo = ScanGPIB.MarkerQuery(":CALC1:MARK1:Y?")  'Get Marker1 val
             ElseIf VNAStr = "N3383A" Then
                 ScanGPIB.BusWrite("CALC:PAR:SEL 'CH1_S21_1'")
@@ -5088,24 +5090,13 @@ Round:
 
 
             ' Put Back to IL so user can have a reference
-
-            If VNAStr = "AG_E5071B" And User = "JEN" Then
-                 '************DEBUG CODE FOR JEN'S WORKSTATION*******************
-                'ScanGPIB.BusWrite(":CALC1:PAR2:SEL")
-                'ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:MEM OFF")  'Memory Off"
-                'ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:STAT ON") ' Data On
-                'ScanGPIB.BusWrite(":CALC1:MATH:FUNC NORM")
-
-                ' ScanGPIB.BusWrite(":CALC1:FORM MLOG")
-                'ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV " & GetLoss())
-                'ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:PDIV " & GetSpecification("AmplitudeBalance"))
-                '************DEBUG CODE FOR JEN'S WORKSTATION*******************
-            ElseIf VNAStr = "AG_E5071B" Then
+            If VNAStr = "AG_E5071B" Then
                 ScanGPIB.BusWrite(":CALC1:PAR2:SEL")
                 ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:MEM OFF")  'Memory Off"
                 ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:STAT ON") ' Data On
+                Delay(100)
                 ScanGPIB.BusWrite(":CALC1:MATH:FUNC NORM")
-
+                ScanGPIB.BusWrite(":CALC1:MATH:FUNC NORM")
                 ScanGPIB.BusWrite(":CALC1:FORM MLOG")
                 ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV " & GetLoss())
                 ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:PDIV " & GetSpecification("AmplitudeBalance"))
@@ -5114,7 +5105,6 @@ Round:
                 ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:MEM OFF") 'Memory Off"
                 ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:STAT ON")  ' Data On
                 ScanGPIB.BusWrite(":CALC1:MATH:FUNC NORM")
-
                 ScanGPIB.BusWrite(":CALC1:FORM MLOG")
                 ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:RLEV " & GetLoss())
                 ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:PDIV " & GetSpecification("AmplitudeBalance"))
@@ -5124,6 +5114,7 @@ Round:
                 ScanGPIB.BusWrite("OPC?;LOGM;")
                 ScanGPIB.BusWrite("OPC?;REFV " & GetLoss())
                 ScanGPIB.BusWrite("OPC?;SCAL " & GetSpecification("AmplitudeBalance"))
+                ScanGPIB.BusWrite("MARKOFF;")  'All Markers Off
             End If
             PB = Format(Math.Round(PB, 1), "0.0")
             ILSetDone = True
@@ -5133,9 +5124,9 @@ Round:
                 PhaseBalance = "Fail"
             End If
         End If
-            ActiveTitle = Title
-            frmAUTOTEST.Refresh()
-            '************DEBUG CODE FOR JEN'S WORKSTATION*******************
+        ActiveTitle = Title
+        frmAUTOTEST.Refresh()
+        '************DEBUG CODE FOR JEN'S WORKSTATION*******************
         If VNAStr = "AG_E5071B" And User = "JEN" Then
             'SetSwitchPosition = 1
             'status = SwitchCom.SetSwitchPosition(1) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
@@ -5389,21 +5380,24 @@ Round:
             End If
 
             frmAUTOTEST.Refresh()
+
+            If SpecType = "90 DEGREE COUPLER" Then
+                PB1 = Math.Abs(90 - Math.Abs(PB1))
+                PB2 = Math.Abs(90 - Math.Abs(PB2))
+            Else
+                PB1 = Math.Abs(180 - Math.Abs(PB1))
+                PB2 = Math.Abs(180 - Math.Abs(PB2))
+            End If
+
             If Math.Abs(PB1) > Math.Abs(PB2) Then
                 PB = PB1
             Else
                 PB = PB2
             End If
-            PB = Math.Round(PB, 1)
-            'System.Threading.Thread.Sleep(500)
-            If SpecType = "90 DEGREE COUPLER" Then
-                PB = Math.Abs(90 - Math.Abs(PB))
-            Else
-                PB = Math.Abs(180 - Math.Abs(PB))
-            End If
+            PB = Math.Abs(Math.Round(PB, 1))
             PB = Format(PB + CDbl(frmAUTOTEST.txtOffset5.Text), "0.0")
-            ' Put Back to IL so user can have a reference
 
+            ' Put Back to IL so user can have a reference
             If VNAStr = "AG_E5071B" Then
                 ScanGPIB.BusWrite(":CALC1:PAR2:SEL")
                 ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:MEM OFF")  'Memory Off"
