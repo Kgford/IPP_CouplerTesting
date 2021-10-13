@@ -601,7 +601,7 @@
             frmAUTOTEST.Refresh()
             If TraceChecked And Not TweakMode Then ' Database Trace Data
                 Title = "Insertion Loss J3"
-                SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                SerialNumber = "UUT" & frmAUTOTEST.UUTCount.Text
                 TestID = TestID
                 CalDate = Now
                 Notes = ""
@@ -686,7 +686,7 @@
 
             If TraceChecked And Not TweakMode Then ' Database Trace Data
                 Title = "Insertion Loss J4"
-                SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                SerialNumber = "UUT" & frmAUTOTEST.UUTCount.Text
                 TestID = TestID
                 CalDate = Now
                 Notes = ""
@@ -920,7 +920,7 @@
             frmAUTOTEST.Refresh()
             If TraceChecked And Not TweakMode Then ' Database Trace Data
                 Title = "Insertion Loss J3"
-                SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                SerialNumber = "UUT" & frmAUTOTEST.UUTCount.Text
                 TestID = TestID
                 CalDate = Now
                 Notes = ""
@@ -1005,7 +1005,7 @@
             ExtraAvg()
             If TraceChecked And Not TweakMode Then ' Database Trace Data
                 Title = "Insertion Loss J4"
-                SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                SerialNumber = "UUT" & frmAUTOTEST.UUTCount.Text
                 TestID = TestID
                 CalDate = Now
                 Notes = ""
@@ -1114,7 +1114,7 @@
                     ScanGPIB.BusWrite(":CALC:MATH:MEM") 'Data into Memory
                 Else
                     ScanGPIB.BusWrite("OPC?;CHAN2;")
-                    ScanGPIB.BusWrite("OPC?;LOGM;")
+                     ScanGPIB.BusWrite("OPC?;LOGM;")
                     ScanGPIB.BusWrite("OPC?;REFV " & GetLoss())
                     ScanGPIB.BusWrite("OPC?;SCAL " & GetSpecification("AmplitudeBalance"))
                     ScanGPIB.BusWrite("OPC?;INPUDATA," & gBuffer & ";") ' Input Trace1 data to VNA Memory
@@ -1385,7 +1385,7 @@
             End If
             ExtraAvg(2)
             frmAUTOTEST.Refresh()
-
+           
             If VNAStr = "AG_E5071B" Then
                 ScanGPIB.BusWrite(":CALC1:MARK1 OFF")  'Marker1 off
                 ScanGPIB.BusWrite(":CALC1:MARK2 OFF")  'Marker2 off
@@ -1619,7 +1619,7 @@
             ExtraAvg(2)
             If TraceChecked And Not TweakMode Then ' Database Trace Data
                 Title = "Insertion Loss J3"
-                SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                SerialNumber = "UUT" & frmAUTOTEST.UUTCount.Text
                 TestID = TestID
                 CalDate = Now
                 Notes = ""
@@ -1906,7 +1906,7 @@
                 ExtraAvg(2)
                 If TraceChecked And Not TweakMode Then ' Database Trace Data
                     Title = "Insertion Loss Port " & x & " "
-                    SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                    SerialNumber = "UUT" & frmAUTOTEST.UUTCount.Text
                     TestID = TestID
                     CalDate = Now
                     Notes = ""
@@ -2128,7 +2128,7 @@
         status = SwitchCom.SetSwitchPosition(1) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
         frmAUTOTEST.cmbSwitch.Text = "Switch POS 1"
     End Function
-
+    
     Public Function ReturnLoss(Optional ResumeTesting As Boolean = False, Optional TestID As Long = 1) As String
         Dim status As String
         Dim StatusRet As Integer
@@ -2204,7 +2204,7 @@
             End If
             If TraceChecked And Not TweakMode Then ' Database Trace Data
                 Title = "Return Loss"
-                SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                SerialNumber = "UUT" & frmAUTOTEST.UUTCount.Text
                 TestID = TestID
                 CalDate = Now
                 Notes = ""
@@ -2451,7 +2451,7 @@
             ExtraAvg(2)
             If TraceChecked And Not TweakMode Then ' Database Trace Data
                 Title = "Isolation"
-                SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                SerialNumber = "UUT" & frmAUTOTEST.UUTCount.Text
                 TestID = TestID
                 CalDate = Now
                 Notes = ""
@@ -2731,7 +2731,7 @@
                 ExtraAvg()
                 If TraceChecked And Not TweakMode Then ' Database Trace Data
                     Title = "Isolation Port " & Ports & " "
-                    SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                    SerialNumber = "UUT" & frmAUTOTEST.UUTCount.Text
                     TestID = TestID
                     CalDate = Now
                     Notes = ""
@@ -3106,7 +3106,7 @@ SetPoints:
 
                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Or (SpecType = "DUAL DIRECTIONAL COUPLER" And Direction = 1) Then
                     If TraceChecked And Not TweakMode Then ' Database Trace Data
-                        SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                        SerialNumber = "UUT" & frmAUTOTEST.UUTCount.Text
                         TestID = TestID
                         CalDate = Now
                         Notes = ""
@@ -3134,7 +3134,7 @@ SetPoints:
                     End If
                 Else
                     If TraceChecked And Not TweakMode Then ' Database Trace Data
-                        SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                        SerialNumber = "UUT" & frmAUTOTEST.UUTCount.Text
                         TestID = TestID
                         CalDate = Now
                         Notes = ""
@@ -3215,7 +3215,7 @@ SetPoints:
         status = SwitchCom.SetSwitchPosition(1) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
         frmAUTOTEST.cmbSwitch.Text = "Switch POS 1"
     End Function
-
+    
 
     Public Function AmplitudeBalance(Optional ResumeTesting As Boolean = False, Optional TestID As Long = 0) As String
 
@@ -3800,7 +3800,7 @@ Round:
                 If x <> 1 Then
                     If TraceChecked And Not TweakMode Then ' Database Trace Data
                         Title = "AmplitudeBalance Port " & PortNum
-                        SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                        SerialNumber = "UUT" & frmAUTOTEST.UUTCount.Text
                         TestID = TestID
                         CalDate = Now
                         Notes = ""
@@ -4193,7 +4193,7 @@ Round:
             frmAUTOTEST.Refresh()
             If TraceChecked And Not TweakMode Then ' Database Trace Data
                 Title = "Coupling J3"
-                SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                SerialNumber = "UUT" & frmAUTOTEST.UUTCount.Text
                 TestID = TestID
                 CalDate = Now
                 Notes = ""
@@ -4269,7 +4269,7 @@ Round:
             End If
             If TraceChecked And Not TweakMode Then ' Database Trace Data
                 Title = "Coupling J4"
-                SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                SerialNumber = "UUT" & frmAUTOTEST.UUTCount.Text
                 TestID = TestID
                 CalDate = Now
                 Notes = ""
@@ -4418,8 +4418,7 @@ Round:
                 ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:PDIV 10")
                 ScanGPIB.BusWrite(":CALC1:MARK1 ON")  'Marker 1 on
                 ExtraAvg(2)
-                ScanGPIB.BusWrite(":CALC1:MARK1:FUNC:EXEC")
-                ScanGPIB.BusWrite(":CALC1:MARK1:FUNC:TYPE MAX")  'Marker 1 min
+                ScanGPIB.BusWrite(":CALC1:MARK1:FUNC:TYPE MAX")  'Marker 1 
                 COUPJ1_Marker = ScanGPIB.MarkerQuery(":CALC1:MARK1:Y?")  'Get Marker1 val
             ElseIf VNAStr = "N3383A" Then
                 ScanGPIB.BusWrite(":CALC1:MARK1 OFF")  'Marker1 off
@@ -4640,7 +4639,7 @@ Round:
 
             If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Then
                 If TraceChecked And Not TweakMode Then ' Database Trace Data
-                    SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                    SerialNumber = "UUT" & frmAUTOTEST.UUTCount.Text
                     TestID = TestID
                     CalDate = Now
                     Notes = ""
@@ -4850,7 +4849,7 @@ Round:
             ExtraAvg()
             If TraceChecked And Not TweakMode Then ' Database Trace Data
                 Title = "Phase Balance J3"
-                SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                SerialNumber = "UUT" & frmAUTOTEST.UUTCount.Text
                 TestID = TestID
                 CalDate = Now
                 Notes = ""
@@ -4997,7 +4996,7 @@ Round:
             ExtraAvg()
             If TraceChecked And Not TweakMode Then ' Database Trace Data
                 Title = "Phase Balance J4"
-                SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                SerialNumber = "UUT" & frmAUTOTEST.UUTCount.Text
                 TestID = TestID
                 CalDate = Now
                 Notes = ""
@@ -5036,7 +5035,7 @@ Round:
             frmAUTOTEST.Refresh()
             If TraceChecked And Not TweakMode Then ' Database Trace Data
                 Title = "Phase Balance D/M"
-                SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                SerialNumber = "UUT" & frmAUTOTEST.UUTCount.Text
                 TestID = TestID
                 CalDate = Now
                 Notes = ""
@@ -5600,7 +5599,7 @@ Round:
 
                 If TraceChecked And Not TweakMode Then ' Database Trace Data
                     Title = "PhaseBalance Port " & PortNum
-                    SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                    SerialNumber = "UUT" & frmAUTOTEST.UUTCount.Text
                     TestID = TestID
                     CalDate = Now
                     Notes = ""
@@ -5914,7 +5913,7 @@ Round:
                 PhaseBalanceCOMB_Marker = "Fail"
             End If
         End If
-
+        
         frmAUTOTEST.Refresh()
         ActiveTitle = Title
         SetSwitchPosition = 1

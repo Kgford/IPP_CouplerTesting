@@ -35,3 +35,39 @@ C:\SRC\IPP_CouplerTesting\IPP_CouplerTesting\obj\Release\IPP_CouplerTesting.Test
 C:\SRC\IPP_CouplerTesting\IPP_CouplerTesting\obj\Release\IPP_CouplerTesting.vbproj.GenerateResource.Cache
 C:\SRC\IPP_CouplerTesting\IPP_CouplerTesting\obj\Release\IPP_CouplerTesting.exe.manifest
 C:\SRC\IPP_CouplerTesting\IPP_CouplerTesting\obj\Release\IPP_CouplerTesting.application
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\bin\Release\IPP_CouplerTesting.exe.config
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\obj\Release\IPP_CouplerTesting.exe
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\obj\Release\IPP_CouplerTesting.xml
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\obj\Release\IPP_CouplerTesting.pdb
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\bin\Release\IPP_CouplerTesting.exe.manifest
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\bin\Release\IPP_CouplerTesting.application
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\bin\Release\IPP_CouplerTesting.exe
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\bin\Release\IPP_CouplerTesting.pdb
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\bin\Release\IPP_CouplerTesting.xml
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\bin\Release\MccDaq.dll
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\bin\Release\mcl_RF_Switch_Controller64.dll
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\bin\Release\ZedGraph.dll
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\bin\Release\DirectIO.pdb
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\bin\Release\DirectIO.xml
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\bin\Release\MccDaq.xml
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\obj\Release\IPP_CouplerTesting.vbprojResolveAssemblyReference.cache
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\obj\Release\IPP_CouplerTesting.AddArtWorkRevision.resources
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\obj\Release\IPP_CouplerTesting.Supervisor.resources
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\obj\Release\IPP_CouplerTesting.EffeciencyView.resources
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\obj\Release\IPP_CouplerTesting.Failures_Manager.resources
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\obj\Release\IPP_CouplerTesting.CalGizmo.resources
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\obj\Release\IPP_CouplerTesting.OperatorEntry.resources
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\obj\Release\IPP_CouplerTesting.ResetPassword.resources
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\obj\Release\IPP_CouplerTesting.TraceView.resources
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\obj\Release\IPP_CouplerTesting.WorkStationView.resources
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\obj\Release\IPP_CouplerTesting.DeviceView.resources
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\obj\Release\IPP_CouplerTesting.PortConfigView.resources
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\obj\Release\IPP_CouplerTesting.SpecDataView.resources
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\obj\Release\IPP_CouplerTesting.frmAUTOTEST.resources
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\obj\Release\IPP_CouplerTesting.frmMain.resources
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\obj\Release\IPP_CouplerTesting.frmSpecifications.resources
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\obj\Release\IPP_CouplerTesting.Resources.resources
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\obj\Release\IPP_CouplerTesting.TestDataView.resources
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\obj\Release\IPP_CouplerTesting.vbproj.GenerateResource.Cache
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\obj\Release\IPP_CouplerTesting.exe.manifest
+C:\SRC\IPP_CouplerTesting_ver 4.0.83\obj\Release\IPP_CouplerTesting.application

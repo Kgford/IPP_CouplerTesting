@@ -1,5 +1,12 @@
 ﻿Option Explicit On
 Imports System.Xml
+Imports System.IO
+Imports System.Net
+Imports System.Text
+
+
+
+
 Module globals
 
     Declare Function GetComputerNameA Lib "kernel32" (ByVal lpBuffer As String, nSize As Long) As Long
@@ -46,9 +53,6 @@ Module globals
     Public PartSpec As String
 
 
-
-
-
     Public OverrideLogForm As Boolean
     Public LogTextObject As Object
     Public XLocation
@@ -78,7 +82,9 @@ Module globals
     Public SpecPB As Double
     Public SpecRL As Double
     Public SpecISO As Double
-    Public SpecISO2 As Double
+    Public SpecISOL As Double
+    Public SpecISOH As Double
+    Public ISO_TF As Boolean = False
     Public SpecCuttoffFreq As Double
     Public SpecCOUP As Double
     Public SpecCOUPPM As Double
@@ -133,7 +139,7 @@ Module globals
     Public SpecStopFreq As Double
     Public Part As String
     Public VNAStr As String
-   
+
     Public TraceChecked As Boolean = False
     Public TraceCheckedChanged As Boolean = False
     Public SwitchedChecked As Boolean = False
@@ -145,6 +151,7 @@ Module globals
     Public EAveraging As Boolean = False
     Public Averages As Integer
     Public RetrnVal As Double
+    Public RetrnVal1 As Double
     Public IL As Double
     Public RL As Double
     Public AB As Double
@@ -158,6 +165,10 @@ Module globals
     Public PB2 As Double
     Public CF As Double
     Public ISo As Double
+    Public ISoL As Double
+    Public ISoH As Double
+    Public ISoLPass As String
+    Public ISoHPass As String
     Public COuP As Double
 
     Public DebugLevel As Integer
@@ -174,6 +185,8 @@ Module globals
 
     'Trace
     Public UUTNum As Integer
+    Public UUTReset As Boolean = False
+    Public UUTNum_Reset As Integer
     Public TestID As String
     Public DataID As String
     Public XArray(1001) As Double 'Frequency Data Array 
@@ -231,6 +244,7 @@ Module globals
     Public TweakMode As Boolean = False
     Public TempUUTNum As Integer
     Public BypassUnchecked As Boolean = False
+    Public ReportJob As String = "No Job"
 
 
     ' Database Location
@@ -252,7 +266,7 @@ Module globals
     Public Const LocalDataBasePath = "C:\ATE Database\"  'IPP Local Site
 
 
-   
+
     Public GPIBCount As Integer
 
     Public Star As Double
@@ -429,20 +443,20 @@ Module globals
                         counted = True
                         ReDim Preserve TempxArray(x - count)
                         TempxArray(x - count) = xArr(x)
-                        End If
+                    End If
                 ElseIf x = 200 Then
                     If xArr(x - 1) >= str And xArr(x) <= stp And Not xArr(x) <= 0 Then
                         If Not counted Then count += 1
                         counted = True
                         ReDim Preserve TempxArray(x - count)
                         TempxArray(x - count) = xArr(x)
-                        End If
+                    End If
                 ElseIf xArr(x) >= str And xArr(x + 1) <= stp Then
-                        If Not counted Then count += 1
-                        counted = True
-                        ReDim Preserve TempxArray(x - count)
-                        TempxArray(x - count) = xArr(x)
-                    Else
+                    If Not counted Then count += 1
+                    counted = True
+                    ReDim Preserve TempxArray(x - count)
+                    TempxArray(x - count) = xArr(x)
+                Else
                     count += 1
                 End If
             Else
@@ -759,4 +773,81 @@ Trap:
     Public Sub Delay(DelayTime As Integer)
         System.Threading.Thread.Sleep(DelayTime)
     End Sub
+
+    Public Sub api_requests()
+        Try
+            Dim request As WebRequest =
+              WebRequest.Create("http://inn-autocon:8888/report_queue/")
+            ' If required by the server, set the credentials.
+            request.Credentials = CredentialCache.DefaultCredentials
+            ' Get the response.
+            Dim response As WebResponse = request.GetResponse()
+            ' Display the status.
+            Console.WriteLine(CType(response, HttpWebResponse).StatusDescription)
+            ' Get the stream containing content returned by the server.
+            Dim dataStream As Stream = response.GetResponseStream()
+            ' Open the stream using a StreamReader for easy access.
+            Dim reader As New StreamReader(dataStream)
+            ' Read the content.
+            Dim responseFromServer As String = reader.ReadToEnd()
+            ' Display the content.
+            Console.WriteLine(responseFromServer)
+            ' Clean up the streams and the response.
+            reader.Close()
+            response.Close()
+        Catch ex As Exception
+
+        End Try
+    End Sub
+    Public Sub post_api()
+        Dim url As String = "http://inn-autocon:8888/report_queue/"
+        Dim uri As New Uri(url)
+        Dim jsonSring As String = json_serializer()
+        Dim data = Encoding.UTF8.GetBytes(jsonSring)
+        Dim result_post = SendRequest(uri, data, "application/json", "POST")
+    End Sub
+    Public Function SendRequest(uri As Uri, jsonDataBytes As Byte(), contentType As String, method As String) As String
+        Dim response As String
+        Dim request As WebRequest
+        Try
+            request = WebRequest.Create(uri)
+            request.ContentLength = jsonDataBytes.Length
+            request.ContentType = contentType
+            request.Method = method
+
+            Using requestStream = request.GetRequestStream
+                requestStream.Write(jsonDataBytes, 0, jsonDataBytes.Length)
+                requestStream.Close()
+
+                Using responseStream = request.GetResponse.GetResponseStream
+                    Using reader As New StreamReader(responseStream)
+                        response = reader.ReadToEnd()
+                    End Using
+                End Using
+            End Using
+            Return response
+        Catch ex As Exception
+
+        End Try
+
+    End Function
+
+    Private Function encode(ByVal str As String) As Byte()
+        'supply True as the construction parameter to indicate
+        'that you wanted the class to emit BOM (Byte Order Mark)
+        'NOTE: this BOM value is the indicator of a UTF-8 string
+        Dim utf8Encoding As New System.Text.UTF8Encoding(True)
+        Dim encodedString() As Byte
+
+        encodedString = utf8Encoding.GetBytes(str)
+
+        Return encodedString
+    End Function
+
+    Private Function json_serializer() As String
+        Dim today As DateTime = DateTime.Now
+        json_serializer = " 'results': [{'reportname': 'This is a test','reporttype': " & SpecType & ",'reportstatus': 0,'jobnumber':" & JobNumber & ",'workstation': " & WorkStation & ",'partnumber': " & Part & ",'operator': " & User & ",'activedate': " & today & "}]"
+    End Function
+
+
 End Module

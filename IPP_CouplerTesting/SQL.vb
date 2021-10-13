@@ -133,13 +133,13 @@ Module SQL
                 GetSpecification = Math.Round(SpecRL, 1)
                 GoTo SkipDataBase
             ElseIf Test = "Iso" Or Test = "Isolation" And SpecISO <> Nothing Then
-                If freq <> 0.0 Then
-                    If freq > SpecCuttoffFreq Then GetSpecification = SpecISO2
-                    If freq <= SpecCuttoffFreq Then GetSpecification = SpecISO
-                    If GetSpecification = 0.0 Then GetSpecification = SpecISO
-                Else
-                    GetSpecification = Math.Round(SpecISO, 1)
-                End If
+                GetSpecification = Math.Round(SpecISO, 1)
+                GoTo SkipDataBase
+            ElseIf Test = "IsolationL" And SpecISOL <> Nothing Then
+                GetSpecification = Math.Round(SpecISOL, 1)
+                GoTo SkipDataBase
+            ElseIf Test = "IsolationH" And SpecISOL <> Nothing Then
+                GetSpecification = Math.Round(SpecISOH, 1)
                 GoTo SkipDataBase
             ElseIf Test = "AmplitudeBalance" And SpecAB <> Nothing Then
                 GetSpecification = Math.Round(SpecAB, 2)
@@ -223,14 +223,13 @@ Retry:
                     If Not IsDBNull(dr.Item(5)) Then Quantity = CInt(dr.Item(5))
                     If Not IsDBNull(dr.Item(6)) Then SpecStartFreq = CDbl(dr.Item(6))
                     If Not IsDBNull(dr.Item(7)) Then SpecStopFreq = CDbl(dr.Item(7))
+                    If Not IsDBNull(dr.Item(8)) Then SpecCuttoffFreq = CDbl(dr.Item(8))
                     If Not IsDBNull(dr.Item(11)) Then SpecIL = Math.Round(CDbl(dr.Item(11)), 2)
                     If Not IsDBNull(dr.Item(10)) Then SpecRL = Math.Round(VSWRtoRL(CDbl(dr.Item(10))), 1)
                     If Not IsDBNull(dr.Item(12)) Then SpecISO = Math.Round(CDbl(dr.Item(12)), 1)
-                    If Not IsDBNull(dr.Item(13)) Then SpecISO2 = Math.Round(CDbl(dr.Item(13)), 1)
-                    If freq <> 0.0 And Not IsDBNull(dr.Item(8)) Then
-                        If freq > CDbl(dr.Item(8)) Then If Not IsDBNull(dr.Item(12)) Then SpecISO = Math.Round(CDbl(dr.Item(12)), 1)
-                        If freq <= CDbl(dr.Item(8)) Then If Not IsDBNull(dr.Item(13)) Then SpecISO2 = Math.Round(CDbl(dr.Item(13)), 1)
-                    End If
+                    If Not IsDBNull(dr.Item(12)) Then SpecISO = Math.Round(CDbl(dr.Item(12)), 1)
+                    If Not IsDBNull(dr.Item(12)) Then SpecISOL = Math.Round(CDbl(dr.Item(12)), 1)
+                    If Not IsDBNull(dr.Item(13)) Then SpecISOH = Math.Round(CDbl(dr.Item(13)), 1)
                     If Not IsDBNull(dr.Item(14)) Then SpecAB = Math.Round(CDbl(dr.Item(14)), 2)
                     If Not IsDBNull(dr.Item(18)) Then SpecPB = Math.Round(CDbl(dr.Item(18)), 1)
                     If Not IsDBNull(dr.Item(15)) Then SpecCOUP = Math.Round(CDbl(dr.Item(15)), 1)
@@ -271,10 +270,8 @@ Retry:
                     If Test = "Isolation" Or Test = "Iso" Then If Not IsDBNull(dr.Item(12)) Then GetSpecification = Math.Round(CDbl(dr.Item(12)), 1)
                     If Test = "Isolation2" Then If Not IsDBNull(dr.Item(13)) Then GetSpecification = Math.Round(CDbl(dr.Item(13)), 1)
                     If Test = "CutOffFreqMHz" Then If Not IsDBNull(dr.Item(8)) Then GetSpecification = CDbl(dr.Item(8))
-                    If freq <> 0.0 And Not IsDBNull(dr.Item(8)) Then
-                        If freq > CDbl(dr.Item(8)) Then If Not IsDBNull(dr.Item(12)) Then GetSpecification = CDbl(dr.Item(12))
-                        If freq <= CDbl(dr.Item(8)) Then If Not IsDBNull(dr.Item(13)) Then GetSpecification = CDbl(dr.Item(13))
-                    End If
+                    If Test = "IsolationL" And Not IsDBNull(dr.Item(12)) Then GetSpecification = CDbl(dr.Item(12))
+                    If Test = "IsolationH" And Not IsDBNull(dr.Item(13)) Then GetSpecification = CDbl(dr.Item(13))
                     If Test = "AmplitudeBalance" Then If Not IsDBNull(dr.Item(14)) Then GetSpecification = Math.Round(CDbl(dr.Item(14)), 2)
                     If Test = "PhaseBalance" Then If Not IsDBNull(dr.Item(18)) Then GetSpecification = Math.Round(CDbl(dr.Item(18)), 1)
                     If Test = "Coupling" Then If Not IsDBNull(dr.Item(15)) Then GetSpecification = Math.Round(CDbl(dr.Item(15)), 1)
@@ -311,14 +308,12 @@ Retry:
                     If Not IsDBNull(drLocal.Item(5)) Then Quantity = CInt(drLocal.Item(5))
                     If Not IsDBNull(drLocal.Item(6)) Then SpecStartFreq = CDbl(drLocal.Item(6))
                     If Not IsDBNull(drLocal.Item(7)) Then SpecStopFreq = CDbl(drLocal.Item(7))
+                    If Not IsDBNull(drLocal.Item(8)) Then SpecCuttoffFreq = CDbl(drLocal.Item(8))
                     If Not IsDBNull(drLocal.Item(11)) Then SpecIL = Math.Round(CDbl(drLocal.Item(11)), 2)
                     If Not IsDBNull(drLocal.Item(10)) Then SpecRL = Math.Round(VSWRtoRL(CDbl(drLocal.Item(10))), 1)
                     If Not IsDBNull(drLocal.Item(12)) Then SpecISO = Math.Round(CDbl(drLocal.Item(12)), 1)
-                    If Not IsDBNull(drLocal.Item(13)) Then SpecISO2 = Math.Round(CDbl(drLocal.Item(13)), 2)
-                    If freq <> 0.0 And Not IsDBNull(drLocal.Item(8)) Then
-                        If freq > CDbl(drLocal.Item(8)) Then If Not IsDBNull(drLocal.Item(12)) Then SpecISO = Math.Round(CDbl(drLocal.Item(12)), 1)
-                        If freq <= CDbl(drLocal.Item(8)) Then If Not IsDBNull(drLocal.Item(13)) Then SpecISO2 = Math.Round(CDbl(drLocal.Item(13)), 1)
-                    End If
+                    If Not IsDBNull(drLocal.Item(12)) Then SpecISOL = Math.Round(CDbl(drLocal.Item(12)), 1)
+                    If Not IsDBNull(drLocal.Item(13)) Then SpecISOH = Math.Round(CDbl(drLocal.Item(13)), 1)
                     If Not IsDBNull(drLocal.Item(14)) Then SpecAB = Math.Round(CDbl(drLocal.Item(14)), 2)
                     If Not IsDBNull(drLocal.Item(18)) Then SpecPB = Math.Round(CDbl(drLocal.Item(18)), 1)
                     If Not IsDBNull(drLocal.Item(15)) Then SpecCOUP = Math.Round(CDbl(drLocal.Item(15)), 1)
@@ -336,12 +331,9 @@ Retry:
                     If Test = "InsertionLoss" Then If Not IsDBNull(drLocal.Item(12)) Then GetSpecification = Math.Round(CDbl(drLocal.Item(11)), 2)
                     If Test = "VSWR" Then If Not IsDBNull(drLocal.Item(11)) Then GetSpecification = Math.Round(Math.Round(VSWRtoRL(CDbl(drLocal.Item(10)))), 1)
                     If Test = "Isolation" Or Test = "Iso" Then If Not IsDBNull(drLocal.Item(12)) Then GetSpecification = Math.Round(CDbl(drLocal.Item(12)), 1)
-                    If Test = "Isolation2" Then If Not IsDBNull(drLocal.Item(13)) Then GetSpecification = Math.Round(CDbl(drLocal.Item(13)), 1)
+                    If Test = "IsolationL" Then If Not IsDBNull(drLocal.Item(12)) Then GetSpecification = Math.Round(CDbl(drLocal.Item(12)), 1)
+                    If Test = "IsolationH" Then If Not IsDBNull(drLocal.Item(13)) Then GetSpecification = Math.Round(CDbl(drLocal.Item(13)), 1)
                     If Test = "CutOffFreqMHz" Then If Not IsDBNull(drLocal.Item(8)) Then GetSpecification = Math.Round(CDbl(drLocal.Item(8)), 1)
-                    If freq <> 0.0 And Not IsDBNull(drLocal.Item(8)) Then
-                        If freq > CDbl(drLocal.Item(8)) Then If Not IsDBNull(drLocal.Item(12)) Then GetSpecification = Math.Round(CDbl(drLocal.Item(12)), 1)
-                        If freq <= CDbl(drLocal.Item(8)) Then If Not IsDBNull(drLocal.Item(13)) Then GetSpecification = Math.Round(CDbl(drLocal.Item(13)), 1)
-                    End If
                     If Test = "AmplitudeBalance" Then If Not IsDBNull(drLocal.Item(14)) Then GetSpecification = Math.Round(CDbl(drLocal.Item(14)), 2)
                     If Test = "PhaseBalance" Then If Not IsDBNull(drLocal.Item(18)) Then GetSpecification = Math.Round(CDbl(drLocal.Item(18)), 1)
                     If Test = "Coupling" Then If Not IsDBNull(drLocal.Item(15)) Then GetSpecification = Math.Round(CDbl(drLocal.Item(15)), 1)
@@ -363,6 +355,9 @@ Retry:
                     If Test = "PartsPerHour" Then If Not IsDBNull(drLocal.Item(32)) Then GetSpecification = CInt(drLocal.Item(32))
                 End While
                 atsLocal.Close()
+            End If
+            If SpecCuttoffFreq <> 0 Then
+                ISO_TF = True
             End If
             '*******************************************************************************
         Catch
@@ -532,6 +527,9 @@ SkipDataBase:
             SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
 
             SQLStr = "UPDATE TestData Set artwork_rev  = '" & ArtworkRevision & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and  " & Test & " = '" & Value & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE TestData Set Operator  = '" & User & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and  " & Test & " = '" & Value & "'"
             SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
 
         Catch ex As Exception
@@ -809,7 +807,41 @@ IGNORE2:
             GetPassword = ""
         End Try
     End Function
+    Public Function GetreportStatus() As String
+        Try
+            Dim CountRow As Integer = 0
+            Dim SQLstr As String = "SELECT * from ReportQueue where WorkStation = '" & GetComputerName() & "' and ReportStatus = 'test running'"
+            GetreportStatus = "no status"
+            If SQLAccess Then
+                Dim ats As SqlConnection = New SqlConnection(SQLConnStr)
+                Dim cmd As SqlCommand = New SqlCommand(SQLstr, ats)
+                ats.Open()
+                System.Threading.Thread.Sleep(0.001)
+                Dim dr As SqlDataReader = cmd.ExecuteReader()
+                While Not dr.Read = Nothing
+                    If dr.Item(3) IsNot Nothing Then GetreportStatus = CStr(dr.Item(3))
+                    If dr.Item(4) IsNot Nothing Then ReportJob = CStr(dr.Item(4))
+                End While
+                ats.Close()
+            Else
+                Dim strConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source= " & AccessDatabaseFolder("NetworkSpecs")
+                Dim atsLocal As New OleDb.OleDbConnection
+                atsLocal.ConnectionString = strConnectionString
+                Dim cmd As OleDb.OleDbCommand = New OleDb.OleDbCommand(SQLstr, atsLocal)
+                atsLocal.Open()
+                System.Threading.Thread.Sleep(0.001)
+                Dim drLocal As OleDb.OleDbDataReader = cmd.ExecuteReader
+                While Not drLocal.Read = Nothing
+                    If drLocal.Item(3) IsNot Nothing Then GetreportStatus = CStr(drLocal.Item(3))
+                    If drLocal.Item(4) IsNot Nothing Then ReportJob = CStr(drLocal.Item(4))
+                End While
 
+                atsLocal.Close()
+            End If
+        Catch
+            GetreportStatus = ""
+        End Try
+    End Function
     Public Function GetLastUser() As String
         Try
             Dim CountRow As Integer = 0
@@ -1071,6 +1103,10 @@ IGNORE2:
                 cmd.ExecuteNonQuery()
                 cmd.CommandText = "UPDATE Trace SET  SpecID = '" & SpecID & "'" & Expression
                 cmd.ExecuteNonQuery()
+                cmd.CommandText = "UPDATE Trace SET  artwork_rev = '" & ArtworkRevision & "'" & Expression
+                cmd.ExecuteNonQuery()
+                cmd.CommandText = "UPDATE Trace SET  Operator = '" & User & "'" & Expression
+                cmd.ExecuteNonQuery()
 
                 'Load String
                 'note attempted to switch to a string trace, but SQL would not accept it.
@@ -1126,6 +1162,10 @@ IGNORE2:
                 cmd.CommandText = "UPDATE Trace SET  YTitle = '" & globals.yTitle & "'" & Expression
                 cmd.ExecuteNonQuery()
                 cmd.CommandText = "UPDATE Trace SET  SpecID = " & SpecID & "" & Expression
+                cmd.ExecuteNonQuery()
+                cmd.CommandText = "UPDATE Trace SET  artwork_rev = '" & ArtworkRevision & "'" & Expression
+                cmd.ExecuteNonQuery()
+                cmd.CommandText = "UPDATE Trace SET  Operator = '" & User & "'" & Expression
                 cmd.ExecuteNonQuery()
 
                 'Load String

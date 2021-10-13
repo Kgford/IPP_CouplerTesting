@@ -153,11 +153,11 @@ Module MSChart
         Dim SQLstr As String = ""
         If SpecType = "" Then Exit Sub
         'Clear the Chart Data
-        If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType = "COMBINER/DIVIDER" Then SQLstr = "UPDATE from Graphdb_3dB Set "
+        If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") Then SQLstr = "UPDATE from Graphdb_3dB Set "
         If SpecType = "90 DEGREE COUPLER SMD" Or SpecType = "BALUN SMD" Or SpecType = "COMBINER/DIVIDER SMD" Then SQLstr = "UPDATE from Graphdb_3dB Set "
         If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then SQLstr = "UPDATE from Graphdb_Dir Set "
         If SpecType = "SINGLE DIRECTIONAL COUPLER SMD" Or SpecType = "DUAL DIRECTIONAL COUPLER SMD" Or SpecType = "BI DIRECTIONAL COUPLER SMD" Then SQLstr = "UPDATE from Graphdb_Dir Set "
-        If SpecType = "COMBINER/DIVIDER" Or SpecType = "COMBINER/DIVIDER SMD" Then SQLstr = "UPDATE from Graphdb_3dB Set "
+        If SpecType.Contains("COMBINER/DIVIDER") Or SpecType = "COMBINER/DIVIDER SMD" Then SQLstr = "UPDATE from Graphdb_3dB Set "
         If SQLAccess Then
             Dim ats As SqlConnection = New SqlConnection(SQLConnStr)
             Dim cmd As SqlCommand = New SqlCommand()
@@ -210,11 +210,11 @@ Module MSChart
         '    Dim SQLstr As String
         '    Dim ATS As ADODB.Recordset
         '    If SpecType = "" Then Exit Function
-        '    If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType = "COMBINER/DIVIDER" Then SQLstr = "select * from Graphdb_3dB"
+        '    If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") Then SQLstr = "select * from Graphdb_3dB"
         '    If SpecType = "90 DEGREE COUPLER SMD" Or SpecType = "BALUN SMD" Or SpecType = "COMBINER/DIVIDER SMD" Then SQLstr = "select * from Graphdb_3dB"
         '    If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then SQLstr = "select * from Graphdb_Dir"
         '    If SpecType = "SINGLE DIRECTIONAL COUPLER SMD" Or SpecType = "DUAL DIRECTIONAL COUPLER SMD" Or SpecType = "BI DIRECTIONAL COUPLER SMD" Then SQLstr = "select * from Graphdb_Dir"
-        '    If SpecType = "COMBINER/DIVIDER" Or SpecType = "COMBINER/DIVIDER SMD" Then SQLstr = "select * from Graphdb_3dB"
+        '    If SpecType.Contains("COMBINER/DIVIDER") Or SpecType = "COMBINER/DIVIDER SMD" Then SQLstr = "select * from Graphdb_3dB"
         '    ATS = New ADODB.Recordset
         '    ATS.Open(SQLstr, LocalDataConn, adOpenDynamic, adLockOptimistic)
         '    frmAUTOTEST.MSChart1.Enabled = True

@@ -109,6 +109,7 @@ Public Class frmSpecifications
     Private Sub LoadPart()
         Dim SQLstr As String
         SpecAB_TF = False
+        ISO_TF = False
         Try
             SQLstr = "SELECT * from Specifications where PartNumber = '" & Me.cmbPart.Text & "'"
             '*******************************************************************************
@@ -213,10 +214,18 @@ Public Class frmSpecifications
                         If Not IsDBNull(dr.GetValue(14)) Then Me.txtTest4_4.Text = dr.Item(14)
                         If Not IsDBNull(dr.GetValue(18)) Then Me.txtTest5_4.Text = dr.Item(18)
                         If Not IsDBNull(dr.GetValue(12)) Then Me.txtTest3_4.Text = dr.Item(12)
-                        If Not IsDBNull(dr.GetValue(13)) Then Me.txtTest3_5.Text = dr.Item(13)
+                        If Not IsDBNull(dr.GetValue(8)) And Not dr.GetValue(8) = 0 Then
+                            Me.txtTest3_5.Text = dr.Item(13)
+                            ISO_TF = True
+                            If Not IsDBNull(dr.GetValue(8)) Or Not dr.GetValue(0) = 0 Then
+                                Me.txtISOFreq_1.Text = dr.Item(6)
+                                Me.txtISOFreq_2.Text = dr.Item(8)
+                                Me.txtISOFreq_3.Text = dr.Item(8)
+                                Me.txtISOFreq_4.Text = dr.Item(7)
+                                Me.CheckBox2.CheckState = CheckState.Checked
+                            End If
+                        End If
                         If Not IsDBNull(dr.GetValue(9)) Then Me.txtOutputPorts.Text = dr.Item(9)
-                        If Not IsDBNull(dr.GetValue(8)) Then Me.txtISOFreq_2.Text = dr.Item(8)
-
                     End If
 
                 End While
@@ -247,6 +256,20 @@ Public Class frmSpecifications
                             If Not IsDBNull(drLocal.GetValue(12)) Then Me.txtTest3_1.Text = drLocal.Item(12)
                             If Not IsDBNull(drLocal.GetValue(14)) Then Me.txtTest4_1.Text = drLocal.Item(14)
                             If Not IsDBNull(drLocal.GetValue(18)) Then Me.txtTest5_1.Text = drLocal.Item(18)
+                            If Not IsDBNull(drLocal.GetValue(47)) Then
+                                If drLocal.Item(47) = 1 Then
+                                    SpecAB_TF = True
+                                    If Not IsDBNull(drLocal.GetValue(42)) Then Me.txtTest4_1_exp.Text = drLocal.Item(42)
+                                    If Not IsDBNull(drLocal.GetValue(43)) Then Me.tx11Start.Text = drLocal.Item(43)
+                                    If Not IsDBNull(drLocal.GetValue(44)) Then Me.tx12Start.Text = drLocal.Item(44)
+                                    If Not IsDBNull(drLocal.GetValue(45)) Then Me.tx11Stop.Text = drLocal.Item(45)
+                                    If Not IsDBNull(drLocal.GetValue(46)) Then Me.tx12Stop.Text = drLocal.Item(46)
+                                    ck1Expanded.CheckState = CheckState.Checked
+                                Else
+                                    SpecAB_TF = False
+                                    ck1Expanded.CheckState = CheckState.Unchecked
+                                End If
+                            End If
                         ElseIf Index = 2 Then
                             If Not IsDBNull(drLocal.GetValue(15)) Then Me.txtTest3_1.Text = drLocal.Item(15)
                             If Not IsDBNull(drLocal.GetValue(17)) Then Me.txtTest4_1.Text = drLocal.Item(17)
@@ -304,12 +327,40 @@ Public Class frmSpecifications
                         If Not IsDBNull(drLocal.GetValue(14)) Then Me.txtTest4_4.Text = drLocal.Item(14)
                         If Not IsDBNull(drLocal.GetValue(18)) Then Me.txtTest5_4.Text = drLocal.Item(18)
                         If Not IsDBNull(drLocal.GetValue(12)) Then Me.txtTest3_4.Text = drLocal.Item(12)
-                        If Not IsDBNull(drLocal.GetValue(13)) Then Me.txtTest3_5.Text = drLocal.Item(13)
+                        If Not IsDBNull(drLocal.GetValue(8)) And Not drLocal.GetValue(8) = 0 Then
+                            Me.txtTest3_5.Text = drLocal.Item(13)
+                            ISO_TF = True
+                            If Not IsDBNull(drLocal.GetValue(8)) Or Not drLocal.GetValue(0) = 0 Then
+                                Me.txtISOFreq_1.Text = drLocal.Item(6)
+                                Me.txtISOFreq_2.Text = drLocal.Item(8)
+                                Me.txtISOFreq_3.Text = drLocal.Item(8)
+                                Me.txtISOFreq_4.Text = drLocal.Item(7)
+                                Me.CheckBox2.CheckState = CheckState.Checked
+                            End If
+                        End If
                         If Not IsDBNull(drLocal.GetValue(9)) Then Me.txtOutputPorts.Text = drLocal.Item(9)
                     End If
                 End While
             End If
-            If Index = 0 Then
+
+            If Index = 0 And cmbPart.Text.Contains("IT") Then
+                Me.txtJ1J1_1.Text = "----"
+                Me.txtJ1J2_1.Text = "ISOLATION"
+                Me.txtJ1J3_1.Text = "-6dB < 0 DEG"
+                Me.txtJ1J4_1.Text = "-6dB < -90 DEG"
+                Me.txtJ2J1_1.Text = "ISOLATION"
+                Me.txtJ2J2_1.Text = "----"
+                Me.txtJ2J3_1.Text = "-6dB < -90 DEG"
+                Me.txtJ2J4_1.Text = "-6dB < 0 DEG"
+                Me.txtJ3J1_1.Text = "-6dB < 0 DEG"
+                Me.txtJ3J2_1.Text = "-6dB < -90 DEG"
+                Me.txtJ3J3_1.Text = "----"
+                Me.txtJ3J4_1.Text = "ISOLATION"
+                Me.txtJ4J1_1.Text = "-6dB < -90 DEG"
+                Me.txtJ4J2_1.Text = "-6dB < 0 DEG"
+                Me.txtJ4J3_1.Text = "ISOLATION"
+                Me.txtJ4J4_1.Text = "----"
+            ElseIf Index = 0 Then
                 Me.txtJ1J1_1.Text = "----"
                 Me.txtJ1J2_1.Text = "ISOLATION"
                 Me.txtJ1J3_1.Text = "-3dB < 0 DEG"
@@ -323,7 +374,7 @@ Public Class frmSpecifications
                 Me.txtJ3J3_1.Text = "----"
                 Me.txtJ3J4_1.Text = "ISOLATION"
                 Me.txtJ4J1_1.Text = "-3dB < -90 DEG"
-                Me.txtJ4J2_1.Text = "-3dB < 0 DEG"
+                Me.txtJ4J2_1.Text = "-3dB< 0 DEG"
                 Me.txtJ4J3_1.Text = "ISOLATION"
                 Me.txtJ4J4_1.Text = "----"
             ElseIf Index = 1 Then
@@ -407,17 +458,17 @@ Public Class frmSpecifications
     End Sub
     Private Sub cmbJob_Change(sender As Object, e As EventArgs) Handles cmbSpecType.DataSourceChanged
         If Not Me.cmbPart.Text = "IPP - " Or Not Me.cmbPart.Text = "Part Number" Then
-            LoadJob()
+            If Not Me.cmbJob.Text = "" Then LoadJob()
             Me.Refresh()
-            Part = Me.cmbPart.Text
-            Job = Me.cmbJob.Text
+            If Not IsNothing(Part) Then Part = Me.cmbPart.Text
+            If Not IsNothing(Job) Then Job = Me.cmbJob.Text
         End If
     End Sub
     Private Sub cmbJob_Click(sender As Object, e As EventArgs) Handles cmbJob.Click
-        LoadJob()
-        Me.Refresh()
-        Part = Me.cmbPart.Text
-        Job = Me.cmbJob.Text
+        If Not Me.cmbJob.Text = "" Then LoadJob()
+        'Me.Refresh()
+        If Not IsNothing(Part) Then Part = Me.cmbPart.Text
+        If Not IsNothing(Job) Then Job = Me.cmbJob.Text
     End Sub
 
     Private Sub LoadJob()
@@ -450,6 +501,20 @@ Public Class frmSpecifications
                             If Not IsDBNull(dr.GetValue(12)) Then Me.txtTest3_1.Text = dr.Item(12)
                             If Not IsDBNull(dr.GetValue(14)) Then Me.txtTest4_1.Text = dr.Item(14)
                             If Not IsDBNull(dr.GetValue(18)) Then Me.txtTest5_1.Text = dr.Item(18)
+                            If Not IsDBNull(dr.GetValue(47)) Then
+                                If dr.Item(47) = 1 Then
+                                    SpecAB_TF = True
+                                    If Not IsDBNull(dr.GetValue(42)) Then Me.txtTest4_1_exp.Text = dr.Item(42)
+                                    If Not IsDBNull(dr.GetValue(43)) Then Me.tx11Start.Text = dr.Item(43)
+                                    If Not IsDBNull(dr.GetValue(44)) Then Me.tx12Start.Text = dr.Item(44)
+                                    If Not IsDBNull(dr.GetValue(45)) Then Me.tx11Stop.Text = dr.Item(45)
+                                    If Not IsDBNull(dr.GetValue(46)) Then Me.tx12Stop.Text = dr.Item(46)
+                                    ck1Expanded.CheckState = CheckState.Checked
+                                Else
+                                    SpecAB_TF = False
+                                    ck1Expanded.CheckState = CheckState.Unchecked
+                                End If
+                            End If
                         ElseIf Index = 2 Then
                             If Not IsDBNull(dr.GetValue(15)) Then Me.txtTest3_3.Text = dr.Item(15)
                             If Not IsDBNull(dr.GetValue(17)) Then Me.txtTest4_3.Text = dr.Item(17)
@@ -525,6 +590,20 @@ Public Class frmSpecifications
                             If Not IsDBNull(drLocal.GetValue(12)) Then Me.txtTest3_1.Text = drLocal.Item(12)
                             If Not IsDBNull(drLocal.GetValue(14)) Then Me.txtTest4_1.Text = drLocal.Item(14)
                             If Not IsDBNull(drLocal.GetValue(18)) Then Me.txtTest5_1.Text = drLocal.Item(18)
+                            If Not IsDBNull(drLocal.GetValue(47)) Then
+                                If drLocal.Item(47) = 1 Then
+                                    SpecAB_TF = True
+                                    If Not IsDBNull(drLocal.GetValue(42)) Then Me.txtTest4_1_exp.Text = drLocal.Item(42)
+                                    If Not IsDBNull(drLocal.GetValue(43)) Then Me.tx11Start.Text = drLocal.Item(43)
+                                    If Not IsDBNull(drLocal.GetValue(44)) Then Me.tx12Start.Text = drLocal.Item(44)
+                                    If Not IsDBNull(drLocal.GetValue(45)) Then Me.tx11Stop.Text = drLocal.Item(45)
+                                    If Not IsDBNull(drLocal.GetValue(46)) Then Me.tx12Stop.Text = drLocal.Item(46)
+                                    ck1Expanded.CheckState = CheckState.Checked
+                                Else
+                                    SpecAB_TF = False
+                                    ck1Expanded.CheckState = CheckState.Unchecked
+                                End If
+                            End If
                         ElseIf Index = 2 Then
                             If Not IsDBNull(drLocal.GetValue(15)) Then Me.txtTest3_1.Text = drLocal.Item(15)
                             If Not IsDBNull(drLocal.GetValue(17)) Then Me.txtTest4_1.Text = drLocal.Item(17)
@@ -1230,7 +1309,7 @@ Public Class frmSpecifications
                         If Not IsNumeric(Me.txtOutputPorts.Text) Then GoTo NotNumber
                         cmd.CommandText = "UPDATE Specifications SET  OutputPortNumber = '" & Me.txtOutputPorts.Text & "'" & Expression
                         cmd.ExecuteNonQuery()
-                        If txtISOFreq_2.Text <> "" And txtISOFreq_2.Text <> "N/A" Then
+                        If txtISOFreq_2.Text <> "0" Then
                             cmd.CommandText = "UPDATE Specifications SET  CutOffFreqMHz = '" & txtISOFreq_2.Text & "'" & Expression
                             cmd.ExecuteNonQuery()
                         End If
@@ -1526,6 +1605,45 @@ NotNumber:
     End Sub
 
 
+    Private Sub CheckBox2_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox2.CheckedChanged
+        If CheckBox2.CheckState = CheckState.Checked Then
+            txtISOFreq_1.Visible = True
+            txtISOFreq_2.Visible = True
+            txtISOFreq_3.Visible = True
+            txtISOFreq_4.Visible = True
+            Mhz1.Visible = True
+            Mhz2.Visible = True
+            txtTest3_5.Enabled = True
+            dB2.Enabled = True
+            ISO_TF = True
+            If Not SpecAB_TF Then
+                txtISOFreq_1.Text = txtStartFreq_4.Text
+                txtISOFreq_4.Text = txtStopFreq_4.Text
+            End If
+
+        Else
+            txtISOFreq_1.Visible = False
+            txtISOFreq_2.Visible = False
+            txtISOFreq_3.Visible = False
+            txtISOFreq_4.Visible = False
+            Mhz1.Visible = False
+            Mhz2.Visible = False
+            txtISOFreq_1.Text = 0
+            txtISOFreq_2.Text = 0
+            txtISOFreq_3.Text = 0
+            txtISOFreq_4.Text = 0
+            txtTest3_5.Text = ""
+            txtTest3_5.Enabled = False
+            dB2.Enabled = True
+            ISO_TF = False
+        End If
+    End Sub
+
+    Private Sub txtISOFreq_2_TextChanged_1(sender As Object, e As EventArgs) Handles txtISOFreq_2.TextChanged
+        txtISOFreq_3.Text = txtISOFreq_2.Text
+    End Sub
+
+  
 End Class
 
 

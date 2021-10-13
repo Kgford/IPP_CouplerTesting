@@ -6,6 +6,7 @@ Public Class AddArtWorkRevision
 
     Private Sub btrev_Click(sender As Object, e As EventArgs) Handles btrev.Click
         ArtworkRevision = txtRevision.Text
+        UUTReset = True
         Me.Close()
     End Sub
 End Class
