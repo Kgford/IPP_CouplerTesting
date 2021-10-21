@@ -185,6 +185,7 @@ Module globals
 
     'Trace
     Public UUTNum As Integer
+    Public FirstPart As Boolean = True
     Public UUTReset As Boolean = False
     Public UUTNum_Reset As Integer
     Public TestID As String

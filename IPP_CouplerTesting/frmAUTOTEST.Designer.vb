@@ -1208,7 +1208,7 @@ Partial Class frmAUTOTEST
         Me.EraseTest.Name = "EraseTest"
         Me.EraseTest.Size = New System.Drawing.Size(100, 45)
         Me.EraseTest.TabIndex = 36
-        Me.EraseTest.Text = "Erase Job"
+        Me.EraseTest.Text = "Close Job"
         Me.EraseTest.UseVisualStyleBackColor = False
         '
         'txtTitle

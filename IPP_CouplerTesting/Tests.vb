@@ -4148,6 +4148,8 @@ Round:
             ElseIf PassChecked Then
                 DIR = 17
                 Directivity = "Pass"
+                DIR = Spec + 10
+                Directivity = "Fail"
             ElseIf FailChecked Then
                 DIR = Spec + 10
                 Directivity = "Fail"
@@ -4387,6 +4389,8 @@ Round:
             ElseIf PassChecked Then
                 DIR = 17
                 Directivity_Marker = "Pass"
+                DIR = Spec + 10
+                Directivity_Marker = "Fail"
             ElseIf FailChecked Then
                 DIR = Spec + 10
                 Directivity_Marker = "Fail"

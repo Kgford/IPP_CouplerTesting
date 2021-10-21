@@ -250,7 +250,7 @@ Skip4:
         SelectTest3 = Me.ckTest3.Checked
         SelectTest4 = Me.ckTest4.Checked
         SelectTest5 = Me.ckTest5.Checked
-        If SpecType <> "COMBINER/DIVIDER" And SpecType <> "SINGLE DIRECTIONAL COUPLER" And SpecType <> "DUAL DIRECTIONAL COUPLER" And SpecType <> "BI DIRECTIONAL COUPLER" Then
+        If SpecType <> "COMBINER/DIVIDER" And Not SpecType.Contains("DIRECTIONAL COUPLER") Then
             KeepTogether = True
         Else
             KeepTogether = False
@@ -280,7 +280,7 @@ Skip4:
 
         If TEST4PASS And Not KeepTogether Then
             Me.ckTest4.Checked = False
-        Else
+        ElseIf KeepTogether Then
             If ckTest1.Checked Then
                 If SelectTest4 Then Me.ckTest4.Checked = True
                 If SpecAB_TF Then
@@ -293,11 +293,16 @@ Skip4:
             Else
                 Me.ckTest4.Checked = False
             End If
+        Else
+            Me.ckTest4.Checked = True
+            Data4.Text = ""
         End If
+
+
         If TEST5PASS Then
             Me.ckTest5.Checked = False
         Else
-             Data5.Text = ""
+            Data5.Text = ""
         End If
 
     End Sub
@@ -535,6 +540,7 @@ Skip4:
                     Dim SerList As String = ""
                     Dim Firm As Integer
                     Tests.InitializeSwitch(SwNum, SerList, Firm)
+                    FirstPart = True
 
                     txtTitle.Text = ("   Setting Up Job")
                     System.Threading.Thread.Sleep(10)
@@ -1946,7 +1952,7 @@ GetOut:
             If SpecType = "DUAL DIRECTIONAL COUPLER" Then SwPos = "          J2(OUT) = SW3, J3(CLP) = SW1, J4(RFLD) = SW2"
             If SpecType = "SINGLE DIRECTIONAL COUPLER" Then SwPos = "          J2(OUT) = SW3, J3(CLP) = SW1"
             txtTitle.Text = SpecType & SwPos
-            MsgBox("Please turn Directional Coupler in Forward direction")
+            'MsgBox("Please turn Directional Coupler in Forward direction")
         End If
         Me.Refresh()
 
@@ -2385,7 +2391,7 @@ TestComplete:   ' For everything except Directional Couplers
                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, ISO = SW3"
                 If SpecType = "BI DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, REFL = SW3"
                 txtTitle.Text = SpecType & SwPos
-                MsgBox("Please turn the Directional Coupler in the Reverse direction")
+                'MsgBox("Please turn the Directional Coupler in the Reverse direction")
             End If
 
                 'Reverse Coupling
@@ -2662,7 +2668,6 @@ ReallyComplete:
 
         End If
 
-
         ActiveTitle = Me.txtTitle.Text
         FailCount = 0
         Dir1Failed = False
@@ -2756,9 +2761,10 @@ ReallyComplete:
         Data4H.Text = ""
         Data5.Text = ""
         If UUTNum = 0 Then UUTNum = UUTNum + 1
-        If UUTNum = 1 And ReportServer("test running", 0, True) = "Please Stop" Then
+        If (UUTNum = 1 Or FirstPart) And ReportServer("test running", 0, True) = "Please Stop" Then
             Exit Sub
         End If
+        FirstPart = False
         If UUTNum = 1 Or UUTReset Then
             UUTNum_Reset = 1
             UUTReset = False
@@ -2774,10 +2780,8 @@ ReallyComplete:
             Me.GetTrace.Checked = True
         End If
 
-
-
-
         UUTCount.Text = Str(UUTNum)
+        SQL.UpdateEffeciency("Running", txtEfficiency.Text, Now.Date.ToShortDateString, UUTCount.Text)
         If TweakMode Then
             Me.UUTMessage.Text = "  UUT TESTS  --   Testing Undisclosed Unit "
         ElseIf Not TraceChecked Then
@@ -3543,10 +3547,23 @@ TestReallyComplete:
             SQL.ExecuteSQLCommand(SQLstr, "LocalTraceData")
         End If
     End Sub
-
-
     Private Sub EraseTest_Click(sender As Object, e As EventArgs) Handles EraseTest.Click
-        EraseThisTest()
+        Dim mes As String
+        StatusLog.Items.Add("Closing the Job:" & DateTime.Now.ToString)
+        ReportServer("job closed", UUTCount.Text, False)
+        SQL.UpdateEffeciency("job closed", txtEfficiency.Text, txtCurrentTime.Text, UUTCount.Text)
+        txtCurrentTime.Text = "CLOSED"
+        ExpectedTimer.Stop()
+        ClearStatusLog()
+        StatusLog.Items.Add("Closed" & "   " & DateTime.Now.ToString)
+        mes = "Job has been closed for this workstation by operator"
+        StatusLog.Items.Add(mes)
+        ResetLot()
+        cmbJob.Text = " "
+        FirstPart = False
+        If MsgBox("Do you want to erase the data from This Job", vbYesNo, "Cannot be undone.") = vbYes Then
+            EraseThisTest()
+        End If
     End Sub
     Private Sub EraseThisTest()
         Dim SQLstr As String
@@ -3658,13 +3675,13 @@ TestReallyComplete:
         Dim Temp As Double
         Dim mes As String
         StatusLog.Items.Add("Creating Report:" & DateTime.Now.ToString)
-        ReportServer("report queue", 100)
+        ReportServer("report queue", UUTCount.Text)
         ExcelData()
         txtCurrentTime.Text = "COMPLETE"
         ExpectedTimer.Stop()
         ClearStatusLog()
         StatusLog.Items.Add("Complete" & "   " & DateTime.Now.ToString)
-
+        FirstPart = False
         Temp = Math.Round(ActualProgress.Value / ExpectedProgress.Value * 100, 0)
         If Temp >= 80 Then
             mes = "Congradulations: " & Temp & "% Efficient"
