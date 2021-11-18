@@ -59,6 +59,7 @@ Public Class frmSpecifications
             Me.cmbSpecType.Items.Add("DUAL DIRECTIONAL COUPLER SMD")
             Me.cmbSpecType.Items.Add("COMBINER/DIVIDER")
             Me.cmbSpecType.Items.Add("COMBINER/DIVIDER SMD")
+            Me.cmbSpecType.Items.Add("TRANSFORMER")
             cmbPart.Text = OldPart
             cmbJob.Text = OldJOb
             Part = OldPart
@@ -80,8 +81,8 @@ Public Class frmSpecifications
         End Try
     End Sub
     Private Sub cmbPart_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbPart.SelectedIndexChanged
-        LoadPart()
         LoadSpecType()
+        LoadPart()
         Me.Refresh()
         Part = Me.cmbPart.Text
         Job = Me.cmbJob.Text
@@ -89,8 +90,8 @@ Public Class frmSpecifications
 
     Private Sub cmbPart_Change(sender As Object, e As EventArgs) Handles cmbPart.DataSourceChanged
         If Me.cmbPart.Text = "IPP - " Or Me.cmbPart.Text = "Part Number" Then
-            LoadPart()
             LoadSpecType()
+            LoadPart()
             Me.Refresh()
             Part = Me.cmbPart.Text
             Job = Me.cmbJob.Text
@@ -99,8 +100,8 @@ Public Class frmSpecifications
     End Sub
 
     Private Sub cmbPart_Click(sender As Object, e As EventArgs) Handles cmbPart.Click
-        LoadPart()
         LoadSpecType()
+        LoadPart()
         Me.Refresh()
         Part = Me.cmbPart.Text
         Job = Me.cmbJob.Text
@@ -226,11 +227,35 @@ Public Class frmSpecifications
                             End If
                         End If
                         If Not IsDBNull(dr.GetValue(9)) Then Me.txtOutputPorts.Text = dr.Item(9)
+                    ElseIf Index = 4 Then
+                        If Me.cmbJob.Text = "Job Number" Or ChangeJob = 1 Then Me.cmbJob.Text = ""
+                        If Not IsDBNull(dr.GetValue(1)) Then Me.cmbSpecType.Text = dr.Item(1)
+                        If Not IsDBNull(dr.GetValue(4)) Then Me.txtTitle.Text = dr.Item(4)
+                        If Not IsDBNull(dr.GetValue(6)) Then Me.txtStartFreq_5.Text = dr.Item(6)
+                        If Not IsDBNull(dr.GetValue(7)) Then Me.txtStopFreq_5.Text = dr.Item(7)
+                        If Not IsDBNull(dr.GetValue(20)) Then Me.txtPower_5.Text = dr.Item(20)
+                        If Not IsDBNull(dr.GetValue(5)) Then Me.txtQuantity.Text = dr.Item(5)
+                        If Not IsDBNull(dr.GetValue(32)) Then Me.txtPPH.Text = dr.Item(32)
+                        If Not IsDBNull(dr.GetValue(11)) Then Me.txtTest1_5.Text = dr.Item(11)
+                        If Not IsDBNull(dr.GetValue(10)) Then Me.txtTest2_5.Text = dr.Item(10)
+                        If Not IsDBNull(dr.GetValue(9)) Then Me.txtOutputPorts.Text = dr.Item(9)
+                        If Not IsDBNull(dr.GetValue(96)) Then
+                            If dr.Item(91) Then
+                                IL_TF = True
+                                If Not IsDBNull(dr.GetValue(92)) Then Me.txtTest1_5_exp.Text = dr.Item(92)
+                                If Not IsDBNull(dr.GetValue(93)) Then Me.txtILFreq_1.Text = dr.Item(93)
+                                If Not IsDBNull(dr.GetValue(94)) Then Me.txtILFreq_3.Text = dr.Item(94)
+                                If Not IsDBNull(dr.GetValue(95)) Then Me.txtILFreq_2.Text = dr.Item(95)
+                                If Not IsDBNull(dr.GetValue(96)) Then Me.txtILFreq_4.Text = dr.Item(96)
+                                ilchk.CheckState = CheckState.Checked
+                            Else
+                                IL_TF = False
+                                ilchk.CheckState = CheckState.Unchecked
+                            End If
+                        End If
                     End If
-
                 End While
                 ats.Close()
-
             Else
                 Dim strConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & AccessDatabaseFolder("NetworkSpecs")
                 Dim atsLocal As New OleDb.OleDbConnection
@@ -240,7 +265,7 @@ Public Class frmSpecifications
                 System.Threading.Thread.Sleep(10)
                 Dim drLocal As OleDb.OleDbDataReader = cmd.ExecuteReader
                 While Not drLocal.Read = Nothing
-                   If Index = 0 Then
+                    If Index = 0 Then
                         If Me.cmbJob.Text = "Job Number" Or ChangeJob = 1 Then Me.cmbJob.Text = ""
                         If Not IsDBNull(drLocal.GetValue(1)) Then Me.cmbSpecType.Text = drLocal.Item(1)
                         If Not IsDBNull(drLocal.GetValue(4)) Then Me.txtTitle.Text = drLocal.Item(4)
@@ -339,6 +364,32 @@ Public Class frmSpecifications
                             End If
                         End If
                         If Not IsDBNull(drLocal.GetValue(9)) Then Me.txtOutputPorts.Text = drLocal.Item(9)
+                    ElseIf Index = 5 Then
+                        If Me.cmbJob.Text = "Job Number" Or ChangeJob = 1 Then Me.cmbJob.Text = ""
+                        If Not IsDBNull(drLocal.GetValue(1)) Then Me.cmbSpecType.Text = drLocal.Item(1)
+                        If Not IsDBNull(drLocal.GetValue(4)) Then Me.txtTitle.Text = drLocal.Item(4)
+                        If Not IsDBNull(drLocal.GetValue(6)) Then Me.txtStartFreq_5.Text = drLocal.Item(6)
+                        If Not IsDBNull(drLocal.GetValue(7)) Then Me.txtStopFreq_5.Text = drLocal.Item(7)
+                        If Not IsDBNull(drLocal.GetValue(20)) Then Me.txtPower_5.Text = drLocal.Item(20)
+                        If Not IsDBNull(drLocal.GetValue(5)) Then Me.txtQuantity.Text = drLocal.Item(5)
+                        If Not IsDBNull(drLocal.GetValue(32)) Then Me.txtPPH.Text = drLocal.Item(32)
+                        If Not IsDBNull(drLocal.GetValue(11)) Then Me.txtTest1_5.Text = drLocal.Item(11)
+                        If Not IsDBNull(drLocal.GetValue(10)) Then Me.txtTest2_5.Text = drLocal.Item(10)
+                        If Not IsDBNull(drLocal.GetValue(9)) Then Me.txtOutputPorts.Text = drLocal.Item(9)
+                        If Not IsDBNull(drLocal.GetValue(47)) Then
+                            If drLocal.Item(97) = 1 Then
+                                IL_TF = True
+                                If Not IsDBNull(drLocal.GetValue(92)) Then Me.txtTest4_1_exp.Text = drLocal.Item(92)
+                                If Not IsDBNull(drLocal.GetValue(93)) Then Me.tx11Start.Text = drLocal.Item(93)
+                                If Not IsDBNull(drLocal.GetValue(94)) Then Me.tx12Start.Text = drLocal.Item(94)
+                                If Not IsDBNull(drLocal.GetValue(95)) Then Me.tx11Stop.Text = drLocal.Item(95)
+                                If Not IsDBNull(drLocal.GetValue(96)) Then Me.tx12Stop.Text = drLocal.Item(96)
+                                ilchk.CheckState = CheckState.Checked
+                            Else
+                                IL_TF = False
+                                ilchk.CheckState = CheckState.Unchecked
+                            End If
+                        End If
                     End If
                 End While
             End If
@@ -475,7 +526,7 @@ Public Class frmSpecifications
         Dim SQLstr As String
         Try
             SQLstr = "SELECT * from Specifications where JobNumber = '" & Me.cmbJob.Text & "'"
-           
+
             '*******************************************************************************
             'Load the Conguration Data
             '*******************************************************************************
@@ -532,7 +583,7 @@ Public Class frmSpecifications
                         If Not IsDBNull(dr.GetValue(11)) Then Me.txtTest1_2.Text = dr.Item(11)
                         If Not IsDBNull(dr.GetValue(10)) Then Me.txtTest2_2.Text = dr.Item(10)
                         If Index = 0 Or Index = 1 Or Index = 3 Then
-                             If Not IsDBNull(dr.GetValue(14)) Then Me.txtTest4_2.Text = dr.Item(14)
+                            If Not IsDBNull(dr.GetValue(14)) Then Me.txtTest4_2.Text = dr.Item(14)
                             If Not IsDBNull(dr.GetValue(18)) Then Me.txtTest5_2.Text = dr.Item(18)
                         ElseIf Index = 2 Then
                             If Not IsDBNull(dr.GetValue(17)) Then Me.txtTest4_2.Text = dr.Item(17)
@@ -563,6 +614,16 @@ Public Class frmSpecifications
                             If Not IsDBNull(dr.GetValue(17)) Then Me.txtTest4_3.Text = dr.Item(17)
                             If Not IsDBNull(dr.GetValue(20)) Then Me.txtTest5_3.Text = dr.Item(20)
                         End If
+                    ElseIf Index = 5 Then
+                        If Me.cmbJob.Text = "Job Number" Or ChangeJob = 1 Then Me.cmbJob.Text = ""
+                        If Not IsDBNull(dr.GetValue(1)) Then Me.cmbSpecType.Text = dr.Item(1)
+                        If Not IsDBNull(dr.GetValue(4)) Then Me.txtTitle.Text = dr.Item(4)
+                        If Not IsDBNull(dr.GetValue(6)) Then Me.txtStartFreq_3.Text = dr.Item(6)
+                        If Not IsDBNull(dr.GetValue(20)) Then Me.txtPower_3.Text = dr.Item(20)
+                        If Not IsDBNull(dr.GetValue(4)) Then Me.txtQuantity.Text = dr.Item(4)
+                        If Not IsDBNull(dr.GetValue(32)) Then Me.txtPPH.Text = dr.Item(32)
+                        If Not IsDBNull(dr.GetValue(11)) Then Me.txtTest1_5.Text = dr.Item(11)
+                        If Not IsDBNull(dr.GetValue(10)) Then Me.txtTest2_5.Text = dr.Item(10)
                     End If
                 End While
                 ats.Close()
@@ -621,7 +682,7 @@ Public Class frmSpecifications
                         If Not IsDBNull(drLocal.GetValue(11)) Then Me.txtTest1_2.Text = drLocal.Item(11)
                         If Not IsDBNull(drLocal.GetValue(10)) Then Me.txtTest2_2.Text = drLocal.Item(10)
                         If Index = 0 Or Index = 1 Or Index = 3 Then
-                             If Not IsDBNull(drLocal.GetValue(14)) Then Me.txtTest4_2.Text = drLocal.Item(14)
+                            If Not IsDBNull(drLocal.GetValue(14)) Then Me.txtTest4_2.Text = drLocal.Item(14)
                             If Not IsDBNull(drLocal.GetValue(18)) Then Me.txtTest5_2.Text = drLocal.Item(18)
                         ElseIf Index = 2 Then
                             If Not IsDBNull(drLocal.GetValue(17)) Then Me.txtTest4_2.Text = drLocal.Item(17)
@@ -747,7 +808,7 @@ Public Class frmSpecifications
     Private Sub cmbSpecType_Change(sender As Object, e As EventArgs) Handles cmbSpecType.DataSourceChanged
         LoadSpecType()
     End Sub
-   
+
     Private Sub cmbSpecType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbSpecType.SelectedIndexChanged
         LoadSpecType()
     End Sub
@@ -758,7 +819,7 @@ Public Class frmSpecifications
             Frame2.Visible = False
             Frame3.Visible = False
             Frame4.Visible = False
-
+            Frame5.Visible = False
             txtTitle.Text = cmbSpecType.Text
             Index = 0
         ElseIf Me.cmbSpecType.Text = "BALUN" Or Me.cmbSpecType.Text = "BALUN SMD" Then
@@ -766,6 +827,7 @@ Public Class frmSpecifications
             Frame2.Visible = True
             Frame3.Visible = False
             Frame4.Visible = False
+            Frame5.Visible = False
             txtTitle.Text = cmbSpecType.Text
             Index = 1
         ElseIf Me.cmbSpecType.Text = "BI DIRECTIONAL COUPLER" Or Me.cmbSpecType.Text = "BI DIRECTIONAL COUPLER SMD" Then
@@ -773,6 +835,7 @@ Public Class frmSpecifications
             Frame2.Visible = False
             Frame3.Visible = True
             Frame4.Visible = False
+            Frame5.Visible = False
             txtTitle.Text = cmbSpecType.Text
             Index = 2
         ElseIf Me.cmbSpecType.Text = "SINGLE DIRECTIONAL COUPLER" Or Me.cmbSpecType.Text = "SINGLE DIRECTIONAL COUPLER SMD" Then
@@ -780,6 +843,7 @@ Public Class frmSpecifications
             Frame2.Visible = False
             Frame3.Visible = True
             Frame4.Visible = False
+            Frame5.Visible = False
             txtTitle.Text = cmbSpecType.Text
             Index = 2
         ElseIf Me.cmbSpecType.Text = "DUAL DIRECTIONAL COUPLER" Or Me.cmbSpecType.Text = "DUAL DIRECTIONAL COUPLER SMD" Then
@@ -787,6 +851,7 @@ Public Class frmSpecifications
             Frame2.Visible = False
             Frame3.Visible = True
             Frame4.Visible = False
+            Frame5.Visible = False
             txtTitle.Text = cmbSpecType.Text
             Index = 2
         ElseIf cmbSpecType.Text = "COMBINER/DIVIDER" Or cmbSpecType.Text = "COMBINER/DIVIDER SMD" Then
@@ -794,12 +859,19 @@ Public Class frmSpecifications
             Frame2.Visible = False
             Frame3.Visible = False
             Frame4.Visible = True
+            Frame5.Visible = False
             txtTitle.Text = cmbSpecType.Text
             Index = 3
+        ElseIf cmbSpecType.Text = "TRANSFORMER" Or cmbSpecType.Text = "TRANSFORMER SMD" Then
+            Frame1.Visible = False
+            Frame2.Visible = False
+            Frame3.Visible = False
+            Frame4.Visible = False
+            Frame5.Visible = True
+            txtTitle.Text = cmbSpecType.Text
+            Index = 4
         End If
     End Sub
-
-
 
     Private Sub cmdSaveDatabase_Click(sender As Object, e As EventArgs) Handles cmdSaveDatabase.Click
         Dim SQLstr As String
@@ -817,6 +889,8 @@ Public Class frmSpecifications
                     If InStr(Me.txtTest2_3.Text, ":") Then GoTo NoRatio
                 Case 4
                     If InStr(Me.txtTest2_4.Text, ":") Then GoTo NoRatio
+                Case 5
+                    If InStr(Me.txtTest2_5.Text, ":") Then GoTo NoRatio
             End Select
             If sup_bypass.CheckState = CheckState.Checked Then
                 M_bypass = 1
@@ -1091,6 +1165,63 @@ Public Class frmSpecifications
                             cmd.CommandText = "UPDATE Specifications SET  Isolation2 = '" & Me.txtTest3_5.Text & "'" & Expression
                             cmd.ExecuteNonQuery()
                         End If
+                    Case 4
+                        If Me.txtTest1_5.Text = "" Or Me.txtTest2_5.Text = "" Or Me.cmbJob.Text = "" Then GoTo StupidUser
+                        If Not IsNumeric(Me.txtTest1_5.Text) Or Not IsNumeric(Me.txtTest2_5.Text) Then GoTo NotNumber
+
+                        cmd.CommandText = "UPDATE Specifications SET  InsertionLoss = '" & Me.txtTest1_5.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE Specifications SET  VSWR = '" & Me.txtTest2_5.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        If ilchk.CheckState = CheckState.Checked Then
+                            If Me.txtTest1_5_exp.Text = "" Or Me.txtTest2_5.Text = "" Or Me.txtILFreq_1.Text = "" Or Me.txtILFreq_2.Text = "" Or Me.txtILFreq_3.Text = "" Or Me.txtILFreq_4.Text = "" Then GoTo StupidUser
+                            If Not IsNumeric(Me.txtTest1_5_exp.Text) Or Not IsNumeric(Me.txtILFreq_1.Text) Or Not IsNumeric(Me.txtILFreq_2.Text) Or Not IsNumeric(Me.txtILFreq_3.Text) Or Not IsNumeric(Me.txtILFreq_4.Text) Then GoTo NotNumber
+
+                            cmd.CommandText = "UPDATE Specifications SET  IL_exp_tf = 1" & Expression
+                            cmd.ExecuteNonQuery()
+                            cmd.CommandText = "UPDATE Specifications SET  IL_ex = '" & txtTest1_5_exp.Text & "'" & Expression
+                            cmd.ExecuteNonQuery()
+                            cmd.CommandText = "UPDATE Specifications SET  IL_start1 = '" & txtILFreq_1.Text & "'" & Expression
+                            cmd.ExecuteNonQuery()
+                            cmd.CommandText = "UPDATE Specifications SET  IL_stop1 = '" & txtILFreq_2.Text & "'" & Expression
+                            cmd.ExecuteNonQuery()
+                            cmd.CommandText = "UPDATE Specifications SET  IL_start2 = '" & txtILFreq_3.Text & "'" & Expression
+                            cmd.ExecuteNonQuery()
+                            cmd.CommandText = "UPDATE Specifications SET  IL_stop2 = '" & txtILFreq_4.Text & "'" & Expression
+                            cmd.ExecuteNonQuery()
+                        Else
+                            cmd.CommandText = "UPDATE Specifications SET  IL_exp_tf = 0" & Expression
+                            cmd.ExecuteNonQuery()
+                        End If
+
+                        cmd.CommandText = "UPDATE Specifications Set Test1 = 1" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE Specifications Set Test2 = 1" & Expression
+                        cmd.ExecuteNonQuery()
+
+                        cmd.CommandText = "UPDATE Specifications SET  JobNumber = '" & Me.cmbJob.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE Specifications SET  PartNumber = '" & FormatPartNum() & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE Specifications SET  Title = '" & Me.txtTitle.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE Specifications SET  Quantity = '" & Me.txtQuantity.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE Specifications SET  PPH = " & Me.txtPPH.Text & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE Specifications SET  StartFreqMHz = '" & Me.txtStartFreq_5.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE Specifications SET  StopFreqMHz = '" & Me.txtStopFreq_5.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE Specifications SET  Power = '" & Me.txtPower_5.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE Specifications SET  SpecType = '" & Me.cmbSpecType.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE Specifications SET  Bypass = '" & M_bypass & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE Specifications SET  FailPercent = '" & Me.txtFail.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+
                 End Select
                 ats.Close()
             Else
@@ -1314,9 +1445,40 @@ Public Class frmSpecifications
                             cmd.ExecuteNonQuery()
                         End If
                         If Me.txtTest3_5.Text <> "" Then
-                            cmd.CommandText = "UPDATE Specifications SET  ATS!Isolation2 = '" & Me.txtTest3_5.Text & "'" & Expression
+                            cmd.CommandText = "UPDATE Specifications SET  Isolation2 = '" & Me.txtTest3_5.Text & "'" & Expression
                             cmd.ExecuteNonQuery()
                         End If
+
+                    Case 4
+                        If Me.txtTest1_5.Text = "" Or Me.txtTest2_5.Text = "" Or Me.cmbJob.Text = "" Then GoTo StupidUser
+                        If Not IsNumeric(Me.txtTest1_5.Text) Or Not IsNumeric(Me.txtTest2_5.Text) Then GoTo NotNumber
+
+                        cmd.CommandText = "UPDATE Specifications SET  InsertionLoss = '" & Me.txtTest1_5.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE Specifications SET  VSWR = '" & Me.txtTest2_5.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE Specifications SET  JobNumber = '" & Me.cmbJob.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE Specifications SET  PartNumber = '" & FormatPartNum() & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE Specifications SET  Title = '" & Me.txtTitle.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE Specifications SET  Quantity = '" & Me.txtQuantity.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE Specifications SET  PPH = " & Me.txtPPH.Text & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE Specifications SET  StartFreqMHz = '" & Me.txtStartFreq_4.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE Specifications SET  StopFreqMHz = '" & Me.txtStopFreq_4.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE Specifications SET  Power = '" & Me.txtPower_5.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE Specifications SET  SpecType = '" & Me.cmbSpecType.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE Specifications SET  Bypass = '" & M_bypass & "'" & Expression
+                        cmd.ExecuteNonQuery()
+                        cmd.CommandText = "UPDATE Specifications SET  FailPercent = '" & Me.txtFail.Text & "'" & Expression
+                        cmd.ExecuteNonQuery()
                 End Select
                 atsLocal.Close()
             End If
@@ -1437,52 +1599,52 @@ Public Class frmSpecifications
                 End If
             End If
 
-                Dim Count As Integer = 0
-                frmAUTOTEST.cmbJob.Items.Clear()
-                frmAUTOTEST.cmbJob.Items.Add(" ")
-                frmAUTOTEST.cmbJob.Items.Add("Add New")
-                If SQLAccess Then
-                    Dim ats As SqlConnection = New SqlConnection(SQLConnStr)
-                    Dim cmd As SqlCommand = New SqlCommand("SELECT DISTINCT JobNumber from Specifications", ats)
-                    ats.Open()
-                    System.Threading.Thread.Sleep(10)
-                    Dim dr As SqlDataReader = cmd.ExecuteReader()
-                    While dr.Read
-                        frmAUTOTEST.cmbJob.Items.Add(CType(dr.GetValue(0), String))
-                        Count = Count + 1
-                    End While
-                    ats.Close()
-                Else
-                    Dim strConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source= " & AccessDatabaseFolder("NetworkSpecs")
-                    Dim atsLocal As New OleDb.OleDbConnection
-                    atsLocal.ConnectionString = strConnectionString
-                    Dim cmd As OleDb.OleDbCommand = New OleDb.OleDbCommand("SELECT DISTINCT JobNumber from Specifications", atsLocal)
-                    atsLocal.Open()
-                    System.Threading.Thread.Sleep(10)
-                    Dim drLocal As OleDb.OleDbDataReader = cmd.ExecuteReader
-                    While Not drLocal.Read = Nothing
-                        frmAUTOTEST.cmbJob.Items.Add(CType(drLocal.GetValue(0), String))
-                        Count = Count + 1
-                    End While
-                    atsLocal.Close()
-                End If
-                frmAUTOTEST.cmbJob.Text = Job
-                frmAUTOTEST.cmbPart.Text = Part
-                frmAUTOTEST.txtStartFreq.Text = SpecStartFreq
-                frmAUTOTEST.txtStopFreq.Text = SpecStopFreq
+            Dim Count As Integer = 0
+            frmAUTOTEST.cmbJob.Items.Clear()
+            frmAUTOTEST.cmbJob.Items.Add(" ")
+            frmAUTOTEST.cmbJob.Items.Add("Add New")
+            If SQLAccess Then
+                Dim ats As SqlConnection = New SqlConnection(SQLConnStr)
+                Dim cmd As SqlCommand = New SqlCommand("SELECT DISTINCT JobNumber from Specifications", ats)
+                ats.Open()
+                System.Threading.Thread.Sleep(10)
+                Dim dr As SqlDataReader = cmd.ExecuteReader()
+                While dr.Read
+                    frmAUTOTEST.cmbJob.Items.Add(CType(dr.GetValue(0), String))
+                    Count = Count + 1
+                End While
+                ats.Close()
+            Else
+                Dim strConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source= " & AccessDatabaseFolder("NetworkSpecs")
+                Dim atsLocal As New OleDb.OleDbConnection
+                atsLocal.ConnectionString = strConnectionString
+                Dim cmd As OleDb.OleDbCommand = New OleDb.OleDbCommand("SELECT DISTINCT JobNumber from Specifications", atsLocal)
+                atsLocal.Open()
+                System.Threading.Thread.Sleep(10)
+                Dim drLocal As OleDb.OleDbDataReader = cmd.ExecuteReader
+                While Not drLocal.Read = Nothing
+                    frmAUTOTEST.cmbJob.Items.Add(CType(drLocal.GetValue(0), String))
+                    Count = Count + 1
+                End While
+                atsLocal.Close()
+            End If
+            frmAUTOTEST.cmbJob.Text = Job
+            frmAUTOTEST.cmbPart.Text = Part
+            frmAUTOTEST.txtStartFreq.Text = SpecStartFreq
+            frmAUTOTEST.txtStopFreq.Text = SpecStopFreq
 
 
-                Me.Hide()
-                frmAUTOTEST.Show()
-                Exit Sub
+            Me.Hide()
+            frmAUTOTEST.Show()
+            Exit Sub
 StupidUser:
-                MsgBox("Please fill out all required fields")
-                Exit Sub
+            MsgBox("Please fill out all required fields")
+            Exit Sub
 NoRatio:
-                MsgBox("Ratio is already included in VSWR Spec. Please remove the :")
+            MsgBox("Ratio is already included in VSWR Spec. Please remove the :")
 NotNumber:
-                MsgBox("Please recheck out all required fields. You must have all Numerials and no Characters")
-                Exit Sub
+            MsgBox("Please recheck out all required fields. You must have all Numerials and no Characters")
+            Exit Sub
         Catch ex As Exception
             Me.Hide()
             frmAUTOTEST.Show()
@@ -1643,7 +1805,39 @@ NotNumber:
         txtISOFreq_3.Text = txtISOFreq_2.Text
     End Sub
 
-  
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles ilchk.CheckedChanged
+        If ilchk.CheckState = CheckState.Checked Then
+            txtILFreq_1.Visible = True
+            txtILFreq_2.Visible = True
+            txtILFreq_3.Visible = True
+            txtILFreq_4.Visible = True
+            MH11.Visible = True
+            MH22.Visible = True
+            txtTest1_5_exp.Enabled = True
+            db22.Enabled = True
+            IL_TF = True
+            If Not IL_TF Then
+                txtILFreq_1.Text = txtStartFreq_4.Text
+                txtILFreq_4.Text = txtStopFreq_4.Text
+            End If
+
+        Else
+            txtISOFreq_1.Visible = False
+            txtISOFreq_2.Visible = False
+            txtISOFreq_3.Visible = False
+            txtISOFreq_4.Visible = False
+            Mhz1.Visible = False
+            Mhz2.Visible = False
+            txtISOFreq_1.Text = 0
+            txtISOFreq_2.Text = 0
+            txtISOFreq_3.Text = 0
+            txtISOFreq_4.Text = 0
+            txtTest2_5.Text = ""
+            txtTest1_5_exp.Enabled = False
+            dB2.Enabled = True
+            IL_TF = False
+        End If
+    End Sub
 End Class
 
 

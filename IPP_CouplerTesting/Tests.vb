@@ -4,12 +4,16 @@
     Public ABTraceID2 As Long
     Public COUPTraceID1 As Long
     Public COUPTraceID2 As Long
+    Public ILTraceID1 As Long
+    Public ILTraceID2 As Long
     Public IL1Data(Points) As Double
     Public IL2Data(Points) As Double
     Public IL1Data1(Points) As Double
     Public IL2Data1(Points) As Double
     Public IL1Data2(Points) As Double
     Public IL2Data2(Points) As Double
+    Public COUP1DataDir(Points) As Double
+    Public COUP2DataDir(Points) As Double
     Public COUP1Data(Points) As Double
     Public COUP2Data(Points) As Double
     Public COUPJ1_Marker As Double
@@ -41,10 +45,12 @@
     Public ReturnVal2 As Double
     Public IL1 As Double
     Public IL2 As Double
+    Public IL1_status As String = "Pass"
+    Public IL2_status As String = "Pass"
+
+
     Public IL1AB As Double
     Public IL2AB As Double
-
-
 
     Public Function CalibrateVNA() As Boolean
 
@@ -188,7 +194,7 @@
             ScanGPIB.BusWrite("OPC?;POWE" & POW & ";")
             ScanGPIB.BusWrite("OPC?;LOGM;")
             ScanGPIB.BusWrite("OPC?;SCAL 10")
-           
+
 
             ScanGPIB.BusWrite("OPC?;CHAN2;")
             ScanGPIB.BusWrite("OPC?;S21;")
@@ -547,13 +553,13 @@
                 Else
                     InsertionLoss3dB = "Fail"
                 End If
-        ElseIf PassChecked Then
-            IL = Spec
-            InsertionLoss3dB = "Pass"
-        ElseIf FailChecked Then
-            IL = Spec + 10
-            InsertionLoss3dB = "Fail"
-        End If
+            ElseIf PassChecked Then
+                IL = Spec
+                InsertionLoss3dB = "Pass"
+            ElseIf FailChecked Then
+                IL = Spec + 10
+                InsertionLoss3dB = "Fail"
+            End If
             frmAUTOTEST.Refresh()
         Else
             ActiveTitle = "     TESTING INSERTION LOSS    SW POSITION 1      "
@@ -601,7 +607,7 @@
             frmAUTOTEST.Refresh()
             If TraceChecked And Not TweakMode Then ' Database Trace Data
                 Title = "Insertion Loss J3"
-                SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                SerialNumber = "UUT" & UUTNum_Reset
                 TestID = TestID
                 CalDate = Now
                 Notes = ""
@@ -615,14 +621,14 @@
             Trace1Freq = TrimX(Trace1Freq)
             IL1Data_offs = TrimY(IL1Data, CDbl(frmAUTOTEST.txtOffset1.Text))
             If TraceChecked And Not TweakMode Then
-                ReDim Preserve XArray(IL1Data.Count - 1)
-                ReDim Preserve YArray(IL1Data.Count - 1)
-                Array.Clear(YArray, 0, IL1Data.Count - 1)
-                XArray = Trace1Freq
-                YArray = IL1Data
-                SQL.SaveTrace(Title, TestID, TraceID)
-                YArray = IL1Data_offs
-                If UUTNum <= 5 Then
+                If UUTNum_Reset <= 5 Then
+                    ReDim Preserve XArray(IL1Data.Count - 1)
+                    ReDim Preserve YArray(IL1Data.Count - 1)
+                    Array.Clear(YArray, 0, IL1Data.Count - 1)
+                    XArray = Trace1Freq
+                    YArray = IL1Data
+                    SQL.SaveTrace(Title, TestID, TraceID)
+                    YArray = IL1Data_offs
                     For y = 0 To YArray.Count - 1
                         IL_XArray(UUTNum - 1, y) = XArray(y)
                         IL1_YArray(UUTNum - 1, y) = YArray(y)
@@ -686,7 +692,7 @@
 
             If TraceChecked And Not TweakMode Then ' Database Trace Data
                 Title = "Insertion Loss J4"
-                SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                SerialNumber = "UUT" & UUTNum_Reset
                 TestID = TestID
                 CalDate = Now
                 Notes = ""
@@ -920,7 +926,7 @@
             frmAUTOTEST.Refresh()
             If TraceChecked And Not TweakMode Then ' Database Trace Data
                 Title = "Insertion Loss J3"
-                SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                SerialNumber = "UUT" & UUTNum_Reset
                 TestID = TestID
                 CalDate = Now
                 Notes = ""
@@ -934,14 +940,14 @@
             Trace1Freq = TrimX(Trace1Freq)
             IL1Data_offs1 = TrimY(IL1Data1, CDbl(frmAUTOTEST.txtOffset1.Text))
             If TraceChecked And Not TweakMode Then
-                ReDim Preserve XArray(IL1Data1.Count - 1)
-                ReDim Preserve YArray(IL1Data1.Count - 1)
-                Array.Clear(YArray, 0, IL1Data1.Count - 1)
-                XArray = Trace1Freq
-                YArray = IL1Data1
-                SQL.SaveTrace(Title, TestID, TraceID)
-                YArray = IL1Data_offs
-                If UUTNum <= 5 Then
+                If UUTNum_Reset <= 5 Then
+                    ReDim Preserve XArray(IL1Data1.Count - 1)
+                    ReDim Preserve YArray(IL1Data1.Count - 1)
+                    Array.Clear(YArray, 0, IL1Data1.Count - 1)
+                    XArray = Trace1Freq
+                    YArray = IL1Data1
+                    SQL.SaveTrace(Title, TestID, TraceID)
+                    YArray = IL1Data_offs
                     For y = 0 To YArray.Count - 1
                         IL_XArray(UUTNum - 1, y) = XArray(y)
                         IL1_YArray(UUTNum - 1, y) = YArray(y)
@@ -1005,7 +1011,7 @@
             ExtraAvg()
             If TraceChecked And Not TweakMode Then ' Database Trace Data
                 Title = "Insertion Loss J4"
-                SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                SerialNumber = "UUT" & UUTNum_Reset
                 TestID = TestID
                 CalDate = Now
                 Notes = ""
@@ -1619,7 +1625,7 @@
             ExtraAvg(2)
             If TraceChecked And Not TweakMode Then ' Database Trace Data
                 Title = "Insertion Loss J3"
-                SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                SerialNumber = "UUT" & UUTNum_Reset
                 TestID = TestID
                 CalDate = Now
                 Notes = ""
@@ -1632,14 +1638,14 @@
             Trace1Freq = TrimX(Trace1Freq)
             IL1Data_offs = TrimY(IL1Data, CDbl(frmAUTOTEST.txtOffset1.Text))
             If TraceChecked And Not TweakMode Then
-                ReDim Preserve XArray(IL1Data.Count - 1)
-                ReDim Preserve YArray(IL1Data.Count - 1)
-                Array.Clear(YArray, 0, IL1Data.Count - 1)
-                XArray = Trace1Freq
-                YArray = IL1Data
-                SQL.SaveTrace(Title, TestID, TraceID)
-                YArray = IL1Data_offs
-                If UUTNum <= 5 Then
+                If UUTNum_Reset <= 5 Then
+                    ReDim Preserve XArray(IL1Data.Count - 1)
+                    ReDim Preserve YArray(IL1Data.Count - 1)
+                    Array.Clear(YArray, 0, IL1Data.Count - 1)
+                    XArray = Trace1Freq
+                    YArray = IL1Data
+                    SQL.SaveTrace(Title, TestID, TraceID)
+                    YArray = IL1Data_offs
                     For x = 0 To YArray.Count - 1
                         IL_XArray(UUTNum - 1, x) = XArray(x)
                         IL1_YArray(UUTNum - 1, x) = YArray(x)
@@ -1800,6 +1806,531 @@
         status = SwitchCom.SetSwitchPosition(1) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
         frmAUTOTEST.cmbSwitch.Text = "Switch POS 1"
     End Function
+    Public Function InsertionLossTRANS(Optional ResumeTesting As Boolean = False, Optional TestID As Long = 1) As String
+        Dim status As String
+        Dim Spec As Double
+        Dim TraceID1 As Long
+        Dim Trace1Freq(Points) As Double
+        Dim Trace2Freq(Points) As Double
+        Dim IL1 As Double
+        Dim i As Integer
+        Dim ILArray(Points) As Double
+        Dim ABArray(Points) As Double
+        Dim Workstation As String
+        Dim Title As String
+
+        InsertionLossTRANS = ""
+        Title = ActiveTitle
+        ActiveTitle = "     TESTING INSERTION LOSS     "
+        Workstation = GetComputerName()
+        If frmAUTOTEST.UUTCount.Text = 1 Then SetSwitchPosition = 1
+        If frmAUTOTEST.txtOffset1.Text = "" Then frmAUTOTEST.txtOffset1.Text = 0
+        Spec = GetSpecification("InsertionLoss")
+        SwitchCom.Connect()
+        If ResumeTesting Then
+            RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset2.Text)
+            If Math.Round(RetrnVal, 2) <= Spec Then
+                InsertionLossTRANS = "Pass"
+            Else
+                InsertionLossTRANS = "Fail"
+            End If
+        ElseIf Debug Then   ' Simulated Data
+            If DBDataChecked Then
+                TraceID1 = 4262
+                GetTracePoints(TraceID1)
+
+                Pts = Points
+                For i = 0 To Pts
+                    ILArray(i) = Math.Abs(YArray(i))
+                Next
+
+                IL1 = MaxNoZero(ILArray)
+                IL1 = Math.Round(IL1, 2)
+                If Right(IL1, 1) = "." Then IL1 = "0" & IL1
+
+                IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
+                IL = Format(Math.Round(IL, 2), "0.00")
+
+                If IL <= Spec Then
+                    InsertionLossTRANS = "Pass"
+                Else
+                    InsertionLossTRANS = "Fail"
+                End If
+            ElseIf PassChecked Then
+                IL = Spec
+                InsertionLossTRANS = "Pass"
+            ElseIf FailChecked Then
+                IL = Spec + 10
+                InsertionLossTRANS = "Fail"
+            End If
+            frmAUTOTEST.Refresh()
+        Else
+            ActiveTitle = "     TESTING INSERTION LOSS    "
+            If MutiCalChecked Then SetupVNA(True, 3)
+            frmAUTOTEST.Refresh()
+
+            If Not ILSetDone Then
+                If VNAStr = "AG_E5071B" Then
+                    ScanGPIB.BusWrite(":CALC1:PAR2:SEL")
+                    ScanGPIB.BusWrite(":CALC1:FORM MLOG")
+                    ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV 0")
+                    ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:PDIV 10")
+                ElseIf VNAStr = "N3383A" Then
+                    ScanGPIB.BusWrite("CALC1:PAR:SEL 'CH1_S21_1'")
+                    ScanGPIB.BusWrite(":CALC1:FORM MLOG")
+                    ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:RLEV 0")
+                    ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:PDIV 10")
+                Else
+                    ScanGPIB.BusWrite("OPC?;CHAN2;")
+                    ScanGPIB.BusWrite("OPC?;LOGM;")
+                    ScanGPIB.BusWrite("OPC?;REFV 0")
+                    ScanGPIB.BusWrite("OPC?;SCAL 10")
+
+                End If
+            End If
+            ExtraAvg(2)
+            If TraceChecked And Not TweakMode Then ' Database Trace Data
+                Title = "Insertion Loss"
+                SerialNumber = "UUT" & UUTNum_Reset
+                TestID = TestID
+                CalDate = Now
+                Notes = ""
+                Workstation = GetComputerName()
+                TraceID1 = SQL.GetTraceID(Title, TestID)
+                TraceID = TraceID1
+            End If
+            ScanGPIB.GetTrace(Trace1Freq, IL1Data)
+
+            Trace1Freq = TrimX(Trace1Freq)
+            IL1Data_offs = TrimY(IL1Data, CDbl(frmAUTOTEST.txtOffset1.Text))
+            If TraceChecked And Not TweakMode Then
+                If UUTNum_Reset <= 5 Then
+                    ReDim Preserve XArray(IL1Data.Count - 1)
+                    ReDim Preserve YArray(IL1Data.Count - 1)
+                    Array.Clear(YArray, 0, IL1Data.Count - 1)
+                    XArray = Trace1Freq
+                    YArray = IL1Data
+                    SQL.SaveTrace(Title, TestID, TraceID)
+                    YArray = IL1Data_offs
+                    For x = 0 To YArray.Count - 1
+                        IL_XArray(UUTNum - 1, x) = XArray(x)
+                        IL1_YArray(UUTNum - 1, x) = YArray(x)
+                    Next
+                End If
+            End If
+            Pts = Points
+
+            For i = 0 To Pts
+                ILArray(i) = IL1Data(i)
+            Next
+
+            frmAUTOTEST.Refresh()
+            IL1 = MinNoZero(ILArray)
+            IL1 = Math.Round(IL1, 3)
+            If Right(IL1, 1) = "." Then IL1 = "0" & IL1
+
+            IL = Math.Abs(IL1) + CDbl(frmAUTOTEST.txtOffset1.Text)
+            Format(IL = Math.Round(IL, 3), "0.00")
+
+            If IL <= Spec Then
+                InsertionLossTRANS = "Pass"
+            Else
+                InsertionLossTRANS = "Fail"
+            End If
+        End If
+        COUPTraceID1 = TraceID1
+        ActiveTitle = Title
+        SetSwitchPosition = 1
+        status = SwitchCom.SetSwitchPosition(1) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+        frmAUTOTEST.cmbSwitch.Text = "Switch POS 1"
+        frmAUTOTEST.cmbSwitch.SelectedIndex = 0
+    End Function
+    Public Function InsertionLossTRANS_multiband(Optional ResumeTesting As Boolean = False, Optional TestID As Long = 1) As String
+        Dim status As String
+        Dim SQLStr As String
+        Dim Spec1 As Double
+        Dim Spec2 As Double
+        Dim TraceID1 As Long
+        Dim TraceID2 As Long
+        Dim Trace1Freq(Points) As Double
+        Dim Trace1Data(Points) As Double
+        Dim Trace2Freq(Points) As Double
+        Dim Trace2Data(Points) As Double
+        Dim Trace1Freq1(Points) As Double
+        Dim Trace1Data1(Points) As Double
+        Dim Trace2Freq1(Points) As Double
+        Dim Trace2Data1(Points) As Double
+        Dim Trace1Freq2(Points) As Double
+        Dim Trace1Data2(Points) As Double
+        Dim Trace2Freq2(Points) As Double
+        Dim Trace2Data2(Points) As Double
+        Dim i As Integer
+        Dim ILArray(Points) As Double
+        Dim ILArray1(Points) As Double
+        Dim ILArray2(Points) As Double
+        Dim ABArray(Points) As Double
+        Dim Workstation As String
+        Dim Title As String
+
+        InsertionLossTRANS_multiband = ""
+        Title = ActiveTitle
+        ILSetDone = False
+        Workstation = GetComputerName()
+        If frmAUTOTEST.UUTCount.Text = 1 Then SetSwitchPosition = 1
+        If frmAUTOTEST.txtOffset1.Text = "" Then frmAUTOTEST.txtOffset1.Text = 0
+        Spec1 = GetSpecification("InsertionLoss")
+        Spec2 = GetSpecification("InsertionLoss2")
+
+        SwitchCom.Connect()
+        If ResumeTesting Then
+            RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset1.Text)
+            If Math.Round(RetrnVal, 2) <= Spec1 Then
+                InsertionLossTRANS_multiband = "Pass"
+            Else
+                InsertionLossTRANS_multiband = "Fail"
+            End If
+        ElseIf Debug Then   ' Simulated Data
+            If DBDataChecked Then
+                TraceID1 = 4262
+                TraceID2 = 4263
+                GetTracePoints(TraceID1)
+                Trace1Freq = XArray
+                Trace1Data = YArray
+                GetTracePoints(TraceID2)
+                Trace2Freq = XArray
+                Trace2Data = YArray
+                Pts = Points
+                For i = 0 To Pts
+                    IL1 = 1 / (10 ^ (Math.Abs(Trace1Data(i)) * 0.1))
+                    IL2 = 1 / (10 ^ (Math.Abs(Trace2Data(i)) * 0.1))
+                    ILArray(i) = 10 * Log10(IL1 + IL2)
+                Next
+
+                IL1 = MaxNoZero(ILArray)
+                IL2 = ILArray.Min
+
+                IL1 = Math.Round(IL1, 2)
+                If Right(IL1, 1) = "." Then IL1 = "0" & IL1
+                IL2 = Math.Round(IL2, 2)
+                If Right(IL2, 1) = "." Then IL2 = "0" & IL2
+
+                If IL1 < IL2 Then
+                    IL = IL1
+                Else
+                    IL = IL2
+                End If
+                IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
+                IL = Format(Math.Round(IL, 2), "0.00")
+
+                If IL <= Spec1 Then
+                    InsertionLossTRANS_multiband = "Pass"
+                Else
+                    InsertionLossTRANS_multiband = "Fail"
+                End If
+            ElseIf PassChecked Then
+                IL = Spec1
+                InsertionLossTRANS_multiband = "Pass"
+            ElseIf FailChecked Then
+                IL = Spec1 + 10
+                InsertionLossTRANS_multiband = "Fail"
+            End If
+            frmAUTOTEST.Refresh()
+        Else
+            ActiveTitle = "     TESTING INSERTION LOSS Band 1 "
+            If MutiCalChecked Then
+                SetupVNA(True, 1)
+            End If
+
+            If Not ILSetDone Then
+                If VNAStr = "AG_E5071B" Then
+                    ScanGPIB.BusWrite("SENS:FREQ:STAR " & SpecIL_start1 & "E6;")
+                    ScanGPIB.BusWrite("SENS:FREQ:STOP " & SpecIL_stop1 & "E6;")
+                    ScanGPIB.BusWrite(":CALC1:PAR2:SEL")
+                    ScanGPIB.BusWrite(":CALC1:FORM MLOG")
+                    ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV " & GetLoss())
+                    ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:PDIV " & GetSpecification("IL2"))
+                ElseIf VNAStr = "N3383A" Then
+                    ScanGPIB.BusWrite("SENS1:FREQ:STAR " & SpecIL_start1 & "E6;")
+                    ScanGPIB.BusWrite("SENS1:FREQ:STOP " & SpecIL_stop1 & "E6;")
+                    ScanGPIB.BusWrite("CALC:PAR:SEL 'CH1_S21_1'")
+                    ScanGPIB.BusWrite(":CALC:FORM MLOG")
+                    ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:RLEV " & GetLoss())
+                    ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:PDIV " & GetSpecification("insertionloss"))
+                Else
+                    If VNAStr = "HP_8753C" Then System.Threading.Thread.Sleep(2000)
+                    ScanGPIB.BusWrite("STAR " & SpecIL_start1 & "MHZ;")
+                    ScanGPIB.BusWrite("STOP " & SpecIL_stop1 & "MHZ;")
+                    ScanGPIB.BusWrite("OPC?;CHAN2;")
+                    ScanGPIB.BusWrite("OPC?;LOGM;")
+                    ScanGPIB.BusWrite("OPC?;REFV " & GetLoss())
+                    ScanGPIB.BusWrite("OPC?;SCAL " & GetSpecification("insertionloss"))
+                End If
+            End If
+            ExtraAvg(2)
+
+            frmAUTOTEST.Refresh()
+            If TraceChecked And Not TweakMode Then ' Database Trace Data
+                Title = "Insertion Loss J3"
+                SerialNumber = "UUT" & UUTNum_Reset
+                TestID = TestID
+                CalDate = Now
+                Notes = ""
+                Workstation = GetComputerName()
+                TraceID1 = ScanGPIB.GetTrace(Trace1Freq, IL1Data)
+                TraceID = TraceID1
+            End If
+            Trace1Freq = TrimX(Trace1Freq)
+            IL1Data_offs = TrimY(IL1Data, CDbl(frmAUTOTEST.txtOffset1.Text))
+
+            If TraceChecked And Not TweakMode Then
+                If UUTNum_Reset <= 5 Then
+                    Title = "Insertion Loss J3"
+                    ReDim Preserve XArray(IL1Data.Count - 1)
+                    ReDim Preserve YArray(IL1Data.Count - 1)
+                    Array.Clear(YArray, 0, IL1Data.Count - 1)
+                    XArray = Trace1Freq
+                    YArray = IL1Data
+                    SQL.SaveTrace(Title, TestID, TraceID)
+                    YArray = IL1Data_offs
+                    For x = 0 To YArray.Count - 1
+                        IL_XArray(UUTNum - 1, x) = XArray(x)
+                        IL1_YArray(UUTNum - 1, x) = YArray(x)
+                    Next
+                End If
+            End If
+            Pts = Points
+
+            For i = 0 To Pts
+                ILArray(i) = IL1Data(i)
+            Next
+
+            frmAUTOTEST.Refresh()
+            IL1 = MinNoZero(ILArray)
+            IL1 = Math.Round(IL1, 3)
+            If Right(IL1, 1) = "." Then IL1 = "0" & IL1
+
+            IL1 = Math.Abs(IL1) + CDbl(frmAUTOTEST.txtOffset1.Text)
+            Format(IL1 = Math.Round(IL, 3), "0.00")
+
+            '~~~~~~~~~~~~~~~~~~~~~~~~second band~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+            If VNAStr = "AG_E5071B" Then
+                ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:MEM OFF")  'Memory Off"
+                ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:STAT ON")  ' Data On
+            ElseIf VNAStr = "N3383A" Then
+                ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:MEM OFF")  'Memory Off"
+                ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:STAT ON") ' Data On
+            Else
+                ScanGPIB.BusWrite("OPC?;DISPDATA")
+            End If
+            ActiveTitle = "     TESTING INSERTION LOSS Band 2 "
+
+            If MutiCalChecked Then
+                SetupVNA(True, 1)
+            End If
+            If VNAStr = "AG_E5071B" Then
+                ScanGPIB.BusWrite("SENS:FREQ:STAR " & SpecIL_start2 & "E6;")
+                ScanGPIB.BusWrite("SENS:FREQ:STOP " & SpecIL_stop2 & "E6;")
+            ElseIf VNAStr = "N3383A" Then
+                ScanGPIB.BusWrite("SENS1:FREQ:STAR " & SpecIL_start2 & "E6;")
+                ScanGPIB.BusWrite("SENS1:FREQ:STOP " & SpecIL_stop2 & "E6;")
+            Else
+                If VNAStr = "HP_8753C" Then System.Threading.Thread.Sleep(2000)
+                ScanGPIB.BusWrite("STAR " & SpecIL_start2 & "MHZ;")
+                ScanGPIB.BusWrite("STOP " & SpecIL_stop2 & "MHZ;")
+            End If
+            Delay(3000)
+            frmAUTOTEST.Refresh()
+            If TraceChecked And Not TweakMode Then ' Database Trace Data
+                Title = "Insertion Loss J3"
+                SerialNumber = "UUT" & UUTNum_Reset
+                TestID = TestID
+                CalDate = Now
+                Notes = ""
+                Workstation = GetComputerName()
+                TraceID1 = ScanGPIB.GetTrace(Trace2Freq, IL2Data)
+                TraceID = TraceID1
+            End If
+            Trace2Freq = TrimX(Trace2Freq)
+            IL2Data_offs = TrimY(IL2Data, CDbl(frmAUTOTEST.txtOffset1.Text))
+            If TraceChecked And Not TweakMode Then
+                If UUTNum_Reset <= 5 Then
+                    Title = "Insertion Loss J4"
+                    ReDim Preserve XArray(IL2Data.Count - 1)
+                    ReDim Preserve YArray(IL2Data.Count - 1)
+                    Array.Clear(YArray, 0, IL2Data.Count - 1)
+                    XArray = Trace2Freq
+                    YArray = IL2Data
+                    SQL.SaveTrace(Title, TestID, TraceID)
+                    YArray = IL2Data_offs
+                    For x = 0 To YArray.Count - 1
+                        IL_XArray(UUTNum - 1, x) = XArray(x)
+                        IL2_YArray(UUTNum - 1, x) = YArray(x)
+                    Next
+                End If
+            End If
+            Pts = Points
+
+            For i = 0 To Pts
+                ILArray(i) = IL2Data(i)
+            Next
+
+            frmAUTOTEST.Refresh()
+            IL2 = MinNoZero(ILArray)
+            IL2 = Math.Round(IL2, 3)
+            If Right(IL2, 1) = "." Then IL2 = "0" & IL2
+
+            IL2 = Math.Abs(IL2) + CDbl(frmAUTOTEST.txtOffset1.Text)
+            Format(IL2 = Math.Round(IL2, 3), "0.00")
+            Pts = Points
+
+            If IL1 > Spec1 Then
+                IL1_status = "Fail"
+            End If
+            If IL2 > Spec2 Then
+                IL2_status = "Fail"
+            End If
+
+            If IL1 <= Spec1 And IL2 <= Spec2 Then
+                InsertionLossTRANS_multiband = "Pass"
+            Else
+                InsertionLossTRANS_multiband = "Fail"
+            End If
+            End If
+
+
+            ActiveTitle = Title
+            SetSwitchPosition = 1
+            status = SwitchCom.SetSwitchPosition(1) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+            frmAUTOTEST.cmbSwitch.Text = "Switch POS 1"
+            If VNAStr = "AG_E5071B" Then
+                ScanGPIB.BusWrite("SENS:FREQ:STAR " & frmAUTOTEST.txtStartFreq.Text & "E6;")
+                ScanGPIB.BusWrite("SENS:FREQ:STOP " & frmAUTOTEST.txtStopFreq.Text & "E6;")
+            ElseIf VNAStr = "N3383A" Then
+                ScanGPIB.BusWrite("SENS1:FREQ:STAR " & frmAUTOTEST.txtStartFreq.Text & "E6;")
+                ScanGPIB.BusWrite("SENS1:FREQ:STOP " & frmAUTOTEST.txtStopFreq.Text & "E6;")
+            Else
+                If VNAStr = "HP_8753C" Then System.Threading.Thread.Sleep(2000)
+                ScanGPIB.BusWrite("STAR " & frmAUTOTEST.txtStartFreq.Text & "MHZ;")
+                ScanGPIB.BusWrite("STOP " & frmAUTOTEST.txtStopFreq.Text & "MHZ;")
+            End If
+    End Function
+    Public Function InsertionLossTRANS_Marker(Optional ResumeTesting As Boolean = False, Optional TestID As Long = 1) As String
+        Dim status As String
+        Dim Spec As Double
+        Dim TraceID1 As Long
+        Dim Trace1Freq(Points) As Double
+        Dim Trace2Freq(Points) As Double
+        Dim IL1 As Double
+        Dim i As Integer
+        Dim ILArray(Points) As Double
+        Dim ABArray(Points) As Double
+        Dim Workstation As String
+        Dim Title As String
+
+        InsertionLossTRANS_Marker = ""
+        Title = ActiveTitle
+        ActiveTitle = "     TESTING INSERTION LOSS     "
+        Workstation = GetComputerName()
+        If frmAUTOTEST.UUTCount.Text = 1 Then SetSwitchPosition = 1
+        If frmAUTOTEST.txtOffset1.Text = "" Then frmAUTOTEST.txtOffset1.Text = 0
+        Spec = GetSpecification("InsertionLoss")
+        SwitchCom.Connect()
+        If ResumeTesting Then
+            RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset2.Text)
+            If Math.Round(RetrnVal, 2) <= Spec Then
+                InsertionLossTRANS_Marker = "Pass"
+            Else
+                InsertionLossTRANS_Marker = "Fail"
+            End If
+        ElseIf Debug Then   ' Simulated Data
+            If DBDataChecked Then
+                TraceID1 = 4262
+                GetTracePoints(TraceID1)
+
+                Pts = Points
+                For i = 0 To Pts
+                    ILArray(i) = Math.Abs(YArray(i))
+                Next
+
+                IL1 = MaxNoZero(ILArray)
+                IL1 = Math.Round(IL1, 2)
+                If Right(IL1, 1) = "." Then IL1 = "0" & IL1
+
+                IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
+                IL = Format(Math.Round(IL, 2), "0.00")
+
+                If IL <= Spec Then
+                    InsertionLossTRANS_Marker = "Pass"
+                Else
+                    InsertionLossTRANS_Marker = "Fail"
+                End If
+            ElseIf PassChecked Then
+                IL = Spec
+                InsertionLossTRANS_Marker = "Pass"
+            ElseIf FailChecked Then
+                IL = Spec + 10
+                InsertionLossTRANS_Marker = "Fail"
+            End If
+            frmAUTOTEST.Refresh()
+        Else
+            ActiveTitle = "     TESTING INSERTION LOSS     "
+           
+
+            If MutiCalChecked Then SetupVNA(True, 3)
+            frmAUTOTEST.Refresh()
+
+            If Not ILSetDone Then
+                If VNAStr = "AG_E5071B" Then
+                    ScanGPIB.BusWrite(":CALC1:PAR2:SEL")
+                    ScanGPIB.BusWrite(":CALC1:FORM MLOG")
+                    ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV 0")
+                    ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:PDIV 10")
+                    ScanGPIB.BusWrite(":CALC1:MARK1 ON")  'Marker 1 on
+                    ExtraAvg()
+                    ScanGPIB.BusWrite(":CALC1:MARK1:FUNC:TYPE MIN")  'Marker 1 min
+                    ScanGPIB.BusWrite(":CALC1:MARK1:FUNC:EXEC")  'Marker 1 
+                    System.Threading.Thread.Sleep(500)
+                    IL1 = ScanGPIB.MarkerQuery(":CALC1:MARK1:Y?")  'Get Marker1 val
+                ElseIf VNAStr = "N3383A" Then
+                    ScanGPIB.BusWrite("CALC1:PAR:SEL 'CH1_S21_1'")
+                    ScanGPIB.BusWrite(":CALC1:FORM MLOG")
+                    ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:RLEV 0")
+                    ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:PDIV 10")
+                    ScanGPIB.BusWrite(":CALC1:MARK1 ON")  'Marker 1 on
+                    ExtraAvg()
+                    ScanGPIB.BusWrite(":CALC1:MARK1:FUNC:TYPE MIN")  'Marker 1 min
+                    IL1 = ScanGPIB.MarkerQuery(":CALC1:MARK1:Y?")  'Get Marker1 val
+                Else
+                    ScanGPIB.BusWrite("OPC?;CHAN2;")
+                    ScanGPIB.BusWrite("OPC?;LOGM;")
+                    ScanGPIB.BusWrite("OPC?;REFV 0")
+                    ScanGPIB.BusWrite("OPC?;SCAL 10")
+                    ScanGPIB.BusWrite("MARK1;")  'Marker 1 on
+                    ExtraAvg(2)
+                    ScanGPIB.BusWrite("MARKMINI;")  'Marker 1 min
+                    IL1 = ScanGPIB.MarkerQuery("OUTPMARK;")  'Get Marker1 val
+                End If
+            End If
+
+            frmAUTOTEST.Refresh()
+            IL1 = Math.Round(IL1, 3)
+
+            IL = Math.Abs(IL1) + CDbl(frmAUTOTEST.txtOffset1.Text)
+            Format(IL = Math.Round(IL, 3), "0.00")
+
+            If IL <= Spec Then
+                InsertionLossTRANS_Marker = "Pass"
+            Else
+                InsertionLossTRANS_Marker = "Fail"
+            End If
+        End If
+        COUPTraceID1 = TraceID1
+        ActiveTitle = Title
+        SetSwitchPosition = 1
+        status = SwitchCom.SetSwitchPosition(1) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+        frmAUTOTEST.cmbSwitch.Text = "Switch POS 1"
+    End Function
+
 
     Public Function InsertionLossCOMB(Optional ResumeTesting As Boolean = False, Optional TestID As Long = 1) As String
         Dim status As String
@@ -1906,7 +2437,7 @@
                 ExtraAvg(2)
                 If TraceChecked And Not TweakMode Then ' Database Trace Data
                     Title = "Insertion Loss Port " & x & " "
-                    SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                    SerialNumber = "UUT" & UUTNum_Reset
                     TestID = TestID
                     CalDate = Now
                     Notes = ""
@@ -1918,14 +2449,14 @@
                 Trace1Freq = TrimX(Trace1Freq)
                 IL1Data_offs = TrimY(IL1Data, CDbl(frmAUTOTEST.txtOffset1.Text))
                 If TraceChecked And Not TweakMode Then
-                    ReDim Preserve XArray(IL1Data.Count - 1)
-                    ReDim Preserve YArray(IL1Data.Count - 1)
-                    Array.Clear(YArray, 0, IL1Data.Count - 1)
-                    XArray = Trace1Freq
-                    YArray = IL1Data
-                    SQL.SaveTrace(Title, TestID, TraceID)
-                    YArray = IL1Data_offs
-                    If UUTNum <= 5 Then
+                    If UUTNum_Reset <= 5 Then
+                        ReDim Preserve XArray(IL1Data.Count - 1)
+                        ReDim Preserve YArray(IL1Data.Count - 1)
+                        Array.Clear(YArray, 0, IL1Data.Count - 1)
+                        XArray = Trace1Freq
+                        YArray = IL1Data
+                        SQL.SaveTrace(Title, TestID, TraceID)
+                        YArray = IL1Data_offs
                         For y = 0 To YArray.Count - 1
                             IL_XArray(UUTNum - 1, y) = XArray(y)
                             IL1_YArray(UUTNum - 1, y) = YArray(y)
@@ -2204,7 +2735,7 @@
             End If
             If TraceChecked And Not TweakMode Then ' Database Trace Data
                 Title = "Return Loss"
-                SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                SerialNumber = "UUT" & UUTNum_Reset
                 TestID = TestID
                 CalDate = Now
                 Notes = ""
@@ -2215,14 +2746,14 @@
             TraceFreq = TrimX(TraceFreq)
             TraceData_offs = TrimY(TraceData, CDbl(frmAUTOTEST.txtOffset2.Text))
             If TraceChecked And Not TweakMode Then
-                ReDim Preserve XArray(TraceData.Count - 1)
-                ReDim Preserve YArray(TraceData.Count - 1)
-                Array.Clear(YArray, 0, TraceData.Count - 1)
-                XArray = TraceFreq
-                YArray = TraceData
-                SQL.SaveTrace(Title, TestID, TraceID)
-                YArray = TraceData_offs
-                If UUTNum <= 5 Then
+                If UUTNum_Reset <= 5 Then
+                    ReDim Preserve XArray(TraceData.Count - 1)
+                    ReDim Preserve YArray(TraceData.Count - 1)
+                    Array.Clear(YArray, 0, TraceData.Count - 1)
+                    XArray = TraceFreq
+                    YArray = TraceData
+                    SQL.SaveTrace(Title, TestID, TraceID)
+                    YArray = TraceData_offs
                     For x = 0 To YArray.Count - 1
                         RL_XArray(UUTNum - 1, x) = XArray(x)
                         RL_YArray(UUTNum - 1, x) = YArray(x)
@@ -2451,7 +2982,7 @@
             ExtraAvg(2)
             If TraceChecked And Not TweakMode Then ' Database Trace Data
                 Title = "Isolation"
-                SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                SerialNumber = "UUT" & UUTNum_Reset
                 TestID = TestID
                 CalDate = Now
                 Notes = ""
@@ -2463,14 +2994,14 @@
             TraceFreq = TrimX(TraceFreq)
             TraceData_offs = TrimY(TraceData, CDbl(frmAUTOTEST.txtOffset3.Text))
             If TraceChecked And Not TweakMode Then
-                ReDim Preserve XArray(TraceData.Count - 1)
-                ReDim Preserve YArray(TraceData.Count - 1)
-                Array.Clear(YArray, 0, TraceData.Count - 1)
-                XArray = TraceFreq
-                YArray = TraceData_offs
-                SQL.SaveTrace(Title, TestID, TraceID)
-                YArray = TraceData
-                If UUTNum <= 5 Then
+                If UUTNum_Reset <= 5 Then
+                    ReDim Preserve XArray(TraceData.Count - 1)
+                    ReDim Preserve YArray(TraceData.Count - 1)
+                    Array.Clear(YArray, 0, TraceData.Count - 1)
+                    XArray = TraceFreq
+                    YArray = TraceData_offs
+                    SQL.SaveTrace(Title, TestID, TraceID)
+                    YArray = TraceData
                     For x = 0 To YArray.Count - 1
                         ISO_XArray(UUTNum - 1, x) = XArray(x)
                         ISO_YArray(UUTNum - 1, x) = YArray(x)
@@ -2731,7 +3262,7 @@
                 ExtraAvg()
                 If TraceChecked And Not TweakMode Then ' Database Trace Data
                     Title = "Isolation Port " & Ports & " "
-                    SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                    SerialNumber = "UUT" & UUTNum_Reset
                     TestID = TestID
                     CalDate = Now
                     Notes = ""
@@ -2743,14 +3274,14 @@
                 Trace1Freq = TrimX(Trace1Freq)
                 IL1Data_offs = TrimY(IL1Data, CDbl(frmAUTOTEST.txtOffset3.Text))
                 If TraceChecked And Not TweakMode Then
-                    ReDim Preserve XArray(TraceData.Count - 1)
-                    ReDim Preserve YArray(TraceData.Count - 1)
-                    Array.Clear(YArray, 0, TraceData.Count - 1)
-                    XArray = TraceFreq
-                    YArray = IL1Data
-                    SQL.SaveTrace(Title, TestID, TraceID)
-                    YArray = IL1Data_offs
-                    If UUTNum <= 5 Then
+                    If UUTNum_Reset <= 5 Then
+                        ReDim Preserve XArray(TraceData.Count - 1)
+                        ReDim Preserve YArray(TraceData.Count - 1)
+                        Array.Clear(YArray, 0, TraceData.Count - 1)
+                        XArray = TraceFreq
+                        YArray = IL1Data
+                        SQL.SaveTrace(Title, TestID, TraceID)
+                        YArray = IL1Data_offs
                         For x = 0 To YArray.Count - 1
                             ISO_XArray(UUTNum - 1, x) = XArray(x)
                             ISO_YArray(UUTNum - 1, x) = YArray(x)
@@ -3106,7 +3637,7 @@ SetPoints:
 
                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Or (SpecType = "DUAL DIRECTIONAL COUPLER" And Direction = 1) Then
                     If TraceChecked And Not TweakMode Then ' Database Trace Data
-                        SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                        SerialNumber = "UUT" & UUTNum_Reset
                         TestID = TestID
                         CalDate = Now
                         Notes = ""
@@ -3118,14 +3649,14 @@ SetPoints:
                     TraceFreq = TrimX(TraceFreq)
                     COUP1Data_offs = TrimY(COUP1Data, CDbl(frmAUTOTEST.txtOffset3.Text))
                     If TraceChecked And Not TweakMode Then
-                        ReDim Preserve XArray(TraceFreq.Count - 1)
-                        ReDim Preserve YArray(TraceFreq.Count - 1)
-                        Array.Clear(YArray, 0, TraceFreq.Count - 1)
-                        XArray = TraceFreq
-                        YArray = COUP1Data
-                        SQL.SaveTrace(Title, TestID, TraceID)
-                        YArray = COUP1Data_offs
-                        If UUTNum <= 5 Then
+                        If UUTNum_Reset <= 5 Then
+                            ReDim Preserve XArray(TraceFreq.Count - 1)
+                            ReDim Preserve YArray(TraceFreq.Count - 1)
+                            Array.Clear(YArray, 0, TraceFreq.Count - 1)
+                            XArray = TraceFreq
+                            YArray = COUP1Data
+                            SQL.SaveTrace(Title, TestID, TraceID)
+                            YArray = COUP1Data_offs
                             For x = 0 To YArray.Count - 1
                                 COUP_XArray(UUTNum - 1, x) = XArray(x)
                                 COUP1_YArray(UUTNum - 1, x) = YArray(x)
@@ -3134,7 +3665,7 @@ SetPoints:
                     End If
                 Else
                     If TraceChecked And Not TweakMode Then ' Database Trace Data
-                        SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                        SerialNumber = "UUT" & UUTNum_Reset
                         TestID = TestID
                         CalDate = Now
                         Notes = ""
@@ -3327,6 +3858,7 @@ Round:
         If AB <= Spec Then
             AmplitudeBalance = "Pass"
         Else
+            AB = Spec + 10
             AmplitudeBalance = "Fail"
         End If
 
@@ -3411,6 +3943,8 @@ Round:
             ElseIf PassChecked Then
                 AB = Spec
                 AmplitudeBalance_Marker = "Pass"
+                AB = Spec + 10
+                AmplitudeBalance_Marker = "Fail"
             ElseIf FailChecked Then
                 AB = Spec + 10
                 AmplitudeBalance_Marker = "Fail"
@@ -3800,7 +4334,7 @@ Round:
                 If x <> 1 Then
                     If TraceChecked And Not TweakMode Then ' Database Trace Data
                         Title = "AmplitudeBalance Port " & PortNum
-                        SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                        SerialNumber = "UUT" & UUTNum_Reset
                         TestID = TestID
                         CalDate = Now
                         Notes = ""
@@ -3812,14 +4346,14 @@ Round:
                     Trace1Freq = TrimX(Trace1Freq)
                     IL1Data_offs = TrimY(IL1Data, CDbl(frmAUTOTEST.txtOffset4.Text))
                     If TraceChecked And Not TweakMode Then
-                        ReDim Preserve XArray(Trace1Freq.Count - 1)
-                        ReDim Preserve YArray(Trace1Freq.Count - 1)
-                        Array.Clear(YArray, 0, Trace1Freq.Count - 1)
-                        XArray = Trace1Freq
-                        YArray = IL1Data
-                        SQL.SaveTrace(Title, TestID, TraceID)
-                        YArray = IL1Data_offs
-                        If UUTNum <= 5 Then
+                        If UUTNum_Reset <= 5 Then
+                            ReDim Preserve XArray(Trace1Freq.Count - 1)
+                            ReDim Preserve YArray(Trace1Freq.Count - 1)
+                            Array.Clear(YArray, 0, Trace1Freq.Count - 1)
+                            XArray = Trace1Freq
+                            YArray = IL1Data
+                            SQL.SaveTrace(Title, TestID, TraceID)
+                            YArray = IL1Data_offs
                             For y = 0 To YArray.Count - 1
                                 AB_XArray(UUTNum - 1, y) = XArray(y)
                                 AB1_YArray(UUTNum - 1, y) = YArray(y)
@@ -4159,12 +4693,12 @@ Round:
 
             If SwitchedChecked Then   'Auto RF Switching
 
-                SetSwitchPosition = 2
-                status = SwitchCom.SetSwitchPosition(2) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                SetSwitchPosition = 3
+                status = SwitchCom.SetSwitchPosition(3) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
                 status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
                 System.Threading.Thread.Sleep(500)
 
-                frmAUTOTEST.cmbSwitch.SelectedIndex = 1
+                frmAUTOTEST.cmbSwitch.SelectedIndex = 2
             Else
                 MsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
             End If
@@ -4195,7 +4729,7 @@ Round:
             frmAUTOTEST.Refresh()
             If TraceChecked And Not TweakMode Then ' Database Trace Data
                 Title = "Coupling J3"
-                SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                SerialNumber = "UUT" & UUTNum_Reset
                 TestID = TestID
                 CalDate = Now
                 Notes = ""
@@ -4203,18 +4737,18 @@ Round:
                 TraceID1 = SQL.GetTraceID(Title, TestID)
                 TraceID = TraceID1
             End If
-            ScanGPIB.GetTrace(TraceFreq, COUP1Data)
+            ScanGPIB.GetTrace(TraceFreq, COUP1DataDir)
             TraceFreq = TrimX(TraceFreq)
-            COUP1Data_offs = TrimY(COUP1Data, CDbl(frmAUTOTEST.txtOffset4.Text))
+            COUP1Data_offs = TrimY(COUP1DataDir, CDbl(frmAUTOTEST.txtOffset4.Text))
             If TraceChecked And Not TweakMode Then
-                ReDim Preserve XArray(TraceFreq.Count - 1)
-                ReDim Preserve YArray(TraceFreq.Count - 1)
-                Array.Clear(YArray, 0, TraceFreq.Count - 1)
-                XArray = TraceFreq
-                YArray = COUP1Data
-                SQL.SaveTrace(Title, TestID, TraceID)
-                YArray = COUP1Data_offs
-                If UUTNum <= 5 Then
+                If UUTNum_Reset <= 5 Then
+                    ReDim Preserve XArray(TraceFreq.Count - 1)
+                    ReDim Preserve YArray(TraceFreq.Count - 1)
+                    Array.Clear(YArray, 0, TraceFreq.Count - 1)
+                    XArray = TraceFreq
+                    YArray = COUP1DataDir
+                    SQL.SaveTrace(Title, TestID, TraceID)
+                    YArray = COUP1Data_offs
                     For x = 0 To YArray.Count - 1
                         COUP_XArray(UUTNum - 1, x) = XArray(x)
                         COUP1_YArray(UUTNum - 1, x) = YArray(x)
@@ -4236,11 +4770,11 @@ Round:
                 If MutiCalChecked Then SetupVNA(True, 1)
             Else
                 If SwitchedChecked Then  'Auto RF Switching
-                    SetSwitchPosition = 3
-                    status = SwitchCom.SetSwitchPosition(3) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                    SetSwitchPosition = 2
+                    status = SwitchCom.SetSwitchPosition(2) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
                     status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
                     System.Threading.Thread.Sleep(500)
-                    frmAUTOTEST.cmbSwitch.SelectedIndex = 2
+                    frmAUTOTEST.cmbSwitch.SelectedIndex = 1
                 Else
                     MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
                 End If
@@ -4271,7 +4805,7 @@ Round:
             End If
             If TraceChecked And Not TweakMode Then ' Database Trace Data
                 Title = "Coupling J4"
-                SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                SerialNumber = "UUT" & UUTNum_Reset
                 TestID = TestID
                 CalDate = Now
                 Notes = ""
@@ -4279,18 +4813,18 @@ Round:
                 TraceID2 = SQL.GetTraceID(Title, TestID)
                 TraceID = TraceID2
             End If
-            ScanGPIB.GetTrace(TraceFreq, COUP2Data)
+            ScanGPIB.GetTrace(TraceFreq, COUP2DataDir)
             TraceFreq = TrimX(TraceFreq)
-            COUP2Data_offs = TrimY(COUP2Data, CDbl(frmAUTOTEST.txtOffset4.Text))
+            COUP2Data_offs = TrimY(COUP2DataDir, CDbl(frmAUTOTEST.txtOffset4.Text))
             If TraceChecked And Not TweakMode Then
-                ReDim Preserve XArray(TraceFreq.Count - 1)
-                ReDim Preserve YArray(TraceFreq.Count - 1)
-                Array.Clear(YArray, 0, TraceFreq.Count - 1)
-                XArray = TraceFreq
-                YArray = COUP2Data
-                SQL.SaveTrace(Title, TestID, TraceID)
-                YArray = COUP2Data_offs
-                If UUTNum <= 5 Then
+                If UUTNum_Reset <= 5 Then
+                    ReDim Preserve XArray(TraceFreq.Count - 1)
+                    ReDim Preserve YArray(TraceFreq.Count - 1)
+                    Array.Clear(YArray, 0, TraceFreq.Count - 1)
+                    XArray = TraceFreq
+                    YArray = COUP2DataDir
+                    SQL.SaveTrace(Title, TestID, TraceID)
+                    YArray = COUP2Data_offs
                     For x = 0 To YArray.Count - 1
                         COUP2_YArray(UUTNum - 1, x) = YArray(x)
                     Next
@@ -4298,12 +4832,12 @@ Round:
             End If
 
             For x = 0 To 200
-                If x = 0 Then COUPJ3 = Math.Abs(COUP1Data(x))
-                If x <> 0 Then COUPJ3 = COUPJ3 + Math.Abs(COUP1Data(x))
+                If x = 0 Then COUPJ3 = Math.Abs(COUP1DataDir(x))
+                If x <> 0 Then COUPJ3 = COUPJ3 + Math.Abs(COUP1DataDir(x))
             Next x
             COUPJ3 = COUPJ3 / 201
 
-            COUPJ4 = Math.Abs(MaxNoZero(COUP2Data))
+            COUPJ4 = Math.Abs(MaxNoZero(COUP2DataDir))
 
             If Direction = 1 Then
                 ReturnVal1 = Math.Abs(COUPJ4 - COUPJ3)
@@ -4422,6 +4956,10 @@ Round:
                 ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:PDIV 10")
                 ScanGPIB.BusWrite(":CALC1:MARK1 ON")  'Marker 1 on
                 ExtraAvg(2)
+                ScanGPIB.BusWrite(":CALC1:MARK1:FUNC:EXEC")
+                ScanGPIB.BusWrite(":CALC1:MARK1:FUNC:TYPE MAX")  'Marker 1 min
+                COUPJ1_Marker = ScanGPIB.MarkerQuery(":CALC1:MARK1:Y?")  'Get Marker1 val
+                ScanGPIB.BusWrite(":CALC1:MARK1 ON")  'Marker 1 on
                 ScanGPIB.BusWrite(":CALC1:MARK1:FUNC:EXEC")
                 ScanGPIB.BusWrite(":CALC1:MARK1:FUNC:TYPE MAX")  'Marker 1 min
                 COUPJ1_Marker = ScanGPIB.MarkerQuery(":CALC1:MARK1:Y?")  'Get Marker1 val
@@ -4644,7 +5182,7 @@ Round:
 
             If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Then
                 If TraceChecked And Not TweakMode Then ' Database Trace Data
-                    SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                    SerialNumber = "UUT" & UUTNum_Reset
                     TestID = TestID
                     CalDate = Now
                     Notes = ""
@@ -4656,16 +5194,18 @@ Round:
                 TraceFreq = TrimX(TraceFreq)
                 COUP1FlatData_offs = TrimY(COUP1FlatData, CDbl(frmAUTOTEST.txtOffset4.Text))
                 If TraceChecked And Not TweakMode Then
-                    ReDim Preserve XArray(TraceFreq.Count - 1)
-                    ReDim Preserve YArray(TraceFreq.Count - 1)
-                    Array.Clear(YArray, 0, TraceFreq.Count - 1)
-                    XArray = TraceFreq
-                    YArray = COUP1FlatData
-                    SQL.SaveTrace(Title, TestID, TraceID)
+                    If UUTNum_Reset <= 5 Then
+                        ReDim Preserve XArray(TraceFreq.Count - 1)
+                        ReDim Preserve YArray(TraceFreq.Count - 1)
+                        Array.Clear(YArray, 0, TraceFreq.Count - 1)
+                        XArray = TraceFreq
+                        YArray = COUP1FlatData
+                        SQL.SaveTrace(Title, TestID, TraceID)
+                    End If
                 End If
             Else
                 If TraceChecked And Not TweakMode Then ' Database Trace Data
-                    SerialNumber = "UUT" & frmAUTOTEST.UUTCount.Text
+                    SerialNumber = "UUT" & UUTNum_Reset
                     TestID = TestID
                     CalDate = Now
                     Notes = ""
@@ -4677,12 +5217,14 @@ Round:
                 TraceFreq = TrimX(TraceFreq)
                 COUP2FlatData = TrimY(COUP2FlatData, CDbl(frmAUTOTEST.txtOffset4.Text))
                 If TraceChecked And Not TweakMode Then
-                    ReDim Preserve XArray(TraceFreq.Count - 1)
-                    ReDim Preserve YArray(TraceFreq.Count - 1)
-                    Array.Clear(YArray, 0, TraceFreq.Count - 1)
-                    XArray = TraceFreq
-                    YArray = COUP2FlatData
-                    SQL.SaveTrace(Title, TestID, TraceID)
+                    If UUTNum_Reset <= 5 Then
+                        ReDim Preserve XArray(TraceFreq.Count - 1)
+                        ReDim Preserve YArray(TraceFreq.Count - 1)
+                        Array.Clear(YArray, 0, TraceFreq.Count - 1)
+                        XArray = TraceFreq
+                        YArray = COUP2FlatData
+                        SQL.SaveTrace(Title, TestID, TraceID)
+                    End If
                 End If
             End If
             frmAUTOTEST.Refresh()
@@ -4690,7 +5232,7 @@ Round:
                 t1 = New Trace
                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Or (SpecType = "DUAL DIRECTIONAL COUPLER" And Direction = 1) Then t1.Title(TraceID1, "Coupling Flatness J3")
                 If SpecType = "DUAL DIRECTIONAL COUPLER" And Direction = 2 Then t1.Title(TraceID1, "Coupling Flatness J4")
-                t1.SerialNumber(TraceID1, frmAUTOTEST.UUTLabel.Text & frmAUTOTEST.UUTCount.Text)
+                t1.SerialNumber(TraceID1, frmAUTOTEST.UUTLabel.Text & UUTNum_Reset)
                 t1.SpecID(TraceID1, SpecificationID)
                 t1.TestID(TraceID1, TestID)
                 t1.CalDate(TraceID1, Now)
@@ -4854,7 +5396,7 @@ Round:
             ExtraAvg()
             If TraceChecked And Not TweakMode Then ' Database Trace Data
                 Title = "Phase Balance J3"
-                SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                SerialNumber = "UUT" & UUTNum_Reset
                 TestID = TestID
                 CalDate = Now
                 Notes = ""
@@ -4866,14 +5408,14 @@ Round:
             Trace1Freq = TrimX(Trace1Freq)
             Trace1Data_offs = TrimY(Trace1Data, CDbl(frmAUTOTEST.txtOffset5.Text))
             If TraceChecked And Not TweakMode Then
-                ReDim Preserve XArray(TraceFreq.Count - 1)
-                ReDim Preserve YArray(TraceFreq.Count - 1)
-                Array.Clear(YArray, 0, TraceFreq.Count - 1)
-                XArray = Trace1Freq
-                YArray = Trace1Data
-                SQL.SaveTrace(Title, TestID, TraceID)
-                YArray = Trace1Data_offs
-                If UUTNum <= 5 Then
+                If UUTNum_Reset <= 5 Then
+                    ReDim Preserve XArray(TraceFreq.Count - 1)
+                    ReDim Preserve YArray(TraceFreq.Count - 1)
+                    Array.Clear(YArray, 0, TraceFreq.Count - 1)
+                    XArray = Trace1Freq
+                    YArray = Trace1Data
+                    SQL.SaveTrace(Title, TestID, TraceID)
+                    YArray = Trace1Data_offs
                     For x = 0 To YArray.Count - 1
                         PB_XArray(UUTNum - 1, x) = XArray(x)
                         PB1_YArray(UUTNum - 1, x) = YArray(x)
@@ -5001,7 +5543,7 @@ Round:
             ExtraAvg()
             If TraceChecked And Not TweakMode Then ' Database Trace Data
                 Title = "Phase Balance J4"
-                SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                SerialNumber = "UUT" & UUTNum_Reset
                 TestID = TestID
                 CalDate = Now
                 Notes = ""
@@ -5040,7 +5582,7 @@ Round:
             frmAUTOTEST.Refresh()
             If TraceChecked And Not TweakMode Then ' Database Trace Data
                 Title = "Phase Balance D/M"
-                SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                SerialNumber = "UUT" & UUTNum_Reset
                 TestID = TestID
                 CalDate = Now
                 Notes = ""
@@ -5604,7 +6146,7 @@ Round:
 
                 If TraceChecked And Not TweakMode Then ' Database Trace Data
                     Title = "PhaseBalance Port " & PortNum
-                    SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                    SerialNumber = "UUT" & UUTNum_Reset
                     TestID = TestID
                     CalDate = Now
                     Notes = ""
@@ -5616,14 +6158,14 @@ Round:
                 Trace1Freq = TrimX(Trace1Freq)
                 IL1Data_offs = TrimY(IL1Data, CDbl(frmAUTOTEST.txtOffset5.Text))
                 If TraceChecked And Not TweakMode Then
-                    ReDim Preserve XArray(TraceFreq.Count - 1)
-                    ReDim Preserve YArray(TraceFreq.Count - 1)
-                    Array.Clear(YArray, 0, TraceFreq.Count - 1)
-                    XArray = Trace1Freq
-                    YArray = IL1Data
-                    SQL.SaveTrace(Title, TestID, TraceID)
-                    YArray = IL1Data_offs
-                    If UUTNum <= 5 Then
+                    If UUTNum_Reset <= 5 Then
+                        ReDim Preserve XArray(TraceFreq.Count - 1)
+                        ReDim Preserve YArray(TraceFreq.Count - 1)
+                        Array.Clear(YArray, 0, TraceFreq.Count - 1)
+                        XArray = Trace1Freq
+                        YArray = IL1Data
+                        SQL.SaveTrace(Title, TestID, TraceID)
+                        YArray = IL1Data_offs
                         For y = 0 To YArray.Count - 1
                             PB_XArray(UUTNum - 1, y) = XArray(y)
                             PB1_YArray(UUTNum - 1, y) = YArray(y)

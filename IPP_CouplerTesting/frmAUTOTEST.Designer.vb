@@ -37,6 +37,8 @@ Partial Class frmAUTOTEST
         Me.UUTMessage = New System.Windows.Forms.GroupBox()
         Me.UUTStatusColor = New System.Windows.Forms.Panel()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.Data1H = New System.Windows.Forms.Label()
+        Me.Data1L = New System.Windows.Forms.Label()
         Me.Data3H = New System.Windows.Forms.Label()
         Me.Data3L = New System.Windows.Forms.Label()
         Me.Data4H = New System.Windows.Forms.Label()
@@ -104,7 +106,7 @@ Partial Class frmAUTOTEST
         Me.Label7 = New System.Windows.Forms.Label()
         Me.LotTestFrame = New System.Windows.Forms.Panel()
         Me.EndLot = New System.Windows.Forms.Button()
-        Me.EraseTest = New System.Windows.Forms.Button()
+        Me.EraseJob = New System.Windows.Forms.Button()
         Me.txtTitle = New System.Windows.Forms.TextBox()
         Me.RealData = New System.Windows.Forms.CheckBox()
         Me.Pass = New System.Windows.Forms.CheckBox()
@@ -185,6 +187,8 @@ Partial Class frmAUTOTEST
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.lblArtwork = New System.Windows.Forms.TextBox()
         Me.txtArtwork = New System.Windows.Forms.TextBox()
+        Me.Panel3 = New System.Windows.Forms.Panel()
+        Me.EraseTest = New System.Windows.Forms.Button()
         Me.UUTMessage.SuspendLayout()
         Me.UUTStatusColor.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -199,6 +203,7 @@ Partial Class frmAUTOTEST
         Me.Panel2.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel3.SuspendLayout()
         Me.SuspendLayout()
         '
         'cmbJob
@@ -207,7 +212,7 @@ Partial Class frmAUTOTEST
         Me.cmbJob.FormattingEnabled = True
         Me.cmbJob.Location = New System.Drawing.Point(125, 89)
         Me.cmbJob.Name = "cmbJob"
-        Me.cmbJob.Size = New System.Drawing.Size(156, 23)
+        Me.cmbJob.Size = New System.Drawing.Size(156, 26)
         Me.cmbJob.TabIndex = 0
         '
         'Label1
@@ -218,7 +223,7 @@ Partial Class frmAUTOTEST
         Me.Label1.ForeColor = System.Drawing.Color.White
         Me.Label1.Location = New System.Drawing.Point(5, 89)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(115, 20)
+        Me.Label1.Size = New System.Drawing.Size(142, 25)
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Job Number :"
         '
@@ -230,7 +235,7 @@ Partial Class frmAUTOTEST
         Me.Label2.ForeColor = System.Drawing.Color.White
         Me.Label2.Location = New System.Drawing.Point(5, 118)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(119, 20)
+        Me.Label2.Size = New System.Drawing.Size(145, 25)
         Me.Label2.TabIndex = 1
         Me.Label2.Text = "Part Number :"
         '
@@ -240,7 +245,7 @@ Partial Class frmAUTOTEST
         Me.cmbPart.FormattingEnabled = True
         Me.cmbPart.Location = New System.Drawing.Point(126, 118)
         Me.cmbPart.Name = "cmbPart"
-        Me.cmbPart.Size = New System.Drawing.Size(156, 23)
+        Me.cmbPart.Size = New System.Drawing.Size(156, 26)
         Me.cmbPart.TabIndex = 3
         '
         'LabelArray
@@ -251,7 +256,7 @@ Partial Class frmAUTOTEST
         Me.LabelArray.ForeColor = System.Drawing.Color.White
         Me.LabelArray.Location = New System.Drawing.Point(314, 88)
         Me.LabelArray.Name = "LabelArray"
-        Me.LabelArray.Size = New System.Drawing.Size(101, 20)
+        Me.LabelArray.Size = New System.Drawing.Size(121, 25)
         Me.LabelArray.TabIndex = 4
         Me.LabelArray.Text = "Start Freq :"
         '
@@ -263,7 +268,7 @@ Partial Class frmAUTOTEST
         Me.Label4.ForeColor = System.Drawing.Color.White
         Me.Label4.Location = New System.Drawing.Point(316, 113)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(99, 20)
+        Me.Label4.Size = New System.Drawing.Size(120, 25)
         Me.Label4.TabIndex = 6
         Me.Label4.Text = "Stop Freq :"
         '
@@ -275,7 +280,7 @@ Partial Class frmAUTOTEST
         Me.txtStartFreq.ForeColor = System.Drawing.Color.White
         Me.txtStartFreq.Location = New System.Drawing.Point(418, 85)
         Me.txtStartFreq.Name = "txtStartFreq"
-        Me.txtStartFreq.Size = New System.Drawing.Size(70, 22)
+        Me.txtStartFreq.Size = New System.Drawing.Size(70, 27)
         Me.txtStartFreq.TabIndex = 7
         Me.txtStartFreq.Text = "Start"
         Me.txtStartFreq.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -288,7 +293,7 @@ Partial Class frmAUTOTEST
         Me.txtStopFreq.ForeColor = System.Drawing.Color.White
         Me.txtStopFreq.Location = New System.Drawing.Point(418, 111)
         Me.txtStopFreq.Name = "txtStopFreq"
-        Me.txtStopFreq.Size = New System.Drawing.Size(70, 22)
+        Me.txtStopFreq.Size = New System.Drawing.Size(70, 27)
         Me.txtStopFreq.TabIndex = 8
         Me.txtStopFreq.Text = "Stop"
         Me.txtStopFreq.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -301,7 +306,7 @@ Partial Class frmAUTOTEST
         Me.Label5.ForeColor = System.Drawing.Color.White
         Me.Label5.Location = New System.Drawing.Point(490, 92)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(35, 16)
+        Me.Label5.Size = New System.Drawing.Size(45, 20)
         Me.Label5.TabIndex = 11
         Me.Label5.Text = "MHz"
         '
@@ -313,7 +318,7 @@ Partial Class frmAUTOTEST
         Me.Label6.ForeColor = System.Drawing.Color.White
         Me.Label6.Location = New System.Drawing.Point(490, 118)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(35, 16)
+        Me.Label6.Size = New System.Drawing.Size(45, 20)
         Me.Label6.TabIndex = 12
         Me.Label6.Text = "MHz"
         '
@@ -342,6 +347,8 @@ Partial Class frmAUTOTEST
         'Panel1
         '
         Me.Panel1.BackColor = System.Drawing.Color.Black
+        Me.Panel1.Controls.Add(Me.Data1H)
+        Me.Panel1.Controls.Add(Me.Data1L)
         Me.Panel1.Controls.Add(Me.Data3H)
         Me.Panel1.Controls.Add(Me.Data3L)
         Me.Panel1.Controls.Add(Me.Data4H)
@@ -391,6 +398,32 @@ Partial Class frmAUTOTEST
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(652, 183)
         Me.Panel1.TabIndex = 0
+        '
+        'Data1H
+        '
+        Me.Data1H.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Data1H.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Data1H.ForeColor = System.Drawing.Color.CornflowerBlue
+        Me.Data1H.Location = New System.Drawing.Point(324, 23)
+        Me.Data1H.Name = "Data1H"
+        Me.Data1H.Size = New System.Drawing.Size(58, 20)
+        Me.Data1H.TabIndex = 45
+        Me.Data1H.Text = "ILH"
+        Me.Data1H.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.Data1H.Visible = False
+        '
+        'Data1L
+        '
+        Me.Data1L.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Data1L.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Data1L.ForeColor = System.Drawing.Color.CornflowerBlue
+        Me.Data1L.Location = New System.Drawing.Point(260, 23)
+        Me.Data1L.Name = "Data1L"
+        Me.Data1L.Size = New System.Drawing.Size(58, 20)
+        Me.Data1L.TabIndex = 44
+        Me.Data1L.Text = "ILL"
+        Me.Data1L.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.Data1L.Visible = False
         '
         'Data3H
         '
@@ -452,7 +485,7 @@ Partial Class frmAUTOTEST
         Me.ckTest5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ckTest5.Location = New System.Drawing.Point(616, 161)
         Me.ckTest5.Name = "ckTest5"
-        Me.ckTest5.Size = New System.Drawing.Size(15, 14)
+        Me.ckTest5.Size = New System.Drawing.Size(18, 17)
         Me.ckTest5.TabIndex = 39
         Me.ckTest5.UseVisualStyleBackColor = True
         '
@@ -464,7 +497,7 @@ Partial Class frmAUTOTEST
         Me.Label13.ForeColor = System.Drawing.Color.White
         Me.Label13.Location = New System.Drawing.Point(309, 4)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(37, 15)
+        Me.Label13.Size = New System.Drawing.Size(43, 18)
         Me.Label13.TabIndex = 9
         Me.Label13.Text = "Data"
         Me.Label13.TextAlign = System.Drawing.ContentAlignment.TopCenter
@@ -477,7 +510,7 @@ Partial Class frmAUTOTEST
         Me.ckTest4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ckTest4.Location = New System.Drawing.Point(616, 127)
         Me.ckTest4.Name = "ckTest4"
-        Me.ckTest4.Size = New System.Drawing.Size(15, 14)
+        Me.ckTest4.Size = New System.Drawing.Size(18, 17)
         Me.ckTest4.TabIndex = 38
         Me.ckTest4.UseVisualStyleBackColor = True
         '
@@ -489,7 +522,7 @@ Partial Class frmAUTOTEST
         Me.ckTest3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ckTest3.Location = New System.Drawing.Point(616, 93)
         Me.ckTest3.Name = "ckTest3"
-        Me.ckTest3.Size = New System.Drawing.Size(15, 14)
+        Me.ckTest3.Size = New System.Drawing.Size(18, 17)
         Me.ckTest3.TabIndex = 37
         Me.ckTest3.UseVisualStyleBackColor = True
         '
@@ -501,7 +534,7 @@ Partial Class frmAUTOTEST
         Me.ckTest2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ckTest2.Location = New System.Drawing.Point(616, 59)
         Me.ckTest2.Name = "ckTest2"
-        Me.ckTest2.Size = New System.Drawing.Size(15, 14)
+        Me.ckTest2.Size = New System.Drawing.Size(18, 17)
         Me.ckTest2.TabIndex = 36
         Me.ckTest2.UseVisualStyleBackColor = True
         '
@@ -513,7 +546,7 @@ Partial Class frmAUTOTEST
         Me.ckTest1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ckTest1.Location = New System.Drawing.Point(617, 24)
         Me.ckTest1.Name = "ckTest1"
-        Me.ckTest1.Size = New System.Drawing.Size(15, 14)
+        Me.ckTest1.Size = New System.Drawing.Size(18, 17)
         Me.ckTest1.TabIndex = 35
         Me.ckTest1.UseVisualStyleBackColor = True
         '
@@ -522,7 +555,7 @@ Partial Class frmAUTOTEST
         Me.txtOffset5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtOffset5.Location = New System.Drawing.Point(558, 156)
         Me.txtOffset5.Name = "txtOffset5"
-        Me.txtOffset5.Size = New System.Drawing.Size(52, 21)
+        Me.txtOffset5.Size = New System.Drawing.Size(52, 24)
         Me.txtOffset5.TabIndex = 34
         Me.txtOffset5.Text = "0"
         Me.txtOffset5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -532,7 +565,7 @@ Partial Class frmAUTOTEST
         Me.txtOffset4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtOffset4.Location = New System.Drawing.Point(558, 123)
         Me.txtOffset4.Name = "txtOffset4"
-        Me.txtOffset4.Size = New System.Drawing.Size(52, 21)
+        Me.txtOffset4.Size = New System.Drawing.Size(52, 24)
         Me.txtOffset4.TabIndex = 33
         Me.txtOffset4.Text = "0"
         Me.txtOffset4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -542,7 +575,7 @@ Partial Class frmAUTOTEST
         Me.txtOffset3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtOffset3.Location = New System.Drawing.Point(558, 89)
         Me.txtOffset3.Name = "txtOffset3"
-        Me.txtOffset3.Size = New System.Drawing.Size(52, 21)
+        Me.txtOffset3.Size = New System.Drawing.Size(52, 24)
         Me.txtOffset3.TabIndex = 32
         Me.txtOffset3.Text = "0"
         Me.txtOffset3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -552,7 +585,7 @@ Partial Class frmAUTOTEST
         Me.txtOffset2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtOffset2.Location = New System.Drawing.Point(558, 56)
         Me.txtOffset2.Name = "txtOffset2"
-        Me.txtOffset2.Size = New System.Drawing.Size(52, 21)
+        Me.txtOffset2.Size = New System.Drawing.Size(52, 24)
         Me.txtOffset2.TabIndex = 31
         Me.txtOffset2.Text = "0"
         Me.txtOffset2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -562,7 +595,7 @@ Partial Class frmAUTOTEST
         Me.txtOffset1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtOffset1.Location = New System.Drawing.Point(558, 23)
         Me.txtOffset1.Name = "txtOffset1"
-        Me.txtOffset1.Size = New System.Drawing.Size(52, 21)
+        Me.txtOffset1.Size = New System.Drawing.Size(52, 24)
         Me.txtOffset1.TabIndex = 30
         Me.txtOffset1.Text = "0"
         Me.txtOffset1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -575,7 +608,7 @@ Partial Class frmAUTOTEST
         Me.Label14.ForeColor = System.Drawing.Color.White
         Me.Label14.Location = New System.Drawing.Point(562, 3)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(48, 16)
+        Me.Label14.Size = New System.Drawing.Size(61, 20)
         Me.Label14.TabIndex = 29
         Me.Label14.Text = "Offset"
         '
@@ -788,7 +821,7 @@ Partial Class frmAUTOTEST
         Me.Spec1Max.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Spec1Max.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Spec1Max.ForeColor = System.Drawing.Color.CornflowerBlue
-        Me.Spec1Max.Location = New System.Drawing.Point(371, 26)
+        Me.Spec1Max.Location = New System.Drawing.Point(371, 23)
         Me.Spec1Max.Name = "Spec1Max"
         Me.Spec1Max.Size = New System.Drawing.Size(101, 20)
         Me.Spec1Max.TabIndex = 11
@@ -815,7 +848,7 @@ Partial Class frmAUTOTEST
         Me.Label12.ForeColor = System.Drawing.Color.White
         Me.Label12.Location = New System.Drawing.Point(389, 5)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(66, 15)
+        Me.Label12.Size = New System.Drawing.Size(77, 18)
         Me.Label12.TabIndex = 8
         Me.Label12.Text = "SpecMax"
         '
@@ -827,7 +860,7 @@ Partial Class frmAUTOTEST
         Me.Label11.ForeColor = System.Drawing.Color.White
         Me.Label11.Location = New System.Drawing.Point(185, 3)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(63, 15)
+        Me.Label11.Size = New System.Drawing.Size(73, 18)
         Me.Label11.TabIndex = 7
         Me.Label11.Text = "SpecMin"
         Me.Label11.TextAlign = System.Drawing.ContentAlignment.TopCenter
@@ -916,6 +949,7 @@ Partial Class frmAUTOTEST
         'cmdStartTest
         '
         Me.cmdStartTest.BackColor = System.Drawing.SystemColors.Control
+        Me.cmdStartTest.Enabled = False
         Me.cmdStartTest.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmdStartTest.Location = New System.Drawing.Point(3, 6)
         Me.cmdStartTest.Name = "cmdStartTest"
@@ -927,8 +961,9 @@ Partial Class frmAUTOTEST
         'cmdRetest
         '
         Me.cmdRetest.BackColor = System.Drawing.SystemColors.Control
+        Me.cmdRetest.Enabled = False
         Me.cmdRetest.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmdRetest.Location = New System.Drawing.Point(6, 5)
+        Me.cmdRetest.Location = New System.Drawing.Point(7, 7)
         Me.cmdRetest.Name = "cmdRetest"
         Me.cmdRetest.Size = New System.Drawing.Size(75, 40)
         Me.cmdRetest.TabIndex = 16
@@ -972,7 +1007,7 @@ Partial Class frmAUTOTEST
         Me.Failures5.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.Failures5.Location = New System.Drawing.Point(93, 190)
         Me.Failures5.Name = "Failures5"
-        Me.Failures5.Size = New System.Drawing.Size(31, 18)
+        Me.Failures5.Size = New System.Drawing.Size(37, 24)
         Me.Failures5.TabIndex = 28
         Me.Failures5.Text = "0%"
         '
@@ -984,7 +1019,7 @@ Partial Class frmAUTOTEST
         Me.Failures4.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.Failures4.Location = New System.Drawing.Point(93, 156)
         Me.Failures4.Name = "Failures4"
-        Me.Failures4.Size = New System.Drawing.Size(31, 18)
+        Me.Failures4.Size = New System.Drawing.Size(37, 24)
         Me.Failures4.TabIndex = 27
         Me.Failures4.Text = "0%"
         '
@@ -996,7 +1031,7 @@ Partial Class frmAUTOTEST
         Me.Failures3.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.Failures3.Location = New System.Drawing.Point(93, 119)
         Me.Failures3.Name = "Failures3"
-        Me.Failures3.Size = New System.Drawing.Size(31, 18)
+        Me.Failures3.Size = New System.Drawing.Size(37, 24)
         Me.Failures3.TabIndex = 26
         Me.Failures3.Text = "0%"
         '
@@ -1008,7 +1043,7 @@ Partial Class frmAUTOTEST
         Me.Failures2.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.Failures2.Location = New System.Drawing.Point(93, 86)
         Me.Failures2.Name = "Failures2"
-        Me.Failures2.Size = New System.Drawing.Size(31, 18)
+        Me.Failures2.Size = New System.Drawing.Size(37, 24)
         Me.Failures2.TabIndex = 25
         Me.Failures2.Text = "0%"
         '
@@ -1020,7 +1055,7 @@ Partial Class frmAUTOTEST
         Me.Failures1.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.Failures1.Location = New System.Drawing.Point(93, 52)
         Me.Failures1.Name = "Failures1"
-        Me.Failures1.Size = New System.Drawing.Size(31, 18)
+        Me.Failures1.Size = New System.Drawing.Size(37, 24)
         Me.Failures1.TabIndex = 24
         Me.Failures1.Text = "0%"
         '
@@ -1032,7 +1067,7 @@ Partial Class frmAUTOTEST
         Me.FailTotal5.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.FailTotal5.Location = New System.Drawing.Point(168, 190)
         Me.FailTotal5.Name = "FailTotal5"
-        Me.FailTotal5.Size = New System.Drawing.Size(17, 18)
+        Me.FailTotal5.Size = New System.Drawing.Size(21, 24)
         Me.FailTotal5.TabIndex = 23
         Me.FailTotal5.Text = "0"
         '
@@ -1044,7 +1079,7 @@ Partial Class frmAUTOTEST
         Me.FailTotal4.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.FailTotal4.Location = New System.Drawing.Point(168, 156)
         Me.FailTotal4.Name = "FailTotal4"
-        Me.FailTotal4.Size = New System.Drawing.Size(17, 18)
+        Me.FailTotal4.Size = New System.Drawing.Size(21, 24)
         Me.FailTotal4.TabIndex = 22
         Me.FailTotal4.Text = "0"
         '
@@ -1056,7 +1091,7 @@ Partial Class frmAUTOTEST
         Me.FailTotal3.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.FailTotal3.Location = New System.Drawing.Point(168, 119)
         Me.FailTotal3.Name = "FailTotal3"
-        Me.FailTotal3.Size = New System.Drawing.Size(17, 18)
+        Me.FailTotal3.Size = New System.Drawing.Size(21, 24)
         Me.FailTotal3.TabIndex = 21
         Me.FailTotal3.Text = "0"
         '
@@ -1068,7 +1103,7 @@ Partial Class frmAUTOTEST
         Me.FailTotal2.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.FailTotal2.Location = New System.Drawing.Point(168, 86)
         Me.FailTotal2.Name = "FailTotal2"
-        Me.FailTotal2.Size = New System.Drawing.Size(17, 18)
+        Me.FailTotal2.Size = New System.Drawing.Size(21, 24)
         Me.FailTotal2.TabIndex = 20
         Me.FailTotal2.Text = "0"
         '
@@ -1080,7 +1115,7 @@ Partial Class frmAUTOTEST
         Me.FailTotal1.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.FailTotal1.Location = New System.Drawing.Point(168, 52)
         Me.FailTotal1.Name = "FailTotal1"
-        Me.FailTotal1.Size = New System.Drawing.Size(17, 18)
+        Me.FailTotal1.Size = New System.Drawing.Size(21, 24)
         Me.FailTotal1.TabIndex = 19
         Me.FailTotal1.Text = "0"
         '
@@ -1092,7 +1127,7 @@ Partial Class frmAUTOTEST
         Me.Total5.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.Total5.Location = New System.Drawing.Point(29, 189)
         Me.Total5.Name = "Total5"
-        Me.Total5.Size = New System.Drawing.Size(17, 18)
+        Me.Total5.Size = New System.Drawing.Size(21, 24)
         Me.Total5.TabIndex = 18
         Me.Total5.Text = "0"
         '
@@ -1104,7 +1139,7 @@ Partial Class frmAUTOTEST
         Me.Total4.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.Total4.Location = New System.Drawing.Point(29, 156)
         Me.Total4.Name = "Total4"
-        Me.Total4.Size = New System.Drawing.Size(17, 18)
+        Me.Total4.Size = New System.Drawing.Size(21, 24)
         Me.Total4.TabIndex = 17
         Me.Total4.Text = "0"
         '
@@ -1116,7 +1151,7 @@ Partial Class frmAUTOTEST
         Me.Total3.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.Total3.Location = New System.Drawing.Point(29, 121)
         Me.Total3.Name = "Total3"
-        Me.Total3.Size = New System.Drawing.Size(17, 18)
+        Me.Total3.Size = New System.Drawing.Size(21, 24)
         Me.Total3.TabIndex = 16
         Me.Total3.Text = "0"
         '
@@ -1128,7 +1163,7 @@ Partial Class frmAUTOTEST
         Me.Total2.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.Total2.Location = New System.Drawing.Point(29, 86)
         Me.Total2.Name = "Total2"
-        Me.Total2.Size = New System.Drawing.Size(17, 18)
+        Me.Total2.Size = New System.Drawing.Size(21, 24)
         Me.Total2.TabIndex = 15
         Me.Total2.Text = "0"
         '
@@ -1140,7 +1175,7 @@ Partial Class frmAUTOTEST
         Me.Total1.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.Total1.Location = New System.Drawing.Point(29, 51)
         Me.Total1.Name = "Total1"
-        Me.Total1.Size = New System.Drawing.Size(17, 18)
+        Me.Total1.Size = New System.Drawing.Size(21, 24)
         Me.Total1.TabIndex = 14
         Me.Total1.Text = "0"
         '
@@ -1152,7 +1187,7 @@ Partial Class frmAUTOTEST
         Me.Label10.ForeColor = System.Drawing.Color.White
         Me.Label10.Location = New System.Drawing.Point(150, 29)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(47, 15)
+        Me.Label10.Size = New System.Drawing.Size(53, 18)
         Me.Label10.TabIndex = 13
         Me.Label10.Text = "Failed"
         '
@@ -1164,7 +1199,7 @@ Partial Class frmAUTOTEST
         Me.Label8.ForeColor = System.Drawing.Color.White
         Me.Label8.Location = New System.Drawing.Point(65, 29)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(80, 15)
+        Me.Label8.Size = New System.Drawing.Size(93, 18)
         Me.Label8.TabIndex = 11
         Me.Label8.Text = "Percentage"
         '
@@ -1176,7 +1211,7 @@ Partial Class frmAUTOTEST
         Me.Label7.ForeColor = System.Drawing.Color.White
         Me.Label7.Location = New System.Drawing.Point(6, 29)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(50, 15)
+        Me.Label7.Size = New System.Drawing.Size(59, 18)
         Me.Label7.TabIndex = 9
         Me.Label7.Text = "Tested"
         '
@@ -1184,7 +1219,7 @@ Partial Class frmAUTOTEST
         '
         Me.LotTestFrame.BackColor = System.Drawing.Color.CornflowerBlue
         Me.LotTestFrame.Controls.Add(Me.EndLot)
-        Me.LotTestFrame.Location = New System.Drawing.Point(833, 83)
+        Me.LotTestFrame.Location = New System.Drawing.Point(1033, 85)
         Me.LotTestFrame.Name = "LotTestFrame"
         Me.LotTestFrame.Size = New System.Drawing.Size(94, 53)
         Me.LotTestFrame.TabIndex = 17
@@ -1192,24 +1227,26 @@ Partial Class frmAUTOTEST
         'EndLot
         '
         Me.EndLot.BackColor = System.Drawing.SystemColors.Control
+        Me.EndLot.Enabled = False
         Me.EndLot.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.EndLot.Location = New System.Drawing.Point(3, 4)
+        Me.EndLot.Location = New System.Drawing.Point(3, 5)
         Me.EndLot.Name = "EndLot"
         Me.EndLot.Size = New System.Drawing.Size(89, 44)
         Me.EndLot.TabIndex = 18
         Me.EndLot.Text = "Complete"
         Me.EndLot.UseVisualStyleBackColor = False
         '
-        'EraseTest
+        'EraseJob
         '
-        Me.EraseTest.BackColor = System.Drawing.SystemColors.Control
-        Me.EraseTest.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.EraseTest.Location = New System.Drawing.Point(5, 4)
-        Me.EraseTest.Name = "EraseTest"
-        Me.EraseTest.Size = New System.Drawing.Size(100, 45)
-        Me.EraseTest.TabIndex = 36
-        Me.EraseTest.Text = "Close Job"
-        Me.EraseTest.UseVisualStyleBackColor = False
+        Me.EraseJob.BackColor = System.Drawing.SystemColors.Control
+        Me.EraseJob.Enabled = False
+        Me.EraseJob.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.EraseJob.Location = New System.Drawing.Point(3, 5)
+        Me.EraseJob.Name = "EraseJob"
+        Me.EraseJob.Size = New System.Drawing.Size(100, 44)
+        Me.EraseJob.TabIndex = 36
+        Me.EraseJob.Text = "Pause Job"
+        Me.EraseJob.UseVisualStyleBackColor = False
         '
         'txtTitle
         '
@@ -1219,7 +1256,7 @@ Partial Class frmAUTOTEST
         Me.txtTitle.ForeColor = System.Drawing.Color.White
         Me.txtTitle.Location = New System.Drawing.Point(14, 147)
         Me.txtTitle.Name = "txtTitle"
-        Me.txtTitle.Size = New System.Drawing.Size(1279, 22)
+        Me.txtTitle.Size = New System.Drawing.Size(1279, 27)
         Me.txtTitle.TabIndex = 18
         Me.txtTitle.Text = "Title"
         Me.txtTitle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -1231,7 +1268,7 @@ Partial Class frmAUTOTEST
         Me.RealData.ForeColor = System.Drawing.SystemColors.ButtonHighlight
         Me.RealData.Location = New System.Drawing.Point(1045, 187)
         Me.RealData.Name = "RealData"
-        Me.RealData.Size = New System.Drawing.Size(133, 20)
+        Me.RealData.Size = New System.Drawing.Size(160, 24)
         Me.RealData.TabIndex = 19
         Me.RealData.Text = "DataBase Data"
         Me.RealData.UseVisualStyleBackColor = True
@@ -1246,7 +1283,7 @@ Partial Class frmAUTOTEST
         Me.Pass.ForeColor = System.Drawing.SystemColors.ButtonHighlight
         Me.Pass.Location = New System.Drawing.Point(1183, 188)
         Me.Pass.Name = "Pass"
-        Me.Pass.Size = New System.Drawing.Size(62, 20)
+        Me.Pass.Size = New System.Drawing.Size(73, 24)
         Me.Pass.TabIndex = 20
         Me.Pass.Text = "Pass"
         Me.Pass.UseVisualStyleBackColor = True
@@ -1259,7 +1296,7 @@ Partial Class frmAUTOTEST
         Me.Fail.ForeColor = System.Drawing.SystemColors.ButtonHighlight
         Me.Fail.Location = New System.Drawing.Point(1251, 188)
         Me.Fail.Name = "Fail"
-        Me.Fail.Size = New System.Drawing.Size(53, 20)
+        Me.Fail.Size = New System.Drawing.Size(62, 24)
         Me.Fail.TabIndex = 21
         Me.Fail.Text = "Fail"
         Me.Fail.UseVisualStyleBackColor = True
@@ -1272,7 +1309,7 @@ Partial Class frmAUTOTEST
         Me.Simulation.ForeColor = System.Drawing.SystemColors.ButtonHighlight
         Me.Simulation.Location = New System.Drawing.Point(901, 187)
         Me.Simulation.Name = "Simulation"
-        Me.Simulation.Size = New System.Drawing.Size(136, 20)
+        Me.Simulation.Size = New System.Drawing.Size(165, 24)
         Me.Simulation.TabIndex = 22
         Me.Simulation.Text = "Data Simulation"
         Me.Simulation.UseVisualStyleBackColor = True
@@ -1284,7 +1321,7 @@ Partial Class frmAUTOTEST
         Me.ExtraAverage.ForeColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ExtraAverage.Location = New System.Drawing.Point(420, 188)
         Me.ExtraAverage.Name = "ExtraAverage"
-        Me.ExtraAverage.Size = New System.Drawing.Size(137, 20)
+        Me.ExtraAverage.Size = New System.Drawing.Size(164, 24)
         Me.ExtraAverage.TabIndex = 23
         Me.ExtraAverage.Text = "Extra Averaging"
         Me.ExtraAverage.UseVisualStyleBackColor = True
@@ -1294,7 +1331,7 @@ Partial Class frmAUTOTEST
         Me.AvgS.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.AvgS.Location = New System.Drawing.Point(377, 184)
         Me.AvgS.Name = "AvgS"
-        Me.AvgS.Size = New System.Drawing.Size(37, 24)
+        Me.AvgS.Size = New System.Drawing.Size(37, 29)
         Me.AvgS.TabIndex = 31
         Me.AvgS.Text = "2"
         Me.AvgS.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -1306,7 +1343,7 @@ Partial Class frmAUTOTEST
         Me.GetOffsets.ForeColor = System.Drawing.SystemColors.ButtonHighlight
         Me.GetOffsets.Location = New System.Drawing.Point(565, 188)
         Me.GetOffsets.Name = "GetOffsets"
-        Me.GetOffsets.Size = New System.Drawing.Size(75, 20)
+        Me.GetOffsets.Size = New System.Drawing.Size(93, 24)
         Me.GetOffsets.TabIndex = 32
         Me.GetOffsets.Text = "Offsets"
         Me.GetOffsets.UseVisualStyleBackColor = True
@@ -1318,7 +1355,7 @@ Partial Class frmAUTOTEST
         Me.MutiCal.ForeColor = System.Drawing.SystemColors.ButtonHighlight
         Me.MutiCal.Location = New System.Drawing.Point(667, 187)
         Me.MutiCal.Name = "MutiCal"
-        Me.MutiCal.Size = New System.Drawing.Size(83, 20)
+        Me.MutiCal.Size = New System.Drawing.Size(102, 24)
         Me.MutiCal.TabIndex = 33
         Me.MutiCal.Text = "Muti-Cal"
         Me.MutiCal.UseVisualStyleBackColor = True
@@ -1332,7 +1369,7 @@ Partial Class frmAUTOTEST
         Me.RFSwitch.ForeColor = System.Drawing.SystemColors.ButtonHighlight
         Me.RFSwitch.Location = New System.Drawing.Point(772, 187)
         Me.RFSwitch.Name = "RFSwitch"
-        Me.RFSwitch.Size = New System.Drawing.Size(95, 20)
+        Me.RFSwitch.Size = New System.Drawing.Size(117, 24)
         Me.RFSwitch.TabIndex = 34
         Me.RFSwitch.Text = "RF Switch"
         Me.RFSwitch.UseVisualStyleBackColor = True
@@ -1346,7 +1383,7 @@ Partial Class frmAUTOTEST
         Me.GetTrace.ForeColor = System.Drawing.SystemColors.ButtonHighlight
         Me.GetTrace.Location = New System.Drawing.Point(215, 187)
         Me.GetTrace.Name = "GetTrace"
-        Me.GetTrace.Size = New System.Drawing.Size(145, 20)
+        Me.GetTrace.Size = New System.Drawing.Size(172, 24)
         Me.GetTrace.TabIndex = 35
         Me.GetTrace.Text = "Save Trace Data"
         Me.GetTrace.UseVisualStyleBackColor = True
@@ -1357,7 +1394,7 @@ Partial Class frmAUTOTEST
         Me.cmbSwitch.FormattingEnabled = True
         Me.cmbSwitch.Location = New System.Drawing.Point(1136, 85)
         Me.cmbSwitch.Name = "cmbSwitch"
-        Me.cmbSwitch.Size = New System.Drawing.Size(178, 23)
+        Me.cmbSwitch.Size = New System.Drawing.Size(178, 26)
         Me.cmbSwitch.TabIndex = 41
         Me.cmbSwitch.Text = "cmbSwitch"
         '
@@ -1367,7 +1404,7 @@ Partial Class frmAUTOTEST
         Me.cmbVNA.FormattingEnabled = True
         Me.cmbVNA.Location = New System.Drawing.Point(1136, 118)
         Me.cmbVNA.Name = "cmbVNA"
-        Me.cmbVNA.Size = New System.Drawing.Size(178, 23)
+        Me.cmbVNA.Size = New System.Drawing.Size(178, 26)
         Me.cmbVNA.TabIndex = 42
         Me.cmbVNA.Text = "cmbVNA"
         '
@@ -1406,7 +1443,7 @@ Partial Class frmAUTOTEST
         Me.UUTLabel.ForeColor = System.Drawing.Color.White
         Me.UUTLabel.Location = New System.Drawing.Point(6, 124)
         Me.UUTLabel.Name = "UUTLabel"
-        Me.UUTLabel.Size = New System.Drawing.Size(80, 18)
+        Me.UUTLabel.Size = New System.Drawing.Size(99, 24)
         Me.UUTLabel.TabIndex = 60
         Me.UUTLabel.Text = "Complete"
         '
@@ -1418,7 +1455,7 @@ Partial Class frmAUTOTEST
         Me.Label21.ForeColor = System.Drawing.Color.White
         Me.Label21.Location = New System.Drawing.Point(6, 169)
         Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(86, 18)
+        Me.Label21.Size = New System.Drawing.Size(107, 24)
         Me.Label21.TabIndex = 62
         Me.Label21.Text = "Effeciency"
         '
@@ -1452,7 +1489,7 @@ Partial Class frmAUTOTEST
         Me.Label22.ForeColor = System.Drawing.Color.White
         Me.Label22.Location = New System.Drawing.Point(6, 147)
         Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(77, 18)
+        Me.Label22.Size = New System.Drawing.Size(99, 24)
         Me.Label22.TabIndex = 59
         Me.Label22.Text = "Expected"
         '
@@ -1475,7 +1512,7 @@ Partial Class frmAUTOTEST
         Me.Label20.ForeColor = System.Drawing.Color.White
         Me.Label20.Location = New System.Drawing.Point(6, 98)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(110, 18)
+        Me.Label20.Size = New System.Drawing.Size(136, 24)
         Me.Label20.TabIndex = 57
         Me.Label20.Text = "Time per Part"
         '
@@ -1498,7 +1535,7 @@ Partial Class frmAUTOTEST
         Me.Label3.ForeColor = System.Drawing.Color.White
         Me.Label3.Location = New System.Drawing.Point(6, 26)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(106, 18)
+        Me.Label3.Size = New System.Drawing.Size(132, 24)
         Me.Label3.TabIndex = 55
         Me.Label3.Text = "Current Time"
         '
@@ -1522,7 +1559,7 @@ Partial Class frmAUTOTEST
         Me.Label15.ForeColor = System.Drawing.Color.White
         Me.Label15.Location = New System.Drawing.Point(6, 71)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(95, 18)
+        Me.Label15.Size = New System.Drawing.Size(120, 24)
         Me.Label15.TabIndex = 53
         Me.Label15.Text = "Finish Time"
         '
@@ -1534,7 +1571,7 @@ Partial Class frmAUTOTEST
         Me.Label9.ForeColor = System.Drawing.Color.White
         Me.Label9.Location = New System.Drawing.Point(6, 48)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(86, 18)
+        Me.Label9.Size = New System.Drawing.Size(104, 24)
         Me.Label9.TabIndex = 52
         Me.Label9.Text = "Start Time"
         '
@@ -1568,7 +1605,7 @@ Partial Class frmAUTOTEST
         Me.Label16.ForeColor = System.Drawing.Color.White
         Me.Label16.Location = New System.Drawing.Point(5, 194)
         Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(58, 20)
+        Me.Label16.Size = New System.Drawing.Size(72, 25)
         Me.Label16.TabIndex = 47
         Me.Label16.Text = "Fail %"
         '
@@ -1607,7 +1644,7 @@ Partial Class frmAUTOTEST
         Me.txtNet.ForeColor = System.Drawing.Color.OrangeRed
         Me.txtNet.Location = New System.Drawing.Point(11, 188)
         Me.txtNet.Name = "txtNet"
-        Me.txtNet.Size = New System.Drawing.Size(206, 20)
+        Me.txtNet.Size = New System.Drawing.Size(247, 24)
         Me.txtNet.TabIndex = 45
         Me.txtNet.Text = "Nework Access Database"
         Me.txtNet.UseVisualStyleBackColor = True
@@ -1632,7 +1669,7 @@ Partial Class frmAUTOTEST
         Me.FailureLog.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.FailureLog.ForeColor = System.Drawing.SystemColors.Window
         Me.FailureLog.FormattingEnabled = True
-        Me.FailureLog.ItemHeight = 15
+        Me.FailureLog.ItemHeight = 18
         Me.FailureLog.Location = New System.Drawing.Point(6, 25)
         Me.FailureLog.Name = "FailureLog"
         Me.FailureLog.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple
@@ -1647,162 +1684,162 @@ Partial Class frmAUTOTEST
         Me.MenuStrip3.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AutotestToolStripSetupTrace, Me.ScanGPIBToolStripMenuItem, Me.SpecificationsToolStripMenuItem, Me.SupervisorPasswordToolStripMenuItem, Me.TraceSearchToolStripMenuItem, Me.ScreenShotToolStripMenuItem, Me.NotesToolStripMenuItem, Me.OperatorEffeciencyToolStripMenuItem, Me.FileToolStripMenuItem, Me.ROBOTToolStripMenuItem, Me.HelpToolStripMenuItem})
         Me.MenuStrip3.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip3.Name = "MenuStrip3"
-        Me.MenuStrip3.Size = New System.Drawing.Size(1361, 25)
+        Me.MenuStrip3.Size = New System.Drawing.Size(1361, 31)
         Me.MenuStrip3.TabIndex = 47
         Me.MenuStrip3.Text = "MenuStrip3"
         '
         'AutotestToolStripSetupTrace
         '
         Me.AutotestToolStripSetupTrace.Name = "AutotestToolStripSetupTrace"
-        Me.AutotestToolStripSetupTrace.Size = New System.Drawing.Size(55, 21)
+        Me.AutotestToolStripSetupTrace.Size = New System.Drawing.Size(66, 27)
         Me.AutotestToolStripSetupTrace.Text = "Setup"
         '
         'ScanGPIBToolStripMenuItem
         '
         Me.ScanGPIBToolStripMenuItem.Name = "ScanGPIBToolStripMenuItem"
-        Me.ScanGPIBToolStripMenuItem.Size = New System.Drawing.Size(77, 21)
+        Me.ScanGPIBToolStripMenuItem.Size = New System.Drawing.Size(95, 27)
         Me.ScanGPIBToolStripMenuItem.Text = "Calibrate"
         '
         'SpecificationsToolStripMenuItem
         '
         Me.SpecificationsToolStripMenuItem.Name = "SpecificationsToolStripMenuItem"
-        Me.SpecificationsToolStripMenuItem.Size = New System.Drawing.Size(105, 21)
+        Me.SpecificationsToolStripMenuItem.Size = New System.Drawing.Size(130, 27)
         Me.SpecificationsToolStripMenuItem.Text = "Specifications"
         '
         'SupervisorPasswordToolStripMenuItem
         '
         Me.SupervisorPasswordToolStripMenuItem.Name = "SupervisorPasswordToolStripMenuItem"
-        Me.SupervisorPasswordToolStripMenuItem.Size = New System.Drawing.Size(146, 21)
+        Me.SupervisorPasswordToolStripMenuItem.Size = New System.Drawing.Size(186, 27)
         Me.SupervisorPasswordToolStripMenuItem.Text = "Supervisor Password"
         '
         'TraceSearchToolStripMenuItem
         '
         Me.TraceSearchToolStripMenuItem.Name = "TraceSearchToolStripMenuItem"
-        Me.TraceSearchToolStripMenuItem.Size = New System.Drawing.Size(99, 21)
+        Me.TraceSearchToolStripMenuItem.Size = New System.Drawing.Size(124, 27)
         Me.TraceSearchToolStripMenuItem.Text = "Trace Search"
         '
         'ScreenShotToolStripMenuItem
         '
         Me.ScreenShotToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.TestDataToolStripMenuItem, Me.SpecificationsToolStripMenuItem1, Me.PortConfigurationsToolStripMenuItem, Me.TestEquipmentToolStripMenuItem, Me.WorkstationsToolStripMenuItem, Me.DeleteOperatorToolStripMenuItem})
         Me.ScreenShotToolStripMenuItem.Name = "ScreenShotToolStripMenuItem"
-        Me.ScreenShotToolStripMenuItem.Size = New System.Drawing.Size(80, 21)
+        Me.ScreenShotToolStripMenuItem.Size = New System.Drawing.Size(97, 27)
         Me.ScreenShotToolStripMenuItem.Text = "Database"
         '
         'TestDataToolStripMenuItem
         '
         Me.TestDataToolStripMenuItem.Name = "TestDataToolStripMenuItem"
-        Me.TestDataToolStripMenuItem.Size = New System.Drawing.Size(196, 22)
+        Me.TestDataToolStripMenuItem.Size = New System.Drawing.Size(236, 28)
         Me.TestDataToolStripMenuItem.Text = "Test Data"
         '
         'SpecificationsToolStripMenuItem1
         '
         Me.SpecificationsToolStripMenuItem1.Name = "SpecificationsToolStripMenuItem1"
-        Me.SpecificationsToolStripMenuItem1.Size = New System.Drawing.Size(196, 22)
+        Me.SpecificationsToolStripMenuItem1.Size = New System.Drawing.Size(236, 28)
         Me.SpecificationsToolStripMenuItem1.Text = "Specifications"
         '
         'PortConfigurationsToolStripMenuItem
         '
         Me.PortConfigurationsToolStripMenuItem.Name = "PortConfigurationsToolStripMenuItem"
-        Me.PortConfigurationsToolStripMenuItem.Size = New System.Drawing.Size(196, 22)
+        Me.PortConfigurationsToolStripMenuItem.Size = New System.Drawing.Size(236, 28)
         Me.PortConfigurationsToolStripMenuItem.Text = "Port Configurations"
         '
         'TestEquipmentToolStripMenuItem
         '
         Me.TestEquipmentToolStripMenuItem.Name = "TestEquipmentToolStripMenuItem"
-        Me.TestEquipmentToolStripMenuItem.Size = New System.Drawing.Size(196, 22)
+        Me.TestEquipmentToolStripMenuItem.Size = New System.Drawing.Size(236, 28)
         Me.TestEquipmentToolStripMenuItem.Text = "Test Equipment"
         '
         'WorkstationsToolStripMenuItem
         '
         Me.WorkstationsToolStripMenuItem.Name = "WorkstationsToolStripMenuItem"
-        Me.WorkstationsToolStripMenuItem.Size = New System.Drawing.Size(196, 22)
+        Me.WorkstationsToolStripMenuItem.Size = New System.Drawing.Size(236, 28)
         Me.WorkstationsToolStripMenuItem.Text = "Workstations"
         '
         'DeleteOperatorToolStripMenuItem
         '
         Me.DeleteOperatorToolStripMenuItem.Name = "DeleteOperatorToolStripMenuItem"
-        Me.DeleteOperatorToolStripMenuItem.Size = New System.Drawing.Size(196, 22)
+        Me.DeleteOperatorToolStripMenuItem.Size = New System.Drawing.Size(236, 28)
         Me.DeleteOperatorToolStripMenuItem.Text = "Delete Operator"
         '
         'NotesToolStripMenuItem
         '
         Me.NotesToolStripMenuItem.Name = "NotesToolStripMenuItem"
-        Me.NotesToolStripMenuItem.Size = New System.Drawing.Size(80, 21)
+        Me.NotesToolStripMenuItem.Size = New System.Drawing.Size(100, 27)
         Me.NotesToolStripMenuItem.Text = "Reporting"
         '
         'OperatorEffeciencyToolStripMenuItem
         '
         Me.OperatorEffeciencyToolStripMenuItem.Name = "OperatorEffeciencyToolStripMenuItem"
-        Me.OperatorEffeciencyToolStripMenuItem.Size = New System.Drawing.Size(141, 21)
+        Me.OperatorEffeciencyToolStripMenuItem.Size = New System.Drawing.Size(178, 27)
         Me.OperatorEffeciencyToolStripMenuItem.Text = "Operator Effeciency"
         '
         'FileToolStripMenuItem
         '
         Me.FileToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NewToolStripMenuItem1, Me.OpenToolStripMenuItem, Me.CloseToolStripMenuItem, Me.SaveToolStripMenuItem, Me.SaveAsToolStripMenuItem, Me.SaveAllToolStripMenuItem})
         Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(42, 21)
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(50, 27)
         Me.FileToolStripMenuItem.Text = "File"
         '
         'NewToolStripMenuItem1
         '
         Me.NewToolStripMenuItem1.Name = "NewToolStripMenuItem1"
-        Me.NewToolStripMenuItem1.Size = New System.Drawing.Size(125, 22)
+        Me.NewToolStripMenuItem1.Size = New System.Drawing.Size(142, 28)
         Me.NewToolStripMenuItem1.Text = "New"
         '
         'OpenToolStripMenuItem
         '
         Me.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem"
-        Me.OpenToolStripMenuItem.Size = New System.Drawing.Size(125, 22)
+        Me.OpenToolStripMenuItem.Size = New System.Drawing.Size(142, 28)
         Me.OpenToolStripMenuItem.Text = "Open"
         '
         'CloseToolStripMenuItem
         '
         Me.CloseToolStripMenuItem.Name = "CloseToolStripMenuItem"
-        Me.CloseToolStripMenuItem.Size = New System.Drawing.Size(125, 22)
+        Me.CloseToolStripMenuItem.Size = New System.Drawing.Size(142, 28)
         Me.CloseToolStripMenuItem.Text = "Close"
         '
         'SaveToolStripMenuItem
         '
         Me.SaveToolStripMenuItem.Name = "SaveToolStripMenuItem"
-        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(125, 22)
+        Me.SaveToolStripMenuItem.Size = New System.Drawing.Size(142, 28)
         Me.SaveToolStripMenuItem.Text = "Save"
         '
         'SaveAsToolStripMenuItem
         '
         Me.SaveAsToolStripMenuItem.Name = "SaveAsToolStripMenuItem"
-        Me.SaveAsToolStripMenuItem.Size = New System.Drawing.Size(125, 22)
+        Me.SaveAsToolStripMenuItem.Size = New System.Drawing.Size(142, 28)
         Me.SaveAsToolStripMenuItem.Text = "Save As"
         '
         'SaveAllToolStripMenuItem
         '
         Me.SaveAllToolStripMenuItem.Name = "SaveAllToolStripMenuItem"
-        Me.SaveAllToolStripMenuItem.Size = New System.Drawing.Size(125, 22)
+        Me.SaveAllToolStripMenuItem.Size = New System.Drawing.Size(142, 28)
         Me.SaveAllToolStripMenuItem.Text = "Save all"
         '
         'ROBOTToolStripMenuItem
         '
         Me.ROBOTToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.MiniLabTestToolStripMenuItem})
         Me.ROBOTToolStripMenuItem.Name = "ROBOTToolStripMenuItem"
-        Me.ROBOTToolStripMenuItem.Size = New System.Drawing.Size(64, 21)
+        Me.ROBOTToolStripMenuItem.Size = New System.Drawing.Size(80, 27)
         Me.ROBOTToolStripMenuItem.Text = "ROBOT"
         '
         'MiniLabTestToolStripMenuItem
         '
         Me.MiniLabTestToolStripMenuItem.Name = "MiniLabTestToolStripMenuItem"
-        Me.MiniLabTestToolStripMenuItem.Size = New System.Drawing.Size(179, 22)
+        Me.MiniLabTestToolStripMenuItem.Size = New System.Drawing.Size(213, 28)
         Me.MiniLabTestToolStripMenuItem.Text = "Calibrate GIZMO"
         '
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NewToolStripMenuItem})
         Me.HelpToolStripMenuItem.Name = "HelpToolStripMenuItem"
-        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(49, 21)
+        Me.HelpToolStripMenuItem.Size = New System.Drawing.Size(59, 27)
         Me.HelpToolStripMenuItem.Text = "Help"
         '
         'NewToolStripMenuItem
         '
         Me.NewToolStripMenuItem.Name = "NewToolStripMenuItem"
-        Me.NewToolStripMenuItem.Size = New System.Drawing.Size(103, 22)
+        Me.NewToolStripMenuItem.Size = New System.Drawing.Size(117, 28)
         Me.NewToolStripMenuItem.Text = "New"
         '
         'Label18
@@ -1813,7 +1850,7 @@ Partial Class frmAUTOTEST
         Me.Label18.ForeColor = System.Drawing.SystemColors.ControlLightLight
         Me.Label18.Location = New System.Drawing.Point(12, 468)
         Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(113, 13)
+        Me.Label18.Size = New System.Drawing.Size(144, 17)
         Me.Label18.TabIndex = 40
         Me.Label18.Text = "Expected Progress"
         '
@@ -1825,7 +1862,7 @@ Partial Class frmAUTOTEST
         Me.Label19.ForeColor = System.Drawing.SystemColors.ControlLightLight
         Me.Label19.Location = New System.Drawing.Point(26, 487)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(96, 13)
+        Me.Label19.Size = New System.Drawing.Size(123, 17)
         Me.Label19.TabIndex = 48
         Me.Label19.Text = "Actual Progress"
         '
@@ -1845,7 +1882,7 @@ Partial Class frmAUTOTEST
         Me.txtVersion.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtVersion.Location = New System.Drawing.Point(1000, 52)
         Me.txtVersion.Name = "txtVersion"
-        Me.txtVersion.Size = New System.Drawing.Size(150, 24)
+        Me.txtVersion.Size = New System.Drawing.Size(190, 29)
         Me.txtVersion.TabIndex = 51
         Me.txtVersion.Text = "Version:  3.00.00"
         '
@@ -1853,7 +1890,7 @@ Partial Class frmAUTOTEST
         '
         Me.ReTestFrame.BackColor = System.Drawing.Color.LawnGreen
         Me.ReTestFrame.Controls.Add(Me.cmdRetest)
-        Me.ReTestFrame.Location = New System.Drawing.Point(705, 85)
+        Me.ReTestFrame.Location = New System.Drawing.Point(703, 86)
         Me.ReTestFrame.Name = "ReTestFrame"
         Me.ReTestFrame.Size = New System.Drawing.Size(88, 51)
         Me.ReTestFrame.TabIndex = 52
@@ -1861,8 +1898,8 @@ Partial Class frmAUTOTEST
         'Panel2
         '
         Me.Panel2.BackColor = System.Drawing.Color.CornflowerBlue
-        Me.Panel2.Controls.Add(Me.EraseTest)
-        Me.Panel2.Location = New System.Drawing.Point(955, 83)
+        Me.Panel2.Controls.Add(Me.EraseJob)
+        Me.Panel2.Location = New System.Drawing.Point(919, 85)
         Me.Panel2.Name = "Panel2"
         Me.Panel2.Size = New System.Drawing.Size(108, 53)
         Me.Panel2.TabIndex = 53
@@ -1892,10 +1929,9 @@ Partial Class frmAUTOTEST
         Me.StatusLog.Font = New System.Drawing.Font("Microsoft Sans Serif", 6.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.StatusLog.ForeColor = System.Drawing.Color.White
         Me.StatusLog.FormattingEnabled = True
-        Me.StatusLog.ItemHeight = 12
         Me.StatusLog.Location = New System.Drawing.Point(6, 24)
         Me.StatusLog.Name = "StatusLog"
-        Me.StatusLog.Size = New System.Drawing.Size(197, 168)
+        Me.StatusLog.Size = New System.Drawing.Size(197, 156)
         Me.StatusLog.TabIndex = 0
         '
         'DeleteOp
@@ -1905,7 +1941,7 @@ Partial Class frmAUTOTEST
         Me.DeleteOp.ForeColor = System.Drawing.SystemColors.ButtonHighlight
         Me.DeleteOp.Location = New System.Drawing.Point(1184, 210)
         Me.DeleteOp.Name = "DeleteOp"
-        Me.DeleteOp.Size = New System.Drawing.Size(94, 20)
+        Me.DeleteOp.Size = New System.Drawing.Size(112, 24)
         Me.DeleteOp.TabIndex = 54
         Me.DeleteOp.Text = "DeleteOP"
         Me.DeleteOp.UseVisualStyleBackColor = True
@@ -1918,7 +1954,7 @@ Partial Class frmAUTOTEST
         Me.ckTweakMode.ForeColor = System.Drawing.Color.OrangeRed
         Me.ckTweakMode.Location = New System.Drawing.Point(177, 217)
         Me.ckTweakMode.Name = "ckTweakMode"
-        Me.ckTweakMode.Size = New System.Drawing.Size(183, 20)
+        Me.ckTweakMode.Size = New System.Drawing.Size(217, 24)
         Me.ckTweakMode.TabIndex = 40
         Me.ckTweakMode.Text = "No Data logging Mode"
         Me.ckTweakMode.UseVisualStyleBackColor = True
@@ -1931,7 +1967,7 @@ Partial Class frmAUTOTEST
         Me.ckROBOT.ForeColor = System.Drawing.SystemColors.ButtonHighlight
         Me.ckROBOT.Location = New System.Drawing.Point(360, 217)
         Me.ckROBOT.Name = "ckROBOT"
-        Me.ckROBOT.Size = New System.Drawing.Size(80, 20)
+        Me.ckROBOT.Size = New System.Drawing.Size(96, 24)
         Me.ckROBOT.TabIndex = 56
         Me.ckROBOT.Text = "ROBOT"
         Me.ckROBOT.UseVisualStyleBackColor = True
@@ -1944,7 +1980,7 @@ Partial Class frmAUTOTEST
         Me.txtFullAuto.ForeColor = System.Drawing.Color.OrangeRed
         Me.txtFullAuto.Location = New System.Drawing.Point(442, 211)
         Me.txtFullAuto.Name = "txtFullAuto"
-        Me.txtFullAuto.Size = New System.Drawing.Size(736, 22)
+        Me.txtFullAuto.Size = New System.Drawing.Size(736, 27)
         Me.txtFullAuto.TabIndex = 57
         Me.txtFullAuto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -1973,7 +2009,7 @@ Partial Class frmAUTOTEST
         Me.lblArtwork.ForeColor = System.Drawing.Color.OrangeRed
         Me.lblArtwork.Location = New System.Drawing.Point(9, 215)
         Me.lblArtwork.Name = "lblArtwork"
-        Me.lblArtwork.Size = New System.Drawing.Size(88, 17)
+        Me.lblArtwork.Size = New System.Drawing.Size(88, 22)
         Me.lblArtwork.TabIndex = 58
         Me.lblArtwork.Text = "Artwork Rev:"
         Me.lblArtwork.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
@@ -1983,16 +2019,38 @@ Partial Class frmAUTOTEST
         Me.txtArtwork.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtArtwork.Location = New System.Drawing.Point(103, 212)
         Me.txtArtwork.Name = "txtArtwork"
-        Me.txtArtwork.Size = New System.Drawing.Size(66, 24)
+        Me.txtArtwork.Size = New System.Drawing.Size(66, 29)
         Me.txtArtwork.TabIndex = 59
         Me.txtArtwork.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
+        'Panel3
+        '
+        Me.Panel3.BackColor = System.Drawing.Color.CornflowerBlue
+        Me.Panel3.Controls.Add(Me.EraseTest)
+        Me.Panel3.Location = New System.Drawing.Point(818, 85)
+        Me.Panel3.Name = "Panel3"
+        Me.Panel3.Size = New System.Drawing.Size(94, 53)
+        Me.Panel3.TabIndex = 19
+        '
+        'EraseTest
+        '
+        Me.EraseTest.BackColor = System.Drawing.SystemColors.Control
+        Me.EraseTest.Enabled = False
+        Me.EraseTest.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.EraseTest.Location = New System.Drawing.Point(3, 5)
+        Me.EraseTest.Name = "EraseTest"
+        Me.EraseTest.Size = New System.Drawing.Size(89, 44)
+        Me.EraseTest.TabIndex = 18
+        Me.EraseTest.Text = "Remove Part"
+        Me.EraseTest.UseVisualStyleBackColor = False
+        '
         'frmAUTOTEST
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 17.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.ClientSize = New System.Drawing.Size(1361, 667)
+        Me.Controls.Add(Me.Panel3)
         Me.Controls.Add(Me.txtArtwork)
         Me.Controls.Add(Me.lblArtwork)
         Me.Controls.Add(Me.txtFullAuto)
@@ -2061,6 +2119,7 @@ Partial Class frmAUTOTEST
         Me.Panel2.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel3.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -2139,7 +2198,7 @@ Partial Class frmAUTOTEST
     Friend WithEvents Total1 As System.Windows.Forms.Label
     Friend WithEvents LotTestFrame As System.Windows.Forms.Panel
     Friend WithEvents EndLot As System.Windows.Forms.Button
-    Friend WithEvents EraseTest As System.Windows.Forms.Button
+    Friend WithEvents EraseJob As System.Windows.Forms.Button
     Friend WithEvents txtTitle As System.Windows.Forms.TextBox
     Friend WithEvents RealData As System.Windows.Forms.CheckBox
     Friend WithEvents Pass As System.Windows.Forms.CheckBox
@@ -2226,5 +2285,9 @@ Partial Class frmAUTOTEST
     Friend WithEvents Data4L As System.Windows.Forms.Label
     Friend WithEvents Data3H As System.Windows.Forms.Label
     Friend WithEvents Data3L As System.Windows.Forms.Label
+    Friend WithEvents Panel3 As System.Windows.Forms.Panel
+    Friend WithEvents EraseTest As System.Windows.Forms.Button
+    Friend WithEvents Data1H As System.Windows.Forms.Label
+    Friend WithEvents Data1L As System.Windows.Forms.Label
 
 End Class

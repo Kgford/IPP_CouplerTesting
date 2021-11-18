@@ -73,7 +73,9 @@ Module globals
     Public LastMessage As String
     Public gBuffer As String
     Public SpecIL As Double
-    Public SpecIL_TF As Boolean = False
+    Public SpecILL As Double
+    Public SpecILH As Double
+    Public IL_TF As Boolean = False
     Public SpecIL_exp As Double
     Public SpecIL_start1 As Double
     Public SpecIL_stop1 As Double
@@ -240,8 +242,15 @@ Module globals
     Public ModelNumber As String
     Public JobNumber As String
     Public WorkStation As String
+    Public SavedWorkStation(2) As String
+    Public ReportStatus(2) As String
     Public User As String
+    Public SavedUser(2) As String
+    Public SavedComplete(2) As String
+    Public SavedTotal(2) As String
+    Public SavedJob(2) As String
     Public resumeTest As Boolean
+    Public stopTest As Boolean = False
     Public TweakMode As Boolean = False
     Public TempUUTNum As Integer
     Public BypassUnchecked As Boolean = False

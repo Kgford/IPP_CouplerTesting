@@ -15,7 +15,10 @@
             test3 = "Isolation"
             test4 = "Amplitude balance"
             test5 = "Phase Balance"
-        ElseIf InStr(SpecType, "DIRECTIONAL COUPLER") Then
+        ElseIf SpecType = "TRANSFORMER" Then
+            test1 = "Insertion Loss"
+            test2 = "Return Loss"
+       ElseIf InStr(SpecType, "DIRECTIONAL COUPLER") Then
             test1 = "Insertion Loss"
             test2 = "Return Loss"
             test3 = "Coupling"

@@ -159,6 +159,35 @@ Partial Class frmSpecifications
         Me.txtStopFreq_4 = New System.Windows.Forms.TextBox()
         Me.txtStartFreq_4 = New System.Windows.Forms.TextBox()
         Me.Label110 = New System.Windows.Forms.Label()
+        Me.Frame5 = New System.Windows.Forms.Panel()
+        Me.db22 = New System.Windows.Forms.Label()
+        Me.Label34 = New System.Windows.Forms.Label()
+        Me.ilchk = New System.Windows.Forms.CheckBox()
+        Me.MH22 = New System.Windows.Forms.Label()
+        Me.MH11 = New System.Windows.Forms.Label()
+        Me.Label55 = New System.Windows.Forms.Label()
+        Me.txtILFreq_4 = New System.Windows.Forms.TextBox()
+        Me.txtILFreq_3 = New System.Windows.Forms.TextBox()
+        Me.txtILFreq_2 = New System.Windows.Forms.TextBox()
+        Me.Label56 = New System.Windows.Forms.Label()
+        Me.txtILFreq_1 = New System.Windows.Forms.TextBox()
+        Me.txtTest1_5_exp = New System.Windows.Forms.TextBox()
+        Me.Label31 = New System.Windows.Forms.Label()
+        Me.txtPower_5 = New System.Windows.Forms.TextBox()
+        Me.Label32 = New System.Windows.Forms.Label()
+        Me.Label61 = New System.Windows.Forms.Label()
+        Me.db11 = New System.Windows.Forms.Label()
+        Me.Label80 = New System.Windows.Forms.Label()
+        Me.Label81 = New System.Windows.Forms.Label()
+        Me.Label94 = New System.Windows.Forms.Label()
+        Me.Label95 = New System.Windows.Forms.Label()
+        Me.Label113 = New System.Windows.Forms.Label()
+        Me.Label114 = New System.Windows.Forms.Label()
+        Me.txtTest2_5 = New System.Windows.Forms.TextBox()
+        Me.txtTest1_5 = New System.Windows.Forms.TextBox()
+        Me.txtStopFreq_5 = New System.Windows.Forms.TextBox()
+        Me.txtStartFreq_5 = New System.Windows.Forms.TextBox()
+        Me.Label115 = New System.Windows.Forms.Label()
         Me.Frame2 = New System.Windows.Forms.Panel()
         Me.Label33 = New System.Windows.Forms.Label()
         Me.Label35 = New System.Windows.Forms.Label()
@@ -200,6 +229,7 @@ Partial Class frmSpecifications
         Me.Frame1.SuspendLayout()
         Me.Frame3.SuspendLayout()
         Me.Frame4.SuspendLayout()
+        Me.Frame5.SuspendLayout()
         Me.Frame2.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -1371,7 +1401,7 @@ Partial Class frmSpecifications
         Me.Frame4.Controls.Add(Me.txtStopFreq_4)
         Me.Frame4.Controls.Add(Me.txtStartFreq_4)
         Me.Frame4.Controls.Add(Me.Label110)
-        Me.Frame4.Location = New System.Drawing.Point(53, 227)
+        Me.Frame4.Location = New System.Drawing.Point(67, 238)
         Me.Frame4.Name = "Frame4"
         Me.Frame4.Size = New System.Drawing.Size(1182, 389)
         Me.Frame4.TabIndex = 73
@@ -1816,6 +1846,359 @@ Partial Class frmSpecifications
         Me.Label110.Size = New System.Drawing.Size(339, 37)
         Me.Label110.TabIndex = 7
         Me.Label110.Text = "COMBINER/DIVIDER"
+        '
+        'Frame5
+        '
+        Me.Frame5.CausesValidation = False
+        Me.Frame5.Controls.Add(Me.db22)
+        Me.Frame5.Controls.Add(Me.Label34)
+        Me.Frame5.Controls.Add(Me.ilchk)
+        Me.Frame5.Controls.Add(Me.MH22)
+        Me.Frame5.Controls.Add(Me.MH11)
+        Me.Frame5.Controls.Add(Me.Label55)
+        Me.Frame5.Controls.Add(Me.txtILFreq_4)
+        Me.Frame5.Controls.Add(Me.txtILFreq_3)
+        Me.Frame5.Controls.Add(Me.txtILFreq_2)
+        Me.Frame5.Controls.Add(Me.Label56)
+        Me.Frame5.Controls.Add(Me.txtILFreq_1)
+        Me.Frame5.Controls.Add(Me.txtTest1_5_exp)
+        Me.Frame5.Controls.Add(Me.Label31)
+        Me.Frame5.Controls.Add(Me.txtPower_5)
+        Me.Frame5.Controls.Add(Me.Label32)
+        Me.Frame5.Controls.Add(Me.Label61)
+        Me.Frame5.Controls.Add(Me.db11)
+        Me.Frame5.Controls.Add(Me.Label80)
+        Me.Frame5.Controls.Add(Me.Label81)
+        Me.Frame5.Controls.Add(Me.Label94)
+        Me.Frame5.Controls.Add(Me.Label95)
+        Me.Frame5.Controls.Add(Me.Label113)
+        Me.Frame5.Controls.Add(Me.Label114)
+        Me.Frame5.Controls.Add(Me.txtTest2_5)
+        Me.Frame5.Controls.Add(Me.txtTest1_5)
+        Me.Frame5.Controls.Add(Me.txtStopFreq_5)
+        Me.Frame5.Controls.Add(Me.txtStartFreq_5)
+        Me.Frame5.Controls.Add(Me.Label115)
+        Me.Frame5.Location = New System.Drawing.Point(79, 221)
+        Me.Frame5.Name = "Frame5"
+        Me.Frame5.Size = New System.Drawing.Size(1182, 389)
+        Me.Frame5.TabIndex = 120
+        Me.Frame5.Visible = False
+        '
+        'db22
+        '
+        Me.db22.AutoSize = True
+        Me.db22.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.db22.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.db22.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.db22.Location = New System.Drawing.Point(604, 191)
+        Me.db22.Name = "db22"
+        Me.db22.Size = New System.Drawing.Size(35, 24)
+        Me.db22.TabIndex = 134
+        Me.db22.Text = "dB"
+        '
+        'Label34
+        '
+        Me.Label34.AutoSize = True
+        Me.Label34.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Label34.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label34.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Label34.Location = New System.Drawing.Point(121, 183)
+        Me.Label34.Name = "Label34"
+        Me.Label34.Size = New System.Drawing.Size(277, 24)
+        Me.Label34.TabIndex = 133
+        Me.Label34.Text = "Insertion Loss Expanded :  <"
+        '
+        'ilchk
+        '
+        Me.ilchk.AutoSize = True
+        Me.ilchk.Location = New System.Drawing.Point(400, 191)
+        Me.ilchk.Name = "ilchk"
+        Me.ilchk.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.ilchk.Size = New System.Drawing.Size(15, 14)
+        Me.ilchk.TabIndex = 132
+        Me.ilchk.UseVisualStyleBackColor = True
+        '
+        'MH22
+        '
+        Me.MH22.AutoSize = True
+        Me.MH22.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.MH22.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MH22.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.MH22.Location = New System.Drawing.Point(820, 188)
+        Me.MH22.Name = "MH22"
+        Me.MH22.Size = New System.Drawing.Size(52, 24)
+        Me.MH22.TabIndex = 129
+        Me.MH22.Text = "MHz"
+        Me.MH22.Visible = False
+        '
+        'MH11
+        '
+        Me.MH11.AutoSize = True
+        Me.MH11.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.MH11.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.MH11.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.MH11.Location = New System.Drawing.Point(820, 158)
+        Me.MH11.Name = "MH11"
+        Me.MH11.Size = New System.Drawing.Size(52, 24)
+        Me.MH11.TabIndex = 128
+        Me.MH11.Text = "MHz"
+        Me.MH11.Visible = False
+        '
+        'Label55
+        '
+        Me.Label55.AutoSize = True
+        Me.Label55.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Label55.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label55.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Label55.Location = New System.Drawing.Point(739, 183)
+        Me.Label55.Name = "Label55"
+        Me.Label55.Size = New System.Drawing.Size(17, 24)
+        Me.Label55.TabIndex = 127
+        Me.Label55.Text = "-"
+        Me.Label55.Visible = False
+        '
+        'txtILFreq_4
+        '
+        Me.txtILFreq_4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtILFreq_4.Location = New System.Drawing.Point(762, 188)
+        Me.txtILFreq_4.Name = "txtILFreq_4"
+        Me.txtILFreq_4.Size = New System.Drawing.Size(52, 26)
+        Me.txtILFreq_4.TabIndex = 126
+        Me.txtILFreq_4.Text = "0"
+        Me.txtILFreq_4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.txtILFreq_4.Visible = False
+        '
+        'txtILFreq_3
+        '
+        Me.txtILFreq_3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtILFreq_3.Location = New System.Drawing.Point(682, 188)
+        Me.txtILFreq_3.Name = "txtILFreq_3"
+        Me.txtILFreq_3.Size = New System.Drawing.Size(52, 26)
+        Me.txtILFreq_3.TabIndex = 125
+        Me.txtILFreq_3.Text = "0"
+        Me.txtILFreq_3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.txtILFreq_3.Visible = False
+        '
+        'txtILFreq_2
+        '
+        Me.txtILFreq_2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtILFreq_2.Location = New System.Drawing.Point(762, 155)
+        Me.txtILFreq_2.Name = "txtILFreq_2"
+        Me.txtILFreq_2.Size = New System.Drawing.Size(52, 26)
+        Me.txtILFreq_2.TabIndex = 124
+        Me.txtILFreq_2.Text = "0"
+        Me.txtILFreq_2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.txtILFreq_2.Visible = False
+        '
+        'Label56
+        '
+        Me.Label56.AutoSize = True
+        Me.Label56.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Label56.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label56.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Label56.Location = New System.Drawing.Point(740, 155)
+        Me.Label56.Name = "Label56"
+        Me.Label56.Size = New System.Drawing.Size(17, 24)
+        Me.Label56.TabIndex = 123
+        Me.Label56.Text = "-"
+        Me.Label56.Visible = False
+        '
+        'txtILFreq_1
+        '
+        Me.txtILFreq_1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtILFreq_1.Location = New System.Drawing.Point(682, 155)
+        Me.txtILFreq_1.Name = "txtILFreq_1"
+        Me.txtILFreq_1.Size = New System.Drawing.Size(52, 26)
+        Me.txtILFreq_1.TabIndex = 122
+        Me.txtILFreq_1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.txtILFreq_1.Visible = False
+        '
+        'txtTest1_5_exp
+        '
+        Me.txtTest1_5_exp.Enabled = False
+        Me.txtTest1_5_exp.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtTest1_5_exp.Location = New System.Drawing.Point(421, 186)
+        Me.txtTest1_5_exp.Name = "txtTest1_5_exp"
+        Me.txtTest1_5_exp.Size = New System.Drawing.Size(166, 26)
+        Me.txtTest1_5_exp.TabIndex = 120
+        Me.txtTest1_5_exp.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label31
+        '
+        Me.Label31.AutoSize = True
+        Me.Label31.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Label31.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label31.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Label31.Location = New System.Drawing.Point(604, 256)
+        Me.Label31.Name = "Label31"
+        Me.Label31.Size = New System.Drawing.Size(29, 24)
+        Me.Label31.TabIndex = 72
+        Me.Label31.Text = "W"
+        '
+        'txtPower_5
+        '
+        Me.txtPower_5.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtPower_5.Location = New System.Drawing.Point(422, 256)
+        Me.txtPower_5.Name = "txtPower_5"
+        Me.txtPower_5.Size = New System.Drawing.Size(166, 26)
+        Me.txtPower_5.TabIndex = 71
+        Me.txtPower_5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label32
+        '
+        Me.Label32.AutoSize = True
+        Me.Label32.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Label32.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label32.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Label32.Location = New System.Drawing.Point(290, 256)
+        Me.Label32.Name = "Label32"
+        Me.Label32.Size = New System.Drawing.Size(106, 24)
+        Me.Label32.TabIndex = 70
+        Me.Label32.Text = "Power:  W"
+        '
+        'Label61
+        '
+        Me.Label61.AutoSize = True
+        Me.Label61.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Label61.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label61.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Label61.Location = New System.Drawing.Point(604, 219)
+        Me.Label61.Name = "Label61"
+        Me.Label61.Size = New System.Drawing.Size(33, 24)
+        Me.Label61.TabIndex = 27
+        Me.Label61.Text = ": 1"
+        '
+        'db11
+        '
+        Me.db11.AutoSize = True
+        Me.db11.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.db11.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.db11.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.db11.Location = New System.Drawing.Point(604, 158)
+        Me.db11.Name = "db11"
+        Me.db11.Size = New System.Drawing.Size(35, 24)
+        Me.db11.TabIndex = 26
+        Me.db11.Text = "dB"
+        '
+        'Label80
+        '
+        Me.Label80.AutoSize = True
+        Me.Label80.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Label80.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label80.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Label80.Location = New System.Drawing.Point(604, 125)
+        Me.Label80.Name = "Label80"
+        Me.Label80.Size = New System.Drawing.Size(55, 24)
+        Me.Label80.TabIndex = 25
+        Me.Label80.Text = "MHZ"
+        '
+        'Label81
+        '
+        Me.Label81.AutoSize = True
+        Me.Label81.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Label81.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label81.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Label81.Location = New System.Drawing.Point(604, 93)
+        Me.Label81.Name = "Label81"
+        Me.Label81.Size = New System.Drawing.Size(55, 24)
+        Me.Label81.TabIndex = 24
+        Me.Label81.Text = "MHZ"
+        '
+        'Label94
+        '
+        Me.Label94.AutoSize = True
+        Me.Label94.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Label94.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label94.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Label94.Location = New System.Drawing.Point(298, 219)
+        Me.Label94.Name = "Label94"
+        Me.Label94.Size = New System.Drawing.Size(100, 24)
+        Me.Label94.TabIndex = 19
+        Me.Label94.Text = "VSWR:  <"
+        '
+        'Label95
+        '
+        Me.Label95.AutoSize = True
+        Me.Label95.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Label95.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label95.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Label95.Location = New System.Drawing.Point(229, 158)
+        Me.Label95.Name = "Label95"
+        Me.Label95.Size = New System.Drawing.Size(169, 24)
+        Me.Label95.TabIndex = 18
+        Me.Label95.Text = "Insertion Loss:  <"
+        '
+        'Label113
+        '
+        Me.Label113.AutoSize = True
+        Me.Label113.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Label113.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label113.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Label113.Location = New System.Drawing.Point(208, 125)
+        Me.Label113.Name = "Label113"
+        Me.Label113.Size = New System.Drawing.Size(165, 24)
+        Me.Label113.TabIndex = 17
+        Me.Label113.Text = "StopFrequency :"
+        '
+        'Label114
+        '
+        Me.Label114.AutoSize = True
+        Me.Label114.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Label114.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label114.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Label114.Location = New System.Drawing.Point(202, 92)
+        Me.Label114.Name = "Label114"
+        Me.Label114.Size = New System.Drawing.Size(170, 24)
+        Me.Label114.TabIndex = 16
+        Me.Label114.Text = "Start Frequency :"
+        '
+        'txtTest2_5
+        '
+        Me.txtTest2_5.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtTest2_5.Location = New System.Drawing.Point(422, 219)
+        Me.txtTest2_5.Name = "txtTest2_5"
+        Me.txtTest2_5.Size = New System.Drawing.Size(166, 26)
+        Me.txtTest2_5.TabIndex = 11
+        Me.txtTest2_5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'txtTest1_5
+        '
+        Me.txtTest1_5.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtTest1_5.Location = New System.Drawing.Point(422, 155)
+        Me.txtTest1_5.Name = "txtTest1_5"
+        Me.txtTest1_5.Size = New System.Drawing.Size(166, 26)
+        Me.txtTest1_5.TabIndex = 10
+        Me.txtTest1_5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'txtStopFreq_5
+        '
+        Me.txtStopFreq_5.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtStopFreq_5.Location = New System.Drawing.Point(422, 124)
+        Me.txtStopFreq_5.Name = "txtStopFreq_5"
+        Me.txtStopFreq_5.Size = New System.Drawing.Size(166, 26)
+        Me.txtStopFreq_5.TabIndex = 9
+        Me.txtStopFreq_5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'txtStartFreq_5
+        '
+        Me.txtStartFreq_5.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtStartFreq_5.Location = New System.Drawing.Point(422, 92)
+        Me.txtStartFreq_5.Name = "txtStartFreq_5"
+        Me.txtStartFreq_5.Size = New System.Drawing.Size(166, 26)
+        Me.txtStartFreq_5.TabIndex = 8
+        Me.txtStartFreq_5.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'Label115
+        '
+        Me.Label115.AutoSize = True
+        Me.Label115.BackColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Label115.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label115.ForeColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Label115.Location = New System.Drawing.Point(459, 11)
+        Me.Label115.Name = "Label115"
+        Me.Label115.Size = New System.Drawing.Size(273, 37)
+        Me.Label115.TabIndex = 7
+        Me.Label115.Text = "TRANSFORMER"
         '
         'Frame2
         '
@@ -2267,7 +2650,8 @@ Partial Class frmSpecifications
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.ClientSize = New System.Drawing.Size(1286, 685)
+        Me.ClientSize = New System.Drawing.Size(1340, 666)
+        Me.Controls.Add(Me.Frame5)
         Me.Controls.Add(Me.Label93)
         Me.Controls.Add(Me.Label92)
         Me.Controls.Add(Me.txtFail)
@@ -2298,6 +2682,8 @@ Partial Class frmSpecifications
         Me.Frame3.PerformLayout()
         Me.Frame4.ResumeLayout(False)
         Me.Frame4.PerformLayout()
+        Me.Frame5.ResumeLayout(False)
+        Me.Frame5.PerformLayout()
         Me.Frame2.ResumeLayout(False)
         Me.Frame2.PerformLayout()
         Me.ResumeLayout(False)
@@ -2478,4 +2864,33 @@ Partial Class frmSpecifications
     Friend WithEvents txtJ1J1_2 As System.Windows.Forms.TextBox
     Friend WithEvents CheckBox2 As System.Windows.Forms.CheckBox
     Friend WithEvents Label30 As System.Windows.Forms.Label
+    Friend WithEvents Frame5 As System.Windows.Forms.Panel
+    Friend WithEvents Label61 As System.Windows.Forms.Label
+    Friend WithEvents db11 As System.Windows.Forms.Label
+    Friend WithEvents Label80 As System.Windows.Forms.Label
+    Friend WithEvents Label81 As System.Windows.Forms.Label
+    Friend WithEvents Label94 As System.Windows.Forms.Label
+    Friend WithEvents Label95 As System.Windows.Forms.Label
+    Friend WithEvents Label113 As System.Windows.Forms.Label
+    Friend WithEvents Label114 As System.Windows.Forms.Label
+    Friend WithEvents txtTest2_5 As System.Windows.Forms.TextBox
+    Friend WithEvents txtTest1_5 As System.Windows.Forms.TextBox
+    Friend WithEvents txtStopFreq_5 As System.Windows.Forms.TextBox
+    Friend WithEvents txtStartFreq_5 As System.Windows.Forms.TextBox
+    Friend WithEvents Label115 As System.Windows.Forms.Label
+    Friend WithEvents Label31 As System.Windows.Forms.Label
+    Friend WithEvents txtPower_5 As System.Windows.Forms.TextBox
+    Friend WithEvents Label32 As System.Windows.Forms.Label
+    Friend WithEvents Label34 As System.Windows.Forms.Label
+    Friend WithEvents ilchk As System.Windows.Forms.CheckBox
+    Friend WithEvents MH22 As System.Windows.Forms.Label
+    Friend WithEvents MH11 As System.Windows.Forms.Label
+    Friend WithEvents Label55 As System.Windows.Forms.Label
+    Friend WithEvents txtILFreq_4 As System.Windows.Forms.TextBox
+    Friend WithEvents txtILFreq_3 As System.Windows.Forms.TextBox
+    Friend WithEvents txtILFreq_2 As System.Windows.Forms.TextBox
+    Friend WithEvents Label56 As System.Windows.Forms.Label
+    Friend WithEvents txtILFreq_1 As System.Windows.Forms.TextBox
+    Friend WithEvents txtTest1_5_exp As System.Windows.Forms.TextBox
+    Friend WithEvents db22 As System.Windows.Forms.Label
 End Class

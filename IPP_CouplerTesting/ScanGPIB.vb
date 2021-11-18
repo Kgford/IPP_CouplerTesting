@@ -876,10 +876,10 @@ Trap:
     End Sub
 
     Public Function GetTimeout() As Long
-        GetTimeout = 2000
-        If VNAStr.Contains("N3383A") Then GetTimeout = 2000
+        GetTimeout = 6000
+        If VNAStr.Contains("N3383A") Then GetTimeout = 6000
         If VNAStr.Contains("E5071B") Then GetTimeout = 6000
-        If VNAStr.Contains("8720ES") Then GetTimeout = 4000
+        If VNAStr.Contains("8720ES") Then GetTimeout = 6000
         If VNAStr.Contains("8753E") Then GetTimeout = 6000
         If VNAStr.Contains("8753C") Then GetTimeout = 10000
     End Function

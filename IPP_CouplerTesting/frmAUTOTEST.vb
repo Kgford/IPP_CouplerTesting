@@ -105,6 +105,7 @@ Public Class frmAUTOTEST
             ILSetDone = False
 
             Me.EndLot.Enabled = False
+            Me.EraseJob.Enabled = False
 
             Me.cmbJob.Items.Clear()
             Me.cmbJob.Text = " "
@@ -532,6 +533,7 @@ Skip4:
             If Me.cmbJob.GetItemText(Me.cmbJob.SelectedItem) <> " " And Uploading = False Then
                 If Not DontclickTheButton Then
                     cmdStartTest.Enabled = False
+                    Me.EraseTest.Enabled = False
                     If Not Simulation.Checked And Not Connected Then
                         ScanGPIB.connect("GPIB0::16::INSTR", GetTimeout())
                         Connected = True
@@ -639,6 +641,24 @@ Skip4:
                 Data4H.Visible = False
                 Data4.Visible = True
             End If
+            If ISO_TF Then
+                Data3L.Visible = True
+                Data3H.Visible = True
+                Data3.Visible = False
+            Else
+                Data3L.Visible = False
+                Data3H.Visible = False
+                Data3.Visible = True
+            End If
+            If IL_TF Then
+                Data1L.Visible = True
+                Data1H.Visible = True
+                Data1.Visible = False
+            Else
+                Data1L.Visible = False
+                Data1H.Visible = False
+                Data1.Visible = True
+            End If
 
             'ILSetDone = False
             SwPos = "          J3(3dB) = SW1, J4(3dB) = SW2, J2(ISO) = SW3"
@@ -669,6 +689,43 @@ Skip4:
                             PF3.Visible = True
                             txtOffset3.Visible = True
                             SwPos = "          J3(3dB) = SW1, J4(3dB) = SW2, J2(ISO) = SW3"
+                        ElseIf dr.Item(1) = "TRANSFORMER" Or dr.Item(1) = "TRANSFORMER SMD" Then
+                            If dr.Item(1) = "TRANSFORMER SMD" Then
+                                SMD = True
+                            Else
+                                SMD = False
+                            End If
+                            IL_TF = dr.Item(91)
+                            SpecIndex = 1
+                            SpecType = "TRANSFORMER"
+                            SwPos = ""
+                            ckTest1.Checked = True
+                            ckTest2.Checked = True
+
+                            ckTest3.Checked = False
+                            TestLabel3.Visible = False
+                            Spec3Min.Visible = False
+                            Spec3Max.Visible = False
+                            Data3.Visible = False
+                            ckTest3.Visible = False
+                            PF3.Visible = False
+                            txtOffset3.Visible = False
+                            ckTest4.Checked = False
+                            TestLabel4.Visible = False
+                            Spec4Min.Visible = False
+                            Spec4Max.Visible = False
+                            Data4.Visible = False
+                            ckTest4.Visible = False
+                            PF4.Visible = False
+                            txtOffset4.Visible = False
+                            ckTest5.Checked = False
+                            TestLabel5.Visible = False
+                            Spec5Min.Visible = False
+                            Spec5Max.Visible = False
+                            Data5.Visible = False
+                            ckTest5.Visible = False
+                            PF5.Visible = False
+                            txtOffset5.Visible = False
                         ElseIf dr.Item(1) = "BALUN" Or dr.Item(1) = "BALUN SMD" Then
                             If dr.Item(1) = "BALUN SMD" Then
                                 SMD = True
@@ -925,21 +982,32 @@ Skip4:
             Else
                 Me.txtStopFreq.Text = SpecStopFreq
             End If
-            Me.Spec1Min.Text = "N/A"
-            Me.Data1.Text = ""
+           
 
-            Me.Spec1Max.Text = Format(GetSpecification("InsertionLoss"), "0.00")
-            SpecIL = Me.Spec1Max.Text
+            If IL_TF Then
+                Me.Spec1Max.Text = Format(GetSpecification("InsertionLoss"), "0.00") & "/" & Format(GetSpecification("IL_ex"), "0.00")
+                SpecILH = Format(GetSpecification("InsertionLoss"), "0.00")
+                Me.Spec1Min.Text = "N/A"
+                'SpecILL = Me.Spec1Min.Text
+                Me.Data1H.Text = ""
+                Me.Data1L.Text = ""
+
+            Else
+                Me.Spec1Max.Text = Format(GetSpecification("InsertionLoss"), "0.00")
+                SpecIL = Me.Spec1Max.Text
+                Me.Spec1Min.Text = "N/A"
+                Me.Data1.Text = ""
+            End If
 
             Me.Spec2Min.Text = "N/A"
             Me.Data2.Text = ""
+
             If Not IsDBNull(GetSpecification("VSWR")) Then
                 Me.Spec2Max.Text = Format(GetSpecification("VSWR"), "0.0")
                 SpecTest2 = GetSpecification("VSWR")
             End If
 
             If SpecIndex = 0 Or SpecIndex = 1 Or SpecIndex = 3 Then
-
                 If Not IsDBNull(GetSpecification("Isolation")) And ISO_TF Then
                     TestLabel3.Text = "Isolation D/B:  dB"
                     SpecISOL = Format(GetSpecification("IsolationL"), "0.0")
@@ -1433,10 +1501,10 @@ Skip4:
             Me.txtOffset5.Text = GetSpecification("Offset5")
 
             Me.ckTest1.Checked = GetSpecification("Test1")
-            Me.ckTest2.Checked = GetSpecification("Test1")
-            Me.ckTest3.Checked = GetSpecification("Test1")
-            Me.ckTest4.Checked = GetSpecification("Test1")
-            Me.ckTest5.Checked = GetSpecification("Test1")
+            Me.ckTest2.Checked = GetSpecification("Test2")
+            Me.ckTest3.Checked = GetSpecification("Test3")
+            Me.ckTest4.Checked = GetSpecification("Test4")
+            Me.ckTest5.Checked = GetSpecification("Test5")
 
             UUTMessage.Text = "  UUT TESTS  --  Load Unit #1"
 
@@ -1723,6 +1791,7 @@ GetOut:
                 Me.UUTLabel.ForeColor = Color.LawnGreen
                 Me.UUTCount.ForeColor = Color.LawnGreen
                 Me.cmdRetest.Enabled = False
+                Me.EraseTest.Enabled = False
             End If
         Catch
         End Try
@@ -1754,6 +1823,7 @@ GetOut:
         Me.UUTLabel.ForeColor = Color.LawnGreen
         Me.cmdStartTest.Text = "Start Test"
         Me.cmdStartTest.Enabled = True
+        Me.EraseTest.Enabled = False
 
         Me.Failures1.ForeColor = Color.LawnGreen
         Me.Failures1.Text = "0.0 %"
@@ -1803,12 +1873,14 @@ GetOut:
         ClearFailureLog()
         ClearStatusLog()
         Me.cmdRetest.Enabled = False
+        Me.EraseTest.Enabled = False
         Me.LotTestFrame.BackColor = Color.CornflowerBlue
         Me.LotFailureFrame.BackColor = Color.CornflowerBlue
 
         ExpectedProgress.Value = 0
         ActualProgress.Value = 0
         EndLot.Enabled = False
+        Me.EraseJob.Enabled = False
 
     End Sub
 
@@ -1927,6 +1999,7 @@ GetOut:
         Dim SwPos As String
         Dim Removed As Boolean = False
         Dim Passed As Boolean = True
+        Dim RetrnStr As String
 
         TestRunning = True
         TestComplete = False
@@ -1979,35 +2052,52 @@ GetOut:
             Me.cmdStartTest.Text = "UUT" & UUTNum
             Me.cmdStartTest.Enabled = False
             Job = Me.cmbJob.Text
-            SerialNumber = "UUT" & Me.UUTCount.Text
-            SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "' And SerialNumber = 'UUT" & Me.UUTCount.Text & "'"
-            If SQL.CheckforRow(SQLstr, "NetworkData") = 0 Then
-                SQLstr = "Insert Into TestData (JobNumber, PartNumber,SerialNumber,WorkStation) values ('" & Job & "','" & Part & "','" & SerialNumber & "','" & GetComputerName() & "')"
-                SQL.ExecuteSQLCommand(SQLstr, "NetworkData")
-            End If
-            SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "' And SerialNumber = 'UUT" & Me.UUTCount.Text & "'"
-            TestID = SQL.GetTestID(SQLstr, "NetworkData")
+            SerialNumber = "UUT" & UUTNum_Reset
+            'SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "' and WorkStation = '" & GetComputerName() & "' And SerialNumber = 'UUT" & UUTNum_Reset & "'"
+            'If SQL.CheckforRow(SQLstr, "NetworkData") = 0 Then
+            'SQLstr = "Insert Into TestData (JobNumber, PartNumber,SerialNumber,WorkStation,artwork_rev) values ('" & Job & "','" & Part & "','" & SerialNumber & "','" & GetComputerName() & "','" & ArtworkRevision & "')"
+            ' SQL.ExecuteSQLCommand(SQLstr, "NetworkData")
+            'End If
+            'SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "' and WorkStation = '" & GetComputerName() & "' And SerialNumber = 'UUT" & UUTNum_Reset & "'"
+            'TestID = SQL.GetTestID(SQLstr, "NetworkData")
             FailCount = 0
 
             'Insertion Loss
             If Me.ckTest1.Checked Then
+                If Me.ckROBOT.Checked Then RobotStatus()
                 If TraceChecked Then
+                    If (SpecType = "TRANSFORMER") And IL_TF Then PassFail = Tests.InsertionLossTRANS_multiband(, TestID)
+                    If SpecType = "TRANSFORMER" Then PassFail = Tests.InsertionLossTRANS(, TestID)
                     If (SpecType = "90 DEGREE COUPLER" Or SpecType = "BALUN") And SpecAB_TF Then PassFail = Tests.InsertionLoss3dB_multiband(, TestID)
-                    If SpecType = "90 DEGREE COUPLER" Or SpecType = "BALUN" Then PassFail = Tests.InsertionLoss3dB(, TestID)
-
+                    If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.InsertionLoss3dB(, TestID)
                     If SpecType.Contains("COMBINER/DIVIDER") Then PassFail = Tests.InsertionLossCOMB(, TestID)
                     If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then PassFail = Tests.InsertionLossDIR(, TestID)
                 ElseIf Not MutiCalChecked Then
-                    If (SpecType = "90 DEGREE COUPLER" Or SpecType = "BALUN") And SpecAB_TF Then PassFail = Tests.InsertionLoss3dB_multiband(, TestID)
-                    If SpecType = "90 DEGREE COUPLER" Or SpecType = "BALUN" Then PassFail = Tests.InsertionLoss3dB_marker(, TestID)
+                    If (SpecType = "TRANSFORMER") And IL_TF Then PassFail = Tests.InsertionLossTRANS_multiband(, TestID)
+                    If SpecType = "TRANSFORMER" Then PassFail = Tests.InsertionLossTRANS_Marker(, TestID)
+                    If (SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN")) And SpecAB_TF Then PassFail = Tests.InsertionLoss3dB_multiband(, TestID)
+                    If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.InsertionLoss3dB_marker(, TestID)
                     If SpecType.Contains("COMBINER/DIVIDER") Then PassFail = Tests.InsertionLossCOMB_Marker(, TestID)
                     If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then PassFail = Tests.InsertionLossDIR_Marker(, TestID)
                 End If
-               
-                RetrnVal = IL
-                SaveTestData("InsertionLoss", RetrnVal)
-                status("Blue", "InsertionLoss")
-                Data1.Text = Format(RetrnVal, "0.00")
+
+
+                If IL_TF Then
+                    RetrnVal1 = IL1
+                    SaveTestData("InsertionLoss", RetrnVal1)
+                    RetrnVal = IL2
+                    SaveTestData("InsertionLoss2", RetrnVal)
+                    Data1L.Text = IL1
+                    Data1H.Text = IL2
+                Else
+                    RetrnVal = IL
+                    SaveTestData("InsertionLoss", RetrnVal)
+                    RetrnStr = CStr(Math.Round(RetrnVal, 2))
+                    Data1.Text = Format(RetrnVal, "0.00")
+                End If
+                status("Blue", "TEST1")
+                PF1.Text = PassFail
+
                 If PassFail = "Pass" Then
                     TEST1PASS = True
                     status("Green", "TEST1", True)
@@ -2185,6 +2275,8 @@ Test2SubRet:
                         ElseIf PassFail = "Fail" Then
                             status("Red", "TEST4")
                             TEST4PASS = False
+                            Data4.Text = Format(RetrnVal, "0.00")
+                            PF4.Text = PassFail
                             TEST4Fail = TEST4Fail + 1
                             Me.Failures4.Text = FormatPercent(((TEST4Fail / UUTNum)), 1)
                             Me.Total4.Text = UUTNum
@@ -2382,10 +2474,10 @@ Test2Sub:
                 'PF3.Text = "Pass"
                 'Me.Total3.Text = UUTNum
             End If
-                If SpecType <> "COMBINER/DIVIDER" Then GoTo Test2SubRet
-TestComplete:   ' For everything except Directional Couplers
+            If SpecType <> "COMBINER/DIVIDER" Then GoTo Test2SubRet
+TestComplete:  ' For everything except Directional Couplers
 
-                'Directonal Couplers reverse direction
+            'Directonal Couplers reverse direction
             If Not TweakMode And (SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Or (SpecType = "SINGLE DIRECTIONAL COUPLER" And Me.ckTest4.Checked)) Then
                 If SpecType = "DUAL DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, REFL = SW3"
                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, ISO = SW3"
@@ -2394,216 +2486,219 @@ TestComplete:   ' For everything except Directional Couplers
                 'MsgBox("Please turn the Directional Coupler in the Reverse direction")
             End If
 
-                'Reverse Coupling
-                If SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" And Me.ckTest3.Checked Then
-                    PassFail = Tests.Coupling(2, SpecType, , TestID)
-                    RetrnVal = COuP
-                    SaveTestData("Coupling", RetrnVal)
-                    status("Blue", "TEST3")
-                    Data3.Text = Format(RetrnVal, "0.0")
-                    If PassFail = "Pass" Then
-                        TEST3PASS = True
-                        status("Green", "TEST3", True)
-                        PF3.Text = PassFail
-                        If TEST3Fail > 0 Then TEST3Fail = TEST3Fail - 1
-                        If RetEST3Fail > 0 Then RetEST3Fail = 0
-                    ElseIf PassFail = "Fail" Then
-                        Passed = False
-                        status("Red", "TEST4", True)
-                        If RetEST3Fail > retestFailMax And Not TEST3Fail_bypass And Not Master_bypass And Not Retest_bypass Then
-                            TEST3Failing = True
-                            ErrorTimer.Start()
-                            Dim ERR As New Failures_Manager
-                            ERR.StartPosition = FormStartPosition.Manual
-                            ERR.Location = New Point(globals.XLocation, globals.YLocation + 50)
-                            ERR.ShowDialog()
-                            TEST3Failing = False
-                            Retest_bypass = True
-                            ErrorTimer.Stop()
-                        End If
-                        TEST3PASS = False
-                        PF3.Text = PassFail
-                        status("Red", "TEST3", True)
-                        UUTFail = 1
+            'Reverse Coupling
+            If SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" And Me.ckTest3.Checked Then
+                PassFail = Tests.Coupling(2, SpecType, , TestID)
+                RetrnVal = COuP
+                SaveTestData("Coupling", RetrnVal)
+                status("Blue", "TEST3")
+                Data3.Text = Format(RetrnVal, "0.0")
+                If PassFail = "Pass" Then
+                    TEST3PASS = True
+                    status("Green", "TEST3", True)
+                    PF3.Text = PassFail
+                    If TEST3Fail > 0 Then TEST3Fail = TEST3Fail - 1
+                    If RetEST3Fail > 0 Then RetEST3Fail = 0
+                ElseIf PassFail = "Fail" Then
+                    Passed = False
+                    status("Red", "TEST4", True)
+                    If RetEST3Fail > retestFailMax And Not TEST3Fail_bypass And Not Master_bypass And Not Retest_bypass Then
+                        TEST3Failing = True
+                        ErrorTimer.Start()
+                        Dim ERR As New Failures_Manager
+                        ERR.StartPosition = FormStartPosition.Manual
+                        ERR.Location = New Point(globals.XLocation, globals.YLocation + 50)
+                        ERR.ShowDialog()
+                        TEST3Failing = False
+                        Retest_bypass = True
+                        ErrorTimer.Stop()
                     End If
-                    Me.Total3.Text = UUTNum
-                Else
-                    'TEST3PASS = True
-                    'status("Blue", "TEST3")
-                    'PF3.Text = "Pass"
-                    'Me.Total3.Text = UUTNum
+                    TEST3PASS = False
+                    PF3.Text = PassFail
+                    status("Red", "TEST3", True)
+                    UUTFail = 1
                 End If
+                Me.Total3.Text = UUTNum
+            Else
+                'TEST3PASS = True
+                'status("Blue", "TEST3")
+                'PF3.Text = "Pass"
+                'Me.Total3.Text = UUTNum
+            End If
 
-                ' Reverse Directivity
-                If (SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Or SpecType = "SINGLE DIRECTIONAL COUPLER") And Me.ckTest4.Checked Then
-                    If TraceChecked And Not TweakMode Then
-                        PassFail = Tests.Directivity(2, SpecType, , TestID)
-                    Else
-                        PassFail = Tests.Directivity_Marker(2, SpecType, , TestID)
-                    End If
-                    RetrnVal = DIR
-                    SaveTestData("Directivity", RetrnVal)
-                    status("Blue", "TEST4")
-                    Data4.Text = Format(RetrnVal, "0.0")
-                    If PassFail = "Pass" Then
-                        TEST4PASS = True
-                        status("Green", "TEST4", True)
-                        PF4.Text = PassFail
-                        If TEST4Fail > 0 Then TEST4Fail = TEST4Fail - 1
-                        If RetEST4Fail > 0 Then RetEST4Fail = 0
-                    ElseIf PassFail = "Fail" Then
-                        Passed = False
-                        status("Red", "TEST4", True)
-                        If RetEST4Fail > retestFailMax And Not TEST4Fail_bypass And Not Master_bypass And Not Retest_bypass Then
-                            TEST4Failing = True
-                            ErrorTimer.Start()
-                            Dim ERR As New Failures_Manager
-                            ERR.StartPosition = FormStartPosition.Manual
-                            ERR.Location = New Point(globals.XLocation, globals.YLocation + 50)
-                            ERR.ShowDialog()
-                            TEST4Failing = False
-                            Retest_bypass = True
-                            ErrorTimer.Stop()
-                        End If
-                        TEST4PASS = False
-                        PF4.Text = PassFail
-                        status("Red", "TEST4", True)
-                        UUTFail = 1
-                    End If
-                    Me.Total4.Text = UUTNum
+            ' Reverse Directivity
+            If (SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Or SpecType = "SINGLE DIRECTIONAL COUPLER") And Me.ckTest4.Checked Then
+                If TraceChecked And Not TweakMode Then
+                    PassFail = Tests.Directivity(2, SpecType, , TestID)
                 Else
-                    'TEST4PASS = True
-                    'status("Blue", "TEST4")
-                    'PF4.Text = "Pass"
-                    'Me.Total4.Text = UUTNum
+                    PassFail = Tests.Directivity_Marker(2, SpecType, , TestID)
                 End If
-
-                ' Reverse Coupled Flatness
-                If SpecType = "DUAL DIRECTIONAL COUPLER" And Me.ckTest5.Checked Then
-                    PassFail = Tests.CoupledFlatness(2, SpecType, , TestID)
-                    RetrnVal = COuP
-                    SaveTestData("CoupledFlatness", RetrnVal)
-                    status("Blue", "TEST5")
-                    Data5.Text = Format(RetrnVal, "0.00")
-                    If PassFail = "Pass" Then
-                        TEST5PASS = True
-                        status("Green", "TEST5", True)
-                        PF5.Text = PassFail
-                        If TEST5Fail > 0 Then TEST5Fail = TEST5Fail - 1
-                        If RetEST5Fail > 0 Then RetEST5Fail = 0
-                        If Not GlobalFailed Then GlobalFail = GlobalFail - 1
-
-                    ElseIf PassFail = "Fail" Then
-                        TEST5PASS = False
-                        status("Red", "TEST5", True)
-                        If RetEST5Fail > retestFailMax And Not TEST5Fail_bypass And Not Master_bypass And Not Retest_bypass Then
-                            TEST5Failing = True
-                            ErrorTimer.Start()
-                            Dim ERR As New Failures_Manager
-                            ERR.StartPosition = FormStartPosition.Manual
-                            ERR.Location = New Point(globals.XLocation, globals.YLocation + 50)
-                            ERR.ShowDialog()
-                            TEST5Failing = False
-                            Retest_bypass = True
-                            ErrorTimer.Stop()
-                        End If
-                        PF5.Text = PassFail
-                        status("Red", "TEST5", True)
-                        Passed = False
-                        UUTFail = 1
+                RetrnVal = DIR
+                SaveTestData("Directivity", RetrnVal)
+                status("Blue", "TEST4")
+                Data4.Text = Format(RetrnVal, "0.0")
+                If PassFail = "Pass" Then
+                    TEST4PASS = True
+                    status("Green", "TEST4", True)
+                    PF4.Text = PassFail
+                    If TEST4Fail > 0 Then TEST4Fail = TEST4Fail - 1
+                    If RetEST4Fail > 0 Then RetEST4Fail = 0
+                ElseIf PassFail = "Fail" Then
+                    Passed = False
+                    status("Red", "TEST4", True)
+                    If RetEST4Fail > retestFailMax And Not TEST4Fail_bypass And Not Master_bypass And Not Retest_bypass Then
+                        TEST4Failing = True
+                        ErrorTimer.Start()
+                        Dim ERR As New Failures_Manager
+                        ERR.StartPosition = FormStartPosition.Manual
+                        ERR.Location = New Point(globals.XLocation, globals.YLocation + 50)
+                        ERR.ShowDialog()
+                        TEST4Failing = False
+                        Retest_bypass = True
+                        ErrorTimer.Stop()
                     End If
-                    Me.Total5.Text = UUTNum
-                Else
-                    'TEST5PASS = True
-                    'status("Blue", "TEST5")
-                    'PF5.Text = "Pass"
-                    'Me.Total5.Text = UUTNum
+                    TEST4PASS = False
+                    PF4.Text = PassFail
+                    status("Red", "TEST4", True)
+                    UUTFail = 1
                 End If
+                Me.Total4.Text = UUTNum
+            Else
+                'TEST4PASS = True
+                'status("Blue", "TEST4")
+                'PF4.Text = "Pass"
+                'Me.Total4.Text = UUTNum
+            End If
+
+            ' Reverse Coupled Flatness
+            If SpecType = "DUAL DIRECTIONAL COUPLER" And Me.ckTest5.Checked Then
+                PassFail = Tests.CoupledFlatness(2, SpecType, , TestID)
+                RetrnVal = COuP
+                SaveTestData("CoupledFlatness", RetrnVal)
+                status("Blue", "TEST5")
+                Data5.Text = Format(RetrnVal, "0.00")
+                If PassFail = "Pass" Then
+                    TEST5PASS = True
+                    status("Green", "TEST5", True)
+                    PF5.Text = PassFail
+                    If TEST5Fail > 0 Then TEST5Fail = TEST5Fail - 1
+                    If RetEST5Fail > 0 Then RetEST5Fail = 0
+                    If Not GlobalFailed Then GlobalFail = GlobalFail - 1
+
+                ElseIf PassFail = "Fail" Then
+                    TEST5PASS = False
+                    status("Red", "TEST5", True)
+                    If RetEST5Fail > retestFailMax And Not TEST5Fail_bypass And Not Master_bypass And Not Retest_bypass Then
+                        TEST5Failing = True
+                        ErrorTimer.Start()
+                        Dim ERR As New Failures_Manager
+                        ERR.StartPosition = FormStartPosition.Manual
+                        ERR.Location = New Point(globals.XLocation, globals.YLocation + 50)
+                        ERR.ShowDialog()
+                        TEST5Failing = False
+                        Retest_bypass = True
+                        ErrorTimer.Stop()
+                    End If
+                    PF5.Text = PassFail
+                    status("Red", "TEST5", True)
+                    Passed = False
+                    UUTFail = 1
+                End If
+                Me.Total5.Text = UUTNum
+            Else
+                'TEST5PASS = True
+                'status("Blue", "TEST5")
+                'PF5.Text = "Pass"
+                'Me.Total5.Text = UUTNum
+            End If
 ReallyComplete:
-                If TEST1PASS And TEST2PASS And TEST3PASS And TEST4PASS And TEST5PASS Then
-                    status("Green", "TEST1")
-                    status("Green", "TEST2")
-                    status("Green", "TEST3")
-                    status("Green", "TEST4")
-                    status("Green", "TEST5")
-                    Me.UUTStatusColor.BackColor = Color.LawnGreen
-                    Me.StartTestFrame.BackColor = Color.LawnGreen
-                    Me.ReTestFrame.BackColor = Color.LawnGreen
-                    If Not TweakMode Then SaveFailureLog("UUT Number: " & UUTNum & " Job Number: " & Job & " Part Number: " & Part & "  Insertion Loss: " & Me.PF1.Text & "  Return Loss: " & Me.PF2.Text & "  Coupling: " & Me.PF3.Text & "  Directivity: " & TEST4PASS & "  Coupled Balance: " & Me.PF5.Text)
-                    TestRunning = False
-                    TestComplete = True
-                    TestPassFail = True
-                    LOTFail = LOTFail - 1
-                    UUTFail = UUTFail - 1
-                    Me.LotFailure.Text = FormatPercent(((LOTFail / UUTNum)), 1)
-                    cmdRetest.Enabled = False
-                    If Not GlobalFailed Then
-                        GlobalFail = GlobalFail + 1
-                        GlobalFailed = True
-                    End If
-                Else
-                    cmdRetest.Enabled = True
-                    TestRunning = False
-                    TestComplete = True
-                    TestPassFail = False
-                End If
-                If TEST1PASS And TEST1FailRetest >= 1 Then  ' Only update if the last run failed
-                    ' If Test1Fail > 0 Then Test1Fail = Test1Fail - 1
-                    Me.FailTotal1.Text = Test1Fail
-                    Me.Failures1.Text = FormatPercent(((Test1Fail / UUTNum)), 1)
-                End If
-
-                If TEST2PASS And TEST2FailRetest >= 1 Then  ' Only update if the last run failed
-                    'If Test2Fail > 0 Then Test2Fail = Test2Fail - 1
-                    Me.FailTotal2.Text = Test2Fail
-                    Me.Failures2.Text = FormatPercent(((Test2Fail / UUTNum)), 1)
-                End If
-
-                If TEST3PASS And TEST3FailRetest >= 1 Then  ' Only update if the last run failed
-                    'If TEST3Fail > 0 Then TEST3Fail = TEST3Fail - 1
-                    Me.FailTotal3.Text = TEST3Fail
-                    Me.Failures3.Text = FormatPercent(((TEST3Fail / UUTNum)), 1)
-                End If
-
-                If TEST4PASS And TEST4FailRetest >= 1 Then  ' Only update if the last run failed
-                    ' If TEST4Fail > 0 Then TEST4Fail = TEST4Fail - 1
-                    Me.FailTotal4.Text = TEST4Fail
-                    Me.Failures4.Text = FormatPercent(((TEST4Fail / UUTNum)), 1)
-                End If
-                If TEST5PASS And TEST5FailRetest >= 1 Then  ' Only update if the last run failed
-                    'If TEST5Fail > 0 Then TEST5Fail = TEST5Fail - 1
-                    Me.FailTotal5.Text = TEST5Fail
-                    Me.Failures5.Text = FormatPercent(((TEST5Fail / UUTNum)), 1)
-                End If
-                If LOTFail = 0 Then Me.LotTestFrame.BackColor = Color.LawnGreen
-                If LOTFail = 0 Then Me.LotFailureFrame.BackColor = Color.LawnGreen
-                If LOTFail > 0 Then Me.LotTestFrame.BackColor = Color.Red
-                If LOTFail > 0 Then Me.LotFailureFrame.BackColor = Color.Red
-                Me.cmdRetest.Enabled = True
-                If UUTFail = 1 Then Me.cmdRetest.Text = "Re - Test"
-                If UUTFail = 0 Then Me.cmdRetest.Text = "Undo"
-
-                If Passed Then Removed = RemoveLastEntryFailureLog()
-                If TweakMode Then
-                    UUTMessage.Text = "  UUT TESTS  -- Tweak Mode. No Data Logging"
-            ElseIf Not TraceChecked Then
-                UUTMessage.Text = "  UUT TESTS Marker Mode  --   Load Unit #" & UUTNum + 1
-                Else
-                    UUTMessage.Text = "  UUT TESTS  --  Load Unit #" & UUTNum + 1
-                End If
-
-                Me.cmdStartTest.Text = "Next UUT"
-                cmdStartTest.Enabled = True
-
-                MSChart.UpDateChart(SpecType)
-                If LastUUT <> 0 Then
-                    UUTNum = LastUUT
-                    UUTCount.Text = LastUUT
+            If TEST1PASS And TEST2PASS And TEST3PASS And TEST4PASS And TEST5PASS Then
+                status("Green", "TEST1")
+                status("Green", "TEST2")
+                status("Green", "TEST3")
+                status("Green", "TEST4")
+                status("Green", "TEST5")
+                Me.UUTStatusColor.BackColor = Color.LawnGreen
+                Me.StartTestFrame.BackColor = Color.LawnGreen
+                Me.ReTestFrame.BackColor = Color.LawnGreen
+                If Not TweakMode Then SaveFailureLog("UUT Number: " & UUTNum & " Job Number: " & Job & " Part Number: " & Part & "  Insertion Loss: " & Me.PF1.Text & "  Return Loss: " & Me.PF2.Text & "  Coupling: " & Me.PF3.Text & "  Directivity: " & TEST4PASS & "  Coupled Balance: " & Me.PF5.Text)
+                TestRunning = False
+                TestComplete = True
+                TestPassFail = True
+                LOTFail = LOTFail - 1
+                UUTFail = UUTFail - 1
+                Me.LotFailure.Text = FormatPercent(((LOTFail / UUTNum)), 1)
+                cmdRetest.Enabled = False
+                EraseTest.Enabled = False
+                If Not GlobalFailed Then
+                    GlobalFail = GlobalFail + 1
+                    GlobalFailed = True
                 End If
             Else
-                If UUTFail = 1 Then UndoUUT(True)
-                If UUTFail = 0 Then UndoUUT(False)
+                cmdRetest.Enabled = True
+                EraseTest.Enabled = True
+                TestRunning = False
+                TestComplete = True
+                TestPassFail = False
             End If
+            If TEST1PASS And TEST1FailRetest >= 1 Then  ' Only update if the last run failed
+                ' If Test1Fail > 0 Then Test1Fail = Test1Fail - 1
+                Me.FailTotal1.Text = Test1Fail
+                Me.Failures1.Text = FormatPercent(((Test1Fail / UUTNum)), 1)
+            End If
+
+            If TEST2PASS And TEST2FailRetest >= 1 Then  ' Only update if the last run failed
+                'If Test2Fail > 0 Then Test2Fail = Test2Fail - 1
+                Me.FailTotal2.Text = Test2Fail
+                Me.Failures2.Text = FormatPercent(((Test2Fail / UUTNum)), 1)
+            End If
+
+            If TEST3PASS And TEST3FailRetest >= 1 Then  ' Only update if the last run failed
+                'If TEST3Fail > 0 Then TEST3Fail = TEST3Fail - 1
+                Me.FailTotal3.Text = TEST3Fail
+                Me.Failures3.Text = FormatPercent(((TEST3Fail / UUTNum)), 1)
+            End If
+
+            If TEST4PASS And TEST4FailRetest >= 1 Then  ' Only update if the last run failed
+                ' If TEST4Fail > 0 Then TEST4Fail = TEST4Fail - 1
+                Me.FailTotal4.Text = TEST4Fail
+                Me.Failures4.Text = FormatPercent(((TEST4Fail / UUTNum)), 1)
+            End If
+            If TEST5PASS And TEST5FailRetest >= 1 Then  ' Only update if the last run failed
+                'If TEST5Fail > 0 Then TEST5Fail = TEST5Fail - 1
+                Me.FailTotal5.Text = TEST5Fail
+                Me.Failures5.Text = FormatPercent(((TEST5Fail / UUTNum)), 1)
+            End If
+            If LOTFail = 0 Then Me.LotTestFrame.BackColor = Color.LawnGreen
+            If LOTFail = 0 Then Me.LotFailureFrame.BackColor = Color.LawnGreen
+            If LOTFail > 0 Then Me.LotTestFrame.BackColor = Color.Red
+            If LOTFail > 0 Then Me.LotFailureFrame.BackColor = Color.Red
+            Me.cmdRetest.Enabled = True
+            EraseTest.Enabled = True
+            If UUTFail = 1 Then Me.cmdRetest.Text = "Re - Test"
+            'If UUTFail = 0 Then Me.cmdRetest.Text = "Undo"
+
+            If Passed Then Removed = RemoveLastEntryFailureLog()
+            If TweakMode Then
+                UUTMessage.Text = "  UUT TESTS  -- Tweak Mode. No Data Logging"
+            ElseIf Not TraceChecked Then
+                UUTMessage.Text = "  UUT TESTS Marker Mode  --   Load Unit #" & UUTNum + 1
+            Else
+                UUTMessage.Text = "  UUT TESTS  --  Load Unit #" & UUTNum + 1
+            End If
+
+            Me.cmdStartTest.Text = "Next UUT"
+            cmdStartTest.Enabled = True
+
+            MSChart.UpDateChart(SpecType)
+            If LastUUT <> 0 Then
+                UUTNum = LastUUT
+                UUTCount.Text = LastUUT
+            End If
+        Else
+            If UUTFail = 1 Then UndoUUT(True)
+            If UUTFail = 0 Then UndoUUT(False)
+        End If
         RetestReset()
 
     End Sub
@@ -2649,6 +2744,17 @@ ReallyComplete:
             Data3H.Visible = False
             Data3.Visible = True
         End If
+        If IL_TF Then
+            Data1L.Visible = True
+            Data1H.Visible = True
+            Data1.Visible = False
+        Else
+            Data1L.Visible = False
+            Data1H.Visible = False
+            Data1.Visible = True
+        End If
+
+
 
         ResetTests()
         GetLoss()
@@ -2657,6 +2763,10 @@ ReallyComplete:
         If Me.cmbJob.Text = "" Or Me.cmbJob.Text = " " Then
             MsgBox("Please select Job")
             MutiCal.Checked = False
+            Exit Sub
+        End If
+        If Me.txtArtwork.Text = "" Then
+            MsgBox("Please input the Artwork Revision")
             Exit Sub
         End If
 
@@ -2713,9 +2823,11 @@ ReallyComplete:
                 If User = "ATS" Then
                     GetTrace.CheckState = CheckState.Unchecked
                 End If
+                UUTCount.Text = UUTNum
                 StarStartExpectedTimeline()
                 resumeTest = False
                 EndLot.Enabled = True
+                Me.EraseJob.Enabled = True
                 Resumed = True
                 OperatorLog = True
             End If
@@ -2746,14 +2858,18 @@ ReallyComplete:
                 OP.Location = New Point(globals.XLocation, globals.YLocation)
                 OP.ShowDialog()
             End If
+            UUTCount.Text = UUTNum
             StarStartExpectedTimeline()
             EndLot.Enabled = True
+            Me.EraseJob.Enabled = True
             OperatorLog = True
         End If
 
         UUTFail = 0
         Me.RunStatus.ForeColor = Color.Red
         Data1.Text = ""
+        Data1L.Text = ""
+        Data1H.Text = ""
         Data2.Text = ""
         Data3.Text = ""
         Data4.Text = ""
@@ -2761,19 +2877,21 @@ ReallyComplete:
         Data4H.Text = ""
         Data5.Text = ""
         If UUTNum = 0 Then UUTNum = UUTNum + 1
-        If (UUTNum = 1 Or FirstPart) And ReportServer("test running", 0, True) = "Please Stop" Then
+
+        If (UUTNum = 1 Or FirstPart) And stopTest Then
+            ResetLot()
             Exit Sub
         End If
         FirstPart = False
         If UUTNum = 1 Or UUTReset Then
             UUTNum_Reset = 1
             UUTReset = False
+            Me.GetTrace.Checked = True
         End If
 
         ReportServer("test running", UUTNum, False)
         saveConfigurationVal(iniPathName, "uut_number", UUTNum)
         If TweakMode Then UUTNum = 1
-
         If UUTNum_Reset > 5 And Not BypassUnchecked Then
             Me.GetTrace.Checked = False
         ElseIf UUTNum_Reset > 5 And BypassUnchecked Then
@@ -2797,38 +2915,52 @@ ReallyComplete:
         If Me.cmbJob.Text = " " Then Exit Sub
         Job = Me.cmbJob.Text
         Part = Me.cmbPart.Text
-        SerialNumber = "UUT" & Me.UUTCount.Text
-        SQLstr = "select * from TestData where JobNumber = '" & Job & "' And SerialNumber = 'UUT" & Me.UUTCount.Text & "'"
-        If SQL.CheckforRow(SQLstr, "NetworkData") = 0 Then
-            SQLstr = "Insert Into TestData (JobNumber, PartNumber,SerialNumber,WorkStation) values ('" & Job & "','" & Part & "','" & SerialNumber & "','" & GetComputerName() & "')"
-            SQL.ExecuteSQLCommand(SQLstr, "NetworkData")
-        End If
-        SQLstr = "select * from TestData where JobNumber = '" & Job & "' And SerialNumber = 'UUT" & Me.UUTCount.Text & "'"
-        TestID = SQL.GetTestID(SQLstr, "NetworkData")
-        Me.Refresh()
+        SerialNumber = "UUT" & UUTNum_Reset
+        ' SQLstr = "select * from TestData where JobNumber = '" & Job & "' and WorkStation = '" & GetComputerName() & "' And SerialNumber = 'UUT" & UUTNum_Reset & "'"
+        'If SQL.CheckforRow(SQLstr, "NetworkData") = 0 Then
+        'SQLstr = "Insert Into TestData (JobNumber, PartNumber,SerialNumber,WorkStation) values ('" & Job & "','" & Part & "','" & SerialNumber & "','" & GetComputerName() & "')"
+        ' SQL.ExecuteSQLCommand(SQLstr, "NetworkData")
+        'End If
+        ' SQLstr = "select * from TestData where JobNumber = '" & Job & "' and WorkStation = '" & GetComputerName() & "' And SerialNumber = 'UUT" & UUTNum_Reset & "'"
+       Me.Refresh()
 
         'Insertion Loss
         If Me.ckTest1.Checked Then
             If Me.ckROBOT.Checked Then RobotStatus()
             If TraceChecked Then
+                If (SpecType = "TRANSFORMER") And IL_TF Then PassFail = Tests.InsertionLossTRANS_multiband(, TestID)
+                If SpecType = "TRANSFORMER" Then PassFail = Tests.InsertionLossTRANS(, TestID)
                 If (SpecType = "90 DEGREE COUPLER" Or SpecType = "BALUN") And SpecAB_TF Then PassFail = Tests.InsertionLoss3dB_multiband(, TestID)
                 If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.InsertionLoss3dB(, TestID)
                 If SpecType.Contains("COMBINER/DIVIDER") Then PassFail = Tests.InsertionLossCOMB(, TestID)
                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then PassFail = Tests.InsertionLossDIR(, TestID)
             ElseIf Not MutiCalChecked Then
+                If (SpecType = "TRANSFORMER") And IL_TF Then PassFail = Tests.InsertionLossTRANS_multiband(, TestID)
+                If SpecType = "TRANSFORMER" Then PassFail = Tests.InsertionLossTRANS_Marker(, TestID)
                 If (SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN")) And SpecAB_TF Then PassFail = Tests.InsertionLoss3dB_multiband(, TestID)
                 If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.InsertionLoss3dB_marker(, TestID)
                 If SpecType.Contains("COMBINER/DIVIDER") Then PassFail = Tests.InsertionLossCOMB_Marker(, TestID)
                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then PassFail = Tests.InsertionLossDIR_Marker(, TestID)
             End If
 
-            RetrnVal = IL
-            SaveTestData("InsertionLoss", RetrnVal)
 
+            If IL_TF Then
+                RetrnVal1 = IL1
+                SaveTestData("InsertionLoss", RetrnVal1)
+                RetrnVal = IL2
+                SaveTestData("InsertionLoss2", RetrnVal)
+                Data1L.Text = IL1
+                Data1H.Text = IL2
+            Else
+                RetrnVal = IL
+                SaveTestData("InsertionLoss", RetrnVal)
+                RetrnStr = CStr(Math.Round(RetrnVal, 2))
+                Data1.Text = Format(RetrnVal, "0.00")
+            End If
             status("Blue", "TEST1")
             PF1.Text = PassFail
-            RetrnStr = CStr(Math.Round(RetrnVal, 2))
-            Data1.Text = Format(RetrnVal, "0.00")
+
+
             If PassFail = "Pass" Then
                 TEST1PASS = True
                 status("Green", "TEST1")
@@ -3488,8 +3620,9 @@ TestComplete:  ' For everything except Directional Couplers
         If LOTFail > 0 Then LotTestFrame.BackColor = Color.Red
         If LOTFail > 0 Then LotFailureFrame.BackColor = Color.Red
         Me.cmdRetest.Enabled = True
+        Me.EraseTest.Enabled = True
         If UUTFail = 1 Then Me.cmdRetest.Text = "Re - Test"
-        If UUTFail = 0 Then Me.cmdRetest.Text = "Undo"
+        ' If UUTFail = 0 Then Me.cmdRetest.Text = "Undo"
         If ExpectedProgress2 > 0 Then SQL.UpdateEffeciency("Running", txtEfficiency.Text, txtCurrentTime.Text, CInt(UUTCount.Text))
         Me.LotFailure.Text = FormatPercent(((LOTFail / UUTNum)), 1)
         If TweakMode Then
@@ -3532,6 +3665,7 @@ TestReallyComplete:
         TestCompleteSignal(True) ' Note False/False tells the Robot to continue
         StopTime = Now()
         TestTime = StartTime - StopTime
+        EraseTest.Text = "Remove UUT" & UUTNum - 1
 
         ' Me.MasterUpLoad.Enabled = True
     End Sub
@@ -3547,8 +3681,9 @@ TestReallyComplete:
             SQL.ExecuteSQLCommand(SQLstr, "LocalTraceData")
         End If
     End Sub
-    Private Sub EraseTest_Click(sender As Object, e As EventArgs) Handles EraseTest.Click
+    Private Sub EraseJob_Click(sender As Object, e As EventArgs) Handles EraseJob.Click
         Dim mes As String
+        Dim SQLstr As String
         StatusLog.Items.Add("Closing the Job:" & DateTime.Now.ToString)
         ReportServer("job closed", UUTCount.Text, False)
         SQL.UpdateEffeciency("job closed", txtEfficiency.Text, txtCurrentTime.Text, UUTCount.Text)
@@ -3564,6 +3699,68 @@ TestReallyComplete:
         If MsgBox("Do you want to erase the data from This Job", vbYesNo, "Cannot be undone.") = vbYes Then
             EraseThisTest()
         End If
+        SQLstr = "Delete from Trace "
+        SQL.ExecuteSQLCommand(SQLstr, "LocalTraceData")
+
+        SQLstr = "Delete from TracePoints "
+        SQL.ExecuteSQLCommand(SQLstr, "LocalTraceData")
+    End Sub
+   
+    Private Sub EraseTest_Click(sender As Object, e As EventArgs) Handles EraseTest.Click
+        Dim mes As String
+        UUTNum = UUTNum - 1
+        UUTNum_Reset = UUTNum_Reset - 1
+        EraseThisUUT()
+        mes = "UUT" & UUTNum & "has been erased by operator"
+        UUTCount.Text = Str(UUTNum)
+        StatusLog.Items.Add(mes)
+        Me.Refresh()
+    End Sub
+    Private Sub EraseThisUUT()
+        Dim SQLstr As String
+        Dim Title As String
+        Dim TraceID As Integer
+
+        Title = Me.txtTitle.Text
+        ExpectedProgress.Minimum = 0
+        ActualProgress.Minimum = 0
+        ActualProgress.Maximum = 4
+
+        ILSetDone = False
+        SQLstr = "select * from Trace where JobNumber = '" & Me.cmbJob.Text & "' and SerialNumber = UUT" & UUTNum_Reset & "' and artwork_rev = '" & Me.txtArtwork.Text & "'"
+        TraceID = GetTestID(SQLstr, "LocalTraceData")
+
+        If MsgBox("Are you sure you want to erase ALL DATA from This Job", vbYesNo, "Cannot be undone.") = vbYes Then
+
+            ResetLot()
+            Me.txtTitle.Text = "     DELETING " & Me.cmbJob.Text & " TEST DATA"
+            SQLstr = "Delete from TestData where JobNumber = '" & Me.cmbJob.Text & "' and SerialNumber = UUT" & UUTNum_Reset & "' and artwork_rev = '" & Me.txtArtwork.Text & "'"
+            SQL.ExecuteSQLCommand(SQLstr, "NetworkData")
+            If Not TweakMode Then If ActualProgress.Value + 1 <= ActualProgress.Maximum Then ActualProgress.Value = ExpectedProgress.Value + 1
+
+            'Get Trace ID
+            Me.txtTitle.Text = "     DELETING " & Me.cmbJob.Text & " Trace DATA"
+            SQLstr = "select * from Trace where JobNumber = '" & Me.cmbJob.Text & "' and SerialNumber = UUT" & UUTNum_Reset & "' and artwork_rev = '" & Me.txtArtwork.Text & "'"
+            TraceID = GetTestID(SQLstr, "NetworkTraceData")
+
+            SQLstr = "Delete from TracePoints where TraceID = " & TraceID & ""
+            SQL.ExecuteSQLCommand(SQLstr, "NetworkTraceData")
+            If Not TweakMode Then If ActualProgress.Value + 1 <= ActualProgress.Maximum Then ActualProgress.Value = ExpectedProgress.Value + 1
+
+            Me.txtTitle.Text = "     DELETING " & Me.cmbJob.Text & " TRACE DATA"
+            SQLstr = "Delete from Trace where JobNumber = '" & Me.cmbJob.Text & "' and SerialNumber = UUT" & UUTNum_Reset & "' and artwork_rev = '" & Me.txtArtwork.Text & "'"
+            If Not TweakMode Then If ActualProgress.Value + 1 <= ActualProgress.Maximum Then ActualProgress.Value = ExpectedProgress.Value + 1
+
+            If MsgBox("Do you want to erase the Specification?", vbYesNo, "Cannot be undone.") = vbYes Then
+                Me.txtTitle.Text = "     DELETING " & Me.cmbJob.Text & " Specifications"
+                SQLstr = "Delete from Specifications where JobNumber = '" & Me.cmbJob.Text & "'"
+                SQL.ExecuteSQLCommand(SQLstr, "NetworkSpecs")
+                If Not TweakMode Then If ActualProgress.Value + 1 <= ActualProgress.Maximum Then ActualProgress.Value = ExpectedProgress.Value + 1
+
+            End If
+        End If
+
+        Me.txtTitle.Text = Title
     End Sub
     Private Sub EraseThisTest()
         Dim SQLstr As String
@@ -3765,7 +3962,12 @@ TestReallyComplete:
                 If UUTFail = 0 Or Retest Then Me.UUTLabel.ForeColor = Drawing.Color.LawnGreen
                 If UUTFail = 0 Or Retest Then Me.UUTCount.ForeColor = Drawing.Color.LawnGreen
                 Me.PF1.ForeColor = Drawing.Color.LawnGreen
-                Me.Data1.ForeColor = Drawing.Color.LawnGreen
+                If IL_TF Then
+                    Me.Data1L.ForeColor = Drawing.Color.LawnGreen
+                    Me.Data1H.ForeColor = Drawing.Color.LawnGreen
+                Else
+                    Me.Data1.ForeColor = Drawing.Color.LawnGreen
+                End If
                 If Not Retest Then Me.Failures1.ForeColor = Drawing.Color.LawnGreen
                 If Not Retest Then Me.FailTotal1.ForeColor = Drawing.Color.LawnGreen
             End If
@@ -3773,7 +3975,20 @@ TestReallyComplete:
                 If Not Retest Then Me.Failures1.ForeColor = Drawing.Color.Red
                 If Not Retest Then Me.FailTotal1.ForeColor = Drawing.Color.Red
                 Me.PF1.ForeColor = Drawing.Color.Red
-                Me.Data1.ForeColor = Drawing.Color.Red
+                If IL_TF Then
+                    If IL1_status = "Pass" Then
+                        Me.Data1L.ForeColor = Drawing.Color.LawnGreen
+                    Else
+                        Me.Data1L.ForeColor = Drawing.Color.Red
+                    End If
+                    If IL2_status = "Pass" Then
+                        Me.Data1H.ForeColor = Drawing.Color.LawnGreen
+                    Else
+                        Me.Data1H.ForeColor = Drawing.Color.Red
+                    End If
+                Else
+                    Me.Data1.ForeColor = Drawing.Color.Red
+                End If
                 Me.UUTStatusColor.BackColor = Drawing.Color.Red
                 Me.StartTestFrame.BackColor = Drawing.Color.Red
                 Me.ReTestFrame.BackColor = Drawing.Color.Red
@@ -3785,8 +4000,13 @@ TestReallyComplete:
             End If
             If Color = "Black" Then
                 PF1.ForeColor = Drawing.Color.Black
-                Me.Data1.ForeColor = Drawing.Color.Black
-                Me.ReTestFrame.BackColor = Drawing.Color.Black
+                If IL_TF Then
+                    Me.Data1L.ForeColor = Drawing.Color.Black
+                    Me.Data1H.ForeColor = Drawing.Color.Black
+                Else
+                    Me.Data1.ForeColor = Drawing.Color.Black
+                End If
+               Me.ReTestFrame.BackColor = Drawing.Color.Black
                 Me.UUTLabel.ForeColor = Drawing.Color.Black
                 Me.StartTestFrame.BackColor = Drawing.Color.Black
                 Me.PF1.ForeColor = Drawing.Color.Black
@@ -4122,10 +4342,18 @@ TestReallyComplete:
         Dim TempAccess As Boolean
         Dim TempNetwork As Boolean
         Dim PassFail As String
+        Dim thisStatus1 As String = ""
+        Dim thisStatus2 As String = ""
+        Dim thisStatus3 As String = ""
+        Dim thisStatus As String = ""
+        Dim thisUser As String = ""
+        Dim thisJob As String = ""
+        Dim thisStation As String = ""
+        Dim complete As String = ""
 
         Try
             TestExist = False
-        OldTitle = txtTitle.Text
+            OldTitle = txtTitle.Text
             ResetLot()
 
             UUTNum = 0
@@ -4133,25 +4361,125 @@ TestReallyComplete:
             If Me.cmbJob.Text = " " Then Exit Function
             TempAccess = SQLAccess
             TempNetwork = NetworkAccess
-
-            ' Check for data on SQL
-            SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "' And WorkStation = '" & WorkStation & "'"
-            If SQL.CheckforRow(SQLstr, "NetworkData") > 0 Then GoTo StartResume
-
-            'No Data on SQL. Check Network Access
-            Me.txtTitle.Text = "    PLEASE WAIT....... Looking for Network Access TEST DATA  ...........  "
-            SQLAccess = False
-            If SQL.CheckforRow(SQLstr, "NetworkData") > 0 Then
-                If TempAccess Then UploadTestData("NetworkData")
-                GoTo StartResume
+            Dim test_status As String = GetTestStatus()
+            stopTest = False
+            If test_status = "None" Then
+                SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "' And WorkStation = '" & WorkStation & "'"
+                If SQL.CheckforRow(SQLstr, "NetworkData") > 0 Then GoTo StartResume
+            ElseIf test_status = "One" Then
+                If ReportStatus(0) = "test running" And WorkStation = SavedWorkStation(0) And SavedJob(0) = Job Then
+                    SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "'"
+                    If SQL.CheckforRow(SQLstr, "NetworkData") > 0 Then GoTo StartResume
+                ElseIf ReportStatus(0) = "test running" And WorkStation = SavedWorkStation(0) And Not SavedJob(0) = Job Then
+                    If MsgBox("Are you sure you  want to continue at UUT" & SavedComplete(0) & "??", vbYesNo, SavedJob(0) & " has not been completed by " & SavedUser(0) & " at Workstation " & SavedWorkStation(0)) = vbYes Then
+                        If MsgBox("Do you want to close " & SavedJob(0) & "from Workstation " & SavedWorkStation(0) & "?", vbYesNo, "Yes or No") = vbYes Then
+                            SQLstr = "UPDATE ReportQueue Set ReportStatus = job closed where JobNumber = '" & Job & "'"
+                            SQL.ExecuteSQLCommand(SQLstr, "Effeciency")
+                            SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "''"
+                            If SQL.CheckforRow(SQLstr, "NetworkData") > 0 Then GoTo StartResume
+                            stopTest = False
+                        Else
+                            stopTest = True
+                        End If
+                    End If
+                ElseIf ReportStatus(0) = "report complete" Or ReportStatus(0) = "report complete" Then
+                    If MsgBox("Are you sure you  want to continue at UUT" & SavedComplete(0) & "??", vbYesNo, SavedJob(0) & " has been completed by " & SavedUser(0) & " at Workstation " & SavedWorkStation(0)) = vbYes Then
+                        SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "'"
+                        If SQL.CheckforRow(SQLstr, "NetworkData") > 0 Then GoTo StartResume
+                        GoTo StartResume
+                    End If
+                ElseIf ReportStatus(0) = "job closed" Then
+                    If MsgBox("Are you sure you  want to continue at UUT" & SavedComplete(0) & "??", vbYesNo, SavedJob(0) & " has been paused by " & SavedUser(0) & " at Workstation " & SavedWorkStation(0)) = vbYes Then
+                        GoTo StartResume
+                    Else
+                        stopTest = True
+                    End If
+                Else
+                    GoTo StartResume
             End If
+            ElseIf test_status = "Multiple" Then
+                complete = 0
+                For x = 0 To ReportStatus.Length - 1
+                    thisStatus1 = ReportStatus(x)
+                    If thisStatus1 = "job closed" Then
+                        thisStatus = ReportStatus(x)
+                        If SavedComplete(x) > complete Then
+                            complete = SavedComplete(x)
+                        End If
+                        thisUser = SavedUser(x)
+                        thisStation = SavedWorkStation(x)
+                        thisJob = SavedJob(x)
+                        Exit For
+                    Else
+                        thisStatus = thisStatus1
+                    End If
 
-            'No Data on Network Access. Try Local Access
-            Me.txtTitle.Text = "    PLEASE WAIT....... Looking for Local Access TEST DATA  ...........  "
-            NetworkAccess = False
-            If SQL.CheckforRow(SQLstr, "LocalData") > 0 Then
-                If TempAccess Then UploadTestData("LocalData")
-                GoTo StartResume
+                Next
+                If Not complete = 0 Then GoTo letsgetiton
+                complete = 0
+                For x = 0 To ReportStatus.Length - 1
+                    thisStatus2 = ReportStatus(x)
+                    If thisStatus2 = "test running" Then
+                        thisStatus = ReportStatus(x)
+                        If SavedComplete(x) > complete Then
+                            complete = SavedComplete(x)
+                        End If
+                        thisUser = SavedUser(x)
+                        thisStation = SavedWorkStation(x)
+                        thisJob = SavedJob(x)
+                        Exit For
+                    End If
+                Next
+                If Not complete = 0 Then GoTo letsgetiton
+                complete = 0
+                For x = 0 To ReportStatus.Length - 1
+                    thisStatus2 = ReportStatus(x)
+                    If thisStatus2 = "report queue" Then
+                        thisStatus = ReportStatus(x)
+                        If SavedComplete(x) > complete Then
+                            complete = SavedComplete(x)
+                        End If
+                        thisUser = SavedUser(x)
+                        thisStation = SavedWorkStation(x)
+                        thisJob = SavedJob(x)
+                        Exit For
+                    End If
+                Next
+                If Not complete = 0 Then GoTo letsgetiton
+                complete = 0
+                For x = 0 To ReportStatus.Length - 1
+                    thisStatus3 = ReportStatus(x)
+                    If thisStatus3 = "job closed" Then
+                        thisStatus = ReportStatus(x)
+                        If SavedComplete(x) > complete Then
+                            complete = SavedComplete(x)
+                        End If
+                        thisUser = SavedUser(x)
+                        thisStation = SavedWorkStation(x)
+                        thisJob = SavedJob(x)
+                        Exit For
+                    End If
+                Next
+letsgetiton:
+                If MsgBox("Are you sure you  want to continue at UUT" & complete & " ??", vbYesNo, thisJob & " has not been completed by multiple Users and/or Workstations") = vbYes Then
+                    SQLstr = "UPDATE ReportQueue Set ReportStatus = job closed where JobNumber = '" & Job & "'"
+                    SQL.ExecuteSQLCommand(SQLstr, "Effeciency")
+                    SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "'"
+                    If SQL.CheckforRow(SQLstr, "NetworkData") > 0 Then GoTo StartResume
+                    stopTest = False
+                Else
+                    If MsgBox("Do you want to close " & SavedJob(0) & "?", vbYesNo, "Yes or No") = vbYes Then
+                        
+                        If MsgBox("Do you want to erase the data from This Job", vbYesNo, "Cannot be undone.") = vbYes Then
+                            EraseThisTest()
+                        End If
+                        SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "'"
+                        If SQL.CheckforRow(SQLstr, "NetworkData") > 0 Then GoTo StartResume
+                        stopTest = False
+                    Else
+                        stopTest = True
+                    End If
+                End If
             End If
             SQLAccess = TempAccess
             NetworkAccess = TempNetwork
@@ -4161,6 +4489,7 @@ StartResume:
             SQLAccess = TempAccess
             NetworkAccess = TempNetwork
             ResumeTesting = True
+            stopTest = False
             TestExist = True
             If TweakMode Then Exit Function
             If MsgBox("The Job is already on record. Resume Testing", vbYesNo, "Continue or Start Over") = vbNo Then
@@ -4193,6 +4522,7 @@ StartResume:
                         Me.RunStatus.ForeColor = Color.Red
                         UUTNum = UUTNum + 1
                         UUTNum_Reset = UUTNum_Reset + 1
+                        EraseTest.Text = "Remove UUT" & UUTNum - 1
                         If UUTNum > 5 And Not BypassUnchecked Then Me.GetTrace.Checked = False
                         UUTCount.Text = Str(UUTNum)
                         If TweakMode Then
@@ -4211,7 +4541,7 @@ StartResume:
                             RetrnVal = CDbl(dr.Item(6))
                         Else
                             If Not Incomplete Then
-                                If MsgBox("Data is incomplete at UUT " & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
+                                If MsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
                                     UUTNum = UUTNum - 1
                                     UUTNum_Reset = UUTNum_Reset - 1
                                     Incomplete = True
@@ -4231,7 +4561,7 @@ StartResume:
                         ElseIf PassFail = "Fail" Then
                             TEST1PASS = False
                             status("Red", "TEST1")
-                           
+
                             MSChart.UpDateChartData(SpecType, "IL", "Fail")
                             UUTFail = 1
                         End If
@@ -4254,8 +4584,9 @@ StartResume:
                             End If
 
                             If Not Incomplete Then
-                                If MsgBox("Data is incomplete at UUT " & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
+                                If MsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
                                     UUTNum = UUTNum - 1
+                                    EraseTest.Text = "Remove UUT" & UUTNum - 1
                                     UUTNum_Reset = UUTNum_Reset - 1
                                     Incomplete = True
                                     GoTo Recap
@@ -4309,8 +4640,9 @@ StartResume:
                                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then MSChart.UpDateChartData(SpecType, "COU", "Pass")
                             End If
                             If Not Incomplete Then
-                                If MsgBox("Data is incomplete at UUT " & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
+                                If MsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
                                     UUTNum = UUTNum - 1
+                                    EraseTest.Text = "Remove UUT" & UUTNum - 1
                                     UUTNum_Reset = UUTNum_Reset - 1
                                     Incomplete = True
                                     GoTo Recap
@@ -4371,8 +4703,9 @@ StartResume:
                                 If (SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER") Then MSChart.UpDateChartData(SpecType, "DIR", "Pass")
                             End If
                             If Not Incomplete Then
-                                If MsgBox("Data is incomplete at UUT " & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
+                                If MsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
                                     UUTNum = UUTNum - 1
+                                    EraseTest.Text = "Remove UUT" & UUTNum - 1
                                     UUTNum_Reset = UUTNum_Reset - 1
                                     Incomplete = True
                                     GoTo Recap
@@ -4454,8 +4787,9 @@ StartResume:
                                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then MSChart.UpDateChartData(SpecType, "CB", "Pass")
                             End If
                             If Not Incomplete Then
-                                If MsgBox("Data is incomplete at UUT " & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
+                                If MsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
                                     UUTNum = UUTNum - 1
+                                    EraseTest.Text = "Remove UUT" & UUTNum - 1
                                     UUTNum_Reset = UUTNum_Reset - 1
                                     Incomplete = True
                                     GoTo Recap
@@ -4490,8 +4824,10 @@ Recap:
                         If LOTFail > 0 Then LotTestFrame.BackColor = Color.Red
                         If LOTFail > 0 Then LotFailureFrame.BackColor = Color.Red
                         If LOTFail > 0 Then UUTStatusColor.BackColor = Color.Red
-                        '                If UUTFail = 1 Then Me.cmdRetest.Enabled = True
-                        '                If UUTFail = 0 Then Me.cmdRetest.Enabled = False
+                        If UUTFail = 1 Then Me.cmdRetest.Enabled = True
+                        If UUTFail = 0 Then Me.cmdRetest.Enabled = False
+                        If UUTFail = 1 Then Me.EraseTest.Enabled = True
+                        If UUTFail = 0 Then Me.EraseTest.Enabled = False
                         If UUTNum <> 0 Then Me.LotFailure.Text = FormatPercent(((LOTFail / UUTNum)), 1)
                         If TweakMode Then
                             UUTMessage.Text = "  UUT TESTS  --   Tweak Mode. No Data Logging"
@@ -4524,6 +4860,7 @@ Recap:
                     While Not drLocal.Read = Nothing
                         Me.RunStatus.ForeColor = Color.Red
                         UUTNum = UUTNum + 1
+                        EraseTest.Text = "Remove UUT" & UUTNum
                         UUTNum_Reset = UUTNum_Reset + 1
                         If UUTNum > 5 And Not BypassUnchecked Then Me.GetTrace.Checked = False
                         UUTCount.Text = Str(UUTNum)
@@ -4543,7 +4880,7 @@ Recap:
                             RetrnVal = CDbl(drLocal.Item(6))
                         Else
                             If Not Incomplete Then
-                                If MsgBox("Data is incomplete at UUT " & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
+                                If MsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
                                     UUTNum = UUTNum - 1
                                     UUTNum_Reset = UUTNum_Reset - 1
                                     Incomplete = True
@@ -4579,8 +4916,9 @@ Recap:
                                 status("Green", "TEST2")
                             End If
                             If Not Incomplete Then
-                                If MsgBox("Data is incomplete at UUT " & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
+                                If MsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
                                     UUTNum = UUTNum - 1
+                                    EraseTest.Text = "Remove UUT" & UUTNum
                                     UUTNum_Reset = UUTNum_Reset - 1
                                     Incomplete = True
                                     GoTo Recap
@@ -4621,8 +4959,9 @@ Recap:
                                 status("Green", "TEST3")
                             End If
                             If Not Incomplete Then
-                                If MsgBox("Data is incomplete at UUT " & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
+                                If MsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
                                     UUTNum = UUTNum - 1
+                                    EraseTest.Text = "Remove UUT" & UUTNum
                                     UUTNum_Reset = UUTNum_Reset - 1
                                     Incomplete = True
                                     GoTo Recap
@@ -4670,8 +5009,9 @@ Recap:
                                 status("Green", "TEST4")
                             End If
                             If Not Incomplete Then
-                                If MsgBox("Data is incomplete at UUT " & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
+                                If MsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
                                     UUTNum = UUTNum - 1
+                                    EraseTest.Text = "Remove UUT" & UUTNum
                                     UUTNum_Reset = UUTNum_Reset - 1
                                     Incomplete = True
                                     GoTo Recap
@@ -4723,8 +5063,9 @@ Recap:
                                 status("Green", "TEST5")
                             End If
                             If Not Incomplete Then
-                                If MsgBox("Data is incomplete at UUT " & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
+                                If MsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
                                     UUTNum = UUTNum - 1
+                                    EraseTest.Text = "Remove UUT" & UUTNum
                                     UUTNum_Reset = UUTNum_Reset - 1
                                     Incomplete = True
                                     GoTo Recap
@@ -4762,8 +5103,10 @@ Recap1:
                         If LOTFail > 0 Then LotTestFrame.BackColor = Color.Red
                         If LOTFail > 0 Then LotFailureFrame.BackColor = Color.Red
                         If LOTFail > 0 Then UUTStatusColor.BackColor = Color.Red
-                        '                If UUTFail = 1 Then Me.cmdRetest.Enabled = True
-                        '                If UUTFail = 0 Then Me.cmdRetest.Enabled = False
+                        If UUTFail = 1 Then Me.cmdRetest.Enabled = True
+                        If UUTFail = 0 Then Me.cmdRetest.Enabled = False
+                        If UUTFail = 1 Then Me.EraseTest.Enabled = True
+                        If UUTFail = 0 Then Me.EraseTest.Enabled = False
                         If UUTNum <> 0 Then Me.LotFailure.Text = FormatPercent(((LOTFail / UUTNum)), 1)
                         If TweakMode Then
                             UUTMessage.Text = "  UUT TESTS  --   Tweak Mode. No Data Logging"
@@ -5666,7 +6009,7 @@ Trap:
         Dim SQLstr As String
 
         If MsgBox("Are you sure you want to erase UUT" + Me.UUTCount.Text, vbOKCancel, "???") = vbCancel Then Exit Sub
-        SQLstr = "Delete from TestData where JobNumber = '" + Me.cmbJob.Text & "' And SerialNumber = 'UUT" & Me.UUTCount.Text & "'"
+        SQLstr = "Delete from TestData where JobNumber = '" + Me.cmbJob.Text & "' And SerialNumber = 'UUT" & UUTNum_Reset & "'"
         SQL.ExecuteSQLCommand(SQLstr, "NetworkData")
 
         If TweakMode Then
@@ -5684,9 +6027,11 @@ Trap:
         Total5.Text = Total5.Text - 1
         If TweakMode Then
             UUTNum = 1
+            EraseTest.Text = "Remove UUT" & UUTNum
             UUTNum_Reset = 1
         Else
             UUTNum = UUTNum - 1
+            EraseTest.Text = "Remove UUT" & UUTNum
             UUTNum_Reset = UUTNum_Reset - 1
         End If
 
@@ -5700,6 +6045,7 @@ Trap:
         Me.cmdStartTest.Enabled = True
         Me.cmdRetest.Text = "Re - Test"
         Me.cmdRetest.Enabled = False
+        EraseTest.Enabled = False
         RemoveSerialEntryLog(Me.UUTCount.Text)
         If UUTNum = 0 Then
             Me.Failures1.Text = "0%"
@@ -5724,6 +6070,7 @@ Trap:
         If TweakMode Then
             UUTNum = 1
             UUTCount.Text = UUTNum
+            EraseTest.Text = "Remove UUT" & UUTNum
 
             UUTMessage.Text = "  UUT TESTS  --   Tweak Mode. No Data Logging"
         ElseIf Not TraceChecked Then
@@ -6043,6 +6390,8 @@ TestComplete:  ' For everything except Directional Couplers
             SpecPorts = Nothing
 
             SpecIL = CDbl(SQL.GetSpecification("InsertionLoss"))
+            SpecILL = CDbl(SQL.GetSpecification("InsertionLoss"))
+            SpecILH = CDbl(SQL.GetSpecification("IL_ex"))
             SpecRL = CDbl(SQL.GetSpecification("VSWR"))
             SpecISO = CDbl(SQL.GetSpecification("Isolation"))
             SpecISOL = CDbl(SQL.GetSpecification("Isolation"))
@@ -6293,12 +6642,6 @@ TestComplete:  ' For everything except Directional Couplers
         Dim ReportType As String = SpecType
         Dim history As String = GetreportStatus()
         ReportServer = history
-        If first And Status = "test running" And history = "test running" And Not ReportJob = Job Then
-            If MsgBox(ReportJob & " has not been completed.", vbYesNo, "Are you sure you  want to continue??") = vbNo Then
-                ReportServer = "Please Stop"
-                Exit Function
-            End If
-        End If
 
         SQLstr = "SELECT * from ReportQueue where JobNumber = '" & Job & "' And WorkStation = '" & GetComputerName() & "'"
         If SQL.CheckforRow(SQLstr, "ReportQueue") = 0 Then
@@ -6331,8 +6674,9 @@ TestComplete:  ' For everything except Directional Couplers
             SpecType = SQL.GetSpecification("SpecType")
             If SpecType.Contains("DIRECTIONAL COUPLER") Then Directional = True
 
-            ' SQLstr = "Select * from TestData where JobNumber = '" & Me.cmbJob.Text & "' and Workstation = '" & WorkStation & "'"
+            'SQLstr = "Select * from TestData where JobNumber = '" & Me.cmbJob.Text & "' and Workstation = '" & WorkStation & "'"
             SQLstr = "Select * from TestData where JobNumber = '" & Me.cmbJob.Text & "'"
+
             Test = SQL.CheckforRow(SQLstr, "NetworkData")
             If Test = 0 Then
                 MsgBox("Sorry no data on record")
@@ -6388,19 +6732,30 @@ TestComplete:  ' For everything except Directional Couplers
                     While Not dr.Read = Nothing
                         If Not IsDBNull(dr.Item(4)) Then ExcelReports.DataToCells("A" & Row, dr.Item(4))
                         If Not IsDBNull(dr.Item(5)) Then ExcelReports.DataToCells("B" & Row, dr.Item(5))
-                        If Not IsDBNull(dr.Item(6)) Then ExcelReports.DataToCells("C" & Row, Format(dr.Item(6), "0.00"))
-                        If Not IsDBNull(dr.Item(7)) Then ExcelReports.DataToCells("D" & Row, Format(dr.Item(7), "0.00"))
-                        If Not SpecType.Contains("BALUN") Then If Not IsDBNull(dr.Item(9)) Then ExcelReports.DataToCells("E" & Row, Format(dr.Item(9), "0.00"))
-                        If SpecAB_TF Then
-                            If Not IsDBNull(dr.Item(16)) And Not IsDBNull(dr.Item(17)) Then ExcelReports.DataToCells("F" & Row, dr.Item(16) & " / " & dr.Item(17))
+                        If IL_TF Then
+                            If Not IsDBNull(dr.Item(6)) And Not IsDBNull(dr.Item(24)) Then ExcelReports.DataToCells("C" & Row, dr.Item(6) & " / " & dr.Item(24))
                         Else
-                            If Not IsDBNull(dr.Item(11)) Then ExcelReports.DataToCells("F" & Row, dr.Item(11))
+                            If Not IsDBNull(dr.Item(6)) Then ExcelReports.DataToCells("C" & Row, dr.Item(6))
                         End If
-                        If Not IsDBNull(dr.Item(13)) Then ExcelReports.DataToCells("G" & Row, Format(dr.Item(13), "0.00"))
-                        If IsDBNull(dr.Item(15)) Then
-                            ExcelReports.DataToCells("H" & Row, ArtworkRevision)
+                        If Not IsDBNull(dr.Item(7)) Then ExcelReports.DataToCells("D" & Row, Format(dr.Item(7), "0.00"))
+                        If IL_TF Then
+                            ExcelReports.DataToCells("E" & Row, "N/A")
+                            ExcelReports.DataToCells("F" & Row, "N/A")
+                            ExcelReports.DataToCells("G" & Row, "N/A")
+                            ExcelReports.DataToCells("H" & Row, "N/A")
                         Else
-                            ExcelReports.DataToCells("H" & Row, dr.Item(15))
+                            If Not SpecType.Contains("BALUN") Then If Not IsDBNull(dr.Item(9)) Then ExcelReports.DataToCells("E" & Row, Format(dr.Item(9), "0.00"))
+                            If SpecAB_TF Then
+                                If Not IsDBNull(dr.Item(16)) And Not IsDBNull(dr.Item(17)) Then ExcelReports.DataToCells("F" & Row, dr.Item(16) & " / " & dr.Item(17))
+                            Else
+                                If Not IsDBNull(dr.Item(11)) Then ExcelReports.DataToCells("F" & Row, dr.Item(11))
+                            End If
+                            If Not IsDBNull(dr.Item(13)) Then ExcelReports.DataToCells("G" & Row, Format(dr.Item(13), "0.00"))
+                            If IsDBNull(dr.Item(15)) Then
+                                ExcelReports.DataToCells("H" & Row, ArtworkRevision)
+                            Else
+                                ExcelReports.DataToCells("H" & Row, dr.Item(15))
+                            End If
                         End If
                         Row = Row + 1
                     End While
@@ -6497,77 +6852,79 @@ TestComplete:  ' For everything except Directional Couplers
     End Sub
 
     Public Sub TraceDataReport()
-        If SpecType.Contains("90 DEGREE COUPLER") Or SpecType.Contains("BALUN") Then
+        Try
+            If SpecType.Contains("90 DEGREE COUPLER") Or SpecType.Contains("BALUN") Or SpecType.Contains("TRANSFORMER") Then
 
-            For x = 0 To 4
-                SerialNumber = "UUT " & x + 1
+                For x = 0 To 4
+                    SerialNumber = "UUT" & x + 1
 
-                If Not IL_XArray(0, 0) = 0 Then
-                    For y = 0 To 200
-                        ReDim Preserve XArray(y)
-                        ReDim Preserve YArray(y)
-                        ReDim Preserve YArray1(y)
-                        XArray(y) = IL_XArray(x, y)
-                        YArray(y) = IL1_YArray(x, y)
-                        YArray1(y) = IL2_YArray(x, y)
-                    Next
-                Else
-                    Title = "Insertion Loss J4"
-                    If Not NetworkAccess Then
-                        TraceID = 4263
+                    If Not IL_XArray(0, 0) = 0 Then
+                        For y = 0 To 200
+                            ReDim Preserve XArray(y)
+                            ReDim Preserve YArray(y)
+                            ReDim Preserve YArray1(y)
+                            XArray(y) = IL_XArray(x, y)
+                            YArray(y) = IL1_YArray(x, y)
+                            YArray1(y) = IL2_YArray(x, y)
+                        Next
                     Else
-                        TraceID = GetTraceIDByTitle(Title, SerialNumber, Me.cmbJob.Text, WorkStation)
-                    End If
-                    If TraceID = 0 Then
-                        GoTo Skip1:
-                    ElseIf TraceID > 171666 Then
-                        GetTracePoints2(TraceID)
-                    Else
-                        GetTracePoints(TraceID)
-                    End If
-                    ReDim Preserve YArray1(YArray1.Count)
-                    YArray1 = YArray
+                        Title = "Insertion Loss J4"
+                        If Not NetworkAccess Then
+                            TraceID = 4263
+                        Else
+                            TraceID = GetTraceIDByTitle(Title, SerialNumber, Me.cmbJob.Text, WorkStation)
+                        End If
+                        If TraceID = 0 Then
+                            GoTo RL
+                        ElseIf TraceID > 171666 Then
+                            GetTracePoints2(TraceID)
+                        Else
+                            GetTracePoints(TraceID)
+                        End If
+                        ReDim Preserve YArray1(YArray1.Count)
+                        YArray1 = YArray
 
-                    Title = "Insertion Loss J3"
-                    If Not NetworkAccess Then
-                        TraceID = 4262
-                    Else
-                        TraceID = GetTraceIDByTitle(Title, SerialNumber, Me.cmbJob.Text, WorkStation)
+                        Title = "Insertion Loss J3"
+                        If Not NetworkAccess Then
+                            TraceID = 4262
+                        Else
+                            TraceID = GetTraceIDByTitle(Title, SerialNumber, Me.cmbJob.Text, WorkStation)
+                        End If
+                        If TraceID > 171666 Then
+                            GetTracePoints2(TraceID)
+                        Else
+                            GetTracePoints(TraceID)
+                        End If
+                        ReDim Preserve YArray(YArray.Count)
                     End If
-                    If TraceID > 171666 Then
-                        GetTracePoints2(TraceID)
+                    ExcelReports.LoadChart1(SerialNumber, "Insertion Loss/Amplitude balance")
+RL:
+                    ' Return Loss
+                    If Not RL_XArray(0, 0) = 0 Then
+                        For y = 0 To 200
+                            ReDim Preserve XArray(y)
+                            ReDim Preserve YArray(y)
+                            XArray(y) = RL_XArray(x, y)
+                            YArray(y) = RL_YArray(x, y)
+                        Next
                     Else
-                        GetTracePoints(TraceID)
+                        Title = "Return Loss"
+                        If Not NetworkAccess Then
+                            TraceID = 4264
+                        Else
+                            TraceID = GetTraceIDByTitle(Title, SerialNumber, Me.cmbJob.Text, WorkStation)
+                        End If
+                        If TraceID = 0 Then
+                            GoTo ISO
+                        ElseIf TraceID > 171666 Then
+                            GetTracePoints2(TraceID)
+                        Else
+                            GetTracePoints(TraceID)
+                        End If
                     End If
-                    ReDim Preserve YArray(YArray.Count)
-                End If
-                ExcelReports.LoadChart1(SerialNumber, "Insertion Loss/Amplitude balance")
-
-                ' Return Loss
-                If Not RL_XArray(0, 0) = 0 Then
-                    For y = 0 To 200
-                        ReDim Preserve XArray(y)
-                        ReDim Preserve YArray(y)
-                        XArray(y) = RL_XArray(x, y)
-                        YArray(y) = RL_YArray(x, y)
-                    Next
-                Else
-                    Title = "Return Loss"
-                    If Not NetworkAccess Then
-                        TraceID = 4264
-                    Else
-                        TraceID = GetTraceIDByTitle(Title, SerialNumber, Me.cmbJob.Text, WorkStation)
-                    End If
-                    If TraceID = 0 Then
-                        GoTo Skip1
-                    ElseIf TraceID > 171666 Then
-                        GetTracePoints2(TraceID)
-                    Else
-                        GetTracePoints(TraceID)
-                    End If
-                End If
                     ExcelReports.LoadChart2(SerialNumber, Title)
 
+ISO:
                     ' Isolation
                     If Not ISO_XArray(0, 0) = 0 Then
                         For y = 0 To 200
@@ -6584,7 +6941,9 @@ TestComplete:  ' For everything except Directional Couplers
                             TraceID = GetTraceIDByTitle(Title, SerialNumber, Me.cmbJob.Text, WorkStation)
                         End If
 
-                        If TraceID > 171666 Then
+                        If TraceID = 0 Then
+                            GoTo PB
+                        ElseIf TraceID > 171666 Then
                             GetTracePoints2(TraceID)
                         Else
                             GetTracePoints(TraceID)
@@ -6592,6 +6951,7 @@ TestComplete:  ' For everything except Directional Couplers
                     End If
                     ExcelReports.LoadChart3(SerialNumber, Title)
 
+PB:
                     ' Phase Balance
                     If Not PB_XArray(0, 0) = 0 Then
                         For y = 0 To 200
@@ -6630,234 +6990,247 @@ TestComplete:  ' For everything except Directional Couplers
                     End If
                     ExcelReports.LoadChart4(SerialNumber, "Phase Balance")
 Skip1:
-            Next
-        End If
-
-        If SpecType.Contains("COMBINER/DIVIDER") Then
-            For x = 0 To 4
-                SerialNumber = "UUT " & x + 1
-
-                'Insertion Loss
-                If Not IL_XArray(0, 0) = 0 Then
-                    For y = 0 To 200
-                        ReDim Preserve XArray(y)
-                        ReDim Preserve YArray(y)
-                        XArray(y) = IL_XArray(x, y)
-                        YArray(y) = IL1_YArray(x, y)
-                    Next
-                Else
-                    Title = "Insertion Loss"
-                    If Not NetworkAccess Then
-                        TraceID = 4263
-                    Else
-                        TraceID = GetTraceIDByTitle(Title, SerialNumber, Me.cmbJob.Text, WorkStation)
-                    End If
-                    If TraceID = 0 Then
-                        GoTo Skip2
-                    ElseIf TraceID > 171666 Then
-                        GetTracePoints2(TraceID)
-                    Else
-                        GetTracePoints(TraceID)
-                    End If
-                    ReDim Preserve YArray1(YArray1.Count)
-                    YArray1 = YArray
-                End If
-                ExcelReports.LoadChart1(SerialNumber, "Insertion Loss/Amplitude balance")
-
-                'Return Loss
-                If Not RL_XArray(0, 0) = 0 Then
-                    For y = 0 To 200
-                        ReDim Preserve XArray(y)
-                        ReDim Preserve YArray(y)
-                        XArray(y) = RL_XArray(x, y)
-                        YArray(y) = RL_YArray(x, y)
-                    Next
-                Else
-                    Title = "Return Loss"
-                    If Not NetworkAccess Then
-                        TraceID = 4264
-                    Else
-                        TraceID = GetTraceIDByTitle(Title, SerialNumber, Me.cmbJob.Text, WorkStation)
-                    End If
-                    If TraceID > 171666 Then
-                        GetTracePoints2(TraceID)
-                    Else
-                        GetTracePoints(TraceID)
-                    End If
-                    ReDim Preserve YArray1(YArray1.Count)
-                    ExcelReports.LoadChart2(SerialNumber, Title)
-                End If
-
-                'Isolation
-                If Not ISO_XArray(0, 0) = 0 Then
-                    For y = 0 To 200
-                        ReDim Preserve XArray(y)
-                        ReDim Preserve YArray(y)
-                        XArray(y) = ISO_XArray(x, y)
-                        YArray(y) = ISO_YArray(x, y)
-                    Next
-                Else
-                    Title = "Isolation"
-                    If Not NetworkAccess Then
-                        TraceID = 4265
-                    Else
-                        TraceID = GetTraceIDByTitle(Title, SerialNumber, Me.cmbJob.Text, WorkStation)
-                    End If
-                    If TraceID > 171666 Then
-                        GetTracePoints2(TraceID)
-                    Else
-                        GetTracePoints(TraceID)
-                    End If
-                    ReDim Preserve YArray1(YArray1.Count)
-                End If
-                ExcelReports.LoadChart3(SerialNumber, Title)
-
-                ' Phase Balance
-                If Not PB_XArray(0, 0) = 0 Then
-                    For y = 0 To 200
-                        ReDim Preserve XArray(y)
-                        ReDim Preserve YArray(y)
-                        ReDim Preserve YArray1(y)
-                        XArray(y) = PB_XArray(x, y)
-                        YArray(y) = PB1_YArray(x, y)
-                        YArray1(y) = PB2_YArray(x, y)
-                    Next
-                Else
-                    Title = "Phase Balance J4"
-                    If Not NetworkAccess Then
-                        TraceID = 4266
-                    Else
-                        TraceID = GetTraceIDByTitle(Title, SerialNumber, Me.cmbJob.Text, WorkStation)
-                    End If
-                    If TraceID > 171666 Then
-                        GetTracePoints2(TraceID)
-                    Else
-                        GetTracePoints(TraceID)
-                    End If
-                    ReDim Preserve YArray1(YArray1.Count)
-                    YArray1 = YArray
-                    Title = "Phase Balance J3"
-                    If Not NetworkAccess Then
-                        TraceID = 4267
-                    Else
-                        TraceID = GetTraceIDByTitle(Title, SerialNumber, Me.cmbJob.Text, WorkStation)
-                    End If
-                    If TraceID > 171666 Then
-                        GetTracePoints2(TraceID)
-                    Else
-                        GetTracePoints(TraceID)
-                    End If
-                    ReDim Preserve YArray1(YArray1.Count)
-                End If
-                ExcelReports.LoadChart4(SerialNumber, "Phase Balance")
-Skip2:
-            Next
-        End If
-
-        If SpecType.Contains("DIRECTIONAL COUPLER") Then
-            For x = 1 To 5
-                SerialNumber = "UUT " & x
-                'Insertion Loss
-                If Not IL_XArray(0, 0) = 0 Then
-                    For y = 0 To 200
-                        ReDim Preserve XArray(y)
-                        ReDim Preserve YArray1(y)
-                        XArray(y) = IL_XArray(x, y)
-                        YArray1(y) = IL1_YArray(x, y)
-                    Next
-                Else
-                    Title = "Insertion Loss J3"
-                    If Not NetworkAccess Then
-                        TraceID = 4263
-                    Else
-                        TraceID = GetTraceIDByTitle(Title, SerialNumber, Me.cmbJob.Text, WorkStation)
-                    End If
-                    If TraceID = 0 Then
-                        GoTo Skip3
-                    ElseIf TraceID > 171666 Then
-                        GetTracePoints2(TraceID)
-                    Else
-                        GetTracePoints(TraceID)
-                    End If
-                    ReDim Preserve YArray1(YArray1.Count)
-                    YArray1 = YArray
-                End If
-                ExcelReports.LoadChart1(SerialNumber, "Insertion Loss")
-
-                'Return Loss
-                If Not RL_XArray(0, 0) = 0 Then
-                    For y = 0 To 200
-                        ReDim Preserve XArray(y)
-                        ReDim Preserve YArray(y)
-                        ReDim Preserve YArray1(y)
-                        XArray(y) = RL_XArray(x, y)
-                        YArray(y) = RL_YArray(x, y)
-                    Next
-                Else
-                    Title = "Return Loss"
-                    If Not NetworkAccess Then
-                        TraceID = 4264
-                    Else
-                        TraceID = GetTraceIDByTitle(Title, SerialNumber, Me.cmbJob.Text, WorkStation)
-                    End If
-                    If TraceID > 171666 Then
-                        GetTracePoints2(TraceID)
-                    Else
-                        GetTracePoints(TraceID)
-                    End If
-                    ReDim Preserve YArray1(YArray1.Count)
-                End If
-                ExcelReports.LoadChart2(SerialNumber, Title)
-
-                ' Phase Balance
-                If Not COUP_XArray(0, 0) = 0 Then
-                    For y = 0 To 200
-                        ReDim Preserve XArray(y)
-                        ReDim Preserve YArray1(y)
-                        ReDim Preserve YArray2(y)
-                        XArray(y) = COUP_XArray(x, y)
-                        YArray1(y) = COUP1_YArray(x, y)
-                        YArray2(y) = COUP2_YArray(x, y)
-                    Next
-                Else
-                    Title = "Coupling J4"
-                    If Debug Then
-                        TraceID = 4263
-                    Else
-                        TraceID = GetTraceIDByTitle(Title, SerialNumber, Me.cmbJob.Text, WorkStation)
-                    End If
-                    If TraceID > 171666 Then
-                        GetTracePoints2(TraceID)
-                    Else
-                        GetTracePoints(TraceID)
-                    End If
-                    ReDim Preserve YArray2(YArray2.Count)
-                    YArray1 = YArray
-                    Title = "Coupling J3"
-                    If Not NetworkAccess Then
-                        TraceID = 4263
-                    Else
-                        TraceID = GetTraceIDByTitle(Title, SerialNumber, Me.cmbJob.Text, WorkStation)
-                    End If
-                    If TraceID > 171666 Then
-                        GetTracePoints2(TraceID)
-                    Else
-                        GetTracePoints(TraceID)
-                    End If
-                    ReDim Preserve YArray1(YArray2.Count)
-                    YArray2 = YArray
-                End If
-                For z = 0 To 200
-                    ReDim Preserve YArray(z)
-                    YArray(z) = Math.Abs(YArray2(z) - YArray1(z))
                 Next
-                ExcelReports.LoadChart3(SerialNumber, Title)
-                ExcelReports.LoadChart4(SerialNumber, "Coupling Balance")
+            End If
+
+            If SpecType.Contains("COMBINER/DIVIDER") Then
+                For x = 0 To 4
+                    SerialNumber = "UUT" & x + 1
+
+                    'Insertion Loss
+                    If Not IL_XArray(0, 0) = 0 Then
+                        For y = 0 To 200
+                            ReDim Preserve XArray(y)
+                            ReDim Preserve YArray(y)
+                            XArray(y) = IL_XArray(x, y)
+                            YArray(y) = IL1_YArray(x, y)
+                        Next
+                    Else
+                        Title = "Insertion Loss"
+                        If Not NetworkAccess Then
+                            TraceID = 4263
+                        Else
+                            TraceID = GetTraceIDByTitle(Title, SerialNumber, Me.cmbJob.Text, WorkStation)
+                        End If
+                        If TraceID = 0 Then
+                            GoTo RL2
+                        ElseIf TraceID > 171666 Then
+                            GetTracePoints2(TraceID)
+                        Else
+                            GetTracePoints(TraceID)
+                        End If
+                        ReDim Preserve YArray1(YArray1.Count)
+                        YArray1 = YArray
+                    End If
+                    ExcelReports.LoadChart1(SerialNumber, "Insertion Loss/Amplitude balance")
+RL2:
+                    'Return Loss
+                    If Not RL_XArray(0, 0) = 0 Then
+                        For y = 0 To 200
+                            ReDim Preserve XArray(y)
+                            ReDim Preserve YArray(y)
+                            XArray(y) = RL_XArray(x, y)
+                            YArray(y) = RL_YArray(x, y)
+                        Next
+                    Else
+                        Title = "Return Loss"
+                        If Not NetworkAccess Then
+                            TraceID = 4264
+                        Else
+                            TraceID = GetTraceIDByTitle(Title, SerialNumber, Me.cmbJob.Text, WorkStation)
+                        End If
+                        If TraceID = 0 Then
+                            GoTo ISO2
+                        ElseIf TraceID > 171666 Then
+                            GetTracePoints2(TraceID)
+                        Else
+                            GetTracePoints(TraceID)
+                        End If
+                        ReDim Preserve YArray1(YArray1.Count)
+                        ExcelReports.LoadChart2(SerialNumber, Title)
+                    End If
+ISO2:
+                    'Isolation
+                    If Not ISO_XArray(0, 0) = 0 Then
+                        For y = 0 To 200
+                            ReDim Preserve XArray(y)
+                            ReDim Preserve YArray(y)
+                            XArray(y) = ISO_XArray(x, y)
+                            YArray(y) = ISO_YArray(x, y)
+                        Next
+                    Else
+                        Title = "Isolation"
+                        If Not NetworkAccess Then
+                            TraceID = 4265
+                        Else
+                            TraceID = GetTraceIDByTitle(Title, SerialNumber, Me.cmbJob.Text, WorkStation)
+                        End If
+                        If TraceID = 0 Then
+                            GoTo PB2
+                        ElseIf TraceID > 171666 Then
+                            GetTracePoints2(TraceID)
+                        Else
+                            GetTracePoints(TraceID)
+                        End If
+                        ReDim Preserve YArray1(YArray1.Count)
+                    End If
+                    ExcelReports.LoadChart3(SerialNumber, Title)
+PB2:
+                    ' Phase Balance
+                    If Not PB_XArray(0, 0) = 0 Then
+                        For y = 0 To 200
+                            ReDim Preserve XArray(y)
+                            ReDim Preserve YArray(y)
+                            ReDim Preserve YArray1(y)
+                            XArray(y) = PB_XArray(x, y)
+                            YArray(y) = PB1_YArray(x, y)
+                            YArray1(y) = PB2_YArray(x, y)
+                        Next
+                    Else
+                        Title = "Phase Balance J4"
+                        If Not NetworkAccess Then
+                            TraceID = 4266
+                        Else
+                            TraceID = GetTraceIDByTitle(Title, SerialNumber, Me.cmbJob.Text, WorkStation)
+                        End If
+                        If TraceID = 0 Then
+                            GoTo Skip2
+                        ElseIf TraceID > 171666 Then
+                            GetTracePoints2(TraceID)
+                        Else
+                            GetTracePoints(TraceID)
+                        End If
+                        ReDim Preserve YArray1(YArray1.Count)
+                        YArray1 = YArray
+                        Title = "Phase Balance J3"
+                        If Not NetworkAccess Then
+                            TraceID = 4267
+                        Else
+                            TraceID = GetTraceIDByTitle(Title, SerialNumber, Me.cmbJob.Text, WorkStation)
+                        End If
+                        If TraceID > 171666 Then
+                            GetTracePoints2(TraceID)
+                        Else
+                            GetTracePoints(TraceID)
+                        End If
+                        ReDim Preserve YArray1(YArray1.Count)
+                    End If
+                    ExcelReports.LoadChart4(SerialNumber, "Phase Balance")
+Skip2:
+                Next
+            End If
+
+            If SpecType.Contains("DIRECTIONAL COUPLER") Then
+                For x = 1 To 5
+                    SerialNumber = "UUT" & x
+                    'Insertion Loss
+                    If Not IL_XArray(0, 0) = 0 Then
+                        For y = 0 To 200
+                            ReDim Preserve XArray(y)
+                            ReDim Preserve YArray1(y)
+                            XArray(y) = IL_XArray(x, y)
+                            YArray1(y) = IL1_YArray(x, y)
+                        Next
+                    Else
+                        Title = "Insertion Loss J3"
+                        If Not NetworkAccess Then
+                            TraceID = 4263
+                        Else
+                            TraceID = GetTraceIDByTitle(Title, SerialNumber, Me.cmbJob.Text, WorkStation)
+                        End If
+                        If TraceID = 0 Then
+                            GoTo RL3
+                        ElseIf TraceID > 171666 Then
+                            GetTracePoints2(TraceID)
+                        Else
+                            GetTracePoints(TraceID)
+                        End If
+                        ReDim Preserve YArray1(YArray1.Count)
+                        YArray1 = YArray
+                    End If
+                    ExcelReports.LoadChart1(SerialNumber, "Insertion Loss")
+RL3:
+                    'Return Loss
+                    If Not RL_XArray(0, 0) = 0 Then
+                        For y = 0 To 200
+                            ReDim Preserve XArray(y)
+                            ReDim Preserve YArray(y)
+                            ReDim Preserve YArray1(y)
+                            XArray(y) = RL_XArray(x, y)
+                            YArray(y) = RL_YArray(x, y)
+                        Next
+                    Else
+                        Title = "Return Loss"
+                        If Not NetworkAccess Then
+                            TraceID = 4264
+                        Else
+                            TraceID = GetTraceIDByTitle(Title, SerialNumber, Me.cmbJob.Text, WorkStation)
+                        End If
+                        If TraceID = 0 Then
+                            GoTo PB3
+                        ElseIf TraceID > 171666 Then
+                            GetTracePoints2(TraceID)
+                        Else
+                            GetTracePoints(TraceID)
+                        End If
+                        ReDim Preserve YArray1(YArray1.Count)
+                    End If
+                    ExcelReports.LoadChart2(SerialNumber, Title)
+PB3:
+                    ' Phase Balance
+                    If Not COUP_XArray(0, 0) = 0 Then
+                        For y = 0 To 200
+                            ReDim Preserve XArray(y)
+                            ReDim Preserve YArray1(y)
+                            ReDim Preserve YArray2(y)
+                            XArray(y) = COUP_XArray(x, y)
+                            YArray1(y) = COUP1_YArray(x, y)
+                            YArray2(y) = COUP2_YArray(x, y)
+                        Next
+                    Else
+                        Title = "Coupling J4"
+                        If Debug Then
+                            TraceID = 4263
+                        Else
+                            TraceID = GetTraceIDByTitle(Title, SerialNumber, Me.cmbJob.Text, WorkStation)
+                        End If
+                        If TraceID = 0 Then
+                            GoTo Skip3
+                        ElseIf TraceID > 171666 Then
+                            GetTracePoints2(TraceID)
+                        Else
+                            GetTracePoints(TraceID)
+                        End If
+                        ReDim Preserve YArray2(YArray2.Count)
+                        YArray1 = YArray
+                        Title = "Coupling J3"
+                        If Not NetworkAccess Then
+                            TraceID = 4263
+                        Else
+                            TraceID = GetTraceIDByTitle(Title, SerialNumber, Me.cmbJob.Text, WorkStation)
+                        End If
+                        If TraceID > 171666 Then
+                            GetTracePoints2(TraceID)
+                        Else
+                            GetTracePoints(TraceID)
+                        End If
+                        ReDim Preserve YArray1(YArray2.Count)
+                        YArray2 = YArray
+                    End If
+                    For z = 0 To 200
+                        ReDim Preserve YArray(z)
+                        YArray(z) = Math.Abs(YArray2(z) - YArray1(z))
+                    Next
+                    ExcelReports.LoadChart3(SerialNumber, Title)
+                    ExcelReports.LoadChart4(SerialNumber, "Coupling Balance")
 Skip3:
-            Next
-        End If
-        SelectSheet("sheet1")
-        ClearArrays()
+                Next
+            End If
+            SelectSheet("sheet1")
+            ClearArrays()
+        Catch ex As Exception
+
+        End Try
     End Sub
 
     Private Sub ClearArrays()
@@ -7184,14 +7557,8 @@ Skip3:
         SPEC.ShowDialog()
     End Sub
 
-    Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.Click
-
-    End Sub
-    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.Click
-
-    End Sub
-
     Private Sub txtArtwork_TextChanged(sender As Object, e As EventArgs) Handles txtArtwork.TextChanged
         UUTReset = True
+        ArtworkRevision = txtArtwork.Text
     End Sub
 End Class

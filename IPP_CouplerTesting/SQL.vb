@@ -17,8 +17,6 @@ Module SQL
 
     Public SQLConnStr As String = "Data Source=INN-SQLEXPRESS\SQLEXPRESS;Initial Catalog=ATE;User Id='developer';Password='secure';" 'Development Server
 
-    
-
     Public Function CheckDatabaseExists(ByVal server As String, ByVal database As String) As Boolean
         Try
 
@@ -128,6 +126,15 @@ Module SQL
                 GoTo SkipDataBase
             ElseIf Test = "InsertionLoss" And SpecIL <> Nothing Then
                 GetSpecification = Math.Round(SpecIL, 2)
+                GoTo SkipDataBase
+            ElseIf Test = "InsertionLoss1" And SpecIL <> Nothing Then
+                GetSpecification = Math.Round(SpecIL, 2)
+                GoTo SkipDataBase
+            ElseIf Test = "InsertionLoss2" And SpecIL_exp <> Nothing Then
+                GetSpecification = Math.Round(SpecIL_exp, 2)
+                GoTo SkipDataBase
+            ElseIf Test = "IL_ex" And SpecIL_exp <> Nothing Then
+                GetSpecification = Math.Round(SpecIL_exp, 2)
                 GoTo SkipDataBase
             ElseIf Test = "VSWR" And SpecRL <> Nothing Then
                 GetSpecification = Math.Round(SpecRL, 1)
@@ -248,8 +255,8 @@ Retry:
                     If Not IsDBNull(dr.Item(29)) Then Test3 = CInt(dr.Item(29))
                     If Not IsDBNull(dr.Item(30)) Then Test4 = CInt(dr.Item(30))
                     If Not IsDBNull(dr.Item(31)) Then Test5 = CInt(dr.Item(31))
-                    If Not IsDBNull(dr.GetValue(47)) Then
-                        If dr.Item(47) = 1 Then
+                    If Not IsDBNull(dr.GetValue(41)) Then
+                        If dr.Item(41) = 1 Then
                             SpecAB_TF = True
                             If Not IsDBNull(dr.GetValue(42)) Then SpecAB_exp = dr.Item(42)
                             If Not IsDBNull(dr.GetValue(43)) Then SpecAB_start1 = dr.Item(43)
@@ -260,12 +267,26 @@ Retry:
                             SpecAB_TF = False
                         End If
                     End If
+                    If Not IsDBNull(dr.GetValue(91)) Then
+                        If dr.Item(91) Then
+                            IL_TF = True
+                            If Not IsDBNull(dr.GetValue(92)) Then SpecIL_exp = dr.Item(92)
+                            If Not IsDBNull(dr.GetValue(93)) Then SpecIL_start1 = dr.Item(93)
+                            If Not IsDBNull(dr.GetValue(94)) Then SpecIL_start2 = dr.Item(94)
+                            If Not IsDBNull(dr.GetValue(95)) Then SpecIL_stop1 = dr.Item(95)
+                            If Not IsDBNull(dr.GetValue(96)) Then SpecIL_stop2 = dr.Item(96)
+                        Else
+                            IL_TF = False
+                        End If
+                    End If
                     If Test = "SpecType" Then If Not IsDBNull(dr.Item(1)) Then GetSpecification = CDbl(dr.Item(1))
                     If Test = "Title" Then If Not IsDBNull(dr.Item(4)) Then GetSpecification = CDbl(dr.Item(4))
                     If Test = "Quantity" Then If Not IsDBNull(dr.Item(5)) Then GetSpecification = CDbl(dr.Item(5))
                     If Test = "StartFreqMHz" Then If Not IsDBNull(dr.Item(6)) Then GetSpecification = CDbl(dr.Item(6))
                     If Test = "StopFreqMHz" Then If Not IsDBNull(dr.Item(7)) Then GetSpecification = CDbl(dr.Item(7))
                     If Test = "InsertionLoss" Then If Not IsDBNull(dr.Item(11)) Then GetSpecification = Math.Round(CDbl(dr.Item(11)), 2)
+                    If Test = "InsertionLoss1" Then If Not IsDBNull(dr.Item(11)) Then GetSpecification = Math.Round(CDbl(dr.Item(11)), 2)
+                    If Test = "IL_ex" Then If Not IsDBNull(dr.Item(91)) Then GetSpecification = Math.Round(CDbl(dr.Item(91)), 2)
                     If Test = "VSWR" Then If Not IsDBNull(dr.Item(10)) Then GetSpecification = Math.Round(Math.Round(VSWRtoRL(CDbl(dr.Item(10)))), 1)
                     If Test = "Isolation" Or Test = "Iso" Then If Not IsDBNull(dr.Item(12)) Then GetSpecification = Math.Round(CDbl(dr.Item(12)), 1)
                     If Test = "Isolation2" Then If Not IsDBNull(dr.Item(13)) Then GetSpecification = Math.Round(CDbl(dr.Item(13)), 1)
@@ -400,8 +421,6 @@ SkipDataBase:
         End Try
     End Function
 
-
-
     Public Function GetLoss() As Double
 
         Dim SQLstr As String
@@ -517,19 +536,19 @@ SkipDataBase:
 
         If TweakMode Then Exit Sub
         Try
-            SQLStr = "SELECT * from TestData where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "'"
+            SQLStr = "SELECT * from TestData where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork_rev = '" & ArtworkRevision & "'"
             If SQL.CheckforRow(SQLStr, "NetworkData") = 0 Then
-                SQLStr = "Insert Into TestData (JobNumber, PartNumber,SerialNumber,WorkStation) values ('" & Job & "','" & Part & "','" & SerialNumber & "','" & GetComputerName() & "')"
+                SQLStr = "Insert Into TestData (JobNumber, PartNumber,SerialNumber,WorkStation,artwork_rev) values ('" & Job & "','" & Part & "','" & SerialNumber & "','" & GetComputerName() & "','" & ArtworkRevision & "')"
                 SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
             End If
 
-            SQLStr = "UPDATE TestData Set " & Test & " = '" & Value & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "'"
+            SQLStr = "UPDATE TestData Set " & Test & " = '" & Value & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork_rev = '" & ArtworkRevision & "'"
             SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
 
-            SQLStr = "UPDATE TestData Set artwork_rev  = '" & ArtworkRevision & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and  " & Test & " = '" & Value & "'"
+            SQLStr = "UPDATE TestData Set artwork_rev  = '" & ArtworkRevision & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork_rev = '" & ArtworkRevision & "'"
             SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
 
-            SQLStr = "UPDATE TestData Set Operator  = '" & User & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and  " & Test & " = '" & Value & "'"
+            SQLStr = "UPDATE TestData Set Operator  = '" & User & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork_rev = '" & ArtworkRevision & "'"
             SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
 
         Catch ex As Exception
@@ -811,7 +830,9 @@ IGNORE2:
         Try
             Dim CountRow As Integer = 0
             Dim SQLstr As String = "SELECT * from ReportQueue where WorkStation = '" & GetComputerName() & "' and ReportStatus = 'test running'"
+            Dim reportJobs(5) As String
             GetreportStatus = "no status"
+            Dim x As Integer = 0
             If SQLAccess Then
                 Dim ats As SqlConnection = New SqlConnection(SQLConnStr)
                 Dim cmd As SqlCommand = New SqlCommand(SQLstr, ats)
@@ -821,6 +842,8 @@ IGNORE2:
                 While Not dr.Read = Nothing
                     If dr.Item(3) IsNot Nothing Then GetreportStatus = CStr(dr.Item(3))
                     If dr.Item(4) IsNot Nothing Then ReportJob = CStr(dr.Item(4))
+                    reportJobs(x) = ReportJob
+                    x += 1
                 End While
                 ats.Close()
             Else
@@ -834,6 +857,8 @@ IGNORE2:
                 While Not drLocal.Read = Nothing
                     If drLocal.Item(3) IsNot Nothing Then GetreportStatus = CStr(drLocal.Item(3))
                     If drLocal.Item(4) IsNot Nothing Then ReportJob = CStr(drLocal.Item(4))
+                    reportJobs(x) = ReportJob
+                    x += 1
                 End While
 
                 atsLocal.Close()
@@ -945,13 +970,14 @@ IGNORE2:
     Public Function GetTraceIDByTitle(Title As String, Optional Serial As String = "", Optional Job As String = "", Optional Station As String = "") As Integer
         Try
             GetTraceIDByTitle = 0
-            If Serial = "" Then Serial = "UUT " & frmAUTOTEST.UUTCount.Text
+            If Serial = "" Then Serial = "UUT" & UUTNum_Reset
             If Job = "" Then Job = frmAUTOTEST.cmbJob.Text
             If Station = "" Then Station = WorkStation
 
             If SQLAccess Then
                 Dim ats As SqlConnection = New SqlConnection(SQLConnStr)
-                Dim cmd As SqlCommand = New SqlCommand("SELECT * from Trace where JobNumber =  '" & Job & "' and SerialNumber = '" & Serial & "' and Title = '" & Title & "' And Workstation = '" & GetComputerName() & "'", ats)
+                'Dim cmd As SqlCommand = New SqlCommand("SELECT * from Trace where JobNumber =  '" & Job & "' and SerialNumber = '" & Serial & "' and Title = '" & Title & "' And Workstation = '" & GetComputerName() & "'", ats)
+                Dim cmd As SqlCommand = New SqlCommand("SELECT * from Trace where JobNumber =  '" & Job & "' and SerialNumber = '" & Serial & "' and Title = '" & Title & "'", ats)
                 ats.Open()
                 System.Threading.Thread.Sleep(10)
                 Dim dr As SqlDataReader = cmd.ExecuteReader()
@@ -963,7 +989,8 @@ IGNORE2:
                 Dim strConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source= " & AccessDatabaseFolder("LocalTraceData")
                 Dim atsLocal As New OleDb.OleDbConnection
                 atsLocal.ConnectionString = strConnectionString
-                Dim cmd As OleDb.OleDbCommand = New OleDb.OleDbCommand("SELECT * from Trace where JobNumber =  '" & Job & "' and SerialNumber = '" & Serial & "' and Title = '" & Title & "' And Workstation = '" & GetComputerName() & "'", atsLocal)
+                'Dim cmd As OleDb.OleDbCommand = New OleDb.OleDbCommand("SELECT * from Trace where JobNumber =  '" & Job & "' and SerialNumber = '" & Serial & "' and Title = '" & Title & "' And Workstation = '" & GetComputerName() & "'", atsLocal)
+                Dim cmd As OleDb.OleDbCommand = New OleDb.OleDbCommand("SELECT * from Trace where JobNumber =  '" & Job & "' and SerialNumber = '" & Serial & "' and Title = '" & Title & "'", atsLocal)
                 atsLocal.Open()
                 System.Threading.Thread.Sleep(10)
                 Dim drLocal As OleDb.OleDbDataReader = cmd.ExecuteReader
@@ -1074,9 +1101,10 @@ IGNORE2:
                 ats.Open()
                 cmd.Connection = ats
                 'Insert Initial Row
-                'SQLStr = "Insert Into Trace (Title,SerialNumber,JobNumber,ID) values ('" & globals.Title & " ', '" & globals.SerialNumber & " ','" & frmAUTOTEST.cmbJob.Text & "','" & globals.TraceID & "')"
-                Expression = " where ID = " & TraceID & " and Title = '" & Title & "' And TestID = " & TestID
-
+                SQLStr = "Insert Into Trace (Title,SerialNumber,JobNumber) values ('" & globals.Title & " ', '" & globals.SerialNumber & " ','" & frmAUTOTEST.cmbJob.Text & "')"
+                SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+                TraceID = GetTraceID(SQLStr, "trace")
+                Expression = " where ID = " & TraceID & " and Title = '" & Title & "'"
                 cmd.CommandText = "UPDATE Trace SET  Workstation = '" & GetComputerName() & "'" & Expression
                 cmd.ExecuteNonQuery()
                 cmd.CommandText = "UPDATE Trace SET Points = '" & globals.Pts & "'" & Expression
@@ -1651,6 +1679,96 @@ IGNORE2:
             GetPartNumber = ""
         End Try
     End Function
+    Public Function GetTestStatus() As String
+        Try
+            Dim SQLstr As String
+            Dim CountRow As Integer = 0
+            Dim station As String
+            Dim user As String
+            Dim complete As String
+            Dim total As String
+            Dim status As String
+            Dim thisJob As String
+
+            SQLstr = "SELECT * from ReportQueue where JobNumber = '" & Job & "'"
+
+            GetTestStatus = ""
+            Dim x As Integer = 0
+            If SQLAccess Then
+                Dim ats As SqlConnection = New SqlConnection(SQLConnStr)
+                Dim cmd As SqlCommand = New SqlCommand(SQLstr, ats)
+                ats.Open()
+                System.Threading.Thread.Sleep(0.001)
+                Dim dr As SqlDataReader = cmd.ExecuteReader()
+                While Not dr.Read = Nothing
+                    If dr.Item(3) IsNot Nothing Then status = CStr(dr.Item(3))
+                    If dr.Item(4) IsNot Nothing Then thisJob = CStr(dr.Item(4))
+                    If dr.Item(5) IsNot Nothing Then station = CStr(dr.Item(5))
+                    If dr.Item(7) IsNot Nothing Then user = CStr(dr.Item(7))
+                    If dr.Item(10) IsNot Nothing Then complete = CStr(dr.Item(10))
+                    If dr.Item(11) IsNot Nothing Then total = CStr(dr.Item(11))
+                    ReDim Preserve ReportStatus(x)
+                    ReportStatus(x) = status
+                    ReDim Preserve SavedWorkStation(x)
+                    SavedWorkStation(x) = station
+                    ReDim Preserve SavedUser(x)
+                    SavedUser(x) = user
+                    ReDim Preserve SavedComplete(x)
+                    SavedComplete(x) = complete
+                    ReDim Preserve SavedTotal(x)
+                    SavedTotal(x) = total
+                    ReDim Preserve SavedJob(x)
+                    SavedJob(x) = thisJob
+                    x += 1
+
+                End While
+                ats.Close()
+            Else
+                System.Threading.Thread.Sleep(100)
+                Dim strConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source= " & AccessDatabaseFolder("NetworkSpecs")
+                Dim atsLocal As New OleDb.OleDbConnection
+                atsLocal.ConnectionString = strConnectionString
+                Dim cmd As OleDb.OleDbCommand = New OleDb.OleDbCommand(SQLstr, atsLocal)
+                atsLocal.Open()
+                System.Threading.Thread.Sleep(0.001)
+                Dim drLocal As OleDb.OleDbDataReader = cmd.ExecuteReader
+                While Not drLocal.Read = Nothing
+                    If drLocal.Item(3) IsNot Nothing Then status = CStr(drLocal.Item(3))
+                    If drLocal.Item(4) IsNot Nothing Then thisJob = CStr(drLocal.Item(4))
+                    If drLocal.Item(5) IsNot Nothing Then station = CStr(drLocal.Item(5))
+                    If drLocal.Item(7) IsNot Nothing Then user = CStr(drLocal.Item(7))
+                    If drLocal.Item(10) IsNot Nothing Then complete = CStr(drLocal.Item(10))
+                    If drLocal.Item(11) IsNot Nothing Then total = CStr(drLocal.Item(11))
+                    ReDim Preserve ReportStatus(x)
+                    ReportStatus(x) = status
+                    ReDim Preserve SavedWorkStation(x)
+                    SavedWorkStation(x) = station
+                    ReDim Preserve SavedUser(x)
+                    SavedUser(x) = user
+                    ReDim Preserve SavedComplete(x)
+                    SavedComplete(x) = complete
+                    ReDim Preserve SavedTotal(x)
+                    SavedTotal(x) = total
+                    x += 1
+                End While
+                atsLocal.Close()
+            End If
+            If ReportStatus.Length = 0 Then
+                GetTestStatus = "None"
+            ElseIf ReportStatus.Length = 1 Then
+                GetTestStatus = "One"
+            ElseIf ReportStatus.Length > 1 Then
+                GetTestStatus = "Multiple"
+            End If
+        Catch
+            GetTestStatus = ""
+        End Try
+    End Function
+
+
+
+
+
     Public Sub DeleteOperator(Value As String)
         Dim SQLStr As String
         Try
