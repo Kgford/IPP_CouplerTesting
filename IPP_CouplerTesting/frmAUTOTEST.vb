@@ -1842,7 +1842,29 @@ GetOut:
         Me.PF2.ForeColor = Color.CornflowerBlue
         Me.PF2.Text = "TBD"
         Me.Data2.Text = ""
-
+        If Not SpecType = "TRANSFORMER" Then
+            Me.Data3.Visible = True
+            Me.Spec3Min.Visible = True
+            Me.Spec3Max.Visible = True
+            Me.TestLabel3.Visible = True
+            Me.txtOffset3.Visible = True
+            Me.ckTest3.Visible = True
+            Me.PF3.Visible = True
+            Me.Data4.Visible = True
+            Me.Spec4Min.Visible = True
+            Me.Spec4Max.Visible = True
+            Me.TestLabel4.Visible = True
+            Me.txtOffset4.Visible = True
+            Me.ckTest4.Visible = True
+            Me.PF4.Visible = True
+            Me.Data5.Visible = True
+            Me.Spec5Min.Visible = True
+            Me.Spec5Max.Visible = True
+            Me.TestLabel5.Visible = True
+            Me.txtOffset5.Visible = True
+            Me.ckTest5.Visible = True
+            Me.PF5.Visible = True
+        End If
         Me.Failures3.ForeColor = Color.LawnGreen
         Me.Failures3.Text = "0.0 %"
         Me.FailTotal3.ForeColor = Color.LawnGreen
@@ -2053,13 +2075,13 @@ GetOut:
             Me.cmdStartTest.Enabled = False
             Job = Me.cmbJob.Text
             SerialNumber = "UUT" & UUTNum_Reset
-            'SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "' and WorkStation = '" & GetComputerName() & "' And SerialNumber = 'UUT" & UUTNum_Reset & "'"
-            'If SQL.CheckforRow(SQLstr, "NetworkData") = 0 Then
-            'SQLstr = "Insert Into TestData (JobNumber, PartNumber,SerialNumber,WorkStation,artwork_rev) values ('" & Job & "','" & Part & "','" & SerialNumber & "','" & GetComputerName() & "','" & ArtworkRevision & "')"
-            ' SQL.ExecuteSQLCommand(SQLstr, "NetworkData")
-            'End If
-            'SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "' and WorkStation = '" & GetComputerName() & "' And SerialNumber = 'UUT" & UUTNum_Reset & "'"
-            'TestID = SQL.GetTestID(SQLstr, "NetworkData")
+            SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "' and WorkStation = '" & GetComputerName() & "' And SerialNumber = 'UUT" & UUTNum_Reset & "' and artwork_rev = '" & ArtworkRevision & "'"
+            If SQL.CheckforRow(SQLstr, "NetworkData") = 0 Then
+                SQLstr = "Insert Into TestData (JobNumber, PartNumber,SerialNumber,WorkStation,artwork_rev) values ('" & Job & "','" & Part & "','" & SerialNumber & "','" & GetComputerName() & "','" & ArtworkRevision & "')"
+                SQL.ExecuteSQLCommand(SQLstr, "NetworkData")
+            End If
+            SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "' and WorkStation = '" & GetComputerName() & "' And SerialNumber = 'UUT" & UUTNum_Reset & "' and artwork_rev = '" & ArtworkRevision & "'"
+            TestID = SQL.GetTestID(SQLstr, "NetworkData")
             FailCount = 0
 
             'Insertion Loss
@@ -2704,105 +2726,146 @@ ReallyComplete:
     End Sub
 
     Private Sub cmdStartTest_Click(sender As Object, e As EventArgs) Handles cmdStartTest.Click
-        Dim PassFail As String = "Pass"
-        Dim SQLstr As String
-        Dim SwPos As String
-        Dim Dir1Failed As Boolean
-        Dim TestID As Long
+        Try
+            Dim PassFail As String = "Pass"
+            Dim SQLstr As String
+            Dim SwPos As String
+            Dim Dir1Failed As Boolean
+            Dim TestID As Long
 
-        Dim TestExist As Boolean
-        Dim RetrnStr As String
-        Dim Workstation As String = ""
-        Dim Resumed As Boolean = False
+            Dim TestExist As Boolean
+            Dim RetrnStr As String
+            Dim Workstation As String = ""
+            Dim Resumed As Boolean = False
 
-        StartTime = Now()
-        TestRunning = True
-        TestComplete = False
-        GlobalFailed = False
-        Retest1Fail = 0
-        Retest2Fail = 0
-        RetEST3Fail = 0
-        RetEST4Fail = 0
-        RetEST5Fail = 0
-        ArtworkRevision = txtArtwork.Text
+            StartTime = Now()
+            TestRunning = True
+            TestComplete = False
+            GlobalFailed = False
+            Retest1Fail = 0
+            Retest2Fail = 0
+            RetEST3Fail = 0
+            RetEST4Fail = 0
+            RetEST5Fail = 0
+            ArtworkRevision = txtArtwork.Text
 
-        If SpecAB_TF Then
-            Data4L.Visible = True
-            Data4H.Visible = True
-            Data4.Visible = False
-        Else
-            Data4L.Visible = False
-            Data4H.Visible = False
-            Data4.Visible = True
-        End If
-        If ISO_TF Then
-            Data3L.Visible = True
-            Data3H.Visible = True
-            Data3.Visible = False
-        Else
-            Data3L.Visible = False
-            Data3H.Visible = False
-            Data3.Visible = True
-        End If
-        If IL_TF Then
-            Data1L.Visible = True
-            Data1H.Visible = True
-            Data1.Visible = False
-        Else
-            Data1L.Visible = False
-            Data1H.Visible = False
-            Data1.Visible = True
-        End If
+            If SpecAB_TF Then
+                Data4L.Visible = True
+                Data4H.Visible = True
+                Data4.Visible = False
+            Else
+                Data4L.Visible = False
+                Data4H.Visible = False
+                Data4.Visible = True
+            End If
+            If ISO_TF Then
+                Data3L.Visible = True
+                Data3H.Visible = True
+                Data3.Visible = False
+            Else
+                Data3L.Visible = False
+                Data3H.Visible = False
+                Data3.Visible = True
+            End If
+            If IL_TF Then
+                Data1L.Visible = True
+                Data1H.Visible = True
+                Data1.Visible = False
+            Else
+                Data1L.Visible = False
+                Data1H.Visible = False
+                Data1.Visible = True
+            End If
 
 
 
-        ResetTests()
-        GetLoss()
-        SwPos = ""
-        If DontclickTheButton = True Then Exit Sub
-        If Me.cmbJob.Text = "" Or Me.cmbJob.Text = " " Then
-            MsgBox("Please select Job")
-            MutiCal.Checked = False
-            Exit Sub
-        End If
-        If Me.txtArtwork.Text = "" Then
-            MsgBox("Please input the Artwork Revision")
-            Exit Sub
-        End If
-
-        If Not Simulation.Checked And Not Connected Then
-            ScanGPIB.connect("GPIB0::16::INSTR", GetTimeout())
-            Connected = True
-        End If
-        If Retest1Fail > retestFailMax Then
-
-        End If
-
-        ActiveTitle = Me.txtTitle.Text
-        FailCount = 0
-        Dir1Failed = False
-        If Me.cmbJob.Text = "" Then
-            MsgBox("Please Choose the Job Number first", , "Not Ready to Start")
-            MutiCal.Checked = False
-            ClearStatusLog()
-            Exit Sub
-        Else
-            If cmdStartTest.Text = " Find  Offsets" Then
-                FindOffsets()
+            ResetTests()
+            GetLoss()
+            SwPos = ""
+            If DontclickTheButton = True Then Exit Sub
+            If Me.cmbJob.Text = "" Or Me.cmbJob.Text = " " Then
+                MsgBox("Please select Job")
+                MutiCal.Checked = False
                 Exit Sub
             End If
-            If Not TweakMode And (Not TEST1PASS Or Not TEST2PASS Or Not TEST3PASS Or Not TEST4PASS Or Not TEST5PASS) Then
-                If MsgBox("Are you sure you want to fail UUT" & UUTNum, vbYesNo, "Are you sure??") = vbNo Then Exit Sub
+            If Me.txtArtwork.Text = "" Then
+                MsgBox("Please input the Artwork Revision")
+                Exit Sub
             End If
-            TestExist = False
-            If resumeTest Then
+
+            If Not Simulation.Checked And Not Connected Then
+                ScanGPIB.connect("GPIB0::16::INSTR", GetTimeout())
+                Connected = True
+            End If
+            If Retest1Fail > retestFailMax Then
+
+            End If
+
+            ActiveTitle = Me.txtTitle.Text
+            FailCount = 0
+            Dir1Failed = False
+            If Me.cmbJob.Text = "" Then
+                MsgBox("Please Choose the Job Number first", , "Not Ready to Start")
+                MutiCal.Checked = False
+                ClearStatusLog()
+                Exit Sub
+            Else
+                If cmdStartTest.Text = " Find  Offsets" Then
+                    FindOffsets()
+                    Exit Sub
+                End If
+                If Not TweakMode And (Not TEST1PASS Or Not TEST2PASS Or Not TEST3PASS Or Not TEST4PASS Or Not TEST5PASS) Then
+                    If MsgBox("Are you sure you want to fail UUT" & UUTNum, vbYesNo, "Are you sure??") = vbNo Then Exit Sub
+                End If
+                TestExist = False
+                If resumeTest Then
+                    LastTest = Date.Now.Ticks
+                    StatusLog.Items.Add("Testing Resumed:" & DateTime.Now.ToString)
+                    PPH = SQL.GetSpecification("PartsPerHour")
+                    Quantity = SQL.GetSpecification("Quantity")
+                    If Me.ckROBOT.Checked Then
+                        RobotTimer.Stop()
+                        While GetROBOTMovingSignal()
+                            'wait for robot to stop
+                        End While
+                        DeleteOp.Checked = False
+                        Dim OP As New OperatorEntry
+                        OP.StartPosition = FormStartPosition.Manual
+                        OP.Location = New Point(globals.XLocation, globals.YLocation)
+                        OP.ShowDialog()
+                        TestCompleteSignal(False)
+                        RobotTimer.Start()
+                    Else
+                        DeleteOp.Checked = False
+                        Dim OP As New OperatorEntry
+                        OP.StartPosition = FormStartPosition.Manual
+                        OP.Location = New Point(globals.XLocation, globals.YLocation)
+                        OP.ShowDialog()
+                    End If
+                    'ATS Developer does not save data while developing
+                    If User = "ATS" Then
+                        GetTrace.CheckState = CheckState.Unchecked
+                    End If
+                    UUTCount.Text = UUTNum
+                    StarStartExpectedTimeline()
+                    resumeTest = False
+                    EndLot.Enabled = True
+                    Me.EraseJob.Enabled = True
+                    Resumed = True
+                    OperatorLog = True
+                End If
+            End If
+            If UUTNum = 0 And Not Resumed Then
+                ResetTests()
+                stopTest = False
                 LastTest = Date.Now.Ticks
-                StatusLog.Items.Add("Testing Resumed:" & DateTime.Now.ToString)
+                ClearStatusLog()
+                StatusLog.Items.Add("Testing Started:" & DateTime.Now.ToString)
                 PPH = SQL.GetSpecification("PartsPerHour")
                 Quantity = SQL.GetSpecification("Quantity")
                 If Me.ckROBOT.Checked Then
                     RobotTimer.Stop()
-                    While GetROBOTMovingSignal()
+                    While Not GetROBOTMovingSignal()
                         'wait for robot to stop
                     End While
                     DeleteOp.Checked = False
@@ -2819,324 +2882,334 @@ ReallyComplete:
                     OP.Location = New Point(globals.XLocation, globals.YLocation)
                     OP.ShowDialog()
                 End If
-                'ATS Developer does not save data while developing
-                If User = "ATS" Then
-                    GetTrace.CheckState = CheckState.Unchecked
-                End If
                 UUTCount.Text = UUTNum
                 StarStartExpectedTimeline()
-                resumeTest = False
                 EndLot.Enabled = True
                 Me.EraseJob.Enabled = True
-                Resumed = True
+                OperatorLog = True
+            ElseIf Resumed Then
+                UUTCount.Text = UUTNum
+                StarStartExpectedTimeline()
+                EndLot.Enabled = True
+                Me.EraseJob.Enabled = True
                 OperatorLog = True
             End If
-        End If
-        If UUTNum = 0 And Not Resumed Then
-            ResetTests()
-            LastTest = Date.Now.Ticks
-            ClearStatusLog()
-            StatusLog.Items.Add("Testing Started:" & DateTime.Now.ToString)
-            PPH = SQL.GetSpecification("PartsPerHour")
-            Quantity = SQL.GetSpecification("Quantity")
-            If Me.ckROBOT.Checked Then
-                RobotTimer.Stop()
-                While Not GetROBOTMovingSignal()
-                    'wait for robot to stop
-                End While
-                DeleteOp.Checked = False
-                Dim OP As New OperatorEntry
-                OP.StartPosition = FormStartPosition.Manual
-                OP.Location = New Point(globals.XLocation, globals.YLocation)
-                OP.ShowDialog()
-                TestCompleteSignal(False)
-                RobotTimer.Start()
+
+            UUTFail = 0
+            Me.RunStatus.ForeColor = Color.Red
+            Data1.Text = ""
+            Data1L.Text = ""
+            Data1H.Text = ""
+            Data2.Text = ""
+            Data3.Text = ""
+            Data4.Text = ""
+            Data4L.Text = ""
+            Data4H.Text = ""
+            Data5.Text = ""
+            If UUTNum = 0 Then UUTNum = UUTNum + 1
+
+            If (UUTNum = 1 Or FirstPart) And stopTest Then
+                ResetLot()
+                Exit Sub
+            End If
+            FirstPart = False
+            If UUTNum = 1 Or UUTReset Then
+                UUTNum_Reset = 1
+                UUTReset = False
+                Me.GetTrace.Checked = True
+            End If
+
+            ReportServer("test running", UUTNum, False)
+            saveConfigurationVal(iniPathName, "uut_number", UUTNum)
+            If TweakMode Then UUTNum = 1
+            If UUTNum_Reset > 5 And Not BypassUnchecked Then
+                Me.GetTrace.Checked = False
+            ElseIf UUTNum_Reset > 5 And BypassUnchecked Then
+                Me.GetTrace.Checked = True
+            End If
+
+            UUTCount.Text = Str(UUTNum)
+            SQL.UpdateEffeciency("Running", txtEfficiency.Text, Now.Date.ToShortDateString, UUTCount.Text)
+            If TweakMode Then
+                Me.UUTMessage.Text = "  UUT TESTS  --   Testing Undisclosed Unit "
+            ElseIf Not TraceChecked Then
+                UUTMessage.Text = "  UUT TESTS Marker Mode  --   Load Unit #" & UUTNum + 1
             Else
-                DeleteOp.Checked = False
-                Dim OP As New OperatorEntry
-                OP.StartPosition = FormStartPosition.Manual
-                OP.Location = New Point(globals.XLocation, globals.YLocation)
-                OP.ShowDialog()
-            End If
-            UUTCount.Text = UUTNum
-            StarStartExpectedTimeline()
-            EndLot.Enabled = True
-            Me.EraseJob.Enabled = True
-            OperatorLog = True
-        End If
-
-        UUTFail = 0
-        Me.RunStatus.ForeColor = Color.Red
-        Data1.Text = ""
-        Data1L.Text = ""
-        Data1H.Text = ""
-        Data2.Text = ""
-        Data3.Text = ""
-        Data4.Text = ""
-        Data4L.Text = ""
-        Data4H.Text = ""
-        Data5.Text = ""
-        If UUTNum = 0 Then UUTNum = UUTNum + 1
-
-        If (UUTNum = 1 Or FirstPart) And stopTest Then
-            ResetLot()
-            Exit Sub
-        End If
-        FirstPart = False
-        If UUTNum = 1 Or UUTReset Then
-            UUTNum_Reset = 1
-            UUTReset = False
-            Me.GetTrace.Checked = True
-        End If
-
-        ReportServer("test running", UUTNum, False)
-        saveConfigurationVal(iniPathName, "uut_number", UUTNum)
-        If TweakMode Then UUTNum = 1
-        If UUTNum_Reset > 5 And Not BypassUnchecked Then
-            Me.GetTrace.Checked = False
-        ElseIf UUTNum_Reset > 5 And BypassUnchecked Then
-            Me.GetTrace.Checked = True
-        End If
-
-        UUTCount.Text = Str(UUTNum)
-        SQL.UpdateEffeciency("Running", txtEfficiency.Text, Now.Date.ToShortDateString, UUTCount.Text)
-        If TweakMode Then
-            Me.UUTMessage.Text = "  UUT TESTS  --   Testing Undisclosed Unit "
-        ElseIf Not TraceChecked Then
-            UUTMessage.Text = "  UUT TESTS Marker Mode  --   Load Unit #" & UUTNum + 1
-        Else
-            Me.UUTMessage.Text = "  UUT TESTS  --   Testing Unit #" & UUTNum
-        End If
-
-        Me.cmdStartTest.Text = "UUT" & UUTNum
-        Me.cmdStartTest.Enabled = False
-        Me.Refresh()
-
-        If Me.cmbJob.Text = " " Then Exit Sub
-        Job = Me.cmbJob.Text
-        Part = Me.cmbPart.Text
-        SerialNumber = "UUT" & UUTNum_Reset
-        ' SQLstr = "select * from TestData where JobNumber = '" & Job & "' and WorkStation = '" & GetComputerName() & "' And SerialNumber = 'UUT" & UUTNum_Reset & "'"
-        'If SQL.CheckforRow(SQLstr, "NetworkData") = 0 Then
-        'SQLstr = "Insert Into TestData (JobNumber, PartNumber,SerialNumber,WorkStation) values ('" & Job & "','" & Part & "','" & SerialNumber & "','" & GetComputerName() & "')"
-        ' SQL.ExecuteSQLCommand(SQLstr, "NetworkData")
-        'End If
-        ' SQLstr = "select * from TestData where JobNumber = '" & Job & "' and WorkStation = '" & GetComputerName() & "' And SerialNumber = 'UUT" & UUTNum_Reset & "'"
-       Me.Refresh()
-
-        'Insertion Loss
-        If Me.ckTest1.Checked Then
-            If Me.ckROBOT.Checked Then RobotStatus()
-            If TraceChecked Then
-                If (SpecType = "TRANSFORMER") And IL_TF Then PassFail = Tests.InsertionLossTRANS_multiband(, TestID)
-                If SpecType = "TRANSFORMER" Then PassFail = Tests.InsertionLossTRANS(, TestID)
-                If (SpecType = "90 DEGREE COUPLER" Or SpecType = "BALUN") And SpecAB_TF Then PassFail = Tests.InsertionLoss3dB_multiband(, TestID)
-                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.InsertionLoss3dB(, TestID)
-                If SpecType.Contains("COMBINER/DIVIDER") Then PassFail = Tests.InsertionLossCOMB(, TestID)
-                If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then PassFail = Tests.InsertionLossDIR(, TestID)
-            ElseIf Not MutiCalChecked Then
-                If (SpecType = "TRANSFORMER") And IL_TF Then PassFail = Tests.InsertionLossTRANS_multiband(, TestID)
-                If SpecType = "TRANSFORMER" Then PassFail = Tests.InsertionLossTRANS_Marker(, TestID)
-                If (SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN")) And SpecAB_TF Then PassFail = Tests.InsertionLoss3dB_multiband(, TestID)
-                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.InsertionLoss3dB_marker(, TestID)
-                If SpecType.Contains("COMBINER/DIVIDER") Then PassFail = Tests.InsertionLossCOMB_Marker(, TestID)
-                If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then PassFail = Tests.InsertionLossDIR_Marker(, TestID)
+                Me.UUTMessage.Text = "  UUT TESTS  --   Testing Unit #" & UUTNum
             End If
 
+            Me.cmdStartTest.Text = "UUT" & UUTNum
+            Me.cmdStartTest.Enabled = False
+            Me.Refresh()
 
-            If IL_TF Then
-                RetrnVal1 = IL1
-                SaveTestData("InsertionLoss", RetrnVal1)
-                RetrnVal = IL2
-                SaveTestData("InsertionLoss2", RetrnVal)
-                Data1L.Text = IL1
-                Data1H.Text = IL2
+            If Me.cmbJob.Text = " " Then Exit Sub
+            Job = Me.cmbJob.Text
+            Part = Me.cmbPart.Text
+            SerialNumber = "UUT" & UUTNum_Reset
+            SQLstr = "SELECT * from TestData where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork_rev = '" & ArtworkRevision & "'"
+            If SQL.CheckforRow(SQLstr, "NetworkData") = 0 Then
+                SQLstr = "Insert Into TestData (JobNumber, PartNumber,SerialNumber,WorkStation,artwork_rev) values ('" & Job & "','" & Part & "','" & SerialNumber & "','" & GetComputerName() & "','" & ArtworkRevision & "')"
+                SQL.ExecuteSQLCommand(SQLstr, "NetworkData")
+            End If
+            SQLstr = "SELECT * from TestData where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork_rev = '" & ArtworkRevision & "'"
+            TestID = SQL.GetTestID(SQLstr, "NetworkData")
+            Me.Refresh()
+
+            'Insertion Loss
+            If Me.ckTest1.Checked Then
+                If Me.ckROBOT.Checked Then RobotStatus()
+                If TraceChecked Then
+                    If (SpecType = "TRANSFORMER") And IL_TF Then PassFail = Tests.InsertionLossTRANS_multiband(, TestID)
+                    If SpecType = "TRANSFORMER" Then PassFail = Tests.InsertionLossTRANS(, TestID)
+                    If (SpecType = "90 DEGREE COUPLER" Or SpecType = "BALUN") And SpecAB_TF Then PassFail = Tests.InsertionLoss3dB_multiband(, TestID)
+                    If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.InsertionLoss3dB(, TestID)
+                    If SpecType.Contains("COMBINER/DIVIDER") Then PassFail = Tests.InsertionLossCOMB(, TestID)
+                    If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then PassFail = Tests.InsertionLossDIR(, TestID)
+                ElseIf Not MutiCalChecked Then
+                    If (SpecType = "TRANSFORMER") And IL_TF Then PassFail = Tests.InsertionLossTRANS_multiband(, TestID)
+                    If SpecType = "TRANSFORMER" Then PassFail = Tests.InsertionLossTRANS_Marker(, TestID)
+                    If (SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN")) And SpecAB_TF Then PassFail = Tests.InsertionLoss3dB_multiband(, TestID)
+                    If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.InsertionLoss3dB_marker(, TestID)
+                    If SpecType.Contains("COMBINER/DIVIDER") Then PassFail = Tests.InsertionLossCOMB_Marker(, TestID)
+                    If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then PassFail = Tests.InsertionLossDIR_Marker(, TestID)
+                End If
+
+
+                If IL_TF Then
+                    RetrnVal1 = IL1
+                    SaveTestData("InsertionLoss", RetrnVal1)
+                    RetrnVal = IL2
+                    SaveTestData("InsertionLoss2", RetrnVal)
+                    Data1L.Text = IL1
+                    Data1H.Text = IL2
+                Else
+                    RetrnVal = IL
+                    SaveTestData("InsertionLoss", RetrnVal)
+                    RetrnStr = CStr(Math.Round(RetrnVal, 2))
+                    Data1.Text = Format(RetrnVal, "0.00")
+                End If
+                status("Blue", "TEST1")
+                PF1.Text = PassFail
+
+
+                If PassFail = "Pass" Then
+                    TEST1PASS = True
+                    status("Green", "TEST1")
+                    MSChart.UpDateChartData(SpecType, "IL", "Pass")
+                ElseIf PassFail = "Fail" Then
+                    TEST1PASS = False
+                    status("Red", "TEST1")
+                    Test1Fail = Test1Fail + 1
+                    If Not GlobalFailed Then
+                        GlobalFail = GlobalFail + 1
+                        GlobalFailed = True
+                    End If
+                    If GlobalFail > GlobalFailMax And Not GlobalFail_bypass And Not Master_bypass Then
+                        GlobalFailing = True
+                        ErrorTimer.Start()
+                        Dim ERR As New Failures_Manager
+                        ERR.StartPosition = FormStartPosition.Manual
+                        ERR.Location = New Point(globals.XLocation, globals.YLocation)
+                        ERR.ShowDialog()
+                        ErrorTimer.Stop()
+                    End If
+                    If Test1Fail > TestFailMax And Not Test1Fail_bypass And Not Master_bypass Then
+                        Test1Failing = True
+                        ErrorTimer.Start()
+                        Dim ERR As New Failures_Manager
+                        ERR.StartPosition = FormStartPosition.Manual
+                        ERR.Location = New Point(globals.XLocation, globals.YLocation)
+                        ERR.ShowDialog()
+                        Test1Failing = False
+                        ErrorTimer.Stop()
+                    End If
+                    status("Red", "TEST1")
+                    TEST1FailRetest = TEST1FailRetest + 1
+                    UUTFail = 1
+                End If
+                Me.Failures1.Text = FormatPercent(((Test1Fail / UUTNum)), 1)
+                Me.Total1.Text = UUTNum
+                Me.FailTotal1.Text = Test1Fail
             Else
-                RetrnVal = IL
-                SaveTestData("InsertionLoss", RetrnVal)
-                RetrnStr = CStr(Math.Round(RetrnVal, 2))
-                Data1.Text = Format(RetrnVal, "0.00")
-            End If
-            status("Blue", "TEST1")
-            PF1.Text = PassFail
-
-
-            If PassFail = "Pass" Then
                 TEST1PASS = True
-                status("Green", "TEST1")
-                MSChart.UpDateChartData(SpecType, "IL", "Pass")
-            ElseIf PassFail = "Fail" Then
-                TEST1PASS = False
-                status("Red", "TEST1")
-                Test1Fail = Test1Fail + 1
-                If Not GlobalFailed Then
-                    GlobalFail = GlobalFail + 1
-                    GlobalFailed = True
-                End If
-                If GlobalFail > GlobalFailMax And Not GlobalFail_bypass And Not Master_bypass Then
-                    GlobalFailing = True
-                    ErrorTimer.Start()
-                    Dim ERR As New Failures_Manager
-                    ERR.StartPosition = FormStartPosition.Manual
-                    ERR.Location = New Point(globals.XLocation, globals.YLocation)
-                    ERR.ShowDialog()
-                    ErrorTimer.Stop()
-                End If
-                If Test1Fail > TestFailMax And Not Test1Fail_bypass And Not Master_bypass Then
-                    Test1Failing = True
-                    ErrorTimer.Start()
-                    Dim ERR As New Failures_Manager
-                    ERR.StartPosition = FormStartPosition.Manual
-                    ERR.Location = New Point(globals.XLocation, globals.YLocation)
-                    ERR.ShowDialog()
-                    Test1Failing = False
-                    ErrorTimer.Stop()
-                End If
-                status("Red", "TEST1")
-                TEST1FailRetest = TEST1FailRetest + 1
-                UUTFail = 1
+                status("Blue", "TEST1")
+                SaveTestData("InsertionLoss", GetSpecification("InsertionLoss"))
+                Me.Failures1.Text = FormatPercent(((Test1Fail / UUTNum)), 1)
+                Me.Total1.Text = UUTNum
+                Me.FailTotal1.Text = Test1Fail
             End If
-            Me.Failures1.Text = FormatPercent(((Test1Fail / UUTNum)), 1)
-            Me.Total1.Text = UUTNum
-            Me.FailTotal1.Text = Test1Fail
-        Else
-            TEST1PASS = True
-            status("Blue", "TEST1")
-            SaveTestData("InsertionLoss", GetSpecification("InsertionLoss"))
-            Me.Failures1.Text = FormatPercent(((Test1Fail / UUTNum)), 1)
-            Me.Total1.Text = UUTNum
-            Me.FailTotal1.Text = Test1Fail
-        End If
-        Me.Refresh()
+            Me.Refresh()
 
-        'Return Loss
-        If Me.ckTest2.Checked Then
-            If Me.ckROBOT.Checked Then RobotStatus()
-            If TraceChecked And Not TweakMode Then
-                PassFail = Tests.ReturnLoss(, TestID)
+            'Return Loss
+            If Me.ckTest2.Checked Then
+                If Me.ckROBOT.Checked Then RobotStatus()
+                If TraceChecked And Not TweakMode Then
+                    PassFail = Tests.ReturnLoss(, TestID)
+                Else
+                    PassFail = Tests.ReturnLoss_Marker(, TestID)
+                End If
+                RetrnVal = RL
+                SaveTestData("ReturnLoss", RetrnVal)
+                status("Blue", "TEST2")
+                PF2.Text = PassFail
+                RetrnStr = CStr(Math.Round(RetrnVal, 1))
+                Data2.Text = Format(RetrnVal, "0.0")
+                If PassFail = "Pass" Then
+                    TEST2PASS = True
+                    status("Green", "TEST2")
+                ElseIf PassFail = "Fail" Then
+                    TEST2PASS = False
+                    status("Red", "TEST2")
+                    Test2Fail = Test2Fail + 1
+                    If Not GlobalFailed Then
+                        GlobalFail = GlobalFail + 1
+                        GlobalFailed = True
+                    End If
+                    If GlobalFail > GlobalFailMax And Not GlobalFail_bypass And Not Master_bypass Then
+                        GlobalFailing = True
+                        ErrorTimer.Start()
+                        Dim ERR As New Failures_Manager
+                        ERR.StartPosition = FormStartPosition.Manual
+                        ERR.Location = New Point(globals.XLocation, globals.YLocation)
+                        ERR.ShowDialog()
+                        ErrorTimer.Stop()
+                    End If
+                    If Test2Fail > TestFailMax And Not Test2Fail_bypass And Not Master_bypass Then
+                        Test2Failing = True
+                        ErrorTimer.Start()
+                        Dim ERR As New Failures_Manager
+                        ERR.StartPosition = FormStartPosition.Manual
+                        ERR.Location = New Point(globals.XLocation, globals.YLocation)
+                        ERR.ShowDialog()
+                        Test2Failing = False
+                        ErrorTimer.Stop()
+                    End If
+
+                    status("Red", "TEST2")
+                    TEST2FailRetest = TEST2FailRetest + 1
+                    UUTFail = 1
+                End If
+                Me.Failures2.Text = FormatPercent(((Test2Fail / UUTNum)), 1)
+                Me.Total2.Text = UUTNum
+                Me.FailTotal2.Text = Test2Fail
             Else
-                PassFail = Tests.ReturnLoss_Marker(, TestID)
-            End If
-            RetrnVal = RL
-            SaveTestData("ReturnLoss", RetrnVal)
-            status("Blue", "TEST2")
-            PF2.Text = PassFail
-            RetrnStr = CStr(Math.Round(RetrnVal, 1))
-            Data2.Text = Format(RetrnVal, "0.0")
-            If PassFail = "Pass" Then
                 TEST2PASS = True
-                status("Green", "TEST2")
-            ElseIf PassFail = "Fail" Then
-                TEST2PASS = False
-                status("Red", "TEST2")
-                Test2Fail = Test2Fail + 1
-                If Not GlobalFailed Then
-                    GlobalFail = GlobalFail + 1
-                    GlobalFailed = True
-                End If
-                If GlobalFail > GlobalFailMax And Not GlobalFail_bypass And Not Master_bypass Then
-                    GlobalFailing = True
-                    ErrorTimer.Start()
-                    Dim ERR As New Failures_Manager
-                    ERR.StartPosition = FormStartPosition.Manual
-                    ERR.Location = New Point(globals.XLocation, globals.YLocation)
-                    ERR.ShowDialog()
-                    ErrorTimer.Stop()
-                End If
-                If Test2Fail > TestFailMax And Not Test2Fail_bypass And Not Master_bypass Then
-                    Test2Failing = True
-                    ErrorTimer.Start()
-                    Dim ERR As New Failures_Manager
-                    ERR.StartPosition = FormStartPosition.Manual
-                    ERR.Location = New Point(globals.XLocation, globals.YLocation)
-                    ERR.ShowDialog()
-                    Test2Failing = False
-                    ErrorTimer.Stop()
-                End If
-
-                status("Red", "TEST2")
-                TEST2FailRetest = TEST2FailRetest + 1
-                UUTFail = 1
+                status("Blue", "TEST2")
+                SaveTestData("ReturnLoss", VSWRtoRL(SQL.GetSpecification("VSWR")))
+                Me.Failures2.Text = FormatPercent(((Test2Fail / UUTNum)), 1)
+                Me.Total2.Text = UUTNum
+                Me.FailTotal2.Text = Test2Fail
             End If
-            Me.Failures2.Text = FormatPercent(((Test2Fail / UUTNum)), 1)
-            Me.Total2.Text = UUTNum
-            Me.FailTotal2.Text = Test2Fail
-        Else
-            TEST2PASS = True
-            status("Blue", "TEST2")
-            SaveTestData("ReturnLoss", VSWRtoRL(SQL.GetSpecification("VSWR")))
-            Me.Failures2.Text = FormatPercent(((Test2Fail / UUTNum)), 1)
-            Me.Total2.Text = UUTNum
-            Me.FailTotal2.Text = Test2Fail
-        End If
-        Me.Refresh()
-        If SpecType <> "COMBINER/DIVIDER" Then GoTo Test2Sub
+            Me.Refresh()
+            If SpecType <> "COMBINER/DIVIDER" Then GoTo Test2Sub
 Test2SubRet:
 
-        'AmplitudeBalance
-        'Directivity
-        If Me.ckTest4.Checked Then
-            If Me.ckROBOT.Checked Then RobotStatus()
-            If TraceChecked Then
-                If (SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN")) And SpecAB_TF Then PassFail = Tests.AmplitudeBalance_multiband(, TestID)
-                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.AmplitudeBalance(, TestID)
-                If SpecType.Contains("COMBINER/DIVIDER") Then PassFail = Tests.AmplitudeBalanceCOMB(, TestID)
-                If SpecType = "BI DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Then PassFail = Tests.Directivity(1, SpecType, , TestID)
-            ElseIf Not MutiCalChecked Then
-                If (SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN")) And SpecAB_TF Then PassFail = Tests.AmplitudeBalance_multiband(, TestID)
-                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.AmplitudeBalance_Marker(, TestID)
-                If SpecType.Contains("COMBINER/DIVIDER") Then PassFail = Tests.AmplitudeBalanceCOMB_Marker(, TestID)
-                If SpecType = "BI DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Then PassFail = Tests.Directivity_Marker(1, SpecType, , TestID)
-            End If
-            If SpecType <> "SINGLE DIRECTIONAL COUPLER" Then
-                If SpecType = "BI DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Then
-                    RetrnVal = DIR
-                    SaveTestData("Directivity", RetrnVal)
-                Else
-                    If SpecAB_TF Then
-                        RetrnVal = AB1
-                        SaveTestData("AmplitudeBalance1", RetrnVal)
-                        RetrnVal = AB2
-                        SaveTestData("AmplitudeBalance2", RetrnVal)
-                        'remove later
-                        RetrnVal = AB
-                        SaveTestData("AmplitudeBalance", RetrnVal)
-                    Else
-                        RetrnVal = AB
-                        SaveTestData("AmplitudeBalance", RetrnVal)
-                    End If
+            'AmplitudeBalance
+            'Directivity
+            If Me.ckTest4.Checked Then
+                If Me.ckROBOT.Checked Then RobotStatus()
+                If TraceChecked Then
+                    If (SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN")) And SpecAB_TF Then PassFail = Tests.AmplitudeBalance_multiband(, TestID)
+                    If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.AmplitudeBalance(, TestID)
+                    If SpecType.Contains("COMBINER/DIVIDER") Then PassFail = Tests.AmplitudeBalanceCOMB(, TestID)
+                    If SpecType = "BI DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Then PassFail = Tests.Directivity(1, SpecType, , TestID)
+                ElseIf Not MutiCalChecked Then
+                    If (SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN")) And SpecAB_TF Then PassFail = Tests.AmplitudeBalance_multiband(, TestID)
+                    If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.AmplitudeBalance_Marker(, TestID)
+                    If SpecType.Contains("COMBINER/DIVIDER") Then PassFail = Tests.AmplitudeBalanceCOMB_Marker(, TestID)
+                    If SpecType = "BI DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Then PassFail = Tests.Directivity_Marker(1, SpecType, , TestID)
                 End If
-                status("Blue", "TEST4")
-                If SpecAB_TF Then
-                    AB1 = Format(AB1, "0.00")
-                    AB2 = Format(AB2, "0.00")
-                    Data4L.Text = AB1
-                    Data4H.Text = AB2
-                    If AB1Pass = "Pass" And AB2Pass = "Pass" Then
-                        TEST4PASS = True
-                        PF4.Text = PassFail
-                        status("Green", "TEST4L", True)
-                        status("Green", "TEST4H", True)
-                        If SpecType <> "DUAL DIRECTIONAL COUPLER" And SpecType <> "SINGLE DIRECTIONAL COUPLER" Then
+                If SpecType <> "SINGLE DIRECTIONAL COUPLER" Then
+                    If SpecType = "BI DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Then
+                        RetrnVal = DIR
+                        SaveTestData("Directivity", RetrnVal)
+                    Else
+                        If SpecAB_TF Then
+                            RetrnVal = AB1
+                            SaveTestData("AmplitudeBalance1", RetrnVal)
+                            RetrnVal = AB2
+                            SaveTestData("AmplitudeBalance2", RetrnVal)
+                            'remove later
+                            RetrnVal = AB
+                            SaveTestData("AmplitudeBalance", RetrnVal)
+                        Else
+                            RetrnVal = AB
+                            SaveTestData("AmplitudeBalance", RetrnVal)
+                        End If
+                    End If
+                    status("Blue", "TEST4")
+                    If SpecAB_TF Then
+                        AB1 = Format(AB1, "0.00")
+                        AB2 = Format(AB2, "0.00")
+                        Data4L.Text = AB1
+                        Data4H.Text = AB2
+                        If AB1Pass = "Pass" And AB2Pass = "Pass" Then
                             TEST4PASS = True
-                        End If
-                    ElseIf AB1Pass = "Fail" Or AB2Pass = "Fail" Then
-                        TEST4PASS = False
-                        PassFail = "Fail"
-                        PF4.Text = PassFail
-                        If AB1Pass = "Pass" Then
+                            PF4.Text = PassFail
                             status("Green", "TEST4L", True)
-                        ElseIf AB1Pass = "Fail" Then
-                            status("Red", "TEST4L", True)
-                        End If
-                        If AB2Pass = "Pass" Then
                             status("Green", "TEST4H", True)
-                        ElseIf AB2Pass = "Fail" Then
-                            status("Red", "TEST4H", True)
+                            If SpecType <> "DUAL DIRECTIONAL COUPLER" And SpecType <> "SINGLE DIRECTIONAL COUPLER" Then
+                                TEST4PASS = True
+                            End If
+                        ElseIf AB1Pass = "Fail" Or AB2Pass = "Fail" Then
+                            TEST4PASS = False
+                            PassFail = "Fail"
+                            PF4.Text = PassFail
+                            If AB1Pass = "Pass" Then
+                                status("Green", "TEST4L", True)
+                            ElseIf AB1Pass = "Fail" Then
+                                status("Red", "TEST4L", True)
+                            End If
+                            If AB2Pass = "Pass" Then
+                                status("Green", "TEST4H", True)
+                            ElseIf AB2Pass = "Fail" Then
+                                status("Red", "TEST4H", True)
+                            End If
+                            If SpecType <> "DUAL DIRECTIONAL COUPLER" And SpecType <> "SINGLE DIRECTIONAL COUPLER" Then
+                                TEST4PASS = False
+                                TEST4Fail = TEST4Fail + 1
+                                If Not GlobalFailed Then
+                                    GlobalFail = GlobalFail + 1
+                                    GlobalFailed = True
+                                End If
+                                If GlobalFail > GlobalFailMax And Not GlobalFail_bypass And Not Master_bypass Then
+                                    GlobalFailing = True
+                                    ErrorTimer.Start()
+                                    Dim ERR As New Failures_Manager
+                                    ERR.StartPosition = FormStartPosition.Manual
+                                    ERR.ShowDialog()
+                                    ErrorTimer.Stop()
+                                End If
+                                If TEST4Fail > TestFailMax And Not TEST4Fail_bypass And Not Master_bypass Then
+                                    TEST4Failing = True
+                                    ErrorTimer.Start()
+                                    Dim ERR As New Failures_Manager
+                                    ERR.StartPosition = FormStartPosition.Manual
+                                    ERR.Location = New Point(globals.XLocation, globals.YLocation)
+                                    ERR.ShowDialog()
+                                    TEST4Failing = False
+                                    ErrorTimer.Stop()
+                                End If
+                                status("Red", "TEST4")
+                                TEST4FailRetest = TEST4FailRetest + 1
+                                UUTFail = 1
+                            End If
                         End If
-                        If SpecType <> "DUAL DIRECTIONAL COUPLER" And SpecType <> "SINGLE DIRECTIONAL COUPLER" Then
+                    Else
+                        If PassFail = "Pass" Then
+                            status("Green", "TEST4")
+                            Data4.Text = Format(RetrnVal, "0.00")
+                            PF4.Text = PassFail
+                            TEST4PASS = True
+                        ElseIf PassFail = "Fail" Then
+                            status("Red", "TEST4")
+                            Data4.Text = Format(RetrnVal, "0.00")
+                            PF4.Text = PassFail
                             TEST4PASS = False
                             TEST4Fail = TEST4Fail + 1
+                            Me.Failures4.Text = FormatPercent(((TEST4Fail / UUTNum)), 1)
+                            Me.Total4.Text = UUTNum
+                            Me.FailTotal4.Text = TEST4Fail
                             If Not GlobalFailed Then
                                 GlobalFail = GlobalFail + 1
                                 GlobalFailed = True
@@ -3164,21 +3237,44 @@ Test2SubRet:
                             UUTFail = 1
                         End If
                     End If
+                End If
+            End If
+            Me.Refresh()
+            'PhaseBalance
+            'CoupledFlatness
+            If Me.ckTest5.Checked Then
+                If Me.ckROBOT.Checked Then RobotStatus()
+                If TraceChecked Then
+                    If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.PhaseBalance(SpecType, , TestID)
+                    If SpecType.Contains("COMBINER/DIVIDER") Then PassFail = Tests.PhaseBalanceCOMB(SpecType, , TestID)
+                    If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then PassFail = Tests.CoupledFlatness(1, SpecType, , TestID)
+                ElseIf Not MutiCalChecked Then
+                    If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.PhaseBalance_Marker(SpecType, , TestID)
+                    If SpecType.Contains("COMBINER/DIVIDER") Then PassFail = Tests.PhaseBalanceCOMB_Marker(SpecType, , TestID)
+                    If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then PassFail = Tests.CoupledFlatness(1, SpecType, , TestID)
+                End If
+                If InStr(SpecType, "DIRECTIONAL COUPLER") Then
+                    RetrnVal = CF
+                    SaveTestData("CoupledFlatness", RetrnVal)
                 Else
-                    If PassFail = "Pass" Then
-                        status("Green", "TEST4")
-                        Data4.Text = Format(RetrnVal, "0.00")
-                        PF4.Text = PassFail
-                        TEST4PASS = True
-                    ElseIf PassFail = "Fail" Then
-                        status("Red", "TEST4")
-                        Data4.Text = Format(RetrnVal, "0.00")
-                        PF4.Text = PassFail
-                        TEST4PASS = False
-                        TEST4Fail = TEST4Fail + 1
-                        Me.Failures4.Text = FormatPercent(((TEST4Fail / UUTNum)), 1)
-                        Me.Total4.Text = UUTNum
-                        Me.FailTotal4.Text = TEST4Fail
+                    RetrnVal = PB
+                    SaveTestData("PhaseBalance", RetrnVal)
+                End If
+                status("Blue", "TEST5")
+                PF5.Text = PassFail
+
+                RetrnStr = CStr(Math.Round(RetrnVal, 1))
+                Data5.Text = Format(RetrnVal, "0.0")
+                If PassFail = "Pass" Then
+                    status("Green", "TEST5")
+                    If SpecType <> "DUAL DIRECTIONAL COUPLER" Then
+                        TEST5PASS = True
+                    End If
+                ElseIf PassFail = "Fail" Then
+                    status("Red", "TEST5")
+                    If SpecType <> "DUAL DIRECTIONAL COUPLER" Then
+                        TEST5PASS = False
+                        TEST5Fail = TEST5Fail + 1
                         If Not GlobalFailed Then
                             GlobalFail = GlobalFail + 1
                             GlobalFailed = True
@@ -3188,61 +3284,322 @@ Test2SubRet:
                             ErrorTimer.Start()
                             Dim ERR As New Failures_Manager
                             ERR.StartPosition = FormStartPosition.Manual
+                            ERR.Location = New Point(globals.XLocation, globals.YLocation)
                             ERR.ShowDialog()
                             ErrorTimer.Stop()
                         End If
-                        If TEST4Fail > TestFailMax And Not TEST4Fail_bypass And Not Master_bypass Then
-                            TEST4Failing = True
+                        If TEST5Fail > TestFailMax And Not TEST5Fail_bypass And Not Master_bypass Then
+                            TEST5Failing = True
                             ErrorTimer.Start()
                             Dim ERR As New Failures_Manager
                             ERR.StartPosition = FormStartPosition.Manual
                             ERR.Location = New Point(globals.XLocation, globals.YLocation)
                             ERR.ShowDialog()
-                            TEST4Failing = False
+                            TEST5Failing = False
                             ErrorTimer.Stop()
                         End If
-                        status("Red", "TEST4")
-                        TEST4FailRetest = TEST4FailRetest + 1
+                        status("Red", "TEST5")
+                        TEST5FailRetest = TEST5FailRetest + 1
                         UUTFail = 1
                     End If
                 End If
+                If SpecType <> "DUAL DIRECTIONAL COUPLER" Then
+                    Me.Failures5.Text = FormatPercent(((TEST5Fail / UUTNum)), 1)
+                    Me.Total5.Text = UUTNum
+                    Me.FailTotal5.Text = TEST5Fail
+                End If
+            Else
+                TEST5PASS = True
+                status("Blue", "TEST5")
+                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") Then SaveTestData("PhaseBalance", GetSpecification("PhaseBalance"))
+                If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then SaveTestData("CoupledFlatness", GetSpecification("CoupledFlatness"))
+
+                Me.Failures5.Text = FormatPercent(((TEST5Fail / UUTNum)), 1)
+                Me.Total5.Text = UUTNum
+                Me.FailTotal5.Text = TEST5Fail
             End If
-        End If
-        Me.Refresh()
-        'PhaseBalance
-        'CoupledFlatness
-        If Me.ckTest5.Checked Then
-            If Me.ckROBOT.Checked Then RobotStatus()
-            If TraceChecked Then
-                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.PhaseBalance(SpecType, , TestID)
-                If SpecType.Contains("COMBINER/DIVIDER") Then PassFail = Tests.PhaseBalanceCOMB(SpecType, , TestID)
-                If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then PassFail = Tests.CoupledFlatness(1, SpecType, , TestID)
-            ElseIf Not MutiCalChecked Then
-                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.PhaseBalance_Marker(SpecType, , TestID)
-                If SpecType.Contains("COMBINER/DIVIDER") Then PassFail = Tests.PhaseBalanceCOMB_Marker(SpecType, , TestID)
-                If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then PassFail = Tests.CoupledFlatness(1, SpecType, , TestID)
+
+            If SpecType <> "COMBINER/DIVIDER" Then
+                If SpecType = "DUAL DIRECTIONAL COUPLER" And PF1.Text <> "Fail" And PF2.Text <> "Fail" And (PF3.Text = "Fail" Or PF4.Text = "Fail" Or PF5.Text = "Fail") Then
+                    If MsgBox("Try Forward Measurement Again", vbYesNo) = vbYes Then
+                        GoTo Test2Sub
+                    Else
+                        GoTo TestComplete
+                    End If
+                    Dir1Failed = True
+                End If
+                GoTo TestComplete
             End If
-            If InStr(SpecType, "DIRECTIONAL COUPLER") Then
+            Me.Refresh()
+Test2Sub:
+
+            'Isolation
+            'Coupling
+            If Me.ckTest3.Checked Then
+                If Me.ckROBOT.Checked Then RobotStatus()
+                If TraceChecked Then
+                    If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.Isolation(, TestID)
+                    If SpecType.Contains("COMBINER/DIVIDER") Then PassFail = Tests.IsolationCOMB(, TestID)
+                    If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then PassFail = Tests.Coupling(1, SpecType, , TestID)
+                ElseIf Not MutiCalChecked Then
+                    If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.Isolation_Marker(, TestID)
+                    If SpecType.Contains("COMBINER/DIVIDER") And ISO_TF Then PassFail = Tests.IsolationCOMB(, TestID)
+                    If SpecType.Contains("COMBINER/DIVIDER") Then PassFail = Tests.IsolationCOMB_Marker(, TestID)
+                    If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then PassFail = Tests.Coupling(1, SpecType, , TestID)
+                End If
+                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") Or SpecType = "SINGLE DIRECTIONAL COUPLER" Then
+                    If SpecType.Contains("COMBINER/DIVIDER") And ISO_TF Then
+                        ISoL = Format(ISoL, "0.00")
+                        ISoH = Format(ISoH, "0.00")
+                        Data3L.Text = ISoL
+                        Data3H.Text = ISoH
+                        PF3.Text = PassFail
+                        If PassFail = "Pass" Then
+                            TEST3PASS = True
+                            status("Green", "TEST3L", True)
+                            status("Green", "TEST3H", True)
+                        ElseIf PassFail = "Fail" Then
+                            TEST3PASS = False
+                            If AB1Pass = "Pass" Then
+                                status("Green", "TEST3L", True)
+                            ElseIf AB1Pass = "Fail" Then
+                                status("Red", "TEST3L", True)
+                            End If
+                            If AB2Pass = "Pass" Then
+                                status("Green", "TEST3H", True)
+                            ElseIf AB2Pass = "Fail" Then
+                                status("Red", "TEST3H", True)
+                            End If
+                        End If
+
+                        If SQLAccess Then
+                            SaveTestData("IsolationL", ISoL)
+                            RetrnStr = CStr(Math.Round(ISoL, 1))
+                            SaveTestData("IsolationH", ISoH)
+                            RetrnStr = CStr(Math.Round(ISoH, 1))
+                        Else
+                            SaveTestData("IsoL", ISoL)
+                            RetrnStr = CStr(Math.Round(ISoL, 1))
+                            SaveTestData("IsoH", ISoH)
+                            RetrnStr = CStr(Math.Round(ISoH, 1))
+                        End If
+                    ElseIf SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("COMBINER/DIVIDER") Or SpecType.Contains("BALUN") Then
+                        RetrnVal = ISo
+                        If SQLAccess Then
+                            SaveTestData("Isolation", RetrnVal)
+                            RetrnStr = CStr(Math.Round(RetrnVal, 1))
+                        Else
+                            SaveTestData("Iso", RetrnVal)
+                            RetrnStr = CStr(Math.Round(RetrnVal, 1))
+                        End If
+                    Else
+                        RetrnVal = COuP
+                        SaveTestData("Coupling", RetrnVal)
+                        RetrnStr = CStr(Math.Round(RetrnVal, 1))
+                    End If
+                    If Not ISO_TF Then
+                        status("Blue", "TEST3")
+                        PF3.Text = PassFail
+                        Data3.Text = Format(RetrnVal, "0.0")
+                        If PassFail = "Pass" Then
+                            status("Green", "TEST3")
+                            If SpecType <> "DUAL DIRECTIONAL COUPLER" Then
+                                TEST3PASS = True
+                            End If
+                        ElseIf PassFail = "Fail" Then
+                            status("Red", "TEST3")
+                            If SpecType <> "DUAL DIRECTIONAL COUPLER" Then
+                                TEST3PASS = False
+                                TEST3Fail = TEST3Fail + 1
+                                If Not GlobalFailed Then
+                                    GlobalFail = GlobalFail + 1
+                                    GlobalFailed = True
+                                End If
+                                If GlobalFail > GlobalFailMax And Not GlobalFail_bypass And Not Master_bypass Then
+                                    GlobalFailing = True
+                                    ErrorTimer.Start()
+                                    Dim ERR As New Failures_Manager
+                                    ERR.StartPosition = FormStartPosition.Manual
+                                    ERR.Location = New Point(globals.XLocation, globals.YLocation)
+                                    ERR.ShowDialog()
+                                    ErrorTimer.Stop()
+                                End If
+                                If TEST3Fail > TestFailMax And Not TEST3Fail_bypass And Not Master_bypass Then
+                                    TEST3Failing = True
+                                    ErrorTimer.Start()
+                                    Dim ERR As New Failures_Manager
+                                    ERR.StartPosition = FormStartPosition.Manual
+                                    ERR.Location = New Point(globals.XLocation, globals.YLocation)
+                                    ERR.ShowDialog()
+                                    TEST3Failing = False
+                                    ErrorTimer.Stop()
+                                End If
+                                status("Red", "TEST3")
+                                TEST3FailRetest = TEST3FailRetest + 1
+                                UUTFail = 1
+                            End If
+                        End If
+                    End If
+                    If SpecType <> "DUAL DIRECTIONAL COUPLER" Then
+                        Me.Failures3.Text = FormatPercent(((TEST3Fail / UUTNum)), 1)
+                        Me.Total3.Text = UUTNum
+                        Me.FailTotal3.Text = TEST3Fail
+                    End If
+                Else
+                    TEST3PASS = True
+                    status("Blue", "TEST3")
+                    If SQLAccess Then
+                        If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") And SQLAccess Then SaveTestData("Isolation", 0 - GetSpecification("Isolation"))
+                        If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") And Not SQLAccess Then SaveTestData("Isolation", 0 - GetSpecification("Isolation"))
+                    Else
+                        If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") And SQLAccess Then SaveTestData("Iso", 0 - GetSpecification("Isolation"))
+                        If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") And Not SQLAccess Then SaveTestData("Iso", 0 - GetSpecification("Isolation"))
+                    End If
+
+                    If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then SaveTestData("Coupling", 0 - GetSpecification("Coupling"))
+                    Me.Failures3.Text = FormatPercent(((TEST3Fail / UUTNum)), 1)
+                    Me.Total3.Text = UUTNum
+                    Me.FailTotal3.Text = TEST3Fail
+                End If
+                Me.Refresh()
+            End If
+
+            If Not SpecType.Contains("COMBINER/DIVIDER") Then GoTo Test2SubRet
+
+TestComplete:  ' For everything except Directional Couplers
+
+            'Directonal Couplers reverse direction
+            If Not TweakMode And (SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Or (SpecType = "SINGLE DIRECTIONAL COUPLER" And Me.ckTest4.Checked)) Then
+                If SpecType = "DUAL DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, REFL = SW3"
+                If SpecType = "SINGLE DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, ISO = SW3"
+                If SpecType = "BI DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, REFL = SW3"
+                txtTitle.Text = SpecType & SwPos
+                MsgBox("Please turn the Directional Coupler in the Reverse direction")
+            End If
+
+            'Reverse Coupling
+            If SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" And Me.ckTest3.Checked Then
+                If Me.ckROBOT.Checked Then RobotStatus()
+                PassFail = Tests.Coupling(2, SpecType, , TestID)
+                RetrnVal = COuP
+                RetrnStr = CStr(Math.Round(RetrnVal, 1))
+                SaveTestData("Coupling", RetrnVal)
+                status("Blue", "TEST3")
+                PF3.Text = PassFail
+                Data3.Text = Format(RetrnVal, "0.00")
+                If PassFail = "Pass" Then
+                    TEST3PASS = True
+                    status("Green", "TEST3")
+                ElseIf PassFail = "Fail" Then
+                    TEST3PASS = False
+                    status("Red", "TEST3")
+                    TEST3Fail = TEST3Fail + 1
+                    If Not GlobalFailed Then
+                        GlobalFail = GlobalFail + 1
+                        GlobalFailed = True
+                    End If
+                    If GlobalFail > GlobalFailMax And Not GlobalFail_bypass And Not Master_bypass Then
+                        GlobalFailing = True
+                        ErrorTimer.Start()
+                        Dim ERR As New Failures_Manager
+                        ERR.StartPosition = FormStartPosition.Manual
+                        ERR.Location = New Point(globals.XLocation, globals.YLocation)
+                        ERR.ShowDialog()
+                        ErrorTimer.Stop()
+                    End If
+                    status("Red", "TEST3")
+                    TEST3FailRetest = TEST3FailRetest + 1
+                    UUTFail = 1
+                    If TEST3Fail > TestFailMax And Not TEST3Fail_bypass And Not GlobalFail_bypass And Not Master_bypass Then
+                        TEST3Failing = True
+                        ErrorTimer.Start()
+                        Dim ERR As New Failures_Manager
+                        ERR.StartPosition = FormStartPosition.Manual
+                        ERR.Location = New Point(globals.XLocation, globals.YLocation)
+                        ERR.ShowDialog()
+                        TEST3Failing = False
+                        ErrorTimer.Stop()
+                    End If
+                End If
+                Me.Failures3.Text = FormatPercent(((TEST3Fail / UUTNum)), 1)
+                Me.Total3.Text = UUTNum
+                Me.FailTotal3.Text = TEST3Fail
+            End If
+            Me.Refresh()
+
+            ' Reverse Directivity
+            If (SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Or SpecType = "SINGLE DIRECTIONAL COUPLER") And Me.ckTest4.Checked Then
+                If Me.ckROBOT.Checked Then RobotStatus()
+                If TraceChecked And Not TweakMode Then
+                    PassFail = Tests.Directivity(2, SpecType, , TestID)
+                Else
+                    PassFail = Tests.Directivity_Marker(2, SpecType, , TestID)
+                End If
+
+                status("Blue", "TEST4")
+                PF4.Text = PassFail
+                RetrnVal = DIR
+                SaveTestData("Directivity", RetrnVal)
+                RetrnStr = CStr(Math.Round(RetrnVal, 1))
+                Data4.Text = Format(RetrnVal, "0.0")
+                If PassFail = "Pass" Then
+                    TEST4PASS = True
+                    status("Green", "TEST4")
+                    MSChart.UpDateChartData(SpecType, "DIR", "Fail")
+                ElseIf PassFail = "Fail" Then
+                    TEST4PASS = False
+                    status("Red", "TEST4")
+                    TEST4Fail = TEST4Fail + 1
+                    If Not GlobalFailed Then
+                        GlobalFail = GlobalFail + 1
+                        GlobalFailed = True
+                    End If
+                    If GlobalFail > GlobalFailMax And Not GlobalFail_bypass And Not Master_bypass Then
+                        GlobalFailing = True
+                        ErrorTimer.Start()
+                        Dim ERR As New Failures_Manager
+                        ERR.StartPosition = FormStartPosition.Manual
+                        ERR.Location = New Point(globals.XLocation, globals.YLocation)
+                        ERR.ShowDialog()
+                        ErrorTimer.Stop()
+                    End If
+                    status("Red", "TEST4")
+                    TEST4FailRetest = TEST4FailRetest + 1
+                    MSChart.UpDateChartData(SpecType, "DIR", "Pass")
+                    UUTFail = 1
+                    If TEST4Fail > TestFailMax And Not TEST4Fail_bypass And Not Master_bypass Then
+                        TEST4Failing = True
+                        ErrorTimer.Start()
+                        Dim ERR As New Failures_Manager
+                        ERR.StartPosition = FormStartPosition.Manual
+                        ERR.Location = New Point(globals.XLocation, globals.YLocation)
+                        ERR.ShowDialog()
+                        TEST4Failing = False
+                        ErrorTimer.Stop()
+                    End If
+                End If
+                Me.Failures4.Text = FormatPercent(((TEST4Fail / UUTNum)), 1)
+                Me.Total4.Text = UUTNum
+                Me.FailTotal4.Text = TEST4Fail
+            End If
+            Me.Refresh()
+            ' Reverse Coupled Flatness
+            If SpecType = "DUAL DIRECTIONAL COUPLER" And Me.ckTest5.Checked Then
+                If Me.ckROBOT.Checked Then RobotStatus()
+                PassFail = Tests.CoupledFlatness(2, SpecType, , TestID)
                 RetrnVal = CF
                 SaveTestData("CoupledFlatness", RetrnVal)
-            Else
-                RetrnVal = PB
-                SaveTestData("PhaseBalance", RetrnVal)
-            End If
-            status("Blue", "TEST5")
-            PF5.Text = PassFail
-
-            RetrnStr = CStr(Math.Round(RetrnVal, 1))
-            Data5.Text = Format(RetrnVal, "0.0")
-            If PassFail = "Pass" Then
-                status("Green", "TEST5")
-                If SpecType <> "DUAL DIRECTIONAL COUPLER" Then
+                status("Blue", "TEST5")
+                PF5.Text = PassFail
+                RetrnStr = CStr(Math.Round(RetrnVal, 1))
+                Data5.Text = Format(RetrnVal, "0.0")
+                If PassFail = "Pass" Then
                     TEST5PASS = True
-                End If
-            ElseIf PassFail = "Fail" Then
-                status("Red", "TEST5")
-                If SpecType <> "DUAL DIRECTIONAL COUPLER" Then
+                    status("Green", "TEST5")
+                    MSChart.UpDateChartData(SpecType, "CB", "Pass")
+                ElseIf PassFail = "Fail" Then
                     TEST5PASS = False
+                    status("Red", "TEST5")
                     TEST5Fail = TEST5Fail + 1
                     If Not GlobalFailed Then
                         GlobalFail = GlobalFail + 1
@@ -3269,405 +3626,82 @@ Test2SubRet:
                     End If
                     status("Red", "TEST5")
                     TEST5FailRetest = TEST5FailRetest + 1
+                    MSChart.UpDateChartData(SpecType, "CB", "Fail")
                     UUTFail = 1
                 End If
-            End If
-            If SpecType <> "DUAL DIRECTIONAL COUPLER" Then
                 Me.Failures5.Text = FormatPercent(((TEST5Fail / UUTNum)), 1)
                 Me.Total5.Text = UUTNum
                 Me.FailTotal5.Text = TEST5Fail
             End If
-        Else
-            TEST5PASS = True
-            status("Blue", "TEST5")
-            If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") Then SaveTestData("PhaseBalance", GetSpecification("PhaseBalance"))
-            If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then SaveTestData("CoupledFlatness", GetSpecification("CoupledFlatness"))
-
-            Me.Failures5.Text = FormatPercent(((TEST5Fail / UUTNum)), 1)
-            Me.Total5.Text = UUTNum
-            Me.FailTotal5.Text = TEST5Fail
-        End If
-
-        If SpecType <> "COMBINER/DIVIDER" Then
-            If SpecType = "DUAL DIRECTIONAL COUPLER" And PF1.Text <> "Fail" And PF2.Text <> "Fail" And (PF3.Text = "Fail" Or PF4.Text = "Fail" Or PF5.Text = "Fail") Then
-                If MsgBox("Try Forward Measurement Again", vbYesNo) = vbYes Then
-                    GoTo Test2Sub
-                Else
+            If SpecType = "DUAL DIRECTIONAL COUPLER" And Not Dir1Failed And PF1.Text <> "Fail" And PF2.Text <> "Fail" And (PF3.Text = "Fail" Or PF4.Text = "Fail" Or PF5.Text = "Fail") Then
+                If MsgBox("Try Reverse Measurement Again?", vbYesNo) = vbYes Then
                     GoTo TestComplete
                 End If
-                Dir1Failed = True
-            End If
-            GoTo TestComplete
-        End If
-        Me.Refresh()
-Test2Sub:
 
-        'Isolation
-        'Coupling
-        If Me.ckTest3.Checked Then
-            If Me.ckROBOT.Checked Then RobotStatus()
-            If TraceChecked Then
-                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.Isolation(, TestID)
-                If SpecType.Contains("COMBINER/DIVIDER") Then PassFail = Tests.IsolationCOMB(, TestID)
-                If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then PassFail = Tests.Coupling(1, SpecType, , TestID)
-            ElseIf Not MutiCalChecked Then
-                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.Isolation_Marker(, TestID)
-                If SpecType.Contains("COMBINER/DIVIDER") And ISO_TF Then PassFail = Tests.IsolationCOMB(, TestID)
-                If SpecType.Contains("COMBINER/DIVIDER") Then PassFail = Tests.IsolationCOMB_Marker(, TestID)
-                If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then PassFail = Tests.Coupling(1, SpecType, , TestID)
             End If
-            If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") Or SpecType = "SINGLE DIRECTIONAL COUPLER" Then
-                If SpecType.Contains("COMBINER/DIVIDER") And ISO_TF Then
-                    ISoL = Format(ISoL, "0.00")
-                    ISoH = Format(ISoH, "0.00")
-                    Data3L.Text = ISoL
-                    Data3H.Text = ISoH
-                    PF3.Text = PassFail
-                    If PassFail = "Pass" Then
-                        TEST3PASS = True
-                        status("Green", "TEST3L", True)
-                        status("Green", "TEST3H", True)
-                    ElseIf PassFail = "Fail" Then
-                        TEST3PASS = False
-                        If AB1Pass = "Pass" Then
-                            status("Green", "TEST3L", True)
-                        ElseIf AB1Pass = "Fail" Then
-                            status("Red", "TEST3L", True)
-                        End If
-                        If AB2Pass = "Pass" Then
-                            status("Green", "TEST3H", True)
-                        ElseIf AB2Pass = "Fail" Then
-                            status("Red", "TEST3H", True)
-                        End If
-                    End If
 
-                    If SQLAccess Then
-                        SaveTestData("IsolationL", ISoL)
-                        RetrnStr = CStr(Math.Round(ISoL, 1))
-                        SaveTestData("IsolationH", ISoH)
-                        RetrnStr = CStr(Math.Round(ISoH, 1))
-                    Else
-                        SaveTestData("IsoL", ISoL)
-                        RetrnStr = CStr(Math.Round(ISoL, 1))
-                        SaveTestData("IsoH", ISoH)
-                        RetrnStr = CStr(Math.Round(ISoH, 1))
-                    End If
-                ElseIf SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("COMBINER/DIVIDER") Or SpecType.Contains("BALUN") Then
-                    RetrnVal = ISo
-                    If SQLAccess Then
-                        SaveTestData("Isolation", RetrnVal)
-                        RetrnStr = CStr(Math.Round(RetrnVal, 1))
-                    Else
-                        SaveTestData("Iso", RetrnVal)
-                        RetrnStr = CStr(Math.Round(RetrnVal, 1))
-                    End If
-                Else
-                    RetrnVal = COuP
-                    SaveTestData("Coupling", RetrnVal)
-                    RetrnStr = CStr(Math.Round(RetrnVal, 1))
-                End If
-                If Not ISO_TF Then
-                    status("Blue", "TEST3")
-                    PF3.Text = PassFail
-                    Data3.Text = Format(RetrnVal, "0.0")
-                    If PassFail = "Pass" Then
-                        status("Green", "TEST3")
-                        If SpecType <> "DUAL DIRECTIONAL COUPLER" Then
-                            TEST3PASS = True
-                        End If
-                    ElseIf PassFail = "Fail" Then
-                        status("Red", "TEST3")
-                        If SpecType <> "DUAL DIRECTIONAL COUPLER" Then
-                            TEST3PASS = False
-                            TEST3Fail = TEST3Fail + 1
-                            If Not GlobalFailed Then
-                                GlobalFail = GlobalFail + 1
-                                GlobalFailed = True
-                            End If
-                            If GlobalFail > GlobalFailMax And Not GlobalFail_bypass And Not Master_bypass Then
-                                GlobalFailing = True
-                                ErrorTimer.Start()
-                                Dim ERR As New Failures_Manager
-                                ERR.StartPosition = FormStartPosition.Manual
-                                ERR.Location = New Point(globals.XLocation, globals.YLocation)
-                                ERR.ShowDialog()
-                                ErrorTimer.Stop()
-                            End If
-                            If TEST3Fail > TestFailMax And Not TEST3Fail_bypass And Not Master_bypass Then
-                                TEST3Failing = True
-                                ErrorTimer.Start()
-                                Dim ERR As New Failures_Manager
-                                ERR.StartPosition = FormStartPosition.Manual
-                                ERR.Location = New Point(globals.XLocation, globals.YLocation)
-                                ERR.ShowDialog()
-                                TEST3Failing = False
-                                ErrorTimer.Stop()
-                            End If
-                            status("Red", "TEST3")
-                            TEST3FailRetest = TEST3FailRetest + 1
-                            UUTFail = 1
-                        End If
-                    End If
-                End If
-                If SpecType <> "DUAL DIRECTIONAL COUPLER" Then
-                    Me.Failures3.Text = FormatPercent(((TEST3Fail / UUTNum)), 1)
-                    Me.Total3.Text = UUTNum
-                    Me.FailTotal3.Text = TEST3Fail
-                End If
+            If Not TweakMode And (Not TEST2PASS Or Not TEST1PASS Or Not TEST3PASS Or Not TEST4PASS Or Not TEST5PASS) Then
+                UpdateFailureLog(Me.PF1.Text, Me.PF2.Text, Me.PF3.Text, Me.PF4.Text, Me.PF5.Text)
+                SaveFailureLog("UUT Number: " & UUTNum & " Job Number: " & Me.cmbJob.Text & " Part Number: " & Me.cmbPart.Text & "  Insertion Loss: " & Me.PF1.Text & "  Return Loss: " & Me.PF2.Text & "  Coupling: " & Me.PF3.Text & "  Directivity: " & TEST4PASS & "  Coupled Balance: " & Me.PF5.Text)
+                LOTFail = LOTFail + 1
+            End If
+
+            If LOTFail = 0 Then LotTestFrame.BackColor = Color.LawnGreen
+            If LOTFail = 0 Then LotFailureFrame.BackColor = Color.LawnGreen
+            If LOTFail > 0 Then LotTestFrame.BackColor = Color.Red
+            If LOTFail > 0 Then LotFailureFrame.BackColor = Color.Red
+            Me.cmdRetest.Enabled = True
+            Me.EraseTest.Enabled = True
+            If UUTFail = 1 Then Me.cmdRetest.Text = "Re - Test"
+            ' If UUTFail = 0 Then Me.cmdRetest.Text = "Undo"
+            If ExpectedProgress2 > 0 Then SQL.UpdateEffeciency("Running", txtEfficiency.Text, txtCurrentTime.Text, CInt(UUTCount.Text))
+            Me.LotFailure.Text = FormatPercent(((LOTFail / UUTNum)), 1)
+            If TweakMode Then
+                UUTMessage.Text = "  UUT TESTS  --   Tweak Mode. No Data Logging"
+            ElseIf Not TraceChecked Then
+                UUTMessage.Text = "  UUT TESTS Marker Mode  --   Load Unit #" & UUTNum + 1
             Else
-                TEST3PASS = True
-                status("Blue", "TEST3")
-                If SQLAccess Then
-                    If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") And SQLAccess Then SaveTestData("Isolation", 0 - GetSpecification("Isolation"))
-                    If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") And Not SQLAccess Then SaveTestData("Isolation", 0 - GetSpecification("Isolation"))
-                Else
-                    If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") And SQLAccess Then SaveTestData("Iso", 0 - GetSpecification("Isolation"))
-                    If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") And Not SQLAccess Then SaveTestData("Iso", 0 - GetSpecification("Isolation"))
-                End If
-
-                If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then SaveTestData("Coupling", 0 - GetSpecification("Coupling"))
-                Me.Failures3.Text = FormatPercent(((TEST3Fail / UUTNum)), 1)
-                Me.Total3.Text = UUTNum
-                Me.FailTotal3.Text = TEST3Fail
+                UUTMessage.Text = "  UUT TESTS  --   Load Unit #" & UUTNum + 1
             End If
-            Me.Refresh()
-        End If
-
-        If Not SpecType.Contains("COMBINER/DIVIDER") Then GoTo Test2SubRet
-
-TestComplete:  ' For everything except Directional Couplers
-
-        'Directonal Couplers reverse direction
-        If Not TweakMode And (SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Or (SpecType = "SINGLE DIRECTIONAL COUPLER" And Me.ckTest4.Checked)) Then
-            If SpecType = "DUAL DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, REFL = SW3"
-            If SpecType = "SINGLE DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, ISO = SW3"
-            If SpecType = "BI DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, REFL = SW3"
-            txtTitle.Text = SpecType & SwPos
-            MsgBox("Please turn the Directional Coupler in the Reverse direction")
-        End If
-
-        'Reverse Coupling
-        If SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" And Me.ckTest3.Checked Then
-            If Me.ckROBOT.Checked Then RobotStatus()
-            PassFail = Tests.Coupling(2, SpecType, , TestID)
-            RetrnVal = COuP
-            RetrnStr = CStr(Math.Round(RetrnVal, 1))
-            SaveTestData("Coupling", RetrnVal)
-            status("Blue", "TEST3")
-            PF3.Text = PassFail
-            Data3.Text = Format(RetrnVal, "0.00")
-            If PassFail = "Pass" Then
-                TEST3PASS = True
-                status("Green", "TEST3")
-            ElseIf PassFail = "Fail" Then
-                TEST3PASS = False
-                status("Red", "TEST3")
-                TEST3Fail = TEST3Fail + 1
-                If Not GlobalFailed Then
-                    GlobalFail = GlobalFail + 1
-                    GlobalFailed = True
-                End If
-                If GlobalFail > GlobalFailMax And Not GlobalFail_bypass And Not Master_bypass Then
-                    GlobalFailing = True
-                    ErrorTimer.Start()
-                    Dim ERR As New Failures_Manager
-                    ERR.StartPosition = FormStartPosition.Manual
-                    ERR.Location = New Point(globals.XLocation, globals.YLocation)
-                    ERR.ShowDialog()
-                    ErrorTimer.Stop()
-                End If
-                status("Red", "TEST3")
-                TEST3FailRetest = TEST3FailRetest + 1
-                UUTFail = 1
-                If TEST3Fail > TestFailMax And Not TEST3Fail_bypass And Not GlobalFail_bypass And Not Master_bypass Then
-                    TEST3Failing = True
-                    ErrorTimer.Start()
-                    Dim ERR As New Failures_Manager
-                    ERR.StartPosition = FormStartPosition.Manual
-                    ERR.Location = New Point(globals.XLocation, globals.YLocation)
-                    ERR.ShowDialog()
-                    TEST3Failing = False
-                    ErrorTimer.Stop()
-                End If
-            End If
-            Me.Failures3.Text = FormatPercent(((TEST3Fail / UUTNum)), 1)
-            Me.Total3.Text = UUTNum
-            Me.FailTotal3.Text = TEST3Fail
-        End If
-        Me.Refresh()
-
-        ' Reverse Directivity
-        If (SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Or SpecType = "SINGLE DIRECTIONAL COUPLER") And Me.ckTest4.Checked Then
-            If Me.ckROBOT.Checked Then RobotStatus()
-            If TraceChecked And Not TweakMode Then
-                PassFail = Tests.Directivity(2, SpecType, , TestID)
-            Else
-                PassFail = Tests.Directivity_Marker(2, SpecType, , TestID)
-            End If
-
-            status("Blue", "TEST4")
-            PF4.Text = PassFail
-            RetrnVal = DIR
-            SaveTestData("Directivity", RetrnVal)
-            RetrnStr = CStr(Math.Round(RetrnVal, 1))
-            Data4.Text = Format(RetrnVal, "0.0")
-            If PassFail = "Pass" Then
-                TEST4PASS = True
-                status("Green", "TEST4")
-                MSChart.UpDateChartData(SpecType, "DIR", "Fail")
-            ElseIf PassFail = "Fail" Then
-                TEST4PASS = False
-                status("Red", "TEST4")
-                TEST4Fail = TEST4Fail + 1
-                If Not GlobalFailed Then
-                    GlobalFail = GlobalFail + 1
-                    GlobalFailed = True
-                End If
-                If GlobalFail > GlobalFailMax And Not GlobalFail_bypass And Not Master_bypass Then
-                    GlobalFailing = True
-                    ErrorTimer.Start()
-                    Dim ERR As New Failures_Manager
-                    ERR.StartPosition = FormStartPosition.Manual
-                    ERR.Location = New Point(globals.XLocation, globals.YLocation)
-                    ERR.ShowDialog()
-                    ErrorTimer.Stop()
-                End If
-                status("Red", "TEST4")
-                TEST4FailRetest = TEST4FailRetest + 1
-                MSChart.UpDateChartData(SpecType, "DIR", "Pass")
-                UUTFail = 1
-                If TEST4Fail > TestFailMax And Not TEST4Fail_bypass And Not Master_bypass Then
-                    TEST4Failing = True
-                    ErrorTimer.Start()
-                    Dim ERR As New Failures_Manager
-                    ERR.StartPosition = FormStartPosition.Manual
-                    ERR.Location = New Point(globals.XLocation, globals.YLocation)
-                    ERR.ShowDialog()
-                    TEST4Failing = False
-                    ErrorTimer.Stop()
-                End If
-            End If
-            Me.Failures4.Text = FormatPercent(((TEST4Fail / UUTNum)), 1)
-            Me.Total4.Text = UUTNum
-            Me.FailTotal4.Text = TEST4Fail
-        End If
-        Me.Refresh()
-        ' Reverse Coupled Flatness
-        If SpecType = "DUAL DIRECTIONAL COUPLER" And Me.ckTest5.Checked Then
-            If Me.ckROBOT.Checked Then RobotStatus()
-            PassFail = Tests.CoupledFlatness(2, SpecType, , TestID)
-            RetrnVal = CF
-            SaveTestData("CoupledFlatness", RetrnVal)
-            status("Blue", "TEST5")
-            PF5.Text = PassFail
-            RetrnStr = CStr(Math.Round(RetrnVal, 1))
-            Data5.Text = Format(RetrnVal, "0.0")
-            If PassFail = "Pass" Then
-                TEST5PASS = True
-                status("Green", "TEST5")
-                MSChart.UpDateChartData(SpecType, "CB", "Pass")
-            ElseIf PassFail = "Fail" Then
-                TEST5PASS = False
-                status("Red", "TEST5")
-                TEST5Fail = TEST5Fail + 1
-                If Not GlobalFailed Then
-                    GlobalFail = GlobalFail + 1
-                    GlobalFailed = True
-                End If
-                If GlobalFail > GlobalFailMax And Not GlobalFail_bypass And Not Master_bypass Then
-                    GlobalFailing = True
-                    ErrorTimer.Start()
-                    Dim ERR As New Failures_Manager
-                    ERR.StartPosition = FormStartPosition.Manual
-                    ERR.Location = New Point(globals.XLocation, globals.YLocation)
-                    ERR.ShowDialog()
-                    ErrorTimer.Stop()
-                End If
-                If TEST5Fail > TestFailMax And Not TEST5Fail_bypass And Not Master_bypass Then
-                    TEST5Failing = True
-                    ErrorTimer.Start()
-                    Dim ERR As New Failures_Manager
-                    ERR.StartPosition = FormStartPosition.Manual
-                    ERR.Location = New Point(globals.XLocation, globals.YLocation)
-                    ERR.ShowDialog()
-                    TEST5Failing = False
-                    ErrorTimer.Stop()
-                End If
-                status("Red", "TEST5")
-                TEST5FailRetest = TEST5FailRetest + 1
-                MSChart.UpDateChartData(SpecType, "CB", "Fail")
-                UUTFail = 1
-            End If
-            Me.Failures5.Text = FormatPercent(((TEST5Fail / UUTNum)), 1)
-            Me.Total5.Text = UUTNum
-            Me.FailTotal5.Text = TEST5Fail
-        End If
-        If SpecType = "DUAL DIRECTIONAL COUPLER" And Not Dir1Failed And PF1.Text <> "Fail" And PF2.Text <> "Fail" And (PF3.Text = "Fail" Or PF4.Text = "Fail" Or PF5.Text = "Fail") Then
-            If MsgBox("Try Reverse Measurement Again?", vbYesNo) = vbYes Then
-                GoTo TestComplete
-            End If
-
-        End If
-
-        If Not TweakMode And (Not TEST2PASS Or Not TEST1PASS Or Not TEST3PASS Or Not TEST4PASS Or Not TEST5PASS) Then
-            UpdateFailureLog(Me.PF1.Text, Me.PF2.Text, Me.PF3.Text, Me.PF4.Text, Me.PF5.Text)
-            SaveFailureLog("UUT Number: " & UUTNum & " Job Number: " & Me.cmbJob.Text & " Part Number: " & Me.cmbPart.Text & "  Insertion Loss: " & Me.PF1.Text & "  Return Loss: " & Me.PF2.Text & "  Coupling: " & Me.PF3.Text & "  Directivity: " & TEST4PASS & "  Coupled Balance: " & Me.PF5.Text)
-            LOTFail = LOTFail + 1
-        End If
-
-        If LOTFail = 0 Then LotTestFrame.BackColor = Color.LawnGreen
-        If LOTFail = 0 Then LotFailureFrame.BackColor = Color.LawnGreen
-        If LOTFail > 0 Then LotTestFrame.BackColor = Color.Red
-        If LOTFail > 0 Then LotFailureFrame.BackColor = Color.Red
-        Me.cmdRetest.Enabled = True
-        Me.EraseTest.Enabled = True
-        If UUTFail = 1 Then Me.cmdRetest.Text = "Re - Test"
-        ' If UUTFail = 0 Then Me.cmdRetest.Text = "Undo"
-        If ExpectedProgress2 > 0 Then SQL.UpdateEffeciency("Running", txtEfficiency.Text, txtCurrentTime.Text, CInt(UUTCount.Text))
-        Me.LotFailure.Text = FormatPercent(((LOTFail / UUTNum)), 1)
-        If TweakMode Then
-            UUTMessage.Text = "  UUT TESTS  --   Tweak Mode. No Data Logging"
-        ElseIf Not TraceChecked Then
-            UUTMessage.Text = "  UUT TESTS Marker Mode  --   Load Unit #" & UUTNum + 1
-        Else
-            UUTMessage.Text = "  UUT TESTS  --   Load Unit #" & UUTNum + 1
-        End If
 TestReallyComplete:
-        Me.cmdStartTest.Text = "Next UUT"
-        cmdStartTest.Enabled = True
-        'MSChart.UpDateChart(SpecType)
-        CheckTestResume()
-        Me.Refresh()
-        If Not TweakMode Then If ActualProgress.Value + 1 <= ActualProgress.Maximum Then ActualProgress.Value = ActualProgress.Value + 1
-        'Change Title Back To Forward
-        If SpecType = "DUAL DIRECTIONAL COUPLER" Or (SpecType = "SINGLE DIRECTIONAL COUPLER" And Me.ckTest4.Checked) Then
-            If SpecType = "DUAL DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, REFL = SW3"
-            If SpecType = "SINGLE DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, ISO = SW3"
-            If SpecType = "BI DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, REFL = SW3"
-            txtTitle.Text = SpecType & SwPos
-        End If
-        If TEST1PASS And TEST2PASS And TEST3PASS And TEST4PASS And TEST5PASS Then
-            TestRunning = False
-            TestComplete = True
-            TestPassFail = True
-        Else
-            TestRunning = False
-            PassFail = False
-            TestPassFail = False
-        End If
-        UUTNum = UUTNum + 1
-        UUTNum_Reset = UUTNum_Reset + 1
-        If UUTNum > 5 And Not BypassUnchecked Then
-            Me.GetTrace.Checked = False
-        ElseIf UUTNum > 5 And BypassUnchecked Then
-            Me.GetTrace.Checked = True
-        End If
-        TestCompleteSignal(True) ' Note False/False tells the Robot to continue
-        StopTime = Now()
-        TestTime = StartTime - StopTime
-        EraseTest.Text = "Remove UUT" & UUTNum - 1
+            Me.cmdStartTest.Text = "Next UUT"
+            cmdStartTest.Enabled = True
+            'MSChart.UpDateChart(SpecType)
+            CheckTestResume()
+            Me.Refresh()
+            If Not TweakMode Then If ActualProgress.Value + 1 <= ActualProgress.Maximum Then ActualProgress.Value = ActualProgress.Value + 1
+            'Change Title Back To Forward
+            If SpecType = "DUAL DIRECTIONAL COUPLER" Or (SpecType = "SINGLE DIRECTIONAL COUPLER" And Me.ckTest4.Checked) Then
+                If SpecType = "DUAL DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, REFL = SW3"
+                If SpecType = "SINGLE DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, ISO = SW3"
+                If SpecType = "BI DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, REFL = SW3"
+                txtTitle.Text = SpecType & SwPos
+            End If
+            If TEST1PASS And TEST2PASS And TEST3PASS And TEST4PASS And TEST5PASS Then
+                TestRunning = False
+                TestComplete = True
+                TestPassFail = True
+            Else
+                TestRunning = False
+                PassFail = False
+                TestPassFail = False
+            End If
+            UUTNum = UUTNum + 1
+            UUTNum_Reset = UUTNum_Reset + 1
+            If UUTNum > 5 And Not BypassUnchecked Then
+                Me.GetTrace.Checked = False
+            ElseIf UUTNum > 5 And BypassUnchecked Then
+                Me.GetTrace.Checked = True
+            End If
+            TestCompleteSignal(True) ' Note False/False tells the Robot to continue
+            StopTime = Now()
+            TestTime = StartTime - StopTime
+            EraseTest.Text = "Remove UUT" & UUTNum - 1
 
-        ' Me.MasterUpLoad.Enabled = True
+            ' Me.MasterUpLoad.Enabled = True
+        Catch ex As Exception
+
+        End Try
     End Sub
 
     Private Sub EmptyTraceData_Click()
@@ -3727,19 +3761,16 @@ TestReallyComplete:
         ActualProgress.Maximum = 4
 
         ILSetDone = False
-        SQLstr = "select * from Trace where JobNumber = '" & Me.cmbJob.Text & "' and SerialNumber = UUT" & UUTNum_Reset & "' and artwork_rev = '" & Me.txtArtwork.Text & "'"
-        TraceID = GetTestID(SQLstr, "LocalTraceData")
-
-        If MsgBox("Are you sure you want to erase ALL DATA from This Job", vbYesNo, "Cannot be undone.") = vbYes Then
+        If MsgBox("Are you sure you want to erase UUT" & UUTNum_Reset, vbYesNo, "Cannot be undone.") = vbYes Then
 
             ResetLot()
-            Me.txtTitle.Text = "     DELETING " & Me.cmbJob.Text & " TEST DATA"
+            Me.txtTitle.Text = "     DELETING  UUT" & UUTNum_Reset & " TEST DATA"
             SQLstr = "Delete from TestData where JobNumber = '" & Me.cmbJob.Text & "' and SerialNumber = UUT" & UUTNum_Reset & "' and artwork_rev = '" & Me.txtArtwork.Text & "'"
             SQL.ExecuteSQLCommand(SQLstr, "NetworkData")
             If Not TweakMode Then If ActualProgress.Value + 1 <= ActualProgress.Maximum Then ActualProgress.Value = ExpectedProgress.Value + 1
 
             'Get Trace ID
-            Me.txtTitle.Text = "     DELETING " & Me.cmbJob.Text & " Trace DATA"
+            Me.txtTitle.Text = "     DELETING  UUT" & UUTNum_Reset & " Trace DATA"
             SQLstr = "select * from Trace where JobNumber = '" & Me.cmbJob.Text & "' and SerialNumber = UUT" & UUTNum_Reset & "' and artwork_rev = '" & Me.txtArtwork.Text & "'"
             TraceID = GetTestID(SQLstr, "NetworkTraceData")
 
@@ -3747,17 +3778,9 @@ TestReallyComplete:
             SQL.ExecuteSQLCommand(SQLstr, "NetworkTraceData")
             If Not TweakMode Then If ActualProgress.Value + 1 <= ActualProgress.Maximum Then ActualProgress.Value = ExpectedProgress.Value + 1
 
-            Me.txtTitle.Text = "     DELETING " & Me.cmbJob.Text & " TRACE DATA"
+            Me.txtTitle.Text = "     DELETING  UUT" & UUTNum_Reset & " TRACE DATA"
             SQLstr = "Delete from Trace where JobNumber = '" & Me.cmbJob.Text & "' and SerialNumber = UUT" & UUTNum_Reset & "' and artwork_rev = '" & Me.txtArtwork.Text & "'"
             If Not TweakMode Then If ActualProgress.Value + 1 <= ActualProgress.Maximum Then ActualProgress.Value = ExpectedProgress.Value + 1
-
-            If MsgBox("Do you want to erase the Specification?", vbYesNo, "Cannot be undone.") = vbYes Then
-                Me.txtTitle.Text = "     DELETING " & Me.cmbJob.Text & " Specifications"
-                SQLstr = "Delete from Specifications where JobNumber = '" & Me.cmbJob.Text & "'"
-                SQL.ExecuteSQLCommand(SQLstr, "NetworkSpecs")
-                If Not TweakMode Then If ActualProgress.Value + 1 <= ActualProgress.Maximum Then ActualProgress.Value = ExpectedProgress.Value + 1
-
-            End If
         End If
 
         Me.txtTitle.Text = Title
@@ -3873,7 +3896,7 @@ TestReallyComplete:
         Dim mes As String
         StatusLog.Items.Add("Creating Report:" & DateTime.Now.ToString)
         ReportServer("report queue", UUTCount.Text)
-        ExcelData()
+        'ExcelData()
         txtCurrentTime.Text = "COMPLETE"
         ExpectedTimer.Stop()
         ClearStatusLog()
@@ -4363,8 +4386,8 @@ TestReallyComplete:
             TempNetwork = NetworkAccess
             Dim test_status As String = GetTestStatus()
             stopTest = False
+            SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "' And WorkStation = '" & WorkStation & "'"
             If test_status = "None" Then
-                SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "' And WorkStation = '" & WorkStation & "'"
                 If SQL.CheckforRow(SQLstr, "NetworkData") > 0 Then GoTo StartResume
             ElseIf test_status = "One" Then
                 If ReportStatus(0) = "test running" And WorkStation = SavedWorkStation(0) And SavedJob(0) = Job Then
@@ -4396,7 +4419,7 @@ TestReallyComplete:
                     End If
                 Else
                     GoTo StartResume
-            End If
+                End If
             ElseIf test_status = "Multiple" Then
                 complete = 0
                 For x = 0 To ReportStatus.Length - 1
@@ -4469,7 +4492,7 @@ letsgetiton:
                     stopTest = False
                 Else
                     If MsgBox("Do you want to close " & SavedJob(0) & "?", vbYesNo, "Yes or No") = vbYes Then
-                        
+
                         If MsgBox("Do you want to erase the data from This Job", vbYesNo, "Cannot be undone.") = vbYes Then
                             EraseThisTest()
                         End If
@@ -4541,12 +4564,13 @@ StartResume:
                             RetrnVal = CDbl(dr.Item(6))
                         Else
                             If Not Incomplete Then
-                                If MsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
-                                    UUTNum = UUTNum - 1
-                                    UUTNum_Reset = UUTNum_Reset - 1
-                                    Incomplete = True
-                                    GoTo Recap
-                                End If
+                                UUTNum = UUTNum - 1
+                                UUTNum_Reset = UUTNum_Reset - 1
+                                Me.txtTitle.Text = "     DELETED BAD DATA. UUT" & UUTNum_Reset
+                                SQLstr = "Delete from TestData where JobNumber = '" & Me.cmbJob.Text & "' and SerialNumber = UUT" & UUTNum_Reset & "'"
+                                SQL.ExecuteSQLCommand(SQLstr, "NetworkData")
+                                Incomplete = True
+                                GoTo Recap
                             End If
                         End If
                         PassFail = Tests.InsertionLoss3dB(True)
@@ -4582,15 +4606,14 @@ StartResume:
                                 If Test2Fail = 0 Then status("Green", "TEST2")
                                 MSChart.UpDateChartData(SpecType, "RL", "Pass")
                             End If
-
                             If Not Incomplete Then
-                                If MsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
-                                    UUTNum = UUTNum - 1
-                                    EraseTest.Text = "Remove UUT" & UUTNum - 1
-                                    UUTNum_Reset = UUTNum_Reset - 1
-                                    Incomplete = True
-                                    GoTo Recap
-                                End If
+                                UUTNum = UUTNum - 1
+                                UUTNum_Reset = UUTNum_Reset - 1
+                                Me.txtTitle.Text = "     DELETED BAD DATA. UUT" & UUTNum_Reset
+                                SQLstr = "Delete from TestData where JobNumber = '" & Me.cmbJob.Text & "' and SerialNumber = UUT" & UUTNum_Reset & "'"
+                                SQL.ExecuteSQLCommand(SQLstr, "NetworkData")
+                                Incomplete = True
+                                GoTo Recap
                             End If
                         End If
                         PassFail = Tests.ReturnLoss(True)
@@ -4640,13 +4663,13 @@ StartResume:
                                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then MSChart.UpDateChartData(SpecType, "COU", "Pass")
                             End If
                             If Not Incomplete Then
-                                If MsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
-                                    UUTNum = UUTNum - 1
-                                    EraseTest.Text = "Remove UUT" & UUTNum - 1
-                                    UUTNum_Reset = UUTNum_Reset - 1
-                                    Incomplete = True
-                                    GoTo Recap
-                                End If
+                                UUTNum = UUTNum - 1
+                                UUTNum_Reset = UUTNum_Reset - 1
+                                Me.txtTitle.Text = "     DELETED BAD DATA. UUT" & UUTNum_Reset
+                                SQLstr = "Delete from TestData where JobNumber = '" & Me.cmbJob.Text & "' and SerialNumber = UUT" & UUTNum_Reset & "'"
+                                SQL.ExecuteSQLCommand(SQLstr, "NetworkData")
+                                Incomplete = True
+                                GoTo Recap
                             End If
                         End If
                         PassFail = Tests.Isolation(RetrnVal, True)
@@ -4712,45 +4735,46 @@ StartResume:
                                 End If
                             End If
                         End If
-                        PassFail = Tests.AmplitudeBalance(True)
-                        RetrnVal = AB
-                        If SpecAB_TF Then
-                            status("Blue", "TEST4L")
-                            status("Blue", "TEST4H")
-                        Else
-                            status("Blue", "TEST4")
-                        End If
-                        PF4.Text = PassFail
-                        If SpecAB_TF And Not AB1 = 0.0 Then
-                            AB1 = CStr(Math.Round(AB1, 2))
-                            AB2 = CStr(Math.Round(AB2, 2))
-                            Data4L.Text = AB1
-                            Data4H.Text = AB2
-                            Me.Total4.Text = UUTNum
-                            If AB1Pass = "Pass" Then
-                                status("Green", "TEST4L", True)
-                            ElseIf AB1Pass = "Fail" Then
-                                status("Red", "TEST4L", True)
+                        If Not SpecType = "TRANSFORMER" Then
+                            PassFail = Tests.AmplitudeBalance(True)
+                            RetrnVal = AB
+                            If SpecAB_TF Then
+                                status("Blue", "TEST4L")
+                                status("Blue", "TEST4H")
+                            Else
+                                status("Blue", "TEST4")
                             End If
-                            If AB2Pass = "Pass" Then
-                                status("Green", "TEST4H", True)
-                            ElseIf AB2Pass = "Fail" Then
-                                status("Red", "TEST4H", True)
-                            End If
-                        Else
-                            RetrnStr = CStr(Math.Round(RetrnVal, 2))
-                            Data4.Text = Format(RetrnVal, "0.00")
-                            If PassFail = "Pass" Then
-                                TEST4PASS = True
-                                status("Green", "TEST4")
-                            ElseIf PassFail = "Fail" Then
-                                TEST4PASS = False
+                            PF4.Text = PassFail
+                            If SpecAB_TF And Not AB1 = 0.0 Then
+                                AB1 = CStr(Math.Round(AB1, 2))
+                                AB2 = CStr(Math.Round(AB2, 2))
+                                Data4L.Text = AB1
+                                Data4H.Text = AB2
+                                Me.Total4.Text = UUTNum
+                                If AB1Pass = "Pass" Then
+                                    status("Green", "TEST4L", True)
+                                ElseIf AB1Pass = "Fail" Then
+                                    status("Red", "TEST4L", True)
+                                End If
+                                If AB2Pass = "Pass" Then
+                                    status("Green", "TEST4H", True)
+                                ElseIf AB2Pass = "Fail" Then
+                                    status("Red", "TEST4H", True)
+                                End If
+                            Else
+                                RetrnStr = CStr(Math.Round(RetrnVal, 2))
+                                Data4.Text = Format(RetrnVal, "0.00")
+                                If PassFail = "Pass" Then
+                                    TEST4PASS = True
+                                    status("Green", "TEST4")
+                                ElseIf PassFail = "Fail" Then
+                                    TEST4PASS = False
 
-                                status("Red", "TEST4")
-                                UUTFail = 1
+                                    status("Red", "TEST4")
+                                    UUTFail = 1
+                                End If
                             End If
                         End If
-
 
                         Me.Failures4.Text = FormatPercent(((TEST4Fail / UUTNum)), 1)
                         Me.Total4.Text = UUTNum

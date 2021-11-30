@@ -898,10 +898,10 @@ Public Class frmSpecifications
                 M_bypass = 0
             End If
 
-            Expression = " where PartNumber = '" & Me.cmbPart.Text & "' And JobNumber = '" & Me.cmbJob.Text & "'"
+            Expression = " where PartNumber = '" & Trim(Me.cmbPart.Text) & "' And JobNumber = '" & Trim(Me.cmbJob.Text) & "'"
             SQLstr = "SELECT * from Specifications" & Expression
             If SQL.CheckforRow(SQLstr, "LocalSpecs") = 0 Then
-                SQLstr = "Insert Into Specifications (JobNumber, PartNumber) values ('" & Me.cmbJob.Text & "','" & Me.cmbPart.Text & "')"
+                SQLstr = "Insert Into Specifications (JobNumber, PartNumber) values ('" & Trim(Me.cmbJob.Text) & "','" & Trim(Me.cmbPart.Text) & "')"
                 SQL.ExecuteSQLCommand(SQLstr, "LocalSpecs")
             End If
 

@@ -629,10 +629,6 @@
                     YArray = IL1Data
                     SQL.SaveTrace(Title, TestID, TraceID)
                     YArray = IL1Data_offs
-                    For y = 0 To YArray.Count - 1
-                        IL_XArray(UUTNum - 1, y) = XArray(y)
-                        IL1_YArray(UUTNum - 1, y) = YArray(y)
-                    Next
                 End If
             End If
             If MutiCalChecked Then ScanGPIB.GetTraceMem()
@@ -948,10 +944,6 @@
                     YArray = IL1Data1
                     SQL.SaveTrace(Title, TestID, TraceID)
                     YArray = IL1Data_offs
-                    For y = 0 To YArray.Count - 1
-                        IL_XArray(UUTNum - 1, y) = XArray(y)
-                        IL1_YArray(UUTNum - 1, y) = YArray(y)
-                    Next
                 End If
             End If
             If MutiCalChecked Then ScanGPIB.GetTraceMem()
@@ -1646,10 +1638,6 @@
                     YArray = IL1Data
                     SQL.SaveTrace(Title, TestID, TraceID)
                     YArray = IL1Data_offs
-                    For x = 0 To YArray.Count - 1
-                        IL_XArray(UUTNum - 1, x) = XArray(x)
-                        IL1_YArray(UUTNum - 1, x) = YArray(x)
-                    Next
                 End If
             End If
             Pts = Points
@@ -1899,6 +1887,7 @@
                 TraceID1 = SQL.GetTraceID(Title, TestID)
                 TraceID = TraceID1
             End If
+            ReDim Preserve IL1Data(Pts)
             ScanGPIB.GetTrace(Trace1Freq, IL1Data)
 
             Trace1Freq = TrimX(Trace1Freq)
@@ -1912,18 +1901,12 @@
                     YArray = IL1Data
                     SQL.SaveTrace(Title, TestID, TraceID)
                     YArray = IL1Data_offs
-                    For x = 0 To YArray.Count - 1
-                        IL_XArray(UUTNum - 1, x) = XArray(x)
-                        IL1_YArray(UUTNum - 1, x) = YArray(x)
-                    Next
-                End If
+               End If
             End If
             Pts = Points
-
             For i = 0 To Pts
                 ILArray(i) = IL1Data(i)
             Next
-
             frmAUTOTEST.Refresh()
             IL1 = MinNoZero(ILArray)
             IL1 = Math.Round(IL1, 3)
@@ -1947,7 +1930,6 @@
     End Function
     Public Function InsertionLossTRANS_multiband(Optional ResumeTesting As Boolean = False, Optional TestID As Long = 1) As String
         Dim status As String
-        Dim SQLStr As String
         Dim Spec1 As Double
         Dim Spec2 As Double
         Dim TraceID1 As Long
@@ -2076,15 +2058,16 @@
                 CalDate = Now
                 Notes = ""
                 Workstation = GetComputerName()
-                TraceID1 = ScanGPIB.GetTrace(Trace1Freq, IL1Data)
+                TraceID1 = SQL.GetTraceID(Title, TestID)
                 TraceID = TraceID1
             End If
+            ReDim Preserve IL1Data(Pts)
+            ReDim Preserve IL2Data(Pts)
+            ScanGPIB.GetTrace(Trace1Freq, IL1Data)
             Trace1Freq = TrimX(Trace1Freq)
             IL1Data_offs = TrimY(IL1Data, CDbl(frmAUTOTEST.txtOffset1.Text))
-
             If TraceChecked And Not TweakMode Then
                 If UUTNum_Reset <= 5 Then
-                    Title = "Insertion Loss J3"
                     ReDim Preserve XArray(IL1Data.Count - 1)
                     ReDim Preserve YArray(IL1Data.Count - 1)
                     Array.Clear(YArray, 0, IL1Data.Count - 1)
@@ -2092,10 +2075,6 @@
                     YArray = IL1Data
                     SQL.SaveTrace(Title, TestID, TraceID)
                     YArray = IL1Data_offs
-                    For x = 0 To YArray.Count - 1
-                        IL_XArray(UUTNum - 1, x) = XArray(x)
-                        IL1_YArray(UUTNum - 1, x) = YArray(x)
-                    Next
                 End If
             End If
             Pts = Points
@@ -2141,32 +2120,30 @@
             Delay(3000)
             frmAUTOTEST.Refresh()
             If TraceChecked And Not TweakMode Then ' Database Trace Data
-                Title = "Insertion Loss J3"
+                Title = "Insertion Loss J4"
                 SerialNumber = "UUT" & UUTNum_Reset
                 TestID = TestID
                 CalDate = Now
                 Notes = ""
                 Workstation = GetComputerName()
-                TraceID1 = ScanGPIB.GetTrace(Trace2Freq, IL2Data)
+                TraceID1 = SQL.GetTraceID(Title, TestID)
                 TraceID = TraceID1
             End If
-            Trace2Freq = TrimX(Trace2Freq)
-            IL2Data_offs = TrimY(IL2Data, CDbl(frmAUTOTEST.txtOffset1.Text))
+            ReDim Preserve IL1Data(Pts)
+            ReDim Preserve IL2Data(Pts)
+            ScanGPIB.GetTrace(Trace1Freq, IL1Data)
+            Trace1Freq = TrimX(Trace1Freq)
+            IL1Data_offs = TrimY(IL1Data, CDbl(frmAUTOTEST.txtOffset1.Text))
             If TraceChecked And Not TweakMode Then
                 If UUTNum_Reset <= 5 Then
-                    Title = "Insertion Loss J4"
-                    ReDim Preserve XArray(IL2Data.Count - 1)
-                    ReDim Preserve YArray(IL2Data.Count - 1)
-                    Array.Clear(YArray, 0, IL2Data.Count - 1)
-                    XArray = Trace2Freq
-                    YArray = IL2Data
+                    ReDim Preserve XArray(IL1Data.Count - 1)
+                    ReDim Preserve YArray(IL1Data.Count - 1)
+                    Array.Clear(YArray, 0, IL1Data.Count - 1)
+                    XArray = Trace1Freq
+                    YArray = IL1Data
                     SQL.SaveTrace(Title, TestID, TraceID)
-                    YArray = IL2Data_offs
-                    For x = 0 To YArray.Count - 1
-                        IL_XArray(UUTNum - 1, x) = XArray(x)
-                        IL2_YArray(UUTNum - 1, x) = YArray(x)
-                    Next
-                End If
+                    YArray = IL1Data_offs
+                 End If
             End If
             Pts = Points
 
@@ -2457,10 +2434,6 @@
                         YArray = IL1Data
                         SQL.SaveTrace(Title, TestID, TraceID)
                         YArray = IL1Data_offs
-                        For y = 0 To YArray.Count - 1
-                            IL_XArray(UUTNum - 1, y) = XArray(y)
-                            IL1_YArray(UUTNum - 1, y) = YArray(y)
-                        Next
                     End If
                 End If
                 MinData(x - 1) = IL1Data.Min
@@ -2754,11 +2727,7 @@
                     YArray = TraceData
                     SQL.SaveTrace(Title, TestID, TraceID)
                     YArray = TraceData_offs
-                    For x = 0 To YArray.Count - 1
-                        RL_XArray(UUTNum - 1, x) = XArray(x)
-                        RL_YArray(UUTNum - 1, x) = YArray(x)
-                    Next
-                End If
+               End If
             End If
             RL = MaxNoZero(TraceData)
             RL = RL + CDbl(frmAUTOTEST.txtOffset2.Text)
@@ -3002,10 +2971,6 @@
                     YArray = TraceData_offs
                     SQL.SaveTrace(Title, TestID, TraceID)
                     YArray = TraceData
-                    For x = 0 To YArray.Count - 1
-                        ISO_XArray(UUTNum - 1, x) = XArray(x)
-                        ISO_YArray(UUTNum - 1, x) = YArray(x)
-                    Next
                 End If
             End If
 
@@ -3282,10 +3247,6 @@
                         YArray = IL1Data
                         SQL.SaveTrace(Title, TestID, TraceID)
                         YArray = IL1Data_offs
-                        For x = 0 To YArray.Count - 1
-                            ISO_XArray(UUTNum - 1, x) = XArray(x)
-                            ISO_YArray(UUTNum - 1, x) = YArray(x)
-                        Next
                     End If
                 End If
                 SpecCuttoffFreq = 0
@@ -4749,10 +4710,6 @@ Round:
                     YArray = COUP1DataDir
                     SQL.SaveTrace(Title, TestID, TraceID)
                     YArray = COUP1Data_offs
-                    For x = 0 To YArray.Count - 1
-                        COUP_XArray(UUTNum - 1, x) = XArray(x)
-                        COUP1_YArray(UUTNum - 1, x) = YArray(x)
-                    Next
                 End If
             End If
 
@@ -5416,10 +5373,6 @@ Round:
                     YArray = Trace1Data
                     SQL.SaveTrace(Title, TestID, TraceID)
                     YArray = Trace1Data_offs
-                    For x = 0 To YArray.Count - 1
-                        PB_XArray(UUTNum - 1, x) = XArray(x)
-                        PB1_YArray(UUTNum - 1, x) = YArray(x)
-                    Next
                 End If
             End If
 
@@ -5562,12 +5515,6 @@ Round:
                 YArray = Trace2Data
                 SQL.SaveTrace(Title, TestID, TraceID)
                 YArray = Trace2Data_offs
-                If UUTNum <= 5 Then
-                    For x = 0 To YArray.Count - 1
-                        PB_XArray(UUTNum - 1, x) = XArray(x)
-                        PB2_YArray(UUTNum - 1, x) = YArray(x)
-                    Next
-                End If
             End If
             System.Threading.Thread.Sleep(500)
             If VNAStr = "AG_E5071B" Then

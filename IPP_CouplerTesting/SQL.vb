@@ -255,8 +255,8 @@ Retry:
                     If Not IsDBNull(dr.Item(29)) Then Test3 = CInt(dr.Item(29))
                     If Not IsDBNull(dr.Item(30)) Then Test4 = CInt(dr.Item(30))
                     If Not IsDBNull(dr.Item(31)) Then Test5 = CInt(dr.Item(31))
-                    If Not IsDBNull(dr.GetValue(41)) Then
-                        If dr.Item(41) = 1 Then
+                    If Not IsDBNull(dr.GetValue(47)) Then
+                        If dr.Item(47) = 1 Then
                             SpecAB_TF = True
                             If Not IsDBNull(dr.GetValue(42)) Then SpecAB_exp = dr.Item(42)
                             If Not IsDBNull(dr.GetValue(43)) Then SpecAB_start1 = dr.Item(43)
@@ -934,6 +934,7 @@ IGNORE2:
             Return 0
         End Try
     End Function
+    
     Public Function GetTraceID(SQLstr As String, Table As String) As Integer
         Try
             Dim CountRow As Integer = 0
@@ -966,6 +967,7 @@ IGNORE2:
         Catch
             Return 0
         End Try
+
     End Function
     Public Function GetTraceIDByTitle(Title As String, Optional Serial As String = "", Optional Job As String = "", Optional Station As String = "") As Integer
         Try
@@ -1101,9 +1103,6 @@ IGNORE2:
                 ats.Open()
                 cmd.Connection = ats
                 'Insert Initial Row
-                SQLStr = "Insert Into Trace (Title,SerialNumber,JobNumber) values ('" & globals.Title & " ', '" & globals.SerialNumber & " ','" & frmAUTOTEST.cmbJob.Text & "')"
-                SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
-                TraceID = GetTraceID(SQLStr, "trace")
                 Expression = " where ID = " & TraceID & " and Title = '" & Title & "'"
                 cmd.CommandText = "UPDATE Trace SET  Workstation = '" & GetComputerName() & "'" & Expression
                 cmd.ExecuteNonQuery()
