@@ -83,6 +83,14 @@ Public Class frmAUTOTEST
             NoInit = True
             NetworkAccess = CheckNetworkFolder()
             WorkStation = GetComputerName()
+            If WorkStation = "mford" Then
+                RFSwitch.Visible = True
+                Simulation.Visible = True
+            Else
+                RFSwitch.Visible = False
+                Simulation.Visible = False
+                Pass.Visible = False
+            End If
             Version = "Version: " & GetVersion()
             xTitle = "Freq MHz"
             yTitle = "Signal dBm"
@@ -92,7 +100,7 @@ Public Class frmAUTOTEST
             Dim SQLstr As String
 
             StatusLog.Items.Add("Inovative Power Products ATE")
-            
+
             If NetworkAccess Then
                 txtNet.Checked = True
             Else
@@ -205,8 +213,6 @@ Skip4:
             Else
                 Me.cmbVNA.SelectedIndex = 2
             End If
-
-
             Me.cmbSwitch.Items.Clear()
             Me.cmbSwitch.Items.Add("Switch POS 1")
             Me.cmbSwitch.Items.Add("Switch POS 2")
@@ -1930,6 +1936,16 @@ GetOut:
             ' StatusLog.Items.Add("Switch POS 3:" & "" & DateTime.Now.ToString)
         ElseIf Me.cmbSwitch.Text = "Switch POS 4" Then
             status = SwitchCom.SetSwitchPosition(4) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+            status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
+            System.Threading.Thread.Sleep(500)
+            ' StatusLog.Items.Add("Switch POS 4:" & "" & DateTime.Now.ToString)
+        ElseIf Me.cmbSwitch.Text = "Switch POS 5" Then
+            status = SwitchCom.SetSwitchPosition(5) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+            status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
+            System.Threading.Thread.Sleep(500)
+            ' StatusLog.Items.Add("Switch POS 4:" & "" & DateTime.Now.ToString)
+        ElseIf Me.cmbSwitch.Text = "Switch POS 6" Then
+            status = SwitchCom.SetSwitchPosition(6) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
             status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
             System.Threading.Thread.Sleep(500)
             ' StatusLog.Items.Add("Switch POS 4:" & "" & DateTime.Now.ToString)
@@ -6376,9 +6392,6 @@ TestComplete:  ' For everything except Directional Couplers
 
 
     End Sub
-
-
-
     Private Sub Simulation_Changed(sender As Object, e As EventArgs) Handles Simulation.CheckedChanged
         If Simulation.Checked Then
             Me.RealData.Visible = True
@@ -6554,7 +6567,7 @@ TestComplete:  ' For everything except Directional Couplers
         End If
     End Sub
 
-    Private Sub TestDataToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TestDataToolStripMenuItem.Click
+    Private Sub TestDataToolStripMenuItem_Click(sender As Object, e As EventArgs)
         Dim TD As New TestDataView
         Me.Hide()
         StatusLog.Items.Add("Opening Test Data:" & "" & DateTime.Now.ToString)
@@ -6564,7 +6577,7 @@ TestComplete:  ' For everything except Directional Couplers
         Me.Show()
     End Sub
 
-    Private Sub SpecificationsToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles SpecificationsToolStripMenuItem1.Click
+    Private Sub SpecificationsToolStripMenuItem1_Click(sender As Object, e As EventArgs)
         Dim spec As New SpecDataView
         Me.Hide()
         StatusLog.Items.Add("Opening Specs:" & "" & DateTime.Now.ToString)
@@ -6574,7 +6587,7 @@ TestComplete:  ' For everything except Directional Couplers
         Me.Show()
     End Sub
 
-    Private Sub PortConfigurationsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PortConfigurationsToolStripMenuItem.Click
+    Private Sub PortConfigurationsToolStripMenuItem_Click(sender As Object, e As EventArgs)
         Dim CONFIG As New PortConfigView
         Me.Hide()
         StatusLog.Items.Add("Opening Port Config's:" & "" & DateTime.Now.ToString)
@@ -6584,7 +6597,7 @@ TestComplete:  ' For everything except Directional Couplers
         Me.Show()
     End Sub
 
-    Private Sub TestEquipmentToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TestEquipmentToolStripMenuItem.Click
+    Private Sub TestEquipmentToolStripMenuItem_Click(sender As Object, e As EventArgs)
         Dim DEV As New DeviceView
         Me.Hide()
         StatusLog.Items.Add("Opening Devices:" & "" & DateTime.Now.ToString)
@@ -6594,7 +6607,7 @@ TestComplete:  ' For everything except Directional Couplers
         Me.Show()
     End Sub
 
-    Private Sub WorkstationsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles WorkstationsToolStripMenuItem.Click
+    Private Sub WorkstationsToolStripMenuItem_Click(sender As Object, e As EventArgs)
         Dim DEV As New WorkStationView
         Me.Hide()
         StatusLog.Items.Add("Opening WorkStations:" & "" & DateTime.Now.ToString)
@@ -6641,7 +6654,7 @@ TestComplete:  ' For everything except Directional Couplers
     End Sub
 
 
-    Private Sub TraceSearchToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles TraceSearchToolStripMenuItem.Click
+    Private Sub TraceSearchToolStripMenuItem_Click(sender As Object, e As EventArgs)
         Dim TRD As New TraceView
         Me.Hide()
         StatusLog.Items.Add("Opening Trace Data:" & "" & DateTime.Now.ToString)
@@ -6651,7 +6664,7 @@ TestComplete:  ' For everything except Directional Couplers
         Me.Show()
     End Sub
 
-    Private Sub OperatorEffeciencyToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OperatorEffeciencyToolStripMenuItem.Click
+    Private Sub OperatorEffeciencyToolStripMenuItem_Click(sender As Object, e As EventArgs)
         Dim EFF As New EffeciencyView
         Me.Hide()
         StatusLog.Items.Add("Opening Operator Effeciency:" & "" & DateTime.Now.ToString)
@@ -7350,7 +7363,7 @@ Skip3:
     End Sub
 
    
-    Private Sub DeleteOperatorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles DeleteOperatorToolStripMenuItem.Click
+    Private Sub DeleteOperatorToolStripMenuItem_Click(sender As Object, e As EventArgs)
         DeleteOp.Checked = True
         Dim OP As New OperatorEntry
         OP.StartPosition = FormStartPosition.Manual
@@ -7584,5 +7597,18 @@ Skip3:
     Private Sub txtArtwork_TextChanged(sender As Object, e As EventArgs) Handles txtArtwork.TextChanged
         UUTReset = True
         ArtworkRevision = txtArtwork.Text
+    End Sub
+
+  
+    Private Sub ReportServerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReportServerToolStripMenuItem.Click
+        Process.Start("microsoft-edge:http://inn-sqlexpress:8888/test/")
+    End Sub
+
+    Private Sub UpdateToolStripMenuItem_Click_1(sender As Object, e As EventArgs) Handles UpdateToolStripMenuItem.Click
+        Process.Start("\\ippdc\Test Automation\ATE_Publish\setup.exe")
+    End Sub
+
+    Private Sub NewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewToolStripMenuItem.Click
+        Process.Start("http://inn-sqlexpress:8888/trouble/trouble_ticket_open/")
     End Sub
 End Class

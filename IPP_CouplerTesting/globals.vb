@@ -51,6 +51,8 @@ Module globals
     Public ArtworkRevision As String = "N/A"
     Public jobSpec As String
     Public PartSpec As String
+    Public SwitchModel As String
+    Public SwitchPorts As Integer
 
 
     Public OverrideLogForm As Boolean

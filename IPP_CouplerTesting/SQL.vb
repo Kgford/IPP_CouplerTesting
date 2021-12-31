@@ -172,6 +172,9 @@ Module SQL
             ElseIf Test = "PartsPerHour" And PPH <> Nothing Then
                 GetSpecification = PPH
                 GoTo SkipDataBase
+            ElseIf Test = "SwitchPorts" And SwitchPorts <> Nothing Then
+                GetSpecification = SwitchPorts
+                GoTo SkipDataBase
                 'ElseIf Test = "Offset1" And Offset1 <> Nothing Then
                 '    GetSpecification = Offset1
                 '    GoTo SkipDataBase
@@ -279,6 +282,7 @@ Retry:
                             IL_TF = False
                         End If
                     End If
+                    If Not IsDBNull(dr.GetValue(100)) Then SwitchPorts = dr.Item(100)
                     If Test = "SpecType" Then If Not IsDBNull(dr.Item(1)) Then GetSpecification = CDbl(dr.Item(1))
                     If Test = "Title" Then If Not IsDBNull(dr.Item(4)) Then GetSpecification = CDbl(dr.Item(4))
                     If Test = "Quantity" Then If Not IsDBNull(dr.Item(5)) Then GetSpecification = CDbl(dr.Item(5))
@@ -312,6 +316,7 @@ Retry:
                     If Test = "Test4" Then If Not IsDBNull(dr.Item(30)) Then GetSpecification = CDbl(dr.Item(30))
                     If Test = "Test5" Then If Not IsDBNull(dr.Item(31)) Then GetSpecification = CDbl(dr.Item(31))
                     If Test = "PartsPerHour" Then If Not IsDBNull(dr.Item(32)) Then GetSpecification = CInt(dr.Item(32))
+                    If Test = "SwitchPorts" Then If Not IsDBNull(dr.GetValue(100)) Then SwitchPorts = dr.Item(100)
                 End While
                 ats.Close()
             Else
@@ -343,6 +348,7 @@ Retry:
                     If Not IsDBNull(drLocal.Item(19)) Then SpecCOUPFLAT = Math.Round(CDbl(drLocal.Item(19)), 2)
                     If Not IsDBNull(drLocal.Item(9)) Then SpecPorts = CInt(drLocal.Item(9))
                     If Not IsDBNull(drLocal.Item(32)) Then PPH = CInt(drLocal.Item(32))
+
 
                     If Test = "SpecType" Then If Not IsDBNull(drLocal.Item(1)) Then GetSpecification = CDbl(drLocal.Item(1))
                     If Test = "Title" Then If Not IsDBNull(drLocal.Item(4)) Then GetSpecification = CDbl(drLocal.Item(4))

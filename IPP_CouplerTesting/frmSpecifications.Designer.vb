@@ -226,6 +226,7 @@ Partial Class frmSpecifications
         Me.txtFail = New System.Windows.Forms.TextBox()
         Me.Label92 = New System.Windows.Forms.Label()
         Me.Label93 = New System.Windows.Forms.Label()
+        Me.ckPorts = New System.Windows.Forms.CheckBox()
         Me.Frame1.SuspendLayout()
         Me.Frame3.SuspendLayout()
         Me.Frame4.SuspendLayout()
@@ -380,7 +381,7 @@ Partial Class frmSpecifications
         Me.Frame1.Controls.Add(Me.txtStopFreq_1)
         Me.Frame1.Controls.Add(Me.txtStartFreq_1)
         Me.Frame1.Controls.Add(Me.Label5)
-        Me.Frame1.Location = New System.Drawing.Point(22, 244)
+        Me.Frame1.Location = New System.Drawing.Point(24, 222)
         Me.Frame1.Name = "Frame1"
         Me.Frame1.Size = New System.Drawing.Size(1190, 397)
         Me.Frame1.TabIndex = 9
@@ -1029,6 +1030,7 @@ Partial Class frmSpecifications
         'Frame3
         '
         Me.Frame3.CausesValidation = False
+        Me.Frame3.Controls.Add(Me.ckPorts)
         Me.Frame3.Controls.Add(Me.Label74)
         Me.Frame3.Controls.Add(Me.Label82)
         Me.Frame3.Controls.Add(Me.COUPPlusMinus)
@@ -1056,7 +1058,7 @@ Partial Class frmSpecifications
         Me.Frame3.Controls.Add(Me.txtStopFreq_3)
         Me.Frame3.Controls.Add(Me.txtStartFreq_3)
         Me.Frame3.Controls.Add(Me.Label79)
-        Me.Frame3.Location = New System.Drawing.Point(12, 255)
+        Me.Frame3.Location = New System.Drawing.Point(1, 278)
         Me.Frame3.Name = "Frame3"
         Me.Frame3.Size = New System.Drawing.Size(1186, 396)
         Me.Frame3.TabIndex = 69
@@ -1401,7 +1403,7 @@ Partial Class frmSpecifications
         Me.Frame4.Controls.Add(Me.txtStopFreq_4)
         Me.Frame4.Controls.Add(Me.txtStartFreq_4)
         Me.Frame4.Controls.Add(Me.Label110)
-        Me.Frame4.Location = New System.Drawing.Point(67, 238)
+        Me.Frame4.Location = New System.Drawing.Point(5, 248)
         Me.Frame4.Name = "Frame4"
         Me.Frame4.Size = New System.Drawing.Size(1182, 389)
         Me.Frame4.TabIndex = 73
@@ -1878,7 +1880,7 @@ Partial Class frmSpecifications
         Me.Frame5.Controls.Add(Me.txtStopFreq_5)
         Me.Frame5.Controls.Add(Me.txtStartFreq_5)
         Me.Frame5.Controls.Add(Me.Label115)
-        Me.Frame5.Location = New System.Drawing.Point(79, 221)
+        Me.Frame5.Location = New System.Drawing.Point(2, 259)
         Me.Frame5.Name = "Frame5"
         Me.Frame5.Size = New System.Drawing.Size(1182, 389)
         Me.Frame5.TabIndex = 120
@@ -2231,7 +2233,7 @@ Partial Class frmSpecifications
         Me.Frame2.Controls.Add(Me.txtStopFreq_2)
         Me.Frame2.Controls.Add(Me.txtStartFreq_2)
         Me.Frame2.Controls.Add(Me.Label54)
-        Me.Frame2.Location = New System.Drawing.Point(36, 233)
+        Me.Frame2.Location = New System.Drawing.Point(12, 234)
         Me.Frame2.Name = "Frame2"
         Me.Frame2.Size = New System.Drawing.Size(1178, 388)
         Me.Frame2.TabIndex = 56
@@ -2645,12 +2647,24 @@ Partial Class frmSpecifications
         Me.Label93.TabIndex = 77
         Me.Label93.Text = "Fail Percentage Alert :"
         '
+        'ckPorts
+        '
+        Me.ckPorts.AutoSize = True
+        Me.ckPorts.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ckPorts.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.ckPorts.Location = New System.Drawing.Point(421, 51)
+        Me.ckPorts.Name = "ckPorts"
+        Me.ckPorts.Size = New System.Drawing.Size(75, 20)
+        Me.ckPorts.TabIndex = 75
+        Me.ckPorts.Text = "4 Ports"
+        Me.ckPorts.UseVisualStyleBackColor = True
+        '
         'frmSpecifications
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.ClientSize = New System.Drawing.Size(1340, 666)
+        Me.ClientSize = New System.Drawing.Size(1235, 667)
         Me.Controls.Add(Me.Frame5)
         Me.Controls.Add(Me.Label93)
         Me.Controls.Add(Me.Label92)
@@ -2668,8 +2682,8 @@ Partial Class frmSpecifications
         Me.Controls.Add(Me.cmbJob)
         Me.Controls.Add(Me.cmbPart)
         Me.Controls.Add(Me.cmbSpecType)
-        Me.Controls.Add(Me.Frame4)
         Me.Controls.Add(Me.Frame3)
+        Me.Controls.Add(Me.Frame4)
         Me.Controls.Add(Me.Frame1)
         Me.Controls.Add(Me.Frame2)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
@@ -2893,4 +2907,5 @@ Partial Class frmSpecifications
     Friend WithEvents txtILFreq_1 As System.Windows.Forms.TextBox
     Friend WithEvents txtTest1_5_exp As System.Windows.Forms.TextBox
     Friend WithEvents db22 As System.Windows.Forms.Label
+    Friend WithEvents ckPorts As System.Windows.Forms.CheckBox
 End Class

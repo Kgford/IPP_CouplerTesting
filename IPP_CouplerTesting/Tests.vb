@@ -1540,6 +1540,7 @@
         If frmAUTOTEST.UUTCount.Text = 1 Then SetSwitchPosition = 1
         If frmAUTOTEST.txtOffset1.Text = "" Then frmAUTOTEST.txtOffset1.Text = 0
         Spec = GetSpecification("InsertionLoss")
+        SwitchPorts = SQL.GetSpecification("SwitchPorts")
         SwitchCom.Connect()
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset2.Text)
@@ -1579,19 +1580,35 @@
             End If
             frmAUTOTEST.Refresh()
         Else
-            ActiveTitle = "     TESTING INSERTION LOSS    SW POSITION 3      "
-            If SwitchedChecked Then  'Auto RF Switching
-                If SetSwitchPosition <> 1 Then
-                    SetSwitchPosition = 1
-                    status = SwitchCom.SetSwitchPosition(1) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
-                    status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
-                    System.Threading.Thread.Sleep(500)
+            If SwitchPorts = 1 Then ' ~~~~~~~ 6 port stuff ~~~~~~~~~
+                ActiveTitle = "     TESTING INSERTION LOSS    SW POSITION 5      "
+                If SwitchedChecked Then  'Auto RF Switching
+                    If SetSwitchPosition <> 51 Then
+                        SetSwitchPosition = 5
+                        status = SwitchCom.SetSwitchPosition(5) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                        status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
+                        System.Threading.Thread.Sleep(500)
+                    End If
+                    frmAUTOTEST.cmbSwitch.SelectedIndex = 4
+                Else
+                    MsgBox("Move Cables to RF Position 5", vbOKOnly, "Manual Switch")
                 End If
-                frmAUTOTEST.cmbSwitch.SelectedIndex = 0
-            Else
-                MsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
+            Else ' ~~~~~~~ 4 port stuff ~~~~~~~~~
+                ActiveTitle = "     TESTING INSERTION LOSS    SW POSITION 1      "
+                If SwitchedChecked Then  'Auto RF Switching
+                    If SetSwitchPosition <> 1 Then
+                        SetSwitchPosition = 1
+                        status = SwitchCom.SetSwitchPosition(1) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                        status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
+                        System.Threading.Thread.Sleep(500)
+                    End If
+                    frmAUTOTEST.cmbSwitch.SelectedIndex = 0
+                Else
+                    MsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
+                End If
             End If
 
+           
             If MutiCalChecked Then SetupVNA(True, 3)
             frmAUTOTEST.Refresh()
 
@@ -1727,17 +1744,32 @@
             End If
             frmAUTOTEST.Refresh()
         Else
-            ActiveTitle = "     TESTING INSERTION LOSS    SW POSITION 3      "
-            If SwitchedChecked Then  'Auto RF Switching
-                If SetSwitchPosition <> 1 Then
-                    SetSwitchPosition = 1
-                    status = SwitchCom.SetSwitchPosition(1) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
-                    status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
-                    System.Threading.Thread.Sleep(500)
+            If SwitchPorts = 1 Then ' ~~~~~~~ 6 port stuff ~~~~~~~~~
+                ActiveTitle = "     TESTING INSERTION LOSS    SW POSITION 5      "
+                If SwitchedChecked Then  'Auto RF Switching
+                    If SetSwitchPosition <> 1 Then
+                        SetSwitchPosition = 1
+                        status = SwitchCom.SetSwitchPosition(5) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                        status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
+                        System.Threading.Thread.Sleep(500)
+                    End If
+                    frmAUTOTEST.cmbSwitch.SelectedIndex = 4
+                Else
+                    MsgBox("Move Cables to RF Position 5", vbOKOnly, "Manual Switch")
                 End If
-                frmAUTOTEST.cmbSwitch.SelectedIndex = 0
-            Else
-                MsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
+            Else ' ~~~~~~~ 4 port stuff ~~~~~~~~~
+                ActiveTitle = "     TESTING INSERTION LOSS    SW POSITION 1      "
+                If SwitchedChecked Then  'Auto RF Switching
+                    If SetSwitchPosition <> 1 Then
+                        SetSwitchPosition = 1
+                        status = SwitchCom.SetSwitchPosition(1) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                        status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
+                        System.Threading.Thread.Sleep(500)
+                    End If
+                    frmAUTOTEST.cmbSwitch.SelectedIndex = 0
+                Else
+                    MsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
+                End If
             End If
 
             If MutiCalChecked Then SetupVNA(True, 3)
@@ -1814,6 +1846,7 @@
         If frmAUTOTEST.UUTCount.Text = 1 Then SetSwitchPosition = 1
         If frmAUTOTEST.txtOffset1.Text = "" Then frmAUTOTEST.txtOffset1.Text = 0
         Spec = GetSpecification("InsertionLoss")
+        SwitchPorts = SQL.GetSpecification("SwitchPorts")
         SwitchCom.Connect()
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset2.Text)
@@ -2131,18 +2164,18 @@
             End If
             ReDim Preserve IL1Data(Pts)
             ReDim Preserve IL2Data(Pts)
-            ScanGPIB.GetTrace(Trace1Freq, IL1Data)
-            Trace1Freq = TrimX(Trace1Freq)
-            IL1Data_offs = TrimY(IL1Data, CDbl(frmAUTOTEST.txtOffset1.Text))
+            ScanGPIB.GetTrace(Trace2Freq, IL2Data)
+            Trace2Freq = TrimX(Trace2Freq)
+            IL2Data_offs = TrimY(IL2Data, CDbl(frmAUTOTEST.txtOffset1.Text))
             If TraceChecked And Not TweakMode Then
                 If UUTNum_Reset <= 5 Then
-                    ReDim Preserve XArray(IL1Data.Count - 1)
-                    ReDim Preserve YArray(IL1Data.Count - 1)
-                    Array.Clear(YArray, 0, IL1Data.Count - 1)
-                    XArray = Trace1Freq
-                    YArray = IL1Data
+                    ReDim Preserve XArray(IL2Data.Count - 1)
+                    ReDim Preserve YArray(IL2Data.Count - 1)
+                    Array.Clear(YArray, 0, IL2Data.Count - 1)
+                    XArray = Trace2Freq
+                    YArray = IL2Data
                     SQL.SaveTrace(Title, TestID, TraceID)
-                    YArray = IL1Data_offs
+                    YArray = IL2Data_offs
                  End If
             End If
             Pts = Points
@@ -2650,6 +2683,7 @@
         Workstation = GetComputerName()
         If frmAUTOTEST.txtOffset2.Text = "" Then frmAUTOTEST.txtOffset3.Text = 0
         Spec = GetSpecification("VSWR")
+        SwitchPorts = SQL.GetSpecification("SwitchPorts")
         t1 = New Trace
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset2.Text)
@@ -2684,17 +2718,32 @@
             End If
             frmAUTOTEST.Refresh()
         Else
-            If SwitchedChecked Then  'Auto RF Switching
-                If SetSwitchPosition <> 1 Then
-                    SetSwitchPosition = 1
-                    status = SwitchCom.SetSwitchPosition(1) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
-                    status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
-                    System.Threading.Thread.Sleep(500)
+            If SwitchPorts = 1 Then ' ~~~~~~~ 6 port stuff ~~~~~~~~~
+                If SwitchedChecked Then  'Auto RF Switching
+                    If SetSwitchPosition <> 5 Then
+                        SetSwitchPosition = 5
+                        status = SwitchCom.SetSwitchPosition(5) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                        status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
+                        System.Threading.Thread.Sleep(500)
+                    End If
+                    frmAUTOTEST.cmbSwitch.SelectedIndex = 4
+                Else
+                    MsgBox("Move Cables to RF Position 5", vbOKOnly, "Manual Switch")
                 End If
-                frmAUTOTEST.cmbSwitch.SelectedIndex = 0
-            Else
-                MsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
+            Else ' ~~~~~~~ 4 port stuff ~~~~~~~~~
+                If SwitchedChecked Then  'Auto RF Switching
+                    If SetSwitchPosition <> 1 Then
+                        SetSwitchPosition = 1
+                        status = SwitchCom.SetSwitchPosition(1) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                        status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
+                        System.Threading.Thread.Sleep(500)
+                    End If
+                    frmAUTOTEST.cmbSwitch.SelectedIndex = 0
+                Else
+                    MsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
+                End If
             End If
+           
 
             frmAUTOTEST.Refresh()
             ExtraAvg(1)
@@ -2883,6 +2932,7 @@
         If frmAUTOTEST.txtOffset3.Text = "" Then frmAUTOTEST.txtOffset3.Text = 0 ' bad user protection
         t1 = New Trace
         Spec = 0 - GetSpecification("Isolation")
+        SwitchPorts = SQL.GetSpecification("SwitchPorts")
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset3.Text)
             If Math.Round(RetrnVal, 2) <= Spec Then
@@ -2916,17 +2966,33 @@
             System.Threading.Thread.Sleep(1000)
             frmAUTOTEST.Refresh()
         Else
-            If SwitchedChecked Then  'Auto RF Switching
-                If SetSwitchPosition <> 3 Then
-                    SetSwitchPosition = 3
-                    status = SwitchCom.SetSwitchPosition(3) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
-                    status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
-                    System.Threading.Thread.Sleep(500)
+
+            If SwitchPorts = 1 Then ' ~~~~~~~ 6 port stuff ~~~~~~~~~
+                If SwitchedChecked Then  'Auto RF Switching
+                    If SetSwitchPosition <> 2 Then
+                        SetSwitchPosition = 2
+                        status = SwitchCom.SetSwitchPosition(2) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                        status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
+                        System.Threading.Thread.Sleep(500)
+                    End If
+                    frmAUTOTEST.cmbSwitch.SelectedIndex = 1
+                Else
+                    MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
                 End If
-                frmAUTOTEST.cmbSwitch.SelectedIndex = 2
-            Else
-                MsgBox("Move Cables to RF Position 3", vbOKOnly, "Manual Switch")
+            Else ' ~~~~~~~ 4 port stuff ~~~~~~~~~
+                If SwitchedChecked Then  'Auto RF Switching
+                    If SetSwitchPosition <> 3 Then
+                        SetSwitchPosition = 3
+                        status = SwitchCom.SetSwitchPosition(3) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                        status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
+                        System.Threading.Thread.Sleep(500)
+                    End If
+                    frmAUTOTEST.cmbSwitch.SelectedIndex = 2
+                Else
+                    MsgBox("Move Cables to RF Position 3", vbOKOnly, "Manual Switch")
+                End If
             End If
+            
 
             If MutiCalChecked Then SetupVNA(True, 3)
 
@@ -3015,6 +3081,7 @@
         If frmAUTOTEST.txtOffset3.Text = "" Then frmAUTOTEST.txtOffset3.Text = 0 ' bad user protection
         t1 = New Trace
         Spec = 0 - GetSpecification("Isolation")
+        SwitchPorts = SQL.GetSpecification("SwitchPorts")
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset3.Text)
             If Math.Round(RetrnVal, 2) <= Spec Then
@@ -3048,16 +3115,30 @@
             System.Threading.Thread.Sleep(500)
             frmAUTOTEST.Refresh()
         Else
-            If SwitchedChecked Then  'Auto RF Switching
-                If SetSwitchPosition <> 3 Then
-                    SetSwitchPosition = 3
-                    status = SwitchCom.SetSwitchPosition(3) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
-                    status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
-                    System.Threading.Thread.Sleep(500)
+            If SwitchPorts = 1 Then ' ~~~~~~~ 6 port stuff ~~~~~~~~~
+                If SwitchedChecked Then  'Auto RF Switching
+                    If SetSwitchPosition <> 2 Then
+                        SetSwitchPosition = 2
+                        status = SwitchCom.SetSwitchPosition(2) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                        status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
+                        System.Threading.Thread.Sleep(500)
+                    End If
+                    frmAUTOTEST.cmbSwitch.SelectedIndex = 1
+                Else
+                    MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
                 End If
-                frmAUTOTEST.cmbSwitch.SelectedIndex = 2
-            Else
-                MsgBox("Move Cables to RF Position 3", vbOKOnly, "Manual Switch")
+            Else ' ~~~~~~~ 4 port stuff ~~~~~~~~~
+                If SwitchedChecked Then  'Auto RF Switching
+                    If SetSwitchPosition <> 3 Then
+                        SetSwitchPosition = 3
+                        status = SwitchCom.SetSwitchPosition(3) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                        status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
+                        System.Threading.Thread.Sleep(500)
+                    End If
+                    frmAUTOTEST.cmbSwitch.SelectedIndex = 2
+                Else
+                    MsgBox("Move Cables to RF Position 3", vbOKOnly, "Manual Switch")
+                End If
             End If
 
             If MutiCalChecked Then SetupVNA(True, 3)
@@ -3509,6 +3590,7 @@ SetPoints:
         t1 = New Trace
         Spec = GetSpecification("Coupling")
         SpecPM = GetSpecification("CouplingPM")
+        SwitchPorts = SQL.GetSpecification("SwitchPorts")
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset2.Text)
             If Math.Round(RetrnVal, 2) <= Spec Then
@@ -3541,33 +3623,65 @@ SetPoints:
             System.Threading.Thread.Sleep(500)
             frmAUTOTEST.Refresh()
         Else
-            If Direction = 1 Then
-                If SwitchedChecked Then  'Auto RF Switching
-                    If SetSwitchPosition <> 2 Then
-                        SetSwitchPosition = 2
-                        status = SwitchCom.SetSwitchPosition(2) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
-                        status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
-                        System.Threading.Thread.Sleep(500)
+
+            If SwitchPorts Then
+                If Direction = 1 Then
+                    If SwitchedChecked Then  'Auto RF Switching
+                        If SetSwitchPosition <> 1 Then
+                            SetSwitchPosition = 1
+                            status = SwitchCom.SetSwitchPosition(1) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                            status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
+                            System.Threading.Thread.Sleep(500)
+                        End If
+                        frmAUTOTEST.cmbSwitch.SelectedIndex = 0
+                    Else
+                        MsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
                     End If
-                    frmAUTOTEST.cmbSwitch.SelectedIndex = 1
-                Else
-                    MsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
-                End If
-                If MutiCalChecked Then SetupVNA(True, 1)
-            ElseIf Direction = 2 Then
-                If SwitchedChecked Then  'Auto RF Switching
-                    If SetSwitchPosition <> 2 Then
-                        SetSwitchPosition = 2
-                        status = SwitchCom.SetSwitchPosition(2) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
-                        status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
-                        System.Threading.Thread.Sleep(500)
+                    If MutiCalChecked Then SetupVNA(True, 1)
+                ElseIf Direction = 2 Then
+                    If SwitchedChecked Then  'Auto RF Switching
+                        If SetSwitchPosition <> 3 Then
+                            SetSwitchPosition = 3
+                            status = SwitchCom.SetSwitchPosition(3) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                            status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
+                            System.Threading.Thread.Sleep(500)
+                        End If
+                        frmAUTOTEST.cmbSwitch.SelectedIndex = 2
+                    Else
+                        MsgBox("Move Cables to RF Position 3", vbOKOnly, "Manual Switch")
                     End If
-                    frmAUTOTEST.cmbSwitch.SelectedIndex = 1
-                Else
-                    MsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
+                    If MutiCalChecked Then SetupVNA(True, 1)
                 End If
-                If MutiCalChecked Then SetupVNA(True, 1)
+            Else
+                If Direction = 1 Then
+                    If SwitchedChecked Then  'Auto RF Switching
+                        If SetSwitchPosition <> 2 Then
+                            SetSwitchPosition = 2
+                            status = SwitchCom.SetSwitchPosition(2) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                            status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
+                            System.Threading.Thread.Sleep(500)
+                        End If
+                        frmAUTOTEST.cmbSwitch.SelectedIndex = 1
+                    Else
+                        MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
+                    End If
+                    If MutiCalChecked Then SetupVNA(True, 1)
+                ElseIf Direction = 2 Then
+                    If SwitchedChecked Then  'Auto RF Switching
+                        If SetSwitchPosition <> 2 Then
+                            SetSwitchPosition = 2
+                            status = SwitchCom.SetSwitchPosition(2) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                            status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
+                            System.Threading.Thread.Sleep(500)
+                        End If
+                        frmAUTOTEST.cmbSwitch.SelectedIndex = 1
+                    Else
+                        MsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
+                    End If
+                    If MutiCalChecked Then SetupVNA(True, 1)
+                End If
             End If
+            
 
             frmAUTOTEST.Refresh()
 
@@ -4599,8 +4713,6 @@ Round:
         Dim Workstation As String
         Dim Title As String
 
-
-
         frmAUTOTEST.Refresh()
         Directivity = ""
         Title = ActiveTitle
@@ -4610,6 +4722,7 @@ Round:
         If frmAUTOTEST.txtOffset4.Text = "" Then frmAUTOTEST.txtOffset4.Text = 0
         t1 = New Trace
         Spec = GetSpecification("Directivity")
+        SwitchPorts = SQL.GetSpecification("SwitchPorts")
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset4.Text)
             If Math.Round(RetrnVal, 2) <= Spec Then
@@ -4651,17 +4764,41 @@ Round:
             End If
         Else
             frmAUTOTEST.Refresh()
+            If SwitchPorts = 1 Then ' ~~~~~~~ 6 port stuff ~~~~~~~~~
+                If Direction = 1 Then
+                    If SwitchedChecked Then   'Auto RF Switching
+                        SetSwitchPosition = 1
+                        status = SwitchCom.SetSwitchPosition(1) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                        status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
+                        System.Threading.Thread.Sleep(500)
 
-            If SwitchedChecked Then   'Auto RF Switching
+                        frmAUTOTEST.cmbSwitch.SelectedIndex = 0
+                    Else
+                        MsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
+                    End If
+                Else
+                    If SwitchedChecked Then   'Auto RF Switching
+                        SetSwitchPosition = 3
+                        status = SwitchCom.SetSwitchPosition(3) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                        status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
+                        System.Threading.Thread.Sleep(500)
 
-                SetSwitchPosition = 3
-                status = SwitchCom.SetSwitchPosition(3) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
-                status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
-                System.Threading.Thread.Sleep(500)
+                        frmAUTOTEST.cmbSwitch.SelectedIndex = 2
+                    Else
+                        MsgBox("Move Cables to RF Position 3", vbOKOnly, "Manual Switch")
+                    End If
+                End If
+            Else ' ~~~~~~~ 4 port stuff ~~~~~~~~~
+                If SwitchedChecked Then   'Auto RF Switching
+                    SetSwitchPosition = 3
+                    status = SwitchCom.SetSwitchPosition(3) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                    status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
+                    System.Threading.Thread.Sleep(500)
 
-                frmAUTOTEST.cmbSwitch.SelectedIndex = 2
-            Else
-                MsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
+                    frmAUTOTEST.cmbSwitch.SelectedIndex = 2
+                Else
+                    MsgBox("Move Cables to RF Position 3", vbOKOnly, "Manual Switch")
+                End If
             End If
 
             If MutiCalChecked Then SetupVNA(True, 1)
@@ -4726,16 +4863,39 @@ Round:
 
                 If MutiCalChecked Then SetupVNA(True, 1)
             Else
-                If SwitchedChecked Then  'Auto RF Switching
-                    SetSwitchPosition = 2
-                    status = SwitchCom.SetSwitchPosition(2) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
-                    status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
-                    System.Threading.Thread.Sleep(500)
-                    frmAUTOTEST.cmbSwitch.SelectedIndex = 1
-                Else
-                    MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
+                If SwitchPorts = 2 Then ' ~~~~~~~ 6 port stuff ~~~~~~~~~
+                    If Direction = 1 Then
+                        If SwitchedChecked Then  'Auto RF Switching
+                            SetSwitchPosition = 2
+                            status = SwitchCom.SetSwitchPosition(2) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                            status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
+                            System.Threading.Thread.Sleep(500)
+                            frmAUTOTEST.cmbSwitch.SelectedIndex = 1
+                        Else
+                            MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
+                        End If
+                    Else
+                        If SwitchedChecked Then  'Auto RF Switching
+                            SetSwitchPosition = 4
+                            status = SwitchCom.SetSwitchPosition(4) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                            status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
+                            System.Threading.Thread.Sleep(500)
+                            frmAUTOTEST.cmbSwitch.SelectedIndex = 3
+                        Else
+                            MsgBox("Move Cables to RF Position 4", vbOKOnly, "Manual Switch")
+                        End If
+                    End If
+                Else '~~~~~~~~~~~~~4 port stuff~~~~~~~~~~~~~~
+                    If SwitchedChecked Then  'Auto RF Switching
+                        SetSwitchPosition = 2
+                        status = SwitchCom.SetSwitchPosition(2) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                        status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
+                        System.Threading.Thread.Sleep(500)
+                        frmAUTOTEST.cmbSwitch.SelectedIndex = 1
+                    Else
+                        MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
+                    End If
                 End If
-
                 If MutiCalChecked Then SetupVNA(True, 2)
             End If
             frmAUTOTEST.Refresh()
@@ -4888,17 +5048,41 @@ Round:
             End If
         Else
             frmAUTOTEST.Refresh()
+            If SwitchPorts = 1 Then ' ~~~~~~~ 6 port stuff ~~~~~~~~~
+                If Direction = 1 Then
+                    If SwitchedChecked Then   'Auto RF Switching
+                        SetSwitchPosition = 1
+                        status = SwitchCom.SetSwitchPosition(1) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                        status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
+                        System.Threading.Thread.Sleep(500)
 
-            If SwitchedChecked Then   'Auto RF Switching
+                        frmAUTOTEST.cmbSwitch.SelectedIndex = 0
+                    Else
+                        MsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
+                    End If
+                Else
+                    If SwitchedChecked Then   'Auto RF Switching
+                        SetSwitchPosition = 3
+                        status = SwitchCom.SetSwitchPosition(3) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                        status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
+                        System.Threading.Thread.Sleep(500)
 
-                SetSwitchPosition = 3
-                status = SwitchCom.SetSwitchPosition(3) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
-                status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
-                System.Threading.Thread.Sleep(500)
+                        frmAUTOTEST.cmbSwitch.SelectedIndex = 2
+                    Else
+                        MsgBox("Move Cables to RF Position 3", vbOKOnly, "Manual Switch")
+                    End If
+                End If
+            Else ' ~~~~~~~ 4 port stuff ~~~~~~~~~
+                If SwitchedChecked Then   'Auto RF Switching
+                    SetSwitchPosition = 3
+                    status = SwitchCom.SetSwitchPosition(3) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                    status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
+                    System.Threading.Thread.Sleep(500)
 
-                frmAUTOTEST.cmbSwitch.SelectedIndex = 2
-            Else
-                MsgBox("Move Cables to RF Position 3", vbOKOnly, "Manual Switch")
+                    frmAUTOTEST.cmbSwitch.SelectedIndex = 2
+                Else
+                    MsgBox("Move Cables to RF Position 3", vbOKOnly, "Manual Switch")
+                End If
             End If
 
             If MutiCalChecked Then SetupVNA(True, 1)
@@ -4959,14 +5143,38 @@ Round:
 
                 If MutiCalChecked Then SetupVNA(True, 1)
             Else
-                If SwitchedChecked Then  'Auto RF Switching
-                    SetSwitchPosition = 2
-                    status = SwitchCom.SetSwitchPosition(2) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
-                    status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
-                    System.Threading.Thread.Sleep(500)
-                    frmAUTOTEST.cmbSwitch.SelectedIndex = 1
-                Else
-                    MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
+                If SwitchPorts = 2 Then ' ~~~~~~~ 6 port stuff ~~~~~~~~~
+                    If Direction = 1 Then
+                        If SwitchedChecked Then  'Auto RF Switching
+                            SetSwitchPosition = 2
+                            status = SwitchCom.SetSwitchPosition(2) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                            status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
+                            System.Threading.Thread.Sleep(500)
+                            frmAUTOTEST.cmbSwitch.SelectedIndex = 1
+                        Else
+                            MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
+                        End If
+                    Else
+                        If SwitchedChecked Then  'Auto RF Switching
+                            SetSwitchPosition = 4
+                            status = SwitchCom.SetSwitchPosition(4) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                            status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
+                            System.Threading.Thread.Sleep(500)
+                            frmAUTOTEST.cmbSwitch.SelectedIndex = 3
+                        Else
+                            MsgBox("Move Cables to RF Position 4", vbOKOnly, "Manual Switch")
+                        End If
+                    End If
+                Else '~~~~~~~~~~~~~4 port stuff~~~~~~~~~~~~~~
+                    If SwitchedChecked Then  'Auto RF Switching
+                        SetSwitchPosition = 2
+                        status = SwitchCom.SetSwitchPosition(2) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                        status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
+                        System.Threading.Thread.Sleep(500)
+                        frmAUTOTEST.cmbSwitch.SelectedIndex = 1
+                    Else
+                        MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
+                    End If
                 End If
 
                 If MutiCalChecked Then SetupVNA(True, 2)
@@ -5057,6 +5265,7 @@ Round:
         If frmAUTOTEST.txtOffset4.Text = "" Then frmAUTOTEST.txtOffset4.Text = 0
         t1 = New Trace
         Spec = GetSpecification("CoupledFlatness")
+        SwitchPorts = SQL.GetSpecification("SwitchPorts")
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset4.Text)
             If Math.Round(RetrnVal, 2) <= Spec Then
@@ -5089,29 +5298,57 @@ Round:
             frmAUTOTEST.Refresh()
         Else
             frmAUTOTEST.Refresh()
-            If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Then
-                If SwitchedChecked Then  'Auto RF Switching
-                    SetSwitchPosition = 2
-                    status = SwitchCom.SetSwitchPosition(2) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
-                    status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
-                    System.Threading.Thread.Sleep(500)
-                    frmAUTOTEST.cmbSwitch.SelectedIndex = 1
-                Else
-                    MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
+            If SwitchPorts = 1 Then
+                If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Then
+                    If SwitchedChecked Then  'Auto RF Switching
+                        SetSwitchPosition = 1
+                        status = SwitchCom.SetSwitchPosition(1) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                        status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
+                        System.Threading.Thread.Sleep(500)
+                        frmAUTOTEST.cmbSwitch.SelectedIndex = 0
+                    Else
+                        MsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
+                    End If
+                    If MutiCalChecked Then SetupVNA(True, 1)
+                ElseIf SpecType = "DUAL DIRECTIONAL COUPLER" And Direction = 2 Then
+                    If SwitchedChecked Then  'Auto RF Switching
+                        SetSwitchPosition = 3
+                        status = SwitchCom.SetSwitchPosition(3) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                        status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
+                        System.Threading.Thread.Sleep(500)
+                        frmAUTOTEST.cmbSwitch.SelectedIndex = 2
+                    Else
+                        MsgBox("Move Cables to RF Position 3", vbOKOnly, "Manual Switch")
+                    End If
+                    If MutiCalChecked Then SetupVNA(True, 3)
                 End If
-                If MutiCalChecked Then SetupVNA(True, 1)
-            ElseIf SpecType = "DUAL DIRECTIONAL COUPLER" And Direction = 2 Then
-                If SwitchedChecked Then  'Auto RF Switching
-                    SetSwitchPosition = 2
-                    status = SwitchCom.SetSwitchPosition(2) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
-                    status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
-                    System.Threading.Thread.Sleep(500)
-                    frmAUTOTEST.cmbSwitch.SelectedIndex = 1
-                Else
-                    MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
+            Else
+                If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Then
+                    If SwitchedChecked Then  'Auto RF Switching
+                        SetSwitchPosition = 2
+                        status = SwitchCom.SetSwitchPosition(2) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                        status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
+                        System.Threading.Thread.Sleep(500)
+                        frmAUTOTEST.cmbSwitch.SelectedIndex = 1
+                    Else
+                        MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
+                    End If
+                    If MutiCalChecked Then SetupVNA(True, 1)
+                ElseIf SpecType = "DUAL DIRECTIONAL COUPLER" And Direction = 2 Then
+                    If SwitchedChecked Then  'Auto RF Switching
+                        SetSwitchPosition = 2
+                        status = SwitchCom.SetSwitchPosition(2) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                        status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
+                        System.Threading.Thread.Sleep(500)
+                        frmAUTOTEST.cmbSwitch.SelectedIndex = 1
+                    Else
+                        MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
+                    End If
+                    If MutiCalChecked Then SetupVNA(True, 3)
                 End If
-                If MutiCalChecked Then SetupVNA(True, 3)
             End If
+
+           
             frmAUTOTEST.Refresh()
             System.Threading.Thread.Sleep(100)
             If VNAStr = "AG_E5071B" Then
@@ -6432,6 +6669,7 @@ Round:
             retSwitchNumber = GetNumberOfSwitches()
             retSerialList = GetSNlist()
             retFirmware = GetFirmware()
+            Dim model = GetSwitchModel()
 
 
             ConnectionGood = SwitchCom.Connect ' Note requires a few milliseconds to connect
@@ -6441,6 +6679,24 @@ Round:
             If InitializeSwitch.ToUpper.Contains("NOT CONNECTED") Then
                 frmAUTOTEST.RFSwitch.CheckState = CheckState.Unchecked
                 SwitchedChecked = frmAUTOTEST.RFSwitch.Checked
+            End If
+            SwitchModel = GetSwitchModel()
+            If SwitchModel = "RC-1SP6T-A12" Then
+                frmAUTOTEST.cmbSwitch.Items.Clear()
+                frmAUTOTEST.cmbSwitch.Items.Add("Switch POS 1")
+                frmAUTOTEST.cmbSwitch.Items.Add("Switch POS 2")
+                frmAUTOTEST.cmbSwitch.Items.Add("Switch POS 3")
+                frmAUTOTEST.cmbSwitch.Items.Add("Switch POS 4")
+                frmAUTOTEST.cmbSwitch.Items.Add("Switch POS 5")
+                frmAUTOTEST.cmbSwitch.Items.Add("Switch POS 6")
+                frmAUTOTEST.cmbSwitch.Text = "Switch POS 1"
+            Else
+                frmAUTOTEST.cmbSwitch.Items.Clear()
+                frmAUTOTEST.cmbSwitch.Items.Add("Switch POS 1")
+                frmAUTOTEST.cmbSwitch.Items.Add("Switch POS 2")
+                frmAUTOTEST.cmbSwitch.Items.Add("Switch POS 3")
+                frmAUTOTEST.cmbSwitch.Items.Add("Switch POS 4")
+                frmAUTOTEST.cmbSwitch.Text = "Switch POS 1"
             End If
         Catch ex As Exception
 

@@ -157,6 +157,12 @@ Public Class frmSpecifications
                             If Not IsDBNull(dr.GetValue(17)) Then Me.txtTest4_3.Text = dr.Item(17)
                             If Not IsDBNull(dr.GetValue(19)) Then Me.txtTest5_3.Text = dr.Item(19)
                         End If
+                        If Not IsDBNull(dr.GetValue(100)) Then SwitchPorts = dr.Item(100)
+                        If SwitchPorts = 1 Then
+                            ckPorts.CheckState = CheckState.Checked
+                        Else
+                            ckPorts.CheckState = CheckState.Unchecked
+                        End If
                     ElseIf Index = 1 Then
                         If Me.cmbJob.Text = "Job Number" Or ChangeJob = 1 Then Me.cmbJob.Text = ""
                         If Not IsDBNull(dr.GetValue(1)) Then Me.cmbSpecType.Text = dr.Item(1)
@@ -174,6 +180,12 @@ Public Class frmSpecifications
                         ElseIf Index = 2 Then
                             If Not IsDBNull(dr.GetValue(17)) Then Me.txtTest4_2.Text = dr.Item(17)
                             If Not IsDBNull(dr.GetValue(19)) Then Me.txtTest5_2.Text = dr.Item(19)
+                        End If
+                        If Not IsDBNull(dr.GetValue(100)) Then SwitchPorts = dr.Item(100)
+                        If SwitchPorts = 1 Then
+                            ckPorts.CheckState = CheckState.Checked
+                        Else
+                            ckPorts.CheckState = CheckState.Unchecked
                         End If
                     ElseIf Index = 2 Then
                         If Me.cmbJob.Text = "Job Number" Or ChangeJob = 1 Then Me.cmbJob.Text = ""
@@ -201,6 +213,12 @@ Public Class frmSpecifications
                             If Not IsDBNull(dr.GetValue(17)) Then Me.txtTest4_3.Text = dr.Item(17)
                             If Not IsDBNull(dr.GetValue(19)) Then Me.txtTest5_3.Text = dr.Item(19)
                         End If
+                        If Not IsDBNull(dr.GetValue(100)) Then SwitchPorts = dr.Item(100)
+                        If SwitchPorts = 1 Then
+                            ckPorts.CheckState = CheckState.Checked
+                        Else
+                            ckPorts.CheckState = CheckState.Unchecked
+                        End If
                     ElseIf Index = 3 Then
                         If Me.cmbJob.Text = "Job Number" Or ChangeJob = 1 Then Me.cmbJob.Text = ""
                         If Not IsDBNull(dr.GetValue(1)) Then Me.cmbSpecType.Text = dr.Item(1)
@@ -227,6 +245,12 @@ Public Class frmSpecifications
                             End If
                         End If
                         If Not IsDBNull(dr.GetValue(9)) Then Me.txtOutputPorts.Text = dr.Item(9)
+                        If Not IsDBNull(dr.GetValue(100)) Then SwitchPorts = dr.Item(100)
+                        If SwitchPorts = 1 Then
+                            ckPorts.CheckState = CheckState.Checked
+                        Else
+                            ckPorts.CheckState = CheckState.Unchecked
+                        End If
                     ElseIf Index = 4 Then
                         If Me.cmbJob.Text = "Job Number" Or ChangeJob = 1 Then Me.cmbJob.Text = ""
                         If Not IsDBNull(dr.GetValue(1)) Then Me.cmbSpecType.Text = dr.Item(1)
@@ -571,6 +595,12 @@ Public Class frmSpecifications
                             If Not IsDBNull(dr.GetValue(17)) Then Me.txtTest4_3.Text = dr.Item(17)
                             If Not IsDBNull(dr.GetValue(19)) Then Me.txtTest5_3.Text = dr.Item(19)
                         End If
+                        If Not IsDBNull(dr.GetValue(100)) Then SwitchPorts = dr.Item(100)
+                        If SwitchPorts = 1 Then
+                            ckPorts.CheckState = CheckState.Checked
+                        Else
+                            ckPorts.CheckState = CheckState.Unchecked
+                        End If
                     ElseIf Index = 1 Then
                         If Me.cmbJob.Text = "Job Number" Or ChangeJob = 1 Then Me.cmbJob.Text = ""
                         If Not IsDBNull(dr.GetValue(1)) Then Me.cmbSpecType.Text = dr.Item(1)
@@ -588,6 +618,12 @@ Public Class frmSpecifications
                         ElseIf Index = 2 Then
                             If Not IsDBNull(dr.GetValue(17)) Then Me.txtTest4_2.Text = dr.Item(17)
                             If Not IsDBNull(dr.GetValue(19)) Then Me.txtTest5_2.Text = dr.Item(19)
+                        End If
+                        If Not IsDBNull(dr.GetValue(100)) Then SwitchPorts = dr.Item(100)
+                        If SwitchPorts = 1 Then
+                            ckPorts.CheckState = CheckState.Checked
+                        Else
+                            ckPorts.CheckState = CheckState.Unchecked
                         End If
                     ElseIf Index = 2 Then
                         If Me.cmbJob.Text = "Job Number" Or ChangeJob = 1 Then Me.cmbJob.Text = ""
@@ -613,6 +649,12 @@ Public Class frmSpecifications
                             If Not IsDBNull(dr.GetValue(16)) Then Me.txtTest3_3.Text = dr.Item(16)
                             If Not IsDBNull(dr.GetValue(17)) Then Me.txtTest4_3.Text = dr.Item(17)
                             If Not IsDBNull(dr.GetValue(20)) Then Me.txtTest5_3.Text = dr.Item(20)
+                        End If
+                        If Not IsDBNull(dr.GetValue(100)) Then SwitchPorts = dr.Item(100)
+                        If SwitchPorts = 1 Then
+                            ckPorts.CheckState = CheckState.Checked
+                        Else
+                            ckPorts.CheckState = CheckState.Unchecked
                         End If
                     ElseIf Index = 5 Then
                         If Me.cmbJob.Text = "Job Number" Or ChangeJob = 1 Then Me.cmbJob.Text = ""
@@ -1099,6 +1141,13 @@ Public Class frmSpecifications
                         cmd.ExecuteNonQuery()
                         cmd.CommandText = "UPDATE Specifications SET  FailPercent = '" & Me.txtFail.Text & "'" & Expression
                         cmd.ExecuteNonQuery()
+                        If ckPorts.CheckState = CheckState.Checked Then
+                            cmd.CommandText = "UPDATE Specifications SET  SwPorts = 1" & Expression
+                            cmd.ExecuteNonQuery()
+                        Else
+                            cmd.CommandText = "UPDATE Specifications SET  SwPorts = 0" & Expression
+                            cmd.ExecuteNonQuery()
+                        End If
 
                         'cmd.CommandText = "UPDATE Specifications SET  OutputPortNumber = '" & DBNull & "'" & Expression
                         'cmd.ExecuteNonQuery()
@@ -1836,6 +1885,16 @@ NotNumber:
             txtTest1_5_exp.Enabled = False
             dB2.Enabled = True
             IL_TF = False
+        End If
+    End Sub
+
+    Private Sub ckPorts_CheckedChanged(sender As Object, e As EventArgs) Handles ckPorts.CheckedChanged
+        If ckPorts.CheckState = CheckState.Checked Then
+            ckPorts.Text = "6 Port Fixture"
+            SwitchPorts = 1
+        Else
+            ckPorts.Text = "4 Port Fixture"
+            SwitchPorts = 0
         End If
     End Sub
 End Class

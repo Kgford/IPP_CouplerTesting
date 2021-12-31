@@ -26,7 +26,7 @@
     <UpdateUrl>\\ippdc\Test Automation\ATE_Publish\</UpdateUrl>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>106</ApplicationRevision>
+    <ApplicationRevision>114</ApplicationRevision>
     <ApplicationVersion>4.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -118,7 +118,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\MccDaq.dll</HintPath>
     </Reference>
-    <Reference Include="mcl_RF_Switch_Controller64, Version=9.0.0.6, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="mcl_RF_Switch_Controller64, Version=10.0.0.0, Culture=neutral, PublicKeyToken=35567b0439d9ea5b, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\mcl_RF_Switch_Controller64.dll</HintPath>
     </Reference>

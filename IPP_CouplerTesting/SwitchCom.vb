@@ -21,7 +21,6 @@
     Public Function GetSNlist() As String
         Dim SN As String = ""
         Dim NumberOfSwitches As Integer
-
         NumberOfSwitches = MyPTE1.Get_Available_SN_List(SN)
         GetSNlist = SN
     End Function
@@ -41,12 +40,23 @@
     End Function
 
     Public Function SetSwitchPosition(Position As Byte) As Integer
+        If SwitchModel = "RC-1SP6T-A12" Or Position = 5 Or Position = 6 Then
+            Dim position6 As Integer = Position
+            SetSwitchPosition = MyPTE1.Set_1SP6T_COM_To(position6)
+        Else
+            SetSwitchPosition = MyPTE1.Set_SP4T_COM_To(Position)
+        End If
 
-        SetSwitchPosition = MyPTE1.Set_SP4T_COM_To(Position)
     End Function
 
     Public Function GetSwitchPosition(StatusRet As Integer) As Integer
         GetSwitchPosition = MyPTE1.GetSwitchesStatus(StatusRet)
+    End Function
+
+    Public Function GetSwitchModel() As String
+        Dim StatusRet As String = ""
+        MyPTE1.Read_ModelName(StatusRet)
+        GetSwitchModel = StatusRet
     End Function
 
 
@@ -63,6 +73,7 @@
         Dim status As String
         Dim StatusRet As Integer
         Dim Firmware As Integer
+
 
 
 
