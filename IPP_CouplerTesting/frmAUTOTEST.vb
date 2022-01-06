@@ -213,12 +213,10 @@ Skip4:
             Else
                 Me.cmbVNA.SelectedIndex = 2
             End If
-            Me.cmbSwitch.Items.Clear()
-            Me.cmbSwitch.Items.Add("Switch POS 1")
-            Me.cmbSwitch.Items.Add("Switch POS 2")
-            Me.cmbSwitch.Items.Add("Switch POS 3")
-            Me.cmbSwitch.Items.Add("Switch POS 4")
-            Me.cmbSwitch.Text = "Switch POS 1"
+            Dim SwNum As Integer
+            Dim SerList As String = ""
+            Dim Firm As Integer
+            firstInitializeSwitch(SwNum, SerList, Firm)
             ExpectedProgress.Value = 0
             ActualProgress.Value = 0
             txtCurrentTime.Text = "READY"
@@ -243,7 +241,45 @@ Skip4:
         '    frmCollection.Item(1).Location = New Point(XLocation, YLocation + XSize)
         'End If
     End Sub
+    Public Function firstInitializeSwitch(retSwitchNumber As Integer, retSerialList As String, retFirmware As Integer) As String
+        Dim ConnectionGood As Integer
+        Try
+            retSwitchNumber = GetNumberOfSwitches()
+            retSerialList = GetSNlist()
+            retFirmware = GetFirmware()
+            Dim model = GetSwitchModel()
 
+
+            ConnectionGood = SwitchCom.Connect ' Note requires a few milliseconds to connect
+            System.Threading.Thread.Sleep(1000)
+
+            firstInitializeSwitch = SwitchCom.Get24VConnection
+            If firstInitializeSwitch.ToUpper.Contains("NOT CONNECTED") Then
+                Me.RFSwitch.CheckState = CheckState.Unchecked
+                SwitchedChecked = Me.RFSwitch.Checked
+            End If
+            SwitchModel = GetSwitchModel()
+            If SwitchModel = "RC-1SP6T-A12" Then
+                Me.cmbSwitch.Items.Clear()
+                Me.cmbSwitch.Items.Add("Switch POS 1")
+                Me.cmbSwitch.Items.Add("Switch POS 2")
+                Me.cmbSwitch.Items.Add("Switch POS 3")
+                Me.cmbSwitch.Items.Add("Switch POS 4")
+                Me.cmbSwitch.Items.Add("Switch POS 5")
+                Me.cmbSwitch.Items.Add("Switch POS 6")
+                Me.cmbSwitch.Text = "Switch POS 1"
+            Else
+                Me.cmbSwitch.Items.Clear()
+                Me.cmbSwitch.Items.Add("Switch POS 1")
+                Me.cmbSwitch.Items.Add("Switch POS 2")
+                Me.cmbSwitch.Items.Add("Switch POS 3")
+                Me.cmbSwitch.Items.Add("Switch POS 4")
+                Me.cmbSwitch.Text = "Switch POS 1"
+            End If
+        Catch ex As Exception
+
+        End Try
+    End Function
     Private Sub RetestSelect()
         Dim KeepTogether As Boolean
 
@@ -574,6 +610,7 @@ Skip4:
                     'PartClicked()
                     DontclickTheButton = False
                     Me.ckROBOT.Enabled = True
+                    SwitchPorts = SQL.GetSpecification("SwitchPorts")
                 End If
             End If
         Catch ex As Exception
@@ -774,6 +811,8 @@ Skip4:
                             End If
                             SpecIndex = 2
                             SwPos = "          OUT = SW1, CPL = SW2, RFLD = SW3"
+                            SwitchPorts = dr.Item(100)
+                            If SwitchPorts = 1 Then SwPos = " OUT = SW1, CPL_J4 = SW2, ISO_J3 = SW3, CPL_J3 = SW4, ISO_J4 = SW5"
                             SpecType = "DUAL DIRECTIONAL COUPLER"
                             ckTest3.Checked = True
                             TestLabel3.Visible = True
@@ -800,6 +839,7 @@ Skip4:
                             PF3.Visible = True
                             txtOffset3.Visible = True
                             SwPos = "          OUT = SW1, CPL = SW2, RFLD = SW3"
+                            If SpecType = "DUAL DIRECTIONAL COUPLER" And SwitchPorts = 1 Then SwPos = " OUT = SW1, CPL_J4 = SW2, ISO_J3 = SW3, CPL_J3 = SW4, ISO_J4 = SW5"
                         ElseIf dr.Item(1) = "COMBINER/DIVIDER" Or dr.Item(1) = "COMBINER/DIVIDER SMD" Then
                             If dr.Item(1) = "COMBINER/DIVIDER SMD" Then
                                 SMD = True
@@ -910,6 +950,7 @@ Skip4:
                             SpecIndex = 2
                             SwPos = "          OUT = SW3, CPL = SW1, RFLD = SW2"
                             SpecType = "DUAL DIRECTIONAL COUPLER"
+                            If SwitchPorts = 1 Then SwPos = " OUT = SW1, CPL_J4 = SW2, ISO_J3 = SW3, CPL_J3 = SW4, ISO_J4 = SW5"
                             ckTest3.Checked = True
                             TestLabel3.Visible = True
                             Spec3Min.Visible = True
@@ -1263,6 +1304,7 @@ Skip4:
                             SpecIndex = 2
                             SwPos = "          OUT = SW3, CPL = SW1, RFLD = SW2"
                             SpecType = "DUAL DIRECTIONAL COUPLER"
+                            If SwitchPorts = 1 Then SwPos = " OUT = SW1, CPL_J4 = SW2, ISO_J3 = SW3, CPL_J3 = SW4, ISO_J4 = SW5"
                         ElseIf dr.Item(1) = "BI DIRECTIONAL COUPLER" Or dr.Item(1) = "BI DIRECTIONAL COUPLER SMD" Then
                             If dr.Item(1) = "BI DIRECTIONAL COUPLER SMD" Then
                                 SMD = True
@@ -1347,6 +1389,7 @@ Skip4:
                             SpecIndex = 2
                             SwPos = "          OUT = SW3, CPL = SW1, RFLD = SW2"
                             SpecType = "DUAL DIRECTIONAL COUPLER"
+                            If SwitchPorts = 1 Then SwPos = " OUT = SW1, CPL_J4 = SW2, ISO_J3 = SW3, CPL_J3 = SW4, ISO_J4 = SW5"
                         ElseIf drLocal.Item(1) = "BI DIRECTIONAL COUPLER" Or drLocal.Item(1) = "BI DIRECTIONAL COUPLER SMD" Then
                             If drLocal.Item(1) = "BI DIRECTIONAL COUPLER SMD" Then
                                 SMD = True
@@ -2061,6 +2104,7 @@ GetOut:
         If DontclickTheButton = True Then Exit Sub
         If SpecType = "DUAL DIRECTIONAL COUPLER" Or (SpecType = "SINGLE DIRECTIONAL COUPLER" And Me.ckTest2.Checked) Then
             If SpecType = "DUAL DIRECTIONAL COUPLER" Then SwPos = "          J2(OUT) = SW3, J3(CLP) = SW1, J4(RFLD) = SW2"
+            If SpecType = "DUAL DIRECTIONAL COUPLER" And SwitchPorts = 1 Then SwPos = " OUT = SW1, CPL_J4 = SW2, ISO_J3 = SW3, CPL_J3 = SW4, ISO_J4 = SW5"
             If SpecType = "SINGLE DIRECTIONAL COUPLER" Then SwPos = "          J2(OUT) = SW3, J3(CLP) = SW1"
             txtTitle.Text = SpecType & SwPos
             'MsgBox("Please turn Directional Coupler in Forward direction")
@@ -2518,6 +2562,7 @@ TestComplete:  ' For everything except Directional Couplers
             'Directonal Couplers reverse direction
             If Not TweakMode And (SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Or (SpecType = "SINGLE DIRECTIONAL COUPLER" And Me.ckTest4.Checked)) Then
                 If SpecType = "DUAL DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, REFL = SW3"
+                If SpecType = "DUAL DIRECTIONAL COUPLER" And SwitchPorts = 1 Then SwPos = " OUT = SW1, CPL_J4 = SW2, ISO_J3 = SW3, CPL_J3 = SW4, ISO_J4 = SW5"
                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, ISO = SW3"
                 If SpecType = "BI DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, REFL = SW3"
                 txtTitle.Text = SpecType & SwPos
@@ -2816,7 +2861,7 @@ ReallyComplete:
             If Retest1Fail > retestFailMax Then
 
             End If
-
+            SwitchPorts = SQL.GetSpecification("SwitchPorts")
             ActiveTitle = Me.txtTitle.Text
             FailCount = 0
             Dir1Failed = False
@@ -3487,6 +3532,7 @@ TestComplete:  ' For everything except Directional Couplers
             'Directonal Couplers reverse direction
             If Not TweakMode And (SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Or (SpecType = "SINGLE DIRECTIONAL COUPLER" And Me.ckTest4.Checked)) Then
                 If SpecType = "DUAL DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, REFL = SW3"
+                If SpecType = "DUAL DIRECTIONAL COUPLER" And SwitchPorts = 1 Then SwPos = " OUT = SW1, CPL_J4 = SW2, ISO_J3 = SW3, CPL_J3 = SW4, ISO_J4 = SW5"
                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, ISO = SW3"
                 If SpecType = "BI DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, REFL = SW3"
                 txtTitle.Text = SpecType & SwPos
@@ -3689,6 +3735,7 @@ TestReallyComplete:
             'Change Title Back To Forward
             If SpecType = "DUAL DIRECTIONAL COUPLER" Or (SpecType = "SINGLE DIRECTIONAL COUPLER" And Me.ckTest4.Checked) Then
                 If SpecType = "DUAL DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, REFL = SW3"
+                If SpecType = "DUAL DIRECTIONAL COUPLER" And SwitchPorts = 1 Then SwPos = " OUT = SW1, CPL_J4 = SW2, ISO_J3 = SW3, CPL_J3 = SW4, ISO_J4 = SW5"
                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, ISO = SW3"
                 If SpecType = "BI DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, REFL = SW3"
                 txtTitle.Text = SpecType & SwPos
@@ -3755,7 +3802,7 @@ TestReallyComplete:
         SQLstr = "Delete from TracePoints "
         SQL.ExecuteSQLCommand(SQLstr, "LocalTraceData")
     End Sub
-   
+
     Private Sub EraseTest_Click(sender As Object, e As EventArgs) Handles EraseTest.Click
         Dim mes As String
         UUTNum = UUTNum - 1
@@ -4045,7 +4092,7 @@ TestReallyComplete:
                 Else
                     Me.Data1.ForeColor = Drawing.Color.Black
                 End If
-               Me.ReTestFrame.BackColor = Drawing.Color.Black
+                Me.ReTestFrame.BackColor = Drawing.Color.Black
                 Me.UUTLabel.ForeColor = Drawing.Color.Black
                 Me.StartTestFrame.BackColor = Drawing.Color.Black
                 Me.PF1.ForeColor = Drawing.Color.Black
@@ -7362,7 +7409,7 @@ Skip3:
         SQL.ExecuteSQLCommand(SQLStr, "NetworkSpecs")
     End Sub
 
-   
+
     Private Sub DeleteOperatorToolStripMenuItem_Click(sender As Object, e As EventArgs)
         DeleteOp.Checked = True
         Dim OP As New OperatorEntry
@@ -7599,7 +7646,7 @@ Skip3:
         ArtworkRevision = txtArtwork.Text
     End Sub
 
-  
+
     Private Sub ReportServerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReportServerToolStripMenuItem.Click
         Process.Start("microsoft-edge:http://inn-sqlexpress:8888/test/")
     End Sub
@@ -7610,5 +7657,9 @@ Skip3:
 
     Private Sub NewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewToolStripMenuItem.Click
         Process.Start("http://inn-sqlexpress:8888/trouble/trouble_ticket_open/")
+    End Sub
+
+    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
+
     End Sub
 End Class

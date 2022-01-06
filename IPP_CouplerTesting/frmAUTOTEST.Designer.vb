@@ -150,6 +150,7 @@ Partial Class frmAUTOTEST
         Me.ROBOTToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MiniLabTestToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ReportServerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.UpdateToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.HelpToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.NewToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Label18 = New System.Windows.Forms.Label()
@@ -173,7 +174,6 @@ Partial Class frmAUTOTEST
         Me.txtArtwork = New System.Windows.Forms.TextBox()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.EraseTest = New System.Windows.Forms.Button()
-        Me.UpdateToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.UUTMessage.SuspendLayout()
         Me.UUTStatusColor.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -1716,6 +1716,12 @@ Partial Class frmAUTOTEST
         Me.ReportServerToolStripMenuItem.Size = New System.Drawing.Size(102, 21)
         Me.ReportServerToolStripMenuItem.Text = "Report Server"
         '
+        'UpdateToolStripMenuItem
+        '
+        Me.UpdateToolStripMenuItem.Name = "UpdateToolStripMenuItem"
+        Me.UpdateToolStripMenuItem.Size = New System.Drawing.Size(119, 21)
+        Me.UpdateToolStripMenuItem.Text = "Update Version "
+        '
         'HelpToolStripMenuItem
         '
         Me.HelpToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NewToolStripMenuItem})
@@ -1931,12 +1937,6 @@ Partial Class frmAUTOTEST
         Me.EraseTest.TabIndex = 18
         Me.EraseTest.Text = "Remove Part"
         Me.EraseTest.UseVisualStyleBackColor = False
-        '
-        'UpdateToolStripMenuItem
-        '
-        Me.UpdateToolStripMenuItem.Name = "UpdateToolStripMenuItem"
-        Me.UpdateToolStripMenuItem.Size = New System.Drawing.Size(119, 21)
-        Me.UpdateToolStripMenuItem.Text = "Update Version "
         '
         'frmAUTOTEST
         '
