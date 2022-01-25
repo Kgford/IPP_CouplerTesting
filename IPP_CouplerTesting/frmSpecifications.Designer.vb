@@ -92,6 +92,7 @@ Partial Class frmSpecifications
         Me.txtStartFreq_1 = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Frame3 = New System.Windows.Forms.Panel()
+        Me.ckPorts = New System.Windows.Forms.CheckBox()
         Me.Label74 = New System.Windows.Forms.Label()
         Me.Label82 = New System.Windows.Forms.Label()
         Me.COUPPlusMinus = New System.Windows.Forms.TextBox()
@@ -226,7 +227,6 @@ Partial Class frmSpecifications
         Me.txtFail = New System.Windows.Forms.TextBox()
         Me.Label92 = New System.Windows.Forms.Label()
         Me.Label93 = New System.Windows.Forms.Label()
-        Me.ckPorts = New System.Windows.Forms.CheckBox()
         Me.Frame1.SuspendLayout()
         Me.Frame3.SuspendLayout()
         Me.Frame4.SuspendLayout()
@@ -1063,6 +1063,18 @@ Partial Class frmSpecifications
         Me.Frame3.Size = New System.Drawing.Size(1186, 396)
         Me.Frame3.TabIndex = 69
         Me.Frame3.Visible = False
+        '
+        'ckPorts
+        '
+        Me.ckPorts.AutoSize = True
+        Me.ckPorts.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ckPorts.ForeColor = System.Drawing.SystemColors.ButtonHighlight
+        Me.ckPorts.Location = New System.Drawing.Point(421, 51)
+        Me.ckPorts.Name = "ckPorts"
+        Me.ckPorts.Size = New System.Drawing.Size(75, 20)
+        Me.ckPorts.TabIndex = 75
+        Me.ckPorts.Text = "4 Ports"
+        Me.ckPorts.UseVisualStyleBackColor = True
         '
         'Label74
         '
@@ -2646,18 +2658,6 @@ Partial Class frmSpecifications
         Me.Label93.Size = New System.Drawing.Size(218, 24)
         Me.Label93.TabIndex = 77
         Me.Label93.Text = "Fail Percentage Alert :"
-        '
-        'ckPorts
-        '
-        Me.ckPorts.AutoSize = True
-        Me.ckPorts.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.ckPorts.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.ckPorts.Location = New System.Drawing.Point(421, 51)
-        Me.ckPorts.Name = "ckPorts"
-        Me.ckPorts.Size = New System.Drawing.Size(75, 20)
-        Me.ckPorts.TabIndex = 75
-        Me.ckPorts.Text = "4 Ports"
-        Me.ckPorts.UseVisualStyleBackColor = True
         '
         'frmSpecifications
         '

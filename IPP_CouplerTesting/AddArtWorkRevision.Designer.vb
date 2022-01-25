@@ -88,7 +88,7 @@ Partial Class AddArtWorkRevision
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Maroon
-        Me.ClientSize = New System.Drawing.Size(439, 234)
+        Me.ClientSize = New System.Drawing.Size(435, 230)
         Me.ControlBox = False
         Me.Controls.Add(Me.btrev)
         Me.Controls.Add(Me.PictureBox1)

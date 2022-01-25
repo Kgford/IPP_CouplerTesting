@@ -7641,9 +7641,13 @@ Skip3:
         SPEC.ShowDialog()
     End Sub
 
+
     Private Sub txtArtwork_TextChanged(sender As Object, e As EventArgs) Handles txtArtwork.TextChanged
         UUTReset = True
+        txtArtwork.SelectionStart = Len(txtArtwork.Text)
+        txtArtwork.Text = Trim(txtArtwork.Text.ToUpper)
         ArtworkRevision = txtArtwork.Text
+
     End Sub
 
 

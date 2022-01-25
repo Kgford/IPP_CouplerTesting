@@ -60,13 +60,13 @@ Public Class frmSpecifications
             Me.cmbSpecType.Items.Add("COMBINER/DIVIDER")
             Me.cmbSpecType.Items.Add("COMBINER/DIVIDER SMD")
             Me.cmbSpecType.Items.Add("TRANSFORMER")
-            cmbPart.Text = OldPart
-            cmbJob.Text = OldJOb
+            cmbPart.Text = Trim(OldPart)
+            cmbJob.Text = Trim(OldJOb)
             Part = OldPart
             Job = OldJOb
             LoadPart()
-            PartSpec = cmbPart.Text
-            jobSpec = cmbJob.Text
+            PartSpec = Trim(cmbPart.Text)
+            jobSpec = Trim(cmbJob.Text)
             byp = True
             txtFail.Text = GetFailPercent()
             If GetBypass() = 1 Then
@@ -84,8 +84,8 @@ Public Class frmSpecifications
         LoadSpecType()
         LoadPart()
         Me.Refresh()
-        Part = Me.cmbPart.Text
-        Job = Me.cmbJob.Text
+        Part = Trim(Me.cmbPart.Text)
+        Job = Trim(Me.cmbJob.Text)
     End Sub
 
     Private Sub cmbPart_Change(sender As Object, e As EventArgs) Handles cmbPart.DataSourceChanged
@@ -93,8 +93,8 @@ Public Class frmSpecifications
             LoadSpecType()
             LoadPart()
             Me.Refresh()
-            Part = Me.cmbPart.Text
-            Job = Me.cmbJob.Text
+            Part = Trim(Me.cmbPart.Text)
+            Job = Trim(Me.cmbJob.Text)
         End If
 
     End Sub
@@ -1896,6 +1896,10 @@ NotNumber:
             ckPorts.Text = "4 Port Fixture"
             SwitchPorts = 0
         End If
+    End Sub
+
+    Private Sub cmbJob_TextChanged(sender As Object, e As EventArgs) Handles cmbJob.TextChanged
+
     End Sub
 End Class
 

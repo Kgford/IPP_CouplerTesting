@@ -5252,28 +5252,15 @@ Round:
         Else
             frmAUTOTEST.Refresh()
             If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then
-                If SwitchPorts = 1 Then
-                    If SwitchedChecked Then  'Auto RF Switching
-                        SetSwitchPosition = 2
-                        status = SwitchCom.SetSwitchPosition(2) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
-                        status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
-                        System.Threading.Thread.Sleep(500)
-                        frmAUTOTEST.cmbSwitch.SelectedIndex = 1
-                    Else
-                        MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
-                    End If
+                If SwitchedChecked Then  'Auto RF Switching
+                    SetSwitchPosition = 2
+                    status = SwitchCom.SetSwitchPosition(2) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                    status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
+                    System.Threading.Thread.Sleep(500)
+                    frmAUTOTEST.cmbSwitch.SelectedIndex = 1
                 Else
-                    If SwitchedChecked Then  'Auto RF Switching
-                        SetSwitchPosition = 4
-                        status = SwitchCom.SetSwitchPosition(4) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
-                        status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
-                        System.Threading.Thread.Sleep(500)
-                        frmAUTOTEST.cmbSwitch.SelectedIndex = 3
-                    Else
-                        MsgBox("Move Cables to RF Position 4", vbOKOnly, "Manual Switch")
-                    End If
+                    MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
                 End If
-
                 If MutiCalChecked Then SetupVNA(True, 1)
             ElseIf SpecType = "DUAL DIRECTIONAL COUPLER" And Direction = 1 Then
                 If SwitchPorts = 1 Then
@@ -5288,13 +5275,13 @@ Round:
                     End If
                 Else
                     If SwitchedChecked Then  'Auto RF Switching
-                        SetSwitchPosition = 4
-                        status = SwitchCom.SetSwitchPosition(4) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                        SetSwitchPosition = 2
+                        status = SwitchCom.SetSwitchPosition(2) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
                         status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
                         System.Threading.Thread.Sleep(500)
-                        frmAUTOTEST.cmbSwitch.SelectedIndex = 3
+                        frmAUTOTEST.cmbSwitch.SelectedIndex = 1
                     Else
-                        MsgBox("Move Cables to RF Position 4", vbOKOnly, "Manual Switch")
+                        MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
                     End If
                 End If
 
@@ -5324,7 +5311,7 @@ Round:
 
 
                 If MutiCalChecked Then SetupVNA(True, 3)
-            End If
+        End If
             frmAUTOTEST.Refresh()
             System.Threading.Thread.Sleep(100)
             If VNAStr = "AG_E5071B" Then

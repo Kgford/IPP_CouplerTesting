@@ -9,4 +9,9 @@ Public Class AddArtWorkRevision
         UUTReset = True
         Me.Close()
     End Sub
+
+    Private Sub txtRevision_TextChanged(sender As Object, e As EventArgs) Handles txtRevision.TextChanged
+        txtRevision.SelectionStart = Len(txtRevision.Text)
+        txtRevision.Text = Trim(txtRevision.Text.ToUpper)
+    End Sub
 End Class
