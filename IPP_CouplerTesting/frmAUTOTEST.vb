@@ -2174,7 +2174,7 @@ GetOut:
                 Else
                     RetrnVal = IL
                     SaveTestData("InsertionLoss", RetrnVal)
-                    RetrnStr = CStr(Math.Round(RetrnVal, 2))
+                    RetrnStr = CStr(TruncateDecimal(RetrnVal, 2))
                     Data1.Text = Format(RetrnVal, "0.00")
                 End If
                 status("Blue", "TEST1")
@@ -2492,14 +2492,14 @@ Test2Sub:
 
                     If SQLAccess Then
                         SaveTestData("IsolationL", ISoL)
-                        RetrnVal = CStr(Math.Round(ISoL, 1))
+                        RetrnVal = CStr(TruncateDecimal(ISoL, 1))
                         SaveTestData("IsolationH", ISoH)
-                        RetrnVal = CStr(Math.Round(ISoH, 1))
+                        RetrnVal = CStr(TruncateDecimal(ISoH, 1))
                     Else
                         SaveTestData("IsoL", ISoL)
-                        RetrnVal = CStr(Math.Round(ISoL, 1))
+                        RetrnVal = CStr(TruncateDecimal(ISoL, 1))
                         SaveTestData("IsoH", ISoH)
-                        RetrnVal = CStr(Math.Round(ISoH, 1))
+                        RetrnVal = CStr(TruncateDecimal(ISoH, 1))
                     End If
                 ElseIf SpecType = "90 DEGREE COUPLER" Then
                     RetrnVal = ISo
@@ -3046,7 +3046,7 @@ ReallyComplete:
                 Else
                     RetrnVal = IL
                     SaveTestData("InsertionLoss", RetrnVal)
-                    RetrnStr = CStr(Math.Round(RetrnVal, 2))
+                    RetrnStr = CStr(TruncateDecimal(RetrnVal, 2))
                     Data1.Text = Format(RetrnVal, "0.00")
                 End If
                 status("Blue", "TEST1")
@@ -3113,7 +3113,7 @@ ReallyComplete:
                 SaveTestData("ReturnLoss", RetrnVal)
                 status("Blue", "TEST2")
                 PF2.Text = PassFail
-                RetrnStr = CStr(Math.Round(RetrnVal, 1))
+                RetrnStr = CStr(TruncateDecimal(RetrnVal, 1))
                 Data2.Text = Format(RetrnVal, "0.0")
                 If PassFail = "Pass" Then
                     TEST2PASS = True
@@ -3324,7 +3324,7 @@ Test2SubRet:
                 status("Blue", "TEST5")
                 PF5.Text = PassFail
 
-                RetrnStr = CStr(Math.Round(RetrnVal, 1))
+                RetrnStr = CStr(TruncateDecimal(RetrnVal, 1))
                 Data5.Text = Format(RetrnVal, "0.0")
                 If PassFail = "Pass" Then
                     status("Green", "TEST5")
@@ -3435,28 +3435,28 @@ Test2Sub:
 
                         If SQLAccess Then
                             SaveTestData("IsolationL", ISoL)
-                            RetrnStr = CStr(Math.Round(ISoL, 1))
+                            RetrnStr = CStr(TruncateDecimal(ISoL, 1))
                             SaveTestData("IsolationH", ISoH)
-                            RetrnStr = CStr(Math.Round(ISoH, 1))
+                            RetrnStr = CStr(TruncateDecimal(ISoH, 1))
                         Else
                             SaveTestData("IsoL", ISoL)
-                            RetrnStr = CStr(Math.Round(ISoL, 1))
+                            RetrnStr = CStr(TruncateDecimal(ISoL, 1))
                             SaveTestData("IsoH", ISoH)
-                            RetrnStr = CStr(Math.Round(ISoH, 1))
+                            RetrnStr = CStr(TruncateDecimal(ISoH, 1))
                         End If
                     ElseIf SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("COMBINER/DIVIDER") Or SpecType.Contains("BALUN") Then
                         RetrnVal = ISo
                         If SQLAccess Then
                             SaveTestData("Isolation", RetrnVal)
-                            RetrnStr = CStr(Math.Round(RetrnVal, 1))
+                            RetrnStr = CStr(TruncateDecimal(RetrnVal, 1))
                         Else
                             SaveTestData("Iso", RetrnVal)
-                            RetrnStr = CStr(Math.Round(RetrnVal, 1))
+                            RetrnStr = CStr(TruncateDecimal(RetrnVal, 1))
                         End If
                     Else
                         RetrnVal = COuP
                         SaveTestData("Coupling", RetrnVal)
-                        RetrnStr = CStr(Math.Round(RetrnVal, 1))
+                        RetrnStr = CStr(TruncateDecimal(RetrnVal, 1))
                     End If
                     If Not ISO_TF Then
                         status("Blue", "TEST3")
@@ -3544,7 +3544,7 @@ TestComplete:  ' For everything except Directional Couplers
                 If Me.ckROBOT.Checked Then RobotStatus()
                 PassFail = Tests.Coupling(2, SpecType, , TestID)
                 RetrnVal = COuP
-                RetrnStr = CStr(Math.Round(RetrnVal, 1))
+                RetrnStr = CStr(TruncateDecimal(RetrnVal, 1))
                 SaveTestData("Coupling", RetrnVal)
                 status("Blue", "TEST3")
                 PF3.Text = PassFail
@@ -3602,7 +3602,7 @@ TestComplete:  ' For everything except Directional Couplers
                 PF4.Text = PassFail
                 RetrnVal = DIR
                 SaveTestData("Directivity", RetrnVal)
-                RetrnStr = CStr(Math.Round(RetrnVal, 1))
+                RetrnStr = CStr(TruncateDecimal(RetrnVal, 1))
                 Data4.Text = Format(RetrnVal, "0.0")
                 If PassFail = "Pass" Then
                     TEST4PASS = True
@@ -3653,7 +3653,7 @@ TestComplete:  ' For everything except Directional Couplers
                 SaveTestData("CoupledFlatness", RetrnVal)
                 status("Blue", "TEST5")
                 PF5.Text = PassFail
-                RetrnStr = CStr(Math.Round(RetrnVal, 1))
+                RetrnStr = CStr(TruncateDecimal(RetrnVal, 1))
                 Data5.Text = Format(RetrnVal, "0.0")
                 If PassFail = "Pass" Then
                     TEST5PASS = True
@@ -4639,7 +4639,7 @@ StartResume:
                         PassFail = Tests.InsertionLoss3dB(True)
                         status("Blue", "TEST1")
                         PF1.Text = PassFail
-                        RetrnStr = CStr(Math.Round(RetrnVal, 2))
+                        RetrnStr = CStr(TruncateDecimal(RetrnVal, 2))
                         Data1.Text = Format(RetrnVal, "0.00")
                         If PassFail = "Pass" Then
                             TEST1PASS = True
@@ -4680,10 +4680,10 @@ StartResume:
                             End If
                         End If
                         PassFail = Tests.ReturnLoss(True)
-                        RetrnStr = CStr(Math.Round(RetrnVal, 2))
+                        RetrnStr = CStr(TruncateDecimal(RetrnVal, 2))
                         status("Blue", "TEST2")
                         PF2.Text = PassFail
-                        RetrnStr = CStr(Math.Round(RetrnVal, 2))
+                        RetrnStr = CStr(TruncateDecimal(RetrnVal, 2))
                         Data2.Text = Format(RetrnVal, "0.0")
                         If PassFail = "Pass" Then
                             TEST2PASS = True
@@ -4736,7 +4736,7 @@ StartResume:
                             End If
                         End If
                         PassFail = Tests.Isolation(RetrnVal, True)
-                        RetrnStr = CStr(Math.Round(RetrnVal, 1))
+                        RetrnStr = CStr(TruncateDecimal(RetrnVal, 1))
                         If ISO_TF Then
                             status("Blue", "TEST3L")
                             status("Blue", "TEST3H")
@@ -4809,8 +4809,8 @@ StartResume:
                             End If
                             PF4.Text = PassFail
                             If SpecAB_TF And Not AB1 = 0.0 Then
-                                AB1 = CStr(Math.Round(AB1, 2))
-                                AB2 = CStr(Math.Round(AB2, 2))
+                                AB1 = CStr(TruncateDecimal(AB1, 2))
+                                AB2 = CStr(TruncateDecimal(AB2, 2))
                                 Data4L.Text = AB1
                                 Data4H.Text = AB2
                                 Me.Total4.Text = UUTNum
@@ -4825,7 +4825,7 @@ StartResume:
                                     status("Red", "TEST4H", True)
                                 End If
                             Else
-                                RetrnStr = CStr(Math.Round(RetrnVal, 2))
+                                RetrnStr = CStr(TruncateDecimal(RetrnVal, 2))
                                 Data4.Text = Format(RetrnVal, "0.00")
                                 If PassFail = "Pass" Then
                                     TEST4PASS = True
@@ -4886,7 +4886,7 @@ StartResume:
                         PassFail = Tests.PhaseBalance(SpecType, True)
                         status("Blue", "TEST5")
                         PF5.Text = PassFail
-                        RetrnStr = CStr(Math.Round(RetrnVal, 1))
+                        RetrnStr = CStr(TruncateDecimal(RetrnVal, 1))
                         Data5.Text = Format(RetrnVal, "0.0")
                         If PassFail = "Pass" Then
                             TEST5PASS = True
@@ -4978,7 +4978,7 @@ Recap:
                         PassFail = Tests.InsertionLoss3dB(True)
                         status("Blue", "TEST1")
                         PF1.Text = PassFail
-                        RetrnStr = CStr(Math.Round(RetrnVal, 2))
+                        RetrnStr = CStr(TruncateDecimal(RetrnVal, 2))
                         Data1.Text = Format(RetrnVal, "0.00")
                         If PassFail = "Pass" Then
                             TEST1PASS = True
@@ -5015,7 +5015,7 @@ Recap:
                         PassFail = Tests.ReturnLoss(True)
                         status("Blue", "TEST2")
                         PF2.Text = PassFail
-                        RetrnStr = CStr(Math.Round(RetrnVal, 2))
+                        RetrnStr = CStr(TruncateDecimal(RetrnVal, 2))
                         Data2.Text = Format(RetrnVal, "0.0")
                         If PassFail = "Pass" Then
                             TEST2PASS = True
@@ -5058,7 +5058,7 @@ Recap:
                         PassFail = Tests.Isolation(RetrnVal, True)
                         status("Blue", "TEST3")
                         PF3.Text = PassFail
-                        RetrnStr = CStr(Math.Round(RetrnVal, 1))
+                        RetrnStr = CStr(TruncateDecimal(RetrnVal, 1))
                         Data3.Text = Format(RetrnVal, "0.0")
                         If PassFail = "Pass" Then
                             TEST3PASS = True
@@ -5109,7 +5109,7 @@ Recap:
                         status("Blue", "TEST4")
                         RetrnVal = AB
                         PF4.Text = PassFail
-                        RetrnStr = CStr(Math.Round(RetrnVal, 2))
+                        RetrnStr = CStr(TruncateDecimal(RetrnVal, 2))
                         Data4.Text = Format(RetrnVal, "0.00")
 
                         If PassFail = "Pass" Then
@@ -5163,7 +5163,7 @@ Recap:
 
                         status("Blue", "TEST5")
                         PF5.Text = PassFail
-                        RetrnStr = CStr(Math.Round(RetrnVal, 1))
+                        RetrnStr = CStr(TruncateDecimal(RetrnVal, 1))
                         Data5.Text = Format(RetrnVal, "0.0")
                         If PassFail = "Pass" Then
                             TEST5PASS = True
@@ -6217,7 +6217,7 @@ Trap:
                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then PassFail = Tests.InsertionLossDIR(, TestID)
                 RetrnVal2 = IL
 
-                txtOffset1.Text = Math.Round((RetrnVal1 - RetrnVal2), 1)
+                txtOffset1.Text = TruncateDecimal((RetrnVal1 - RetrnVal2), 1)
                 txtOffset_DblClick(0)
                 Data1.Text = ""
             End If
@@ -6230,7 +6230,7 @@ Trap:
                 PassFail = Tests.ReturnLoss()
                 RetrnVal2 = RL
                 TEST1PASS = RetrnVal1 - RetrnVal2
-                txtOffset2.Text = Math.Round((RetrnVal1 - RetrnVal2), 1)
+                txtOffset2.Text = TruncateDecimal((RetrnVal1 - RetrnVal2), 1)
                 txtOffset_DblClick(1)
                 Data2.Text = ""
             End If
@@ -6257,7 +6257,7 @@ Test2SubRet:
 
                 If SpecType <> "SINGLE DIRECTIONAL COUPLER" And SpecType <> "DUAL DIRECTIONAL COUPLER" And SpecType <> "BI DIRECTIONAL COUPLER" Then
                     Test = RetrnVal1 - RetrnVal2
-                    txtOffset4.Text = Math.Round(RetrnVal1 - RetrnVal2, 1)
+                    txtOffset4.Text = TruncateDecimal(RetrnVal1 - RetrnVal2, 1)
                     txtOffset_DblClick(3)
                     If SpecAB_TF Then
                         Data4L.Text = ""
@@ -6288,7 +6288,7 @@ Test2SubRet:
                 RetrnVal1 = COuP
                 If SpecType <> "SINGLE DIRECTIONAL COUPLER" And SpecType <> "DUAL DIRECTIONAL COUPLER" Then
                     Test = RetrnVal1 - RetrnVal2
-                    txtOffset3.Text = Math.Round((RetrnVal1 - RetrnVal2), 1)
+                    txtOffset3.Text = TruncateDecimal((RetrnVal1 - RetrnVal2), 1)
 
                     txtOffset_DblClick(4)
                     Data5.Text = ""
@@ -6323,7 +6323,7 @@ Test2Sub:
                 RetrnVal2 = COuP
 
                 If SpecType <> "SINGLE DIRECTIONAL COUPLER" And SpecType <> "DUAL DIRECTIONAL COUPLER" Then
-                    txtOffset3.Text = Math.Round((RetrnVal2 - RetrnVal1), 1)
+                    txtOffset3.Text = TruncateDecimal((RetrnVal2 - RetrnVal1), 1)
                     txtOffset_DblClick(2)
                     If ISO_TF Then
                         Data3L.Text = ""
@@ -6353,7 +6353,7 @@ TestComplete:  ' For everything except Directional Couplers
                     SetupVNA(True, 1)
                     Tests.Coupling(RetrnVal2, 1, SpecType)
 
-                    txtOffset3.Text = Math.Round((RetrnVal2 - RetrnVal1), 1)
+                    txtOffset3.Text = TruncateDecimal((RetrnVal2 - RetrnVal1), 1)
                     txtOffset_DblClick(2)
                     Data3.Text = ""
                 End If
@@ -6372,7 +6372,7 @@ TestComplete:  ' For everything except Directional Couplers
                     RetrnVal2 = DIR
 
                     Test = RetrnVal1 - RetrnVal2
-                    txtOffset4.Text = Math.Round(RetrnVal1 - RetrnVal2, 1)
+                    txtOffset4.Text = TruncateDecimal(RetrnVal1 - RetrnVal2, 1)
                     txtOffset_DblClick(3)
                     If SpecAB_TF Then
                         Data4L.Text = ""
@@ -6395,7 +6395,7 @@ TestComplete:  ' For everything except Directional Couplers
                     RetrnVal2 = CF
 
                     Test = RetrnVal1 - RetrnVal2
-                    txtOffset5.Text = Math.Round((RetrnVal1 - RetrnVal2), 1)
+                    txtOffset5.Text = TruncateDecimal((RetrnVal1 - RetrnVal2), 1)
                     txtOffset_DblClick(4)
                     Data5.Text = ""
                 End If

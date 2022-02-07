@@ -506,7 +506,7 @@
         SwitchCom.Connect()
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset1.Text)
-            If Math.Round(RetrnVal, 2) <= Spec Then
+            If TruncateDecimal(RetrnVal, 2) <= Spec Then
                 InsertionLoss3dB = "Pass"
             Else
                 InsertionLoss3dB = "Fail"
@@ -531,9 +531,9 @@
                 IL1 = MaxNoZero(ILArray)
                 IL2 = ILArray.Min
 
-                IL1 = Math.Round(IL1, 2)
+                IL1 = TruncateDecimal(IL1, 2)
                 If Right(IL1, 1) = "." Then IL1 = "0" & IL1
-                IL2 = Math.Round(IL2, 2)
+                IL2 = TruncateDecimal(IL2, 2)
                 If Right(IL2, 1) = "." Then IL2 = "0" & IL2
 
                 If IL1 < IL2 Then
@@ -546,7 +546,7 @@
                 Else
                     IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
                 End If
-                IL = Format(Math.Round(IL, 2), "0.00")
+                IL = TruncateDecimal(IL, 2)
 
                 If IL <= Spec Then
                     InsertionLoss3dB = "Pass"
@@ -707,9 +707,9 @@
                 YArray = IL2Data
                 SQL.SaveTrace(Title, TestID, TraceID)
                 YArray = IL2Data_offs
-                If UUTNum <= 5 Then
+                If UUTNum_Reset <= 5 Then
                     For x = 0 To YArray.Count - 1
-                        IL2_YArray(UUTNum - 1, x) = YArray(x)
+                        IL2_YArray(UUTNum_Reset - 1, x) = YArray(x)
                     Next
                 End If
             End If
@@ -752,7 +752,7 @@
             Else
                 IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
             End If
-            IL = Format(Math.Round(IL, 3), "0.00")
+            IL = TruncateDecimal(IL, 3)
 
 
             If IL <= Spec Then
@@ -819,7 +819,7 @@
         SwitchCom.Connect()
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset1.Text)
-            If Math.Round(RetrnVal, 2) <= Spec Then
+            If TruncateDecimal(RetrnVal, 2) <= Spec Then
                 InsertionLoss3dB_multiband = "Pass"
             Else
                 InsertionLoss3dB_multiband = "Fail"
@@ -844,9 +844,9 @@
                 IL1 = MaxNoZero(ILArray)
                 IL2 = ILArray.Min
 
-                IL1 = Math.Round(IL1, 2)
+                IL1 = TruncateDecimal(IL1, 2)
                 If Right(IL1, 1) = "." Then IL1 = "0" & IL1
-                IL2 = Math.Round(IL2, 2)
+                IL2 = TruncateDecimal(IL2, 2)
                 If Right(IL2, 1) = "." Then IL2 = "0" & IL2
 
                 If IL1 < IL2 Then
@@ -855,7 +855,7 @@
                     IL = IL2
                 End If
                 IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
-                IL = Format(Math.Round(IL, 2), "0.00")
+                IL = TruncateDecimal(IL, 2)
 
                 If IL <= Spec Then
                     InsertionLoss3dB_multiband = "Pass"
@@ -1024,9 +1024,9 @@
                 YArray = IL2Data1
                 SQL.SaveTrace(Title, TestID, TraceID)
                 YArray = IL2Data_offs1
-                If UUTNum <= 5 Then
+                If UUTNum_Reset <= 5 Then
                     For x = 0 To YArray.Count - 1
-                        IL2_YArray(UUTNum - 1, x) = YArray(x)
+                        IL2_YArray(UUTNum_Reset - 1, x) = YArray(x)
                     Next
                 End If
             End If
@@ -1160,9 +1160,9 @@
             IL4 = MinNoZero(ILArray1)
 
 
-            IL1 = Math.Round(IL1, 3)
+            IL1 = TruncateDecimal(IL1, 2)
             If Right(IL1, 1) = "." Then IL1 = "0" & IL1
-            IL2 = Math.Round(IL2, 3)
+            IL2 = TruncateDecimal(IL2, 2)
             If Right(IL2, 1) = "." Then IL2 = "0" & IL2
 
             If IL1 < IL2 Then
@@ -1171,15 +1171,15 @@
                 IL = IL2
             End If
             IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
-            IL = Format(Math.Round(IL, 3), "0.00")
+            IL = TruncateDecimal(IL, 2)
 
             frmAUTOTEST.Refresh()
             IL1 = MaxNoZero(ILArray)
-            IL1 = Math.Round(IL1, 3)
+            IL1 = TruncateDecimal(IL1, 3)
             If Right(IL1, 1) = "." Then IL1 = "0" & IL1
 
             IL = Math.Abs(IL1) + CDbl(frmAUTOTEST.txtOffset1.Text)
-            Format(IL = Math.Round(IL, 3), "0.00")
+            IL = TruncateDecimal(IL, 3)
 
             If IL <= Spec Then
                 InsertionLoss3dB_multiband = "Pass"
@@ -1244,7 +1244,7 @@
         SwitchCom.Connect()
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset1.Text)
-            If Math.Round(RetrnVal, 2) <= Spec Then
+            If TruncateDecimal(RetrnVal, 2) <= Spec Then
                 InsertionLoss3dB_marker = "Pass"
             Else
                 InsertionLoss3dB_marker = "Fail"
@@ -1269,9 +1269,9 @@
                 IL1 = MaxNoZero(ILArray)
                 IL2 = ILArray.Min
 
-                IL1 = Math.Round(IL1, 2)
+                IL1 = TruncateDecimal(IL1, 2)
                 If Right(IL1, 1) = "." Then IL1 = "0" & IL1
-                IL2 = Math.Round(IL2, 2)
+                IL2 = TruncateDecimal(IL2, 2)
                 If Right(IL2, 1) = "." Then IL2 = "0" & IL2
 
                 If IL1 < IL2 Then
@@ -1285,7 +1285,7 @@
                 Else
                     IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
                 End If
-                IL = Format(Math.Round(IL, 2), "0.00")
+                IL = TruncateDecimal(IL, 2)
 
                 If IL <= Spec Then
                     InsertionLoss3dB_marker = "Pass"
@@ -1465,9 +1465,9 @@
         IL1 = 1 / (10 ^ ((Math.Abs(IL1) * 0.1)))
         IL2 = 1 / (10 ^ ((Math.Abs(IL2) * 0.1)))
 
-        IL1 = Math.Round(IL1, 3)
+        IL1 = TruncateDecimal(IL1, 2)
         If Right(IL1, 1) = "." Then IL1 = "0" & IL1
-        IL2 = Math.Round(IL2, 3)
+        IL2 = TruncateDecimal(IL2, 2)
         If Right(IL2, 1) = "." Then IL2 = "0" & IL2
 
         If IL1 < IL2 Then
@@ -1478,9 +1478,9 @@
         IL = 10 * Log10(IL1 + IL2)
         IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
         If SpecType.Contains("BALUN") Or Part.Contains("IT") Then
-            IL = Format(Math.Round(IL, 3), "0.00") - 3
+            IL = TruncateDecimal(IL, 2) - 3
         Else
-            IL = Format(Math.Round(IL, 3), "0.00")
+            IL = TruncateDecimal(IL, 2)
         End If
 
         If IL <= Spec Then
@@ -1544,7 +1544,7 @@
         SwitchCom.Connect()
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset2.Text)
-            If Math.Round(RetrnVal, 2) <= Spec Then
+            If TruncateDecimal(RetrnVal, 2) <= Spec Then
                 InsertionLossDIR = "Pass"
             Else
                 InsertionLossDIR = "Fail"
@@ -1560,11 +1560,11 @@
                 Next
 
                 IL1 = MaxNoZero(ILArray)
-                IL1 = Math.Round(IL1, 2)
+                IL1 = TruncateDecimal(IL1, 2)
                 If Right(IL1, 1) = "." Then IL1 = "0" & IL1
 
                 IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
-                IL = Format(Math.Round(IL, 2), "0.00")
+                IL = TruncateDecimal(IL, 2)
 
                 If IL <= Spec Then
                     InsertionLossDIR = "Pass"
@@ -1649,11 +1649,11 @@
 
             frmAUTOTEST.Refresh()
             IL1 = MinNoZero(ILArray)
-            IL1 = Math.Round(IL1, 3)
+            IL1 = TruncateDecimal(IL1, 2)
             If Right(IL1, 1) = "." Then IL1 = "0" & IL1
 
             IL = Math.Abs(IL1) + CDbl(frmAUTOTEST.txtOffset1.Text)
-            Format(IL = Math.Round(IL, 3), "0.00")
+            IL = TruncateDecimal(IL, 2)
 
             If IL <= Spec Then
                 InsertionLossDIR = "Pass"
@@ -1692,7 +1692,7 @@
         SwitchCom.Connect()
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset2.Text)
-            If Math.Round(RetrnVal, 2) <= Spec Then
+            If TruncateDecimal(RetrnVal, 2) <= Spec Then
                 InsertionLossDIR_Marker = "Pass"
             Else
                 InsertionLossDIR_Marker = "Fail"
@@ -1708,11 +1708,11 @@
                 Next
 
                 IL1 = MaxNoZero(ILArray)
-                IL1 = Math.Round(IL1, 2)
+                IL1 = TruncateDecimal(IL1, 2)
                 If Right(IL1, 1) = "." Then IL1 = "0" & IL1
 
                 IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
-                IL = Format(Math.Round(IL, 2), "0.00")
+                IL = TruncateDecimal(IL, 2)
 
                 If IL <= Spec Then
                     InsertionLossDIR_Marker = "Pass"
@@ -1778,10 +1778,10 @@
             End If
 
             frmAUTOTEST.Refresh()
-            IL1 = Math.Round(IL1, 3)
+            IL1 = TruncateDecimal(IL1, 2)
 
             IL = Math.Abs(IL1) + CDbl(frmAUTOTEST.txtOffset1.Text)
-            Format(IL = Math.Round(IL, 3), "0.00")
+            IL = TruncateDecimal(IL, 2)
 
             If IL <= Spec Then
                 InsertionLossDIR_Marker = "Pass"
@@ -1819,7 +1819,7 @@
         SwitchCom.Connect()
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset2.Text)
-            If Math.Round(RetrnVal, 2) <= Spec Then
+            If TruncateDecimal(RetrnVal, 2) <= Spec Then
                 InsertionLossTRANS = "Pass"
             Else
                 InsertionLossTRANS = "Fail"
@@ -1835,11 +1835,11 @@
                 Next
 
                 IL1 = MaxNoZero(ILArray)
-                IL1 = Math.Round(IL1, 2)
+                IL1 = TruncateDecimal(IL1, 2)
                 If Right(IL1, 1) = "." Then IL1 = "0" & IL1
 
                 IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
-                IL = Format(Math.Round(IL, 2), "0.00")
+                IL = TruncateDecimal(IL, 2)
 
                 If IL <= Spec Then
                     InsertionLossTRANS = "Pass"
@@ -1911,11 +1911,11 @@
             Next
             frmAUTOTEST.Refresh()
             IL1 = MinNoZero(ILArray)
-            IL1 = Math.Round(IL1, 3)
+            IL1 = TruncateDecimal(IL1, 2)
             If Right(IL1, 1) = "." Then IL1 = "0" & IL1
 
             IL = Math.Abs(IL1) + CDbl(frmAUTOTEST.txtOffset1.Text)
-            Format(IL = Math.Round(IL, 3), "0.00")
+            IL = TruncateDecimal(IL, 2)
 
             If IL <= Spec Then
                 InsertionLossTRANS = "Pass"
@@ -1968,7 +1968,7 @@
         SwitchCom.Connect()
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset1.Text)
-            If Math.Round(RetrnVal, 2) <= Spec1 Then
+            If TruncateDecimal(RetrnVal, 2) <= Spec1 Then
                 InsertionLossTRANS_multiband = "Pass"
             Else
                 InsertionLossTRANS_multiband = "Fail"
@@ -1993,9 +1993,9 @@
                 IL1 = MaxNoZero(ILArray)
                 IL2 = ILArray.Min
 
-                IL1 = Math.Round(IL1, 2)
+                IL1 = TruncateDecimal(IL1, 2)
                 If Right(IL1, 1) = "." Then IL1 = "0" & IL1
-                IL2 = Math.Round(IL2, 2)
+                IL2 = TruncateDecimal(IL2, 2)
                 If Right(IL2, 1) = "." Then IL2 = "0" & IL2
 
                 If IL1 < IL2 Then
@@ -2004,7 +2004,7 @@
                     IL = IL2
                 End If
                 IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
-                IL = Format(Math.Round(IL, 2), "0.00")
+                IL = TruncateDecimal(IL, 2)
 
                 If IL <= Spec1 Then
                     InsertionLossTRANS_multiband = "Pass"
@@ -2087,11 +2087,11 @@
 
             frmAUTOTEST.Refresh()
             IL1 = MinNoZero(ILArray)
-            IL1 = Math.Round(IL1, 3)
+            IL1 = TruncateDecimal(IL1, 2)
             If Right(IL1, 1) = "." Then IL1 = "0" & IL1
 
             IL1 = Math.Abs(IL1) + CDbl(frmAUTOTEST.txtOffset1.Text)
-            Format(IL1 = Math.Round(IL, 3), "0.00")
+            IL1 = TruncateDecimal(IL, 2)
 
             '~~~~~~~~~~~~~~~~~~~~~~~~second band~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             If VNAStr = "AG_E5071B" Then
@@ -2155,11 +2155,11 @@
 
             frmAUTOTEST.Refresh()
             IL2 = MinNoZero(ILArray)
-            IL2 = Math.Round(IL2, 3)
+            IL2 = TruncateDecimal(IL2, 2)
             If Right(IL2, 1) = "." Then IL2 = "0" & IL2
 
             IL2 = Math.Abs(IL2) + CDbl(frmAUTOTEST.txtOffset1.Text)
-            Format(IL2 = Math.Round(IL2, 3), "0.00")
+            IL2 = TruncateDecimal(IL2, 2)
             Pts = Points
 
             If IL1 > Spec1 Then
@@ -2216,7 +2216,7 @@
         SwitchCom.Connect()
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset2.Text)
-            If Math.Round(RetrnVal, 2) <= Spec Then
+            If TruncateDecimal(RetrnVal, 2) <= Spec Then
                 InsertionLossTRANS_Marker = "Pass"
             Else
                 InsertionLossTRANS_Marker = "Fail"
@@ -2232,11 +2232,11 @@
                 Next
 
                 IL1 = MaxNoZero(ILArray)
-                IL1 = Math.Round(IL1, 2)
+                IL1 = TruncateDecimal(IL1, 2)
                 If Right(IL1, 1) = "." Then IL1 = "0" & IL1
 
                 IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
-                IL = Format(Math.Round(IL, 2), "0.00")
+                IL = TruncateDecimal(IL, 2)
 
                 If IL <= Spec Then
                     InsertionLossTRANS_Marker = "Pass"
@@ -2292,10 +2292,10 @@
             End If
 
             frmAUTOTEST.Refresh()
-            IL1 = Math.Round(IL1, 3)
+            IL1 = TruncateDecimal(IL1, 2)
 
             IL = Math.Abs(IL1) + CDbl(frmAUTOTEST.txtOffset1.Text)
-            Format(IL = Math.Round(IL, 3), "0.00")
+            IL = TruncateDecimal(IL, 2)
 
             If IL <= Spec Then
                 InsertionLossTRANS_Marker = "Pass"
@@ -2341,7 +2341,7 @@
         SwitchCom.Connect()
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset1.Text)
-            If Math.Round(RetrnVal, 2) <= Spec Then
+            If TruncateDecimal(RetrnVal, 2) <= Spec Then
                 Return "Pass"
             Else
                 Return "Fail"
@@ -2354,11 +2354,11 @@
                 ILArray = YArray
 
                 IL1 = MaxNoZero(ILArray)
-                IL1 = Math.Round(IL1, 2)
+                IL1 = TruncateDecimal(IL1, 2)
                 If Right(IL1, 1) = "." Then IL1 = "0" & IL1
 
                 IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
-                IL = Format(Math.Round(IL, 2), "0.00")
+                IL = TruncateDecimal(IL, 2)
 
                 If IL <= Spec Then
                     Return "Pass"
@@ -2457,7 +2457,7 @@
             If Right(IL1, 1) = "." Then IL1 = "0" & IL1
 
             IL = Math.Abs(IL1) + CDbl(frmAUTOTEST.txtOffset1.Text)
-            IL = Format(Math.Round(IL, 3), "0.00")
+            IL = TruncateDecimal(IL, 2)
 
             If IL <= Spec Then
                 InsertionLossCOMB = "Pass"
@@ -2500,7 +2500,7 @@
         SwitchCom.Connect()
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset1.Text)
-            If Math.Round(RetrnVal, 2) <= Spec Then
+            If TruncateDecimal(RetrnVal, 2) <= Spec Then
                 Return "Pass"
             Else
                 Return "Fail"
@@ -2513,11 +2513,11 @@
                 ILArray = YArray
 
                 IL1 = MaxNoZero(ILArray)
-                IL1 = Math.Round(IL1, 2)
+                IL1 = TruncateDecimal(IL1, 2)
                 If Right(IL1, 1) = "." Then IL1 = "0" & IL1
 
                 IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
-                IL = Format(Math.Round(IL, 2), "0.00")
+                IL = TruncateDecimal(IL, 2)
 
                 If IL <= Spec Then
                     Return "Pass"
@@ -2607,7 +2607,7 @@
             If Right(IL1, 1) = "." Then IL1 = "0" & IL1
 
             IL = Math.Abs(IL1) + CDbl(frmAUTOTEST.txtOffset1.Text)
-            IL = Format(Math.Round(IL, 3), "0.00")
+            IL = TruncateDecimal(IL, 2)
 
             If IL <= Spec Then
                 InsertionLossCOMB_Marker = "Pass"
@@ -2656,7 +2656,7 @@
         t1 = New Trace
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset2.Text)
-            If Math.Round(RetrnVal, 2) <= Spec Then
+            If TruncateDecimal(RetrnVal, 2) <= Spec Then
                 ReturnLoss = "Pass"
             Else
                 ReturnLoss = "Fail"
@@ -2749,7 +2749,7 @@
             End If
             RL = MaxNoZero(TraceData)
             RL = RL + CDbl(frmAUTOTEST.txtOffset2.Text)
-            RL = Format(Math.Round(RL, 1), "0.0")
+            RL = TruncateDecimal(RL, 1)
             If RL <= Spec Then
                 ReturnLoss = "Pass"
             Else
@@ -2782,7 +2782,7 @@
         t1 = New Trace
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset2.Text)
-            If Math.Round(RetrnVal, 2) <= Spec Then
+            If TruncateDecimal(RetrnVal, 2) <= Spec Then
                 ReturnLoss_Marker = "Pass"
             Else
                 ReturnLoss_Marker = "Fail"
@@ -2853,7 +2853,7 @@
             End If
 
             RL = RL + CDbl(frmAUTOTEST.txtOffset2.Text)
-            RL = Format(Math.Round(RL, 1), "0.0")
+            RL = TruncateDecimal(RL, 1)
             If RL <= Spec Then
                 ReturnLoss_Marker = "Pass"
             Else
@@ -2904,7 +2904,7 @@
         SwitchPorts = SQL.GetSpecification("SwitchPorts")
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset3.Text)
-            If Math.Round(RetrnVal, 2) <= Spec Then
+            If TruncateDecimal(RetrnVal, 2) <= Spec Then
                 Isolation = "Pass"
             Else
                 Isolation = "Fail"
@@ -3036,7 +3036,7 @@
         SwitchPorts = SQL.GetSpecification("SwitchPorts")
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset3.Text)
-            If Math.Round(RetrnVal, 2) <= Spec Then
+            If TruncateDecimal(RetrnVal, 2) <= Spec Then
                 Isolation_Marker = "Pass"
             Else
                 Isolation_Marker = "Fail"
@@ -3185,7 +3185,7 @@
         Spec = 0 - GetSpecification("Isolation")
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset3.Text)
-            If Math.Round(RetrnVal, 2) <= Spec Then
+            If TruncateDecimal(RetrnVal, 2) <= Spec Then
                 Return "Pass"
             Else
                 Return "Fail"
@@ -3332,9 +3332,9 @@ SetPoints:
             If ISO_TF Then
                 frmAUTOTEST.Spec3Min.Text = "N/A"
                 ISoL = ISoL + CDbl(frmAUTOTEST.txtOffset3.Text)
-                ISoL = Format(Math.Round(ISoL, 1), "0.0")
+                ISoL = TruncateDecimal(ISoL, 1)
                 ISoH = ISoH + CDbl(frmAUTOTEST.txtOffset3.Text)
-                ISoH = Format(Math.Round(ISoH, 1), "0.0")
+                ISoH = TruncateDecimal(ISoH, 1)
                 If ISoL <= SpecISOL And ISoH <= SpecISOH Then
                     IsolationCOMB = "Pass"
                 Else
@@ -3343,7 +3343,7 @@ SetPoints:
             Else
                 frmAUTOTEST.Spec3Min.Text = "N/A"
                 ISo = ISo + CDbl(frmAUTOTEST.txtOffset3.Text)
-                ISo = Format(Math.Round(ISo, 1), "0.0")
+                ISo = TruncateDecimal(ISo, 1)
                 If ISo <= SpecISO Then
                     IsolationCOMB = "Pass"
                 Else
@@ -3391,7 +3391,7 @@ SetPoints:
         Spec = 0 - GetSpecification("Isolation")
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset3.Text)
-            If Math.Round(RetrnVal, 2) <= Spec Then
+            If TruncateDecimal(RetrnVal, 2) <= Spec Then
                 Return "Pass"
             Else
                 Return "Fail"
@@ -3489,7 +3489,7 @@ SetPoints:
                 x = x + 1
             Next b
             ISo = ISo + CDbl(frmAUTOTEST.txtOffset3.Text)
-            ISo = Format(Math.Round(ISo, 1), "0.0")
+            ISo = TruncateDecimal(ISo, 1)
             If ISo <= Spec Then
                 IsolationCOMB_Marker = "Pass"
             Else
@@ -3545,7 +3545,7 @@ SetPoints:
         SwitchPorts = SQL.GetSpecification("SwitchPorts")
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset2.Text)
-            If Math.Round(RetrnVal, 2) <= Spec Then
+            If TruncateDecimal(RetrnVal, 2) <= Spec Then
                 Coupling = "Pass"
             Else
                 Coupling = "Fail"
@@ -3684,10 +3684,14 @@ SetPoints:
                             YArray = COUP1Data
                             SQL.SaveTrace(Title, TestID, TraceID)
                             YArray = COUP1Data_offs
-                            For x = 0 To YArray.Count - 1
-                                COUP_XArray(UUTNum - 1, x) = XArray(x)
-                                COUP1_YArray(UUTNum - 1, x) = YArray(x)
-                            Next
+                            Try
+                                For x = 0 To YArray.Count - 1
+                                    COUP_XArray(UUTNum_Reset - 1, x) = XArray(x)
+                                    COUP1_YArray(UUTNum_Reset - 1, x) = YArray(x)
+                                Next
+                            Catch ex As Exception
+
+                            End Try
                         End If
                     End If
                 Else
@@ -3711,9 +3715,9 @@ SetPoints:
                         YArray = COUP2Data
                         SQL.SaveTrace(Title, TestID, TraceID)
                         YArray = COUP2Data_offs
-                        If UUTNum <= 5 Then
+                        If UUTNum_Reset <= 5 Then
                             For x = 0 To YArray.Count - 1
-                                COUP2_YArray(UUTNum - 1, x) = YArray(x)
+                                COUP2_YArray(UUTNum_Reset - 1, x) = YArray(x)
                             Next
                         End If
                     End If
@@ -3765,8 +3769,8 @@ SetPoints:
                 End If
             End If
         End If
-        COuP = Math.Round(COuP, 1) + frmAUTOTEST.txtOffset3.Text
-        COuP = Format(Math.Round(COuP, 1), "0.0")
+        COuP = TruncateDecimal(COuP, 1) + frmAUTOTEST.txtOffset3.Text
+        COuP = TruncateDecimal(COuP, 1)
         ActiveTitle = Title
         frmAUTOTEST.Refresh()
         SetSwitchPosition = 1
@@ -3806,7 +3810,7 @@ SetPoints:
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset4.Text)
             AB = RetrnVal
-            If Math.Round(RetrnVal, 2) <= Spec Then
+            If TruncateDecimal(RetrnVal, 2) <= Spec Then
                 AmplitudeBalance = "Pass"
             Else
                 AmplitudeBalance = "Fail"
@@ -3851,7 +3855,7 @@ SetPoints:
 
                 'AB = CDbl((ABStrArray(0) & "." & Left(ABStrArray(1), 3)))
                 'AB = AB + CDbl(frmAUTOTEST.txtOffset4.Text)
-                AB = Format(Math.Round(AB, 2), "0.00")
+                AB = TruncateDecimal(AB, 2)
             ElseIf PassChecked Then
                 AB = Spec
                 AmplitudeBalance = "Pass"
@@ -3880,8 +3884,8 @@ SetPoints:
 
         frmAUTOTEST.Refresh()
 Round:
-        AB = Math.Round(AB, 3)
-        AB = Format(Math.Round(AB + CDbl(frmAUTOTEST.txtOffset4.Text), 3), "0.00")
+        AB = TruncateDecimal(AB, 2)
+        AB = Format(Math.Round(AB + CDbl(frmAUTOTEST.txtOffset4.Text), 2), "0.00")
         If AB <= Spec Then
             AmplitudeBalance = "Pass"
         Else
@@ -3890,6 +3894,11 @@ Round:
         End If
 
         ActiveTitle = Title
+    End Function
+    Function TruncateDecimal(value As Decimal, precision As Integer) As Decimal
+        Dim stepper As Decimal = Math.Pow(10, precision)
+        Dim tmp As Decimal = Math.Truncate(stepper * value)
+        Return tmp / stepper
     End Function
     Public Function AmplitudeBalance_Marker(Optional ResumeTesting As Boolean = False, Optional TestID As Long = 0) As String
 
@@ -3922,7 +3931,7 @@ Round:
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset4.Text)
             AB = RetrnVal
-            If Math.Round(RetrnVal, 2) <= Spec Then
+            If TruncateDecimal(RetrnVal, 2) <= Spec Then
                 AmplitudeBalance_Marker = "Pass"
             Else
                 AmplitudeBalance_Marker = "Fail"
@@ -3966,7 +3975,7 @@ Round:
 
                 'AB = CDbl((ABStrArray(0) & "." & Left(ABStrArray(1), 3)))
                 'AB = AB + CDbl(frmAUTOTEST.txtOffset4.Text)
-                AB = Format(Math.Round(AB, 2), "0.00")
+                AB = TruncateDecimal(AB, 2)
             ElseIf PassChecked Then
                 AB = Spec
                 AmplitudeBalance_Marker = "Pass"
@@ -3996,7 +4005,7 @@ Round:
 
         frmAUTOTEST.Refresh()
 Round:
-        AB = Math.Round(AB, 3)
+        AB = TruncateDecimal(AB, 3)
         AB = Format(Math.Round(AB + CDbl(frmAUTOTEST.txtOffset4.Text), 3), "0.00")
         If AB <= Spec Then
             AmplitudeBalance_Marker = "Pass"
@@ -4113,7 +4122,7 @@ Round:
 
                 'AB = CDbl((ABStrArray(0) & "." & Left(ABStrArray(1), 3)))
                 'AB = AB + CDbl(frmAUTOTEST.txtOffset4.Text)
-                AB = Format(Math.Round(AB, 2), "0.00")
+                AB = TruncateDecimal(AB, 2)
             ElseIf PassChecked Then
                 If SpecAB_TF Then
                     AB1 = Spec
@@ -4182,7 +4191,7 @@ Round:
         End If
         frmAUTOTEST.Refresh()
 Round:
-        AB = Math.Round(AB, 3)
+        AB = TruncateDecimal(AB, 2)
         AB = Format(Math.Round(AB + CDbl(frmAUTOTEST.txtOffset4.Text), 3), "0.00")
         If SpecAB_TF And Not ResumeTesting Then
             If AB1 > AB2 Then
@@ -4190,10 +4199,10 @@ Round:
             Else
                 AB = AB2
             End If
-            AB1 = Math.Round(AB1, 3)
-            AB1 = Format(Math.Round(AB1 + CDbl(frmAUTOTEST.txtOffset4.Text), 3), "0.00")
-            AB2 = Math.Round(AB2, 3)
-            AB2 = Format(Math.Round(AB2 + CDbl(frmAUTOTEST.txtOffset4.Text), 3), "0.00")
+            AB1 = TruncateDecimal(AB1, 2)
+            AB1 = Format(TruncateDecimal(AB1 + CDbl(frmAUTOTEST.txtOffset4.Text), 3), "0.00")
+            AB2 = TruncateDecimal(AB2, 2)
+            AB2 = Format(TruncateDecimal(AB2 + CDbl(frmAUTOTEST.txtOffset4.Text), 3), "0.00")
         End If
 
 
@@ -4240,7 +4249,7 @@ Round:
         Spec = GetSpecification("AmplitudeBalance")
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset4.Text)
-            If Math.Round(RetrnVal, 2) <= Spec Then
+            If TruncateDecimal(RetrnVal, 2) <= Spec Then
                 Return "Pass"
             Else
                 Return "Fail"
@@ -4274,7 +4283,7 @@ Round:
 
                 AB = CDbl((ABStrArray(0) & "." & Left(ABStrArray(1), 3)))
                 AB = AB + CDbl(frmAUTOTEST.txtOffset4.Text)
-                AB = Format(Math.Round(AB, 3), "0.00")
+                AB = TruncateDecimal(AB, 2)
             ElseIf PassChecked Then
                 AB = Spec
                 Return "Pass"
@@ -4382,8 +4391,8 @@ Round:
                             SQL.SaveTrace(Title, TestID, TraceID)
                             YArray = IL1Data_offs
                             For y = 0 To YArray.Count - 1
-                                AB_XArray(UUTNum - 1, y) = XArray(y)
-                                AB1_YArray(UUTNum - 1, y) = YArray(y)
+                                AB_XArray(UUTNum_Reset - 1, y) = XArray(y)
+                                AB1_YArray(UUTNum_Reset - 1, y) = YArray(y)
                             Next
                         End If
                     End If
@@ -4417,7 +4426,7 @@ Round:
             AB = CDbl((ABStrArray(0) & "." & Left(ABStrArray(1), 3)))
 Round:
             AB = AB + CDbl(frmAUTOTEST.txtOffset4.Text)
-            AB = Format(Math.Round(AB, 2), "0.00")
+            AB = TruncateDecimal(AB, 2)
             If AB <= Spec Then
                 AmplitudeBalanceCOMB = "Pass"
             Else
@@ -4465,7 +4474,7 @@ Round:
         Spec = GetSpecification("AmplitudeBalance")
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset4.Text)
-            If Math.Round(RetrnVal, 2) <= Spec Then
+            If TruncateDecimal(RetrnVal, 2) <= Spec Then
                 Return "Pass"
             Else
                 Return "Fail"
@@ -4499,7 +4508,7 @@ Round:
 
                 AB = CDbl((ABStrArray(0) & "." & Left(ABStrArray(1), 3)))
                 AB = AB + CDbl(frmAUTOTEST.txtOffset4.Text)
-                AB = Format(Math.Round(AB, 3), "0.00")
+                AB = TruncateDecimal(AB, 3)
             ElseIf PassChecked Then
                 AB = Spec
                 Return "Pass"
@@ -4625,7 +4634,7 @@ Round:
             End If
 Round:
             AB = AB + CDbl(frmAUTOTEST.txtOffset4.Text)
-            AB = Format(Math.Round(AB, 2), "0.00")
+            AB = TruncateDecimal(AB, 2)
             If AB <= Spec Then
                 AmplitudeBalanceCOMB_Marker = "Pass"
             Else
@@ -4677,7 +4686,7 @@ Round:
         SwitchPorts = SQL.GetSpecification("SwitchPorts")
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset4.Text)
-            If Math.Round(RetrnVal, 2) <= Spec Then
+            If TruncateDecimal(RetrnVal, 2) <= Spec Then
                 Directivity = "Pass"
             Else
                 Directivity = "Fail"
@@ -4895,7 +4904,7 @@ Round:
                     SQL.SaveTrace(Title, TestID, TraceID)
                     YArray = COUP2Data_offs
                     For x = 0 To YArray.Count - 1
-                        COUP2_YArray(UUTNum - 1, x) = YArray(x)
+                        COUP2_YArray(UUTNum_Reset - 1, x) = YArray(x)
                     Next
                 End If
             End If
@@ -4928,7 +4937,7 @@ Round:
                 End If
             End If
 
-            DIR = Format(Math.Round(DIR, 1) + frmAUTOTEST.txtOffset4.Text, "0.0")
+            DIR = Format(TruncateDecimal(DIR, 1) + frmAUTOTEST.txtOffset4.Text, "0.0")
             If DIR >= Spec Then
                 Directivity = "Pass"
             Else
@@ -4964,7 +4973,7 @@ Round:
         Spec = GetSpecification("Directivity")
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset4.Text)
-            If Math.Round(RetrnVal, 2) <= Spec Then
+            If TruncateDecimal(RetrnVal, 2) <= Spec Then
                 Directivity_Marker = "Pass"
             Else
                 Directivity_Marker = "Fail"
@@ -5179,7 +5188,7 @@ Round:
                 End If
             End If
 
-            DIR = Format(Math.Round(DIR, 1) + frmAUTOTEST.txtOffset4.Text, "0.0")
+            DIR = Format(TruncateDecimal(DIR, 1) + frmAUTOTEST.txtOffset4.Text, "0.0")
             If DIR >= Spec Then
                 Directivity_Marker = "Pass"
             Else
@@ -5221,7 +5230,7 @@ Round:
         Spec = GetSpecification("CoupledFlatness")
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset4.Text)
-            If Math.Round(RetrnVal, 2) <= Spec Then
+            If TruncateDecimal(RetrnVal, 2) <= Spec Then
                 CoupledFlatness = "Pass"
             Else
                 CoupledFlatness = "Fail"
@@ -5339,7 +5348,7 @@ Round:
 
             If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Then
                 If TraceChecked And Not TweakMode Then ' Database Trace Data
-                    SerialNumber = "UUT " & frmAUTOTEST.UUTCount.Text
+                    SerialNumber = "UUT" & Trim(frmAUTOTEST.UUTCount.Text)
                     TestID = TestID
                     CalDate = Now
                     Notes = ""
@@ -5360,7 +5369,7 @@ Round:
                 End If
             Else
                 If TraceChecked And Not TweakMode Then ' Database Trace Data
-                    SerialNumber = "UUT" & frmAUTOTEST.UUTCount.Text
+                    SerialNumber = "UUT" & Trim(frmAUTOTEST.UUTCount.Text)
                     TestID = TestID
                     CalDate = Now
                     Notes = ""
@@ -5397,15 +5406,15 @@ Round:
 
             If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Or Direction = 1 Then
                 CF = MaxNoZero(COUP1FlatData) - COUP1FlatData.Min
-                CF = Math.Round(CF, 2) + frmAUTOTEST.txtOffset5.Text
-                CF = Math.Round(CF, 2)
+                CF = TruncateDecimal(CF, 2) + frmAUTOTEST.txtOffset5.Text
+                CF = TruncateDecimal(CF, 2)
                 If CF < Spec * 2 Then
                     CoupledFlatness = "Pass"
                 Else
                     CoupledFlatness = "Fail"
                 End If
                 CF = (CF / 2)
-                CF = Format(Math.Round(CF, 2), "0.00")
+                CF = TruncateDecimal(CF, 2)
             Else
                 Direction1Value = MaxNoZero(COUP1FlatData) - COUP1FlatData.Min
                 Direction2Value = MaxNoZero(COUP2FlatData) - COUP2FlatData.Min
@@ -5414,14 +5423,14 @@ Round:
                 Else
                     CF = Direction2Value
                 End If
-                CF = Math.Round(CF, 2) + frmAUTOTEST.txtOffset5.Text
+                CF = TruncateDecimal(CF, 2) + frmAUTOTEST.txtOffset5.Text
                 If CF < Spec * 2 Then
                     CoupledFlatness = "Pass"
                 Else
                     CoupledFlatness = "Fail"
                 End If
                 CF = (CF / 2)
-                CF = Format(Math.Round(CF, 2), "0.00")
+                CF = TruncateDecimal(CF, 2)
             End If
         End If
         If VNAStr = "AG_E5071B" Then
@@ -5474,7 +5483,7 @@ Round:
         If frmAUTOTEST.txtOffset5.Text = "" Then frmAUTOTEST.txtOffset5.Text = 0
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset5.Text)
-            If Math.Round(RetrnVal, 2) <= Spec Then
+            If TruncateDecimal(RetrnVal, 2) <= Spec Then
                 PhaseBalance = "Pass"
             Else
                 PhaseBalance = "Fail"
@@ -5744,9 +5753,9 @@ Round:
                 YArray = TraceData
                 SQL.SaveTrace(Title, TestID, TraceID)
                 YArray = TraceData_offs
-                If UUTNum <= 5 Then
+                If UUTNum_Reset <= 5 Then
                     For x = 0 To YArray.Count - 1
-                        PB1_YArray(UUTNum - 1, x) = YArray(x)
+                        PB1_YArray(UUTNum_Reset - 1, x) = YArray(x)
                     Next
                 End If
             End If
@@ -5762,7 +5771,7 @@ Round:
             End If
 
             PB = MaxNoZero(ABArray)
-            PB = Math.Round(PB, 1)
+            PB = TruncateDecimal(PB, 1)
             PB = Format(PB + CDbl(frmAUTOTEST.txtOffset5.Text), "0.0")
             System.Threading.Thread.Sleep(1000)
 
@@ -5794,7 +5803,7 @@ Round:
                 ScanGPIB.BusWrite("OPC?;SCAL " & GetSpecification("AmplitudeBalance"))
                 ScanGPIB.BusWrite("MARKOFF;")  'All Markers Off
             End If
-            PB = Format(Math.Round(PB, 1), "0.0")
+            PB = TruncateDecimal(PB, 1)
             ILSetDone = True
             If PB <= Spec Then
                 PhaseBalance = "Pass"
@@ -5842,7 +5851,7 @@ Round:
         If frmAUTOTEST.txtOffset5.Text = "" Then frmAUTOTEST.txtOffset5.Text = 0
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset5.Text)
-            If Math.Round(RetrnVal, 2) <= Spec Then
+            If TruncateDecimal(RetrnVal, 2) <= Spec Then
                 PhaseBalance_Marker = "Pass"
             Else
                 PhaseBalance_Marker = "Fail"
@@ -6072,7 +6081,7 @@ Round:
             Else
                 PB = PB2
             End If
-            PB = Math.Abs(Math.Round(PB, 1))
+            PB = Math.Abs(TruncateDecimal(PB, 1))
             PB = Format(PB + CDbl(frmAUTOTEST.txtOffset5.Text), "0.0")
 
             ' Put Back to IL so user can have a reference
@@ -6104,7 +6113,7 @@ Round:
                 ScanGPIB.BusWrite("OPC?;SCAL " & GetSpecification("AmplitudeBalance"))
                 ScanGPIB.BusWrite("MARKOFF;")  'All Markers Off
             End If
-            PB = Format(Math.Round(PB, 1), "0.0")
+            PB = TruncateDecimal(PB, 1)
             ILSetDone = True
             If PB <= Spec Then
                 PhaseBalance_Marker = "Pass"
@@ -6164,7 +6173,7 @@ Round:
         If frmAUTOTEST.txtOffset5.Text = "" Then frmAUTOTEST.txtOffset5.Text = 0
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset5.Text)
-            If Math.Round(RetrnVal, 2) <= Spec Then
+            If TruncateDecimal(RetrnVal, 2) <= Spec Then
                 Return "Pass"
             Else
                 Return "Fail"
@@ -6310,8 +6319,8 @@ Round:
                         SQL.SaveTrace(Title, TestID, TraceID)
                         YArray = IL1Data_offs
                         For y = 0 To YArray.Count - 1
-                            PB_XArray(UUTNum - 1, y) = XArray(y)
-                            PB1_YArray(UUTNum - 1, y) = YArray(y)
+                            PB_XArray(UUTNum_Reset - 1, y) = XArray(y)
+                            PB1_YArray(UUTNum_Reset - 1, y) = YArray(y)
                         Next
                     End If
                 End If
@@ -6365,7 +6374,7 @@ Round:
             frmAUTOTEST.Refresh()
             ILSetDone = True
 
-            PB = Format(Math.Round(PB, 1), "0.0")
+            PB = TruncateDecimal(PB, 1)
             If PB <= Spec Then
                 PhaseBalanceCOMB = "Pass"
             Else
@@ -6411,7 +6420,7 @@ Round:
         If frmAUTOTEST.txtOffset5.Text = "" Then frmAUTOTEST.txtOffset5.Text = 0
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmAUTOTEST.txtOffset5.Text)
-            If Math.Round(RetrnVal, 2) <= Spec Then
+            If TruncateDecimal(RetrnVal, 2) <= Spec Then
                 Return "Pass"
             Else
                 Return "Fail"
@@ -6559,7 +6568,7 @@ Round:
 
             frmAUTOTEST.Refresh()
             PB = MaxNoZero(MaxData)
-            PB = Math.Round(PB, 1)
+            PB = TruncateDecimal(PB, 1)
             PB = Format(PB + CDbl(frmAUTOTEST.txtOffset5.Text), "0.0")
             'System.Threading.Thread.Sleep(500)
             If VNAStr = "AG_E5071B" Then
@@ -6596,7 +6605,7 @@ Round:
             frmAUTOTEST.Refresh()
             ILSetDone = True
 
-            PB = Format(Math.Round(PB, 1), "0.0")
+            PB = TruncateDecimal(PB, 1)
             If PB <= Spec Then
                 PhaseBalanceCOMB_Marker = "Pass"
             Else

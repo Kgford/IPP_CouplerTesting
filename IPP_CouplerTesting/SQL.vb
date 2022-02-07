@@ -125,46 +125,46 @@ Module SQL
                 GetSpecification = Title
                 GoTo SkipDataBase
             ElseIf Test = "InsertionLoss" And SpecIL <> Nothing Then
-                GetSpecification = Math.Round(SpecIL, 2)
+                GetSpecification = TruncateDecimal(SpecIL, 2)
                 GoTo SkipDataBase
             ElseIf Test = "InsertionLoss1" And SpecIL <> Nothing Then
-                GetSpecification = Math.Round(SpecIL, 2)
+                GetSpecification = TruncateDecimal(SpecIL, 2)
                 GoTo SkipDataBase
             ElseIf Test = "InsertionLoss2" And SpecIL_exp <> Nothing Then
-                GetSpecification = Math.Round(SpecIL_exp, 2)
+                GetSpecification = TruncateDecimal(SpecIL_exp, 2)
                 GoTo SkipDataBase
             ElseIf Test = "IL_ex" And SpecIL_exp <> Nothing Then
-                GetSpecification = Math.Round(SpecIL_exp, 2)
+                GetSpecification = TruncateDecimal(SpecIL_exp, 2)
                 GoTo SkipDataBase
             ElseIf Test = "VSWR" And SpecRL <> Nothing Then
-                GetSpecification = Math.Round(SpecRL, 1)
+                GetSpecification = TruncateDecimal(SpecRL, 1)
                 GoTo SkipDataBase
             ElseIf Test = "Iso" Or Test = "Isolation" And SpecISO <> Nothing Then
-                GetSpecification = Math.Round(SpecISO, 1)
+                GetSpecification = TruncateDecimal(SpecISO, 1)
                 GoTo SkipDataBase
             ElseIf Test = "IsolationL" And SpecISOL <> Nothing Then
-                GetSpecification = Math.Round(SpecISOL, 1)
+                GetSpecification = TruncateDecimal(SpecISOL, 1)
                 GoTo SkipDataBase
             ElseIf Test = "IsolationH" And SpecISOL <> Nothing Then
-                GetSpecification = Math.Round(SpecISOH, 1)
+                GetSpecification = TruncateDecimal(SpecISOH, 1)
                 GoTo SkipDataBase
             ElseIf Test = "AmplitudeBalance" And SpecAB <> Nothing Then
-                GetSpecification = Math.Round(SpecAB, 2)
+                GetSpecification = TruncateDecimal(SpecAB, 2)
                 If Not SpecAB_TF Then GoTo SkipDataBase
             ElseIf Test = "PhaseBalance" And SpecPB <> Nothing Then
-                GetSpecification = Math.Round(SpecPB, 1)
+                GetSpecification = TruncateDecimal(SpecPB, 1)
                 GoTo SkipDataBase
             ElseIf Test = "Coupling" And SpecCOUP <> Nothing Then
-                GetSpecification = Math.Round(SpecCOUP, 1)
+                GetSpecification = TruncateDecimal(SpecCOUP, 1)
                 GoTo SkipDataBase
             ElseIf Test = "CoupPlusMinus" And SpecCOUPPM <> Nothing Then
-                GetSpecification = Math.Round(SpecCOUPPM, 1)
+                GetSpecification = TruncateDecimal(SpecCOUPPM, 1)
                 GoTo SkipDataBase
             ElseIf Test = "Directivity" And SpecDIRECT <> Nothing Then
-                GetSpecification = Math.Round(SpecDIRECT, 1)
+                GetSpecification = TruncateDecimal(SpecDIRECT, 1)
                 GoTo SkipDataBase
             ElseIf Test = "CoupledFlatness" And SpecCOUPFLAT <> Nothing Then
-                GetSpecification = Math.Round(SpecCOUPFLAT, 2)
+                GetSpecification = TruncateDecimal(SpecCOUPFLAT, 2)
                 GoTo SkipDataBase
             ElseIf Test = "Ports" And SpecPorts <> Nothing Then
                 GetSpecification = SpecPorts
@@ -234,18 +234,18 @@ Retry:
                     If Not IsDBNull(dr.Item(6)) Then SpecStartFreq = CDbl(dr.Item(6))
                     If Not IsDBNull(dr.Item(7)) Then SpecStopFreq = CDbl(dr.Item(7))
                     If Not IsDBNull(dr.Item(8)) Then SpecCuttoffFreq = CDbl(dr.Item(8))
-                    If Not IsDBNull(dr.Item(11)) Then SpecIL = Math.Round(CDbl(dr.Item(11)), 2)
-                    If Not IsDBNull(dr.Item(10)) Then SpecRL = Math.Round(VSWRtoRL(CDbl(dr.Item(10))), 1)
-                    If Not IsDBNull(dr.Item(12)) Then SpecISO = Math.Round(CDbl(dr.Item(12)), 1)
-                    If Not IsDBNull(dr.Item(12)) Then SpecISO = Math.Round(CDbl(dr.Item(12)), 1)
-                    If Not IsDBNull(dr.Item(12)) Then SpecISOL = Math.Round(CDbl(dr.Item(12)), 1)
-                    If Not IsDBNull(dr.Item(13)) Then SpecISOH = Math.Round(CDbl(dr.Item(13)), 1)
-                    If Not IsDBNull(dr.Item(14)) Then SpecAB = Math.Round(CDbl(dr.Item(14)), 2)
-                    If Not IsDBNull(dr.Item(18)) Then SpecPB = Math.Round(CDbl(dr.Item(18)), 1)
-                    If Not IsDBNull(dr.Item(15)) Then SpecCOUP = Math.Round(CDbl(dr.Item(15)), 1)
-                    If Not IsDBNull(dr.Item(16)) Then SpecCOUPPM = Math.Round(CDbl(dr.Item(16)), 1)
-                    If Not IsDBNull(dr.Item(17)) Then SpecDIRECT = Math.Round(CDbl(dr.Item(17)), 1)
-                    If Not IsDBNull(dr.Item(19)) Then SpecCOUPFLAT = Math.Round(CDbl(dr.Item(19)), 2)
+                    If Not IsDBNull(dr.Item(11)) Then SpecIL = TruncateDecimal(CDbl(dr.Item(11)), 2)
+                    If Not IsDBNull(dr.Item(10)) Then SpecRL = TruncateDecimal(VSWRtoRL(CDbl(dr.Item(10))), 1)
+                    If Not IsDBNull(dr.Item(12)) Then SpecISO = TruncateDecimal(CDbl(dr.Item(12)), 1)
+                    If Not IsDBNull(dr.Item(12)) Then SpecISO = TruncateDecimal(CDbl(dr.Item(12)), 1)
+                    If Not IsDBNull(dr.Item(12)) Then SpecISOL = TruncateDecimal(CDbl(dr.Item(12)), 1)
+                    If Not IsDBNull(dr.Item(13)) Then SpecISOH = TruncateDecimal(CDbl(dr.Item(13)), 1)
+                    If Not IsDBNull(dr.Item(14)) Then SpecAB = TruncateDecimal(CDbl(dr.Item(14)), 2)
+                    If Not IsDBNull(dr.Item(18)) Then SpecPB = TruncateDecimal(CDbl(dr.Item(18)), 1)
+                    If Not IsDBNull(dr.Item(15)) Then SpecCOUP = TruncateDecimal(CDbl(dr.Item(15)), 1)
+                    If Not IsDBNull(dr.Item(16)) Then SpecCOUPPM = TruncateDecimal(CDbl(dr.Item(16)), 1)
+                    If Not IsDBNull(dr.Item(17)) Then SpecDIRECT = TruncateDecimal(CDbl(dr.Item(17)), 1)
+                    If Not IsDBNull(dr.Item(19)) Then SpecCOUPFLAT = TruncateDecimal(CDbl(dr.Item(19)), 2)
                     If Not IsDBNull(dr.Item(9)) Then SpecPorts = CInt(dr.Item(9))
                     If Not IsDBNull(dr.Item(32)) Then PPH = CInt(dr.Item(32))
                     If Not IsDBNull(dr.Item(22)) Then Offset1 = CInt(dr.Item(22))
@@ -288,21 +288,21 @@ Retry:
                     If Test = "Quantity" Then If Not IsDBNull(dr.Item(5)) Then GetSpecification = CDbl(dr.Item(5))
                     If Test = "StartFreqMHz" Then If Not IsDBNull(dr.Item(6)) Then GetSpecification = CDbl(dr.Item(6))
                     If Test = "StopFreqMHz" Then If Not IsDBNull(dr.Item(7)) Then GetSpecification = CDbl(dr.Item(7))
-                    If Test = "InsertionLoss" Then If Not IsDBNull(dr.Item(11)) Then GetSpecification = Math.Round(CDbl(dr.Item(11)), 2)
-                    If Test = "InsertionLoss1" Then If Not IsDBNull(dr.Item(11)) Then GetSpecification = Math.Round(CDbl(dr.Item(11)), 2)
-                    If Test = "IL_ex" Then If Not IsDBNull(dr.Item(91)) Then GetSpecification = Math.Round(CDbl(dr.Item(91)), 2)
-                    If Test = "VSWR" Then If Not IsDBNull(dr.Item(10)) Then GetSpecification = Math.Round(Math.Round(VSWRtoRL(CDbl(dr.Item(10)))), 1)
+                    If Test = "InsertionLoss" Then If Not IsDBNull(dr.Item(11)) Then GetSpecification = TruncateDecimal(CDbl(dr.Item(11)), 2)
+                    If Test = "InsertionLoss1" Then If Not IsDBNull(dr.Item(11)) Then GetSpecification = TruncateDecimal(CDbl(dr.Item(11)), 2)
+                    If Test = "IL_ex" Then If Not IsDBNull(dr.Item(91)) Then GetSpecification = TruncateDecimal(CDbl(dr.Item(91)), 2)
+                    If Test = "VSWR" Then If Not IsDBNull(dr.Item(10)) Then GetSpecification = TruncateDecimal(Math.Round(VSWRtoRL(CDbl(dr.Item(10)))), 1)
                     If Test = "Isolation" Or Test = "Iso" Then If Not IsDBNull(dr.Item(12)) Then GetSpecification = Math.Round(CDbl(dr.Item(12)), 1)
-                    If Test = "Isolation2" Then If Not IsDBNull(dr.Item(13)) Then GetSpecification = Math.Round(CDbl(dr.Item(13)), 1)
+                    If Test = "Isolation2" Then If Not IsDBNull(dr.Item(13)) Then GetSpecification = TruncateDecimal(CDbl(dr.Item(13)), 1)
                     If Test = "CutOffFreqMHz" Then If Not IsDBNull(dr.Item(8)) Then GetSpecification = CDbl(dr.Item(8))
                     If Test = "IsolationL" And Not IsDBNull(dr.Item(12)) Then GetSpecification = CDbl(dr.Item(12))
                     If Test = "IsolationH" And Not IsDBNull(dr.Item(13)) Then GetSpecification = CDbl(dr.Item(13))
-                    If Test = "AmplitudeBalance" Then If Not IsDBNull(dr.Item(14)) Then GetSpecification = Math.Round(CDbl(dr.Item(14)), 2)
-                    If Test = "PhaseBalance" Then If Not IsDBNull(dr.Item(18)) Then GetSpecification = Math.Round(CDbl(dr.Item(18)), 1)
-                    If Test = "Coupling" Then If Not IsDBNull(dr.Item(15)) Then GetSpecification = Math.Round(CDbl(dr.Item(15)), 1)
-                    If Test = "CouplingPM" Then If Not IsDBNull(dr.Item(16)) Then GetSpecification = Math.Round(CDbl(dr.Item(16)), 1)
-                    If Test = "Directivity" Then If Not IsDBNull(dr.Item(17)) Then GetSpecification = Math.Round(CDbl(dr.Item(17)), 1)
-                    If Test = "CoupledFlatness" Then If Not IsDBNull(dr.Item(19)) Then GetSpecification = Math.Round(CDbl(dr.Item(19)), 2)
+                    If Test = "AmplitudeBalance" Then If Not IsDBNull(dr.Item(14)) Then GetSpecification = TruncateDecimal(CDbl(dr.Item(14)), 2)
+                    If Test = "PhaseBalance" Then If Not IsDBNull(dr.Item(18)) Then GetSpecification = TruncateDecimal(CDbl(dr.Item(18)), 1)
+                    If Test = "Coupling" Then If Not IsDBNull(dr.Item(15)) Then GetSpecification = TruncateDecimal(CDbl(dr.Item(15)), 1)
+                    If Test = "CouplingPM" Then If Not IsDBNull(dr.Item(16)) Then GetSpecification = TruncateDecimal(CDbl(dr.Item(16)), 1)
+                    If Test = "Directivity" Then If Not IsDBNull(dr.Item(17)) Then GetSpecification = TruncateDecimal(CDbl(dr.Item(17)), 1)
+                    If Test = "CoupledFlatness" Then If Not IsDBNull(dr.Item(19)) Then GetSpecification = TruncateDecimal(CDbl(dr.Item(19)), 2)
                     If Test = "SpecID" Then If Not IsDBNull(dr.Item(0)) Then GetSpecification = CDbl(dr.Item(0))
                     If Test = "Ports" Then If Not IsDBNull(dr.Item(9)) Then GetSpecification = CDbl(dr.Item(9))
                     If Test = "Offset1" Then If Not IsDBNull(dr.Item(22)) Then GetSpecification = CDbl(dr.Item(22))
@@ -335,17 +335,17 @@ Retry:
                     If Not IsDBNull(drLocal.Item(6)) Then SpecStartFreq = CDbl(drLocal.Item(6))
                     If Not IsDBNull(drLocal.Item(7)) Then SpecStopFreq = CDbl(drLocal.Item(7))
                     If Not IsDBNull(drLocal.Item(8)) Then SpecCuttoffFreq = CDbl(drLocal.Item(8))
-                    If Not IsDBNull(drLocal.Item(11)) Then SpecIL = Math.Round(CDbl(drLocal.Item(11)), 2)
-                    If Not IsDBNull(drLocal.Item(10)) Then SpecRL = Math.Round(VSWRtoRL(CDbl(drLocal.Item(10))), 1)
-                    If Not IsDBNull(drLocal.Item(12)) Then SpecISO = Math.Round(CDbl(drLocal.Item(12)), 1)
-                    If Not IsDBNull(drLocal.Item(12)) Then SpecISOL = Math.Round(CDbl(drLocal.Item(12)), 1)
-                    If Not IsDBNull(drLocal.Item(13)) Then SpecISOH = Math.Round(CDbl(drLocal.Item(13)), 1)
-                    If Not IsDBNull(drLocal.Item(14)) Then SpecAB = Math.Round(CDbl(drLocal.Item(14)), 2)
-                    If Not IsDBNull(drLocal.Item(18)) Then SpecPB = Math.Round(CDbl(drLocal.Item(18)), 1)
-                    If Not IsDBNull(drLocal.Item(15)) Then SpecCOUP = Math.Round(CDbl(drLocal.Item(15)), 1)
-                    If Not IsDBNull(drLocal.Item(16)) Then SpecCOUPPM = Math.Round(CDbl(drLocal.Item(16)), 1)
-                    If Not IsDBNull(drLocal.Item(17)) Then SpecDIRECT = Math.Round(CDbl(drLocal.Item(17)), 1)
-                    If Not IsDBNull(drLocal.Item(19)) Then SpecCOUPFLAT = Math.Round(CDbl(drLocal.Item(19)), 2)
+                    If Not IsDBNull(drLocal.Item(11)) Then SpecIL = TruncateDecimal(CDbl(drLocal.Item(11)), 2)
+                    If Not IsDBNull(drLocal.Item(10)) Then SpecRL = TruncateDecimal(VSWRtoRL(CDbl(drLocal.Item(10))), 1)
+                    If Not IsDBNull(drLocal.Item(12)) Then SpecISO = TruncateDecimal(CDbl(drLocal.Item(12)), 1)
+                    If Not IsDBNull(drLocal.Item(12)) Then SpecISOL = TruncateDecimal(CDbl(drLocal.Item(12)), 1)
+                    If Not IsDBNull(drLocal.Item(13)) Then SpecISOH = TruncateDecimal(CDbl(drLocal.Item(13)), 1)
+                    If Not IsDBNull(drLocal.Item(14)) Then SpecAB = TruncateDecimal(CDbl(drLocal.Item(14)), 2)
+                    If Not IsDBNull(drLocal.Item(18)) Then SpecPB = TruncateDecimal(CDbl(drLocal.Item(18)), 1)
+                    If Not IsDBNull(drLocal.Item(15)) Then SpecCOUP = TruncateDecimal(CDbl(drLocal.Item(15)), 1)
+                    If Not IsDBNull(drLocal.Item(16)) Then SpecCOUPPM = TruncateDecimal(CDbl(drLocal.Item(16)), 1)
+                    If Not IsDBNull(drLocal.Item(17)) Then SpecDIRECT = TruncateDecimal(CDbl(drLocal.Item(17)), 1)
+                    If Not IsDBNull(drLocal.Item(19)) Then SpecCOUPFLAT = TruncateDecimal(CDbl(drLocal.Item(19)), 2)
                     If Not IsDBNull(drLocal.Item(9)) Then SpecPorts = CInt(drLocal.Item(9))
                     If Not IsDBNull(drLocal.Item(32)) Then PPH = CInt(drLocal.Item(32))
 
@@ -355,18 +355,18 @@ Retry:
                     If Test = "Quantity" Then If Not IsDBNull(drLocal.Item(5)) Then GetSpecification = CDbl(drLocal.Item(5))
                     If Test = "StartFreqMHz" Then If Not IsDBNull(drLocal.Item(6)) Then GetSpecification = CDbl(drLocal.Item(6))
                     If Test = "StopFreqMHz" Then If Not IsDBNull(drLocal.Item(7)) Then GetSpecification = CDbl(drLocal.Item(7))
-                    If Test = "InsertionLoss" Then If Not IsDBNull(drLocal.Item(12)) Then GetSpecification = Math.Round(CDbl(drLocal.Item(11)), 2)
-                    If Test = "VSWR" Then If Not IsDBNull(drLocal.Item(11)) Then GetSpecification = Math.Round(Math.Round(VSWRtoRL(CDbl(drLocal.Item(10)))), 1)
+                    If Test = "InsertionLoss" Then If Not IsDBNull(drLocal.Item(12)) Then GetSpecification = TruncateDecimal(CDbl(drLocal.Item(11)), 2)
+                    If Test = "VSWR" Then If Not IsDBNull(drLocal.Item(11)) Then GetSpecification = TruncateDecimal(Math.Round(VSWRtoRL(CDbl(drLocal.Item(10)))), 1)
                     If Test = "Isolation" Or Test = "Iso" Then If Not IsDBNull(drLocal.Item(12)) Then GetSpecification = Math.Round(CDbl(drLocal.Item(12)), 1)
-                    If Test = "IsolationL" Then If Not IsDBNull(drLocal.Item(12)) Then GetSpecification = Math.Round(CDbl(drLocal.Item(12)), 1)
-                    If Test = "IsolationH" Then If Not IsDBNull(drLocal.Item(13)) Then GetSpecification = Math.Round(CDbl(drLocal.Item(13)), 1)
-                    If Test = "CutOffFreqMHz" Then If Not IsDBNull(drLocal.Item(8)) Then GetSpecification = Math.Round(CDbl(drLocal.Item(8)), 1)
-                    If Test = "AmplitudeBalance" Then If Not IsDBNull(drLocal.Item(14)) Then GetSpecification = Math.Round(CDbl(drLocal.Item(14)), 2)
-                    If Test = "PhaseBalance" Then If Not IsDBNull(drLocal.Item(18)) Then GetSpecification = Math.Round(CDbl(drLocal.Item(18)), 1)
-                    If Test = "Coupling" Then If Not IsDBNull(drLocal.Item(15)) Then GetSpecification = Math.Round(CDbl(drLocal.Item(15)), 1)
-                    If Test = "CouplingPM" Then If Not IsDBNull(drLocal.Item(16)) Then GetSpecification = Math.Round(CDbl(drLocal.Item(16)), 1)
-                    If Test = "Directivity" Then If Not IsDBNull(drLocal.Item(17)) Then GetSpecification = Math.Round(CDbl(drLocal.Item(17)), 1)
-                    If Test = "CoupledFlatness" Then If Not IsDBNull(drLocal.Item(19)) Then GetSpecification = Math.Round(CDbl(drLocal.Item(19)), 2)
+                    If Test = "IsolationL" Then If Not IsDBNull(drLocal.Item(12)) Then GetSpecification = TruncateDecimal(CDbl(drLocal.Item(12)), 1)
+                    If Test = "IsolationH" Then If Not IsDBNull(drLocal.Item(13)) Then GetSpecification = TruncateDecimal(CDbl(drLocal.Item(13)), 1)
+                    If Test = "CutOffFreqMHz" Then If Not IsDBNull(drLocal.Item(8)) Then GetSpecification = TruncateDecimal(CDbl(drLocal.Item(8)), 1)
+                    If Test = "AmplitudeBalance" Then If Not IsDBNull(drLocal.Item(14)) Then GetSpecification = TruncateDecimal(CDbl(drLocal.Item(14)), 2)
+                    If Test = "PhaseBalance" Then If Not IsDBNull(drLocal.Item(18)) Then GetSpecification = TruncateDecimal(CDbl(drLocal.Item(18)), 1)
+                    If Test = "Coupling" Then If Not IsDBNull(drLocal.Item(15)) Then GetSpecification = TruncateDecimal(CDbl(drLocal.Item(15)), 1)
+                    If Test = "CouplingPM" Then If Not IsDBNull(drLocal.Item(16)) Then GetSpecification = TruncateDecimal(CDbl(drLocal.Item(16)), 1)
+                    If Test = "Directivity" Then If Not IsDBNull(drLocal.Item(17)) Then GetSpecification = TruncateDecimal(CDbl(drLocal.Item(17)), 1)
+                    If Test = "CoupledFlatness" Then If Not IsDBNull(drLocal.Item(19)) Then GetSpecification = TruncateDecimal(CDbl(drLocal.Item(19)), 2)
                     If Test = "SpecID" Then If Not IsDBNull(drLocal.Item(0)) Then GetSpecification = CDbl(drLocal.Item(0))
                     If Test = "Ports" Then If Not IsDBNull(drLocal.Item(9)) Then GetSpecification = CDbl(drLocal.Item(9))
                     If Test = "Offset1" Then If Not IsDBNull(drLocal.Item(22)) Then GetSpecification = CDbl(drLocal.Item(22))
