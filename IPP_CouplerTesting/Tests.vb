@@ -2091,7 +2091,7 @@
             If Right(IL1, 1) = "." Then IL1 = "0" & IL1
 
             IL1 = Math.Abs(IL1) + CDbl(frmAUTOTEST.txtOffset1.Text)
-            IL1 = TruncateDecimal(IL, 2)
+            IL1 = TruncateDecimal(IL1, 2)
 
             '~~~~~~~~~~~~~~~~~~~~~~~~second band~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
             If VNAStr = "AG_E5071B" Then
@@ -4028,7 +4028,6 @@ Round:
     End Function
 
     Public Function AmplitudeBalance_multiband(Optional ResumeTesting As Boolean = False, Optional TestID As Long = 0) As String
-
         Dim Spec As Double
         Dim TraceData(Points) As Object
         Dim TraceFreq(Points) As Object

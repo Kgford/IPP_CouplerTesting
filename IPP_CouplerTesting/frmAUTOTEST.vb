@@ -113,7 +113,6 @@ Public Class frmAUTOTEST
             ILSetDone = False
 
             Me.EndLot.Enabled = False
-            Me.EraseJob.Enabled = False
 
             Me.cmbJob.Items.Clear()
             Me.cmbJob.Text = " "
@@ -362,7 +361,7 @@ Skip4:
         Dim NonBool As Integer = 0
         If Not NoInit Then Exit Sub
         Try
-            If SpecType <> "COMBINER/DIVIDER" And SpecType <> "SINGLE DIRECTIONAL COUPLER" And SpecType <> "DUAL DIRECTIONAL COUPLER" And SpecType <> "BI DIRECTIONAL COUPLER" Then
+            If SpecType <> "COMBINER/DIVIDER" And SpecType <> "SINGLE DIRECTIONAL COUPLER" And SpecType <> "BI DIRECTIONAL COUPLER" Then
                 If Me.ckTest4.Checked = True And Me.ckTest1.Checked = False Then Me.ckTest1.Checked = True
             End If
             Expression = " where PartNumber = '" & Me.cmbPart.Text & "' And JobNumber = '" & Me.cmbJob.Text & "'"
@@ -1751,16 +1750,15 @@ GetOut:
         End If
     End Sub
     Private Sub PauseTimer_Tick(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles PauseTimer.Tick
-
         Pausenow = Date.Now.Ticks - LastTest
         If Pausenow > (TimePerUUT.Ticks * TimePerUUT_Pause) Then
             ExpectedTimer.Stop()
             If Not txtCurrentTime.Text = "PAUSED" Then
                 StatusLog.Items.Add("Test Paused:" & "" & Now.Date.ToShortDateString)
                 SQL.UpdateEffeciency("Paused", txtEfficiency.Text, txtCurrentTime.Text, UUTCount.Text)
+                ReportServer("job closed", UUTCount.Text, False)
             End If
             txtCurrentTime.Text = "PAUSED"
-
         End If
     End Sub
     Private Sub ResetTests(Optional Retest As Boolean = False, Optional resumeTest As Boolean = False)
@@ -1951,7 +1949,7 @@ GetOut:
         ExpectedProgress.Value = 0
         ActualProgress.Value = 0
         EndLot.Enabled = False
-        Me.EraseJob.Enabled = False
+
 
     End Sub
 
@@ -2149,7 +2147,7 @@ GetOut:
                 If Me.ckROBOT.Checked Then RobotStatus()
                 If TraceChecked Then
                     If (SpecType = "TRANSFORMER") And IL_TF Then PassFail = Tests.InsertionLossTRANS_multiband(, TestID)
-                    If SpecType = "TRANSFORMER" Then PassFail = Tests.InsertionLossTRANS(, TestID)
+                    If (SpecType = "TRANSFORMER") And Not IL_TF Then PassFail = Tests.InsertionLossTRANS(, TestID)
                     If (SpecType = "90 DEGREE COUPLER" Or SpecType = "BALUN") And SpecAB_TF Then PassFail = Tests.InsertionLoss3dB_multiband(, TestID)
                     If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.InsertionLoss3dB(, TestID)
                     If SpecType.Contains("COMBINER/DIVIDER") Then PassFail = Tests.InsertionLossCOMB(, TestID)
@@ -2838,8 +2836,6 @@ ReallyComplete:
                 Data1.Visible = True
             End If
 
-
-
             ResetTests()
             GetLoss()
             SwPos = ""
@@ -2911,7 +2907,6 @@ ReallyComplete:
                     StarStartExpectedTimeline()
                     resumeTest = False
                     EndLot.Enabled = True
-                    Me.EraseJob.Enabled = True
                     Resumed = True
                     OperatorLog = True
                 End If
@@ -2946,13 +2941,11 @@ ReallyComplete:
                 UUTCount.Text = UUTNum
                 StarStartExpectedTimeline()
                 EndLot.Enabled = True
-                Me.EraseJob.Enabled = True
                 OperatorLog = True
             ElseIf Resumed Then
                 UUTCount.Text = UUTNum
                 StarStartExpectedTimeline()
                 EndLot.Enabled = True
-                Me.EraseJob.Enabled = True
                 OperatorLog = True
             End If
 
@@ -3021,14 +3014,14 @@ ReallyComplete:
                 If Me.ckROBOT.Checked Then RobotStatus()
                 If TraceChecked Then
                     If (SpecType = "TRANSFORMER") And IL_TF Then PassFail = Tests.InsertionLossTRANS_multiband(, TestID)
-                    If SpecType = "TRANSFORMER" Then PassFail = Tests.InsertionLossTRANS(, TestID)
+                    If SpecType = "TRANSFORMER" And Not IL_TF Then PassFail = Tests.InsertionLossTRANS(, TestID)
                     If (SpecType = "90 DEGREE COUPLER" Or SpecType = "BALUN") And SpecAB_TF Then PassFail = Tests.InsertionLoss3dB_multiband(, TestID)
                     If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.InsertionLoss3dB(, TestID)
                     If SpecType.Contains("COMBINER/DIVIDER") Then PassFail = Tests.InsertionLossCOMB(, TestID)
                     If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then PassFail = Tests.InsertionLossDIR(, TestID)
                 ElseIf Not MutiCalChecked Then
                     If (SpecType = "TRANSFORMER") And IL_TF Then PassFail = Tests.InsertionLossTRANS_multiband(, TestID)
-                    If SpecType = "TRANSFORMER" Then PassFail = Tests.InsertionLossTRANS_Marker(, TestID)
+                    If SpecType = "TRANSFORMER" And Not IL_TF Then PassFail = Tests.InsertionLossTRANS_Marker(, TestID)
                     If (SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN")) And SpecAB_TF Then PassFail = Tests.InsertionLoss3dB_multiband(, TestID)
                     If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = Tests.InsertionLoss3dB_marker(, TestID)
                     If SpecType.Contains("COMBINER/DIVIDER") Then PassFail = Tests.InsertionLossCOMB_Marker(, TestID)
@@ -3766,10 +3759,8 @@ TestReallyComplete:
 
         End Try
     End Sub
-
     Private Sub EmptyTraceData_Click()
         Dim SQLstr As String
-
         If MsgBox("Are you sure you want to erase All Local Trace Data", vbYesNo, "Cannot be undone.") = vbYes Then
             SQLstr = "Delete from Trace "
             SQL.ExecuteSQLCommand(SQLstr, "LocalTraceData")
@@ -3778,7 +3769,7 @@ TestReallyComplete:
             SQL.ExecuteSQLCommand(SQLstr, "LocalTraceData")
         End If
     End Sub
-    Private Sub EraseJob_Click(sender As Object, e As EventArgs) Handles EraseJob.Click
+    Private Sub EraseJob_Click(sender As Object, e As EventArgs)
         Dim mes As String
         Dim SQLstr As String
         StatusLog.Items.Add("Closing the Job:" & DateTime.Now.ToString)
@@ -6726,22 +6717,27 @@ TestComplete:  ' For everything except Directional Couplers
         Dim ReportType As String = SpecType
         Dim history As String = GetreportStatus()
         ReportServer = history
-
         SQLstr = "SELECT * from ReportQueue where JobNumber = '" & Job & "' And WorkStation = '" & GetComputerName() & "'"
         If SQL.CheckforRow(SQLstr, "ReportQueue") = 0 Then
             SQLstr = "Insert Into ReportQueue (ReportName, ReportType,ReportStatus,JobNumber,WorkStation,PartNumber,Operator,ActiveDate,MaxValue) values ('" & SpecType & "','" & ReportType & "','" & Status & "','" & Job & "','" & GetComputerName() & "','" & Part & "','" & User & "','" & DateTime.Now.ToString & "','" & Quantity & "')"
             SQL.ExecuteSQLCommand(SQLstr, "NetworkData")
         Else
             SQLstr = "UPDATE ReportQueue Set ReportStatus = " & Status & " where JobNumber = '" & Job & "' And WorkStation = '" & GetComputerName() & "'"
-            SQL.ExecuteSQLCommand(SQLstr, "Effeciency")
+            SQL.ExecuteSQLCommand(SQLstr, "ReportQueue")
             SQLstr = "UPDATE ReportQueue Set Value = " & value & " where JobNumber = '" & Job & "' And WorkStation = '" & GetComputerName() & "'"
-            SQL.ExecuteSQLCommand(SQLstr, "Effeciency")
+            SQL.ExecuteSQLCommand(SQLstr, "ReportQueue")
             SQLstr = "UPDATE ReportQueue Set ReportStatus = '" & Status & "' where JobNumber = '" & Job & "' And WorkStation = '" & GetComputerName() & "'"
-            SQL.ExecuteSQLCommand(SQLstr, "Effeciency")
+            SQL.ExecuteSQLCommand(SQLstr, "ReportQueue")
         End If
-
-
+        ReportPing(Now.ToString("HH:mm:ss.fff"))
     End Function
+
+    Public Sub ReportPing(ping As String)
+        Dim SQLstr As String
+        SQLstr = "UPDATE ReportQueue Set Ping = " & ping & " where JobNumber = '" & Job & "' And WorkStation = '" & GetComputerName() & "'"
+        SQL.ExecuteSQLCommand(SQLstr, "ReportQueue")
+    End Sub
+
     Public Sub ExcelData()
 
         Dim SQLstr As String
@@ -7666,4 +7662,6 @@ Skip3:
     Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
 
     End Sub
+
+   
 End Class

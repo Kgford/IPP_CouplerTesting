@@ -129,7 +129,6 @@ Module globals
     Public PPHTime As TimeSpan
     Public TestPaused As Boolean
     Public TimePerUUT_Pause As Integer = 5 'Mulatiplier when to pause for time per uut 
-
     Public TimePerUUT As TimeSpan
     Public Timernow As Long
     Public TimeComplete As TimeSpan
