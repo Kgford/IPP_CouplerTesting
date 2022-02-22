@@ -332,6 +332,21 @@ Module globals
         Err.Raise(Err.Number, Err.Source, Err.Description, Err.HelpFile, Err.HelpContext)
     End Sub
 
+    Public Function ListToString(ByVal lst As List(Of String)) As String
+        Dim reStr As String = String.Empty
+        For i As Integer = 0 To lst.Count - 2
+            reStr &= lst.Item(i) & ","
+        Next
+        reStr &= lst.Item(lst.Count - 1)
+        ListToString = reStr
+    End Function
+
+
+    Public Function StringToList(ByVal str As String) As List(Of String)
+        Dim reLst As New List(Of String)
+        reLst = str.Split(",").ToArray.ToList
+        StringToList = reLst
+    End Function
     Public Function Settled(DataPts() As Double, _
             Tolerance As Double, NumPoints As Long) As Boolean
 

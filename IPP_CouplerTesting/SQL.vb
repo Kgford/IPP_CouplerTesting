@@ -537,7 +537,7 @@ SkipDataBase:
 
         End Try
     End Sub
-    Public Sub SaveTestData(Test As String, Value As Double)
+    Public Sub SaveTestData(Test As String, Value As Double, this_test As Integer)
         Dim SQLStr As String
 
         If TweakMode Then Exit Sub
@@ -557,10 +557,51 @@ SkipDataBase:
             SQLStr = "UPDATE TestData Set Operator  = '" & User & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork_rev = '" & ArtworkRevision & "'"
             SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
 
+            frmAUTOTEST.SaveStatus(this_test)
+
         Catch ex As Exception
 
         End Try
     End Sub
+    
+    Public Function GeUUTCount() As Integer
+        Try
+            Dim CountRow As Integer = 0
+            Dim SQLstr As String
+
+            SQLstr = "SELECT * from Status where JobNumber = '" & Job & "' And PartNumber = '" & Part & "'"
+            GeUUTCount = 0
+            'Job = frmAUTOTEST.cmbJob.Text
+            If SQLAccess Then
+                Dim ats As SqlConnection = New SqlConnection(SQLConnStr)
+                Dim cmd As SqlCommand = New SqlCommand(SQLstr, ats)
+                ats.Open()
+                System.Threading.Thread.Sleep(0.001)
+                Dim dr As SqlDataReader = cmd.ExecuteReader()
+                While Not dr.Read = Nothing
+                    If dr.Item(0) IsNot Nothing Then GeUUTCount = dr.Item(0)
+                End While
+                ats.Close()
+            Else
+                Dim strConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source= " & AccessDatabaseFolder("NetworkSpecs")
+                Dim atsLocal As New OleDb.OleDbConnection
+                atsLocal.ConnectionString = strConnectionString
+                Dim cmd As OleDb.OleDbCommand = New OleDb.OleDbCommand(SQLstr, atsLocal)
+                atsLocal.Open()
+                System.Threading.Thread.Sleep(0.001)
+                Dim drLocal As OleDb.OleDbDataReader = cmd.ExecuteReader
+                While Not drLocal.Read = Nothing
+                    If drLocal.Item(0) IsNot Nothing Then GeUUTCount = drLocal.Item(0)
+                End While
+                atsLocal.Close()
+            End If
+        Catch
+            Return 0
+        End Try
+    End Function
+
+    
+
     Public Sub CleanUpEffeciency()
 
         Dim SQLstr As String
@@ -1758,7 +1799,9 @@ IGNORE2:
                 End While
                 atsLocal.Close()
             End If
-            If ReportStatus.Length = 0 Then
+            If ReportStatus(0) = Nothing Then
+                GetTestStatus = "None"
+            ElseIf ReportStatus.Length = 0 Then
                 GetTestStatus = "None"
             ElseIf ReportStatus.Length = 1 Then
                 GetTestStatus = "One"

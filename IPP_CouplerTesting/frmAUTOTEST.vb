@@ -1195,7 +1195,7 @@ Skip4:
 
             End If
 
-            ResetTests(resumeTest)
+            ResetTests(, resumeTest)
             If Not resumeTest Then
                 UUTNum = 0
                 UUTStatusColor.BackColor = Color.LawnGreen
@@ -1763,6 +1763,7 @@ GetOut:
     End Sub
     Private Sub ResetTests(Optional Retest As Boolean = False, Optional resumeTest As Boolean = False)
         Try
+            If resumeTest Then Exit Sub
             If Not Retest Then UUTFail = 0
 
             If Not Retest Then
@@ -2164,14 +2165,14 @@ GetOut:
 
                 If IL_TF Then
                     RetrnVal1 = IL1
-                    SaveTestData("InsertionLoss", RetrnVal1)
+                    SaveTestData("InsertionLoss", RetrnVal1, 1)
                     RetrnVal = IL2
-                    SaveTestData("InsertionLoss2", RetrnVal)
+                    SaveTestData("InsertionLoss2", RetrnVal, 1)
                     Data1L.Text = IL1
                     Data1H.Text = IL2
                 Else
                     RetrnVal = IL
-                    SaveTestData("InsertionLoss", RetrnVal)
+                    SaveTestData("InsertionLoss", RetrnVal, 1)
                     RetrnStr = CStr(TruncateDecimal(RetrnVal, 2))
                     Data1.Text = Format(RetrnVal, "0.00")
                 End If
@@ -2218,7 +2219,7 @@ GetOut:
             If Me.ckTest2.Checked Then
                 PassFail = Tests.ReturnLoss(, TestID)
                 RetrnVal = RL
-                SaveTestData("ReturnLoss", RetrnVal)
+                SaveTestData("ReturnLoss", RetrnVal, 2)
                 'status("Blue", "TEST2")
                 Data2.Text = Format(RetrnVal, "0.0")
                 If PassFail = "Pass" Then
@@ -2276,22 +2277,23 @@ Test2SubRet:
                 If SpecType <> "SINGLE DIRECTIONAL COUPLER" Then
                     If SpecType = "BI DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Then
                         RetrnVal = DIR
-                        SaveTestData("Directivity", RetrnVal)
+                        SaveTestData("Directivity", RetrnVal, 4)
                     Else
                         If SpecAB_TF Then
                             RetrnVal = AB1
-                            SaveTestData("AmplitudeBalance1", RetrnVal)
+                            SaveTestData("AmplitudeBalance1", RetrnVal, 4)
                             RetrnVal = AB2
-                            SaveTestData("AmplitudeBalance2", RetrnVal)
+                            SaveTestData("AmplitudeBalance2", RetrnVal, 4)
                             'remove later
                             RetrnVal = AB
-                            SaveTestData("AmplitudeBalance", RetrnVal)
+                            SaveTestData("AmplitudeBalance", RetrnVal, 4)
                         Else
                             RetrnVal = AB
-                            SaveTestData("AmplitudeBalance", RetrnVal)
+                            SaveTestData("AmplitudeBalance", RetrnVal, 4)
                         End If
                     End If
                     status("Blue", "TEST4")
+                    Me.Total4.Text = UUTNum
                     If SpecAB_TF Then
                         AB1 = Format(AB1, "0.00")
                         AB2 = Format(AB2, "0.00")
@@ -2306,6 +2308,7 @@ Test2SubRet:
                             End If
                         ElseIf PassFail = "Fail" Then
                             TEST4PASS = False
+                            TEST4Fail = TEST4Fail + 1
                             If AB1Pass = "Pass" Then
                                 status("Green", "TEST4L", True)
                             ElseIf AB1Pass = "Fail" Then
@@ -2318,7 +2321,6 @@ Test2SubRet:
                             End If
                             If SpecType <> "DUAL DIRECTIONAL COUPLER" And SpecType <> "SINGLE DIRECTIONAL COUPLER" Then
                                 TEST4PASS = False
-                                TEST4Fail = TEST4Fail + 1
                                 If Not GlobalFailed Then
                                     GlobalFail = GlobalFail + 1
                                     GlobalFailed = True
@@ -2341,7 +2343,9 @@ Test2SubRet:
                                     TEST4Failing = False
                                     ErrorTimer.Stop()
                                 End If
-                                status("Red", "TEST4")
+                                Me.Failures4.Text = FormatPercent(((TEST4Fail / UUTNum)), 1)
+                                Me.Total4.Text = UUTNum
+                                Me.FailTotal4.Text = TEST4Fail
                                 TEST4FailRetest = TEST4FailRetest + 1
                                 UUTFail = 1
                             End If
@@ -2384,6 +2388,9 @@ Test2SubRet:
                                 ErrorTimer.Stop()
                             End If
                             status("Red", "TEST4")
+                            Me.Failures4.Text = FormatPercent(((TEST4Fail / UUTNum)), 1)
+                            Me.Total4.Text = UUTNum
+                            Me.FailTotal4.Text = TEST4Fail
                             TEST4FailRetest = TEST4FailRetest + 1
                             UUTFail = 1
                         End If
@@ -2411,7 +2418,7 @@ Test2SubRet:
                 Else
                     RetrnVal = PB
                 End If
-                SaveTestData("PhaseBalance", RetrnVal)
+                SaveTestData("PhaseBalance", RetrnVal, 5)
                 status("Blue", "TEST5")
                 Data5.Text = Format(RetrnVal, "0.00")
                 If PassFail = "Pass" Then
@@ -2489,14 +2496,14 @@ Test2Sub:
                     End If
 
                     If SQLAccess Then
-                        SaveTestData("IsolationL", ISoL)
+                        SaveTestData("IsolationL", ISoL, 3)
                         RetrnVal = CStr(TruncateDecimal(ISoL, 1))
-                        SaveTestData("IsolationH", ISoH)
+                        SaveTestData("IsolationH", ISoH, 3)
                         RetrnVal = CStr(TruncateDecimal(ISoH, 1))
                     Else
-                        SaveTestData("IsoL", ISoL)
+                        SaveTestData("IsoL", ISoL, 3)
                         RetrnVal = CStr(TruncateDecimal(ISoL, 1))
-                        SaveTestData("IsoH", ISoH)
+                        SaveTestData("IsoH", ISoH, 3)
                         RetrnVal = CStr(TruncateDecimal(ISoH, 1))
                     End If
                 ElseIf SpecType = "90 DEGREE COUPLER" Then
@@ -2507,14 +2514,14 @@ Test2Sub:
                 If SpecType = "BALUN" Then
                     'DO NOTHING
                 ElseIf SpecType = "BI DIRECTIONAL COUPLER" Then
-                    SaveTestData("Coupling", RetrnVal)
+                    SaveTestData("Coupling", RetrnVal, 3)
                 ElseIf SpecType <> "DUAL DIRECTIONAL COUPLER" And SpecType <> "SINGLE DIRECTIONAL COUPLER" Then
                     'DO NOTHING
                 Else
                     If SQLAccess Then
-                        SaveTestData("Isolation", RetrnVal)
+                        SaveTestData("Isolation", RetrnVal, 3)
                     Else
-                        SaveTestData("Iso", RetrnVal)
+                        SaveTestData("Iso", RetrnVal, 3)
                     End If
                 End If
                 status("Blue", "TEST3")
@@ -2571,7 +2578,7 @@ TestComplete:  ' For everything except Directional Couplers
             If SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" And Me.ckTest3.Checked Then
                 PassFail = Tests.Coupling(2, SpecType, , TestID)
                 RetrnVal = COuP
-                SaveTestData("Coupling", RetrnVal)
+                SaveTestData("Coupling", RetrnVal, 3)
                 status("Blue", "TEST3")
                 Data3.Text = Format(RetrnVal, "0.0")
                 If PassFail = "Pass" Then
@@ -2615,7 +2622,7 @@ TestComplete:  ' For everything except Directional Couplers
                     PassFail = Tests.Directivity_Marker(2, SpecType, , TestID)
                 End If
                 RetrnVal = DIR
-                SaveTestData("Directivity", RetrnVal)
+                SaveTestData("Directivity", RetrnVal, 4)
                 status("Blue", "TEST4")
                 Data4.Text = Format(RetrnVal, "0.0")
                 If PassFail = "Pass" Then
@@ -2655,7 +2662,7 @@ TestComplete:  ' For everything except Directional Couplers
             If SpecType = "DUAL DIRECTIONAL COUPLER" And Me.ckTest5.Checked Then
                 PassFail = Tests.CoupledFlatness(2, SpecType, , TestID)
                 RetrnVal = COuP
-                SaveTestData("CoupledFlatness", RetrnVal)
+                SaveTestData("CoupledFlatness", RetrnVal, 5)
                 status("Blue", "TEST5")
                 Data5.Text = Format(RetrnVal, "0.00")
                 If PassFail = "Pass" Then
@@ -2836,7 +2843,7 @@ ReallyComplete:
                 Data1.Visible = True
             End If
 
-            ResetTests()
+            ResetTests(, resumeTest)
             GetLoss()
             SwPos = ""
             If DontclickTheButton = True Then Exit Sub
@@ -2913,6 +2920,8 @@ ReallyComplete:
             End If
             If UUTNum = 0 And Not Resumed Then
                 ResetTests()
+                ClearFailureLog()
+                ClearStatusLog()
                 stopTest = False
                 LastTest = Date.Now.Ticks
                 ClearStatusLog()
@@ -2960,7 +2969,7 @@ ReallyComplete:
             Data4L.Text = ""
             Data4H.Text = ""
             Data5.Text = ""
-            If UUTNum = 0 Then UUTNum = UUTNum + 1
+            If UUTNum = 0 Or Resumed Then UUTNum = UUTNum + 1
 
             If (UUTNum = 1 Or FirstPart) And stopTest Then
                 ResetLot()
@@ -3031,14 +3040,14 @@ ReallyComplete:
 
                 If IL_TF Then
                     RetrnVal1 = IL1
-                    SaveTestData("InsertionLoss", RetrnVal1)
+                    SaveTestData("InsertionLoss", RetrnVal1, 1)
                     RetrnVal = IL2
-                    SaveTestData("InsertionLoss2", RetrnVal)
+                    SaveTestData("InsertionLoss2", RetrnVal, 1)
                     Data1L.Text = IL1
                     Data1H.Text = IL2
                 Else
                     RetrnVal = IL
-                    SaveTestData("InsertionLoss", RetrnVal)
+                    SaveTestData("InsertionLoss", RetrnVal, 1)
                     RetrnStr = CStr(TruncateDecimal(RetrnVal, 2))
                     Data1.Text = Format(RetrnVal, "0.00")
                 End If
@@ -3049,7 +3058,6 @@ ReallyComplete:
                 If PassFail = "Pass" Then
                     TEST1PASS = True
                     status("Green", "TEST1")
-                    MSChart.UpDateChartData(SpecType, "IL", "Pass")
                 ElseIf PassFail = "Fail" Then
                     TEST1PASS = False
                     status("Red", "TEST1")
@@ -3087,7 +3095,7 @@ ReallyComplete:
             Else
                 TEST1PASS = True
                 status("Blue", "TEST1")
-                SaveTestData("InsertionLoss", GetSpecification("InsertionLoss"))
+                SaveTestData("InsertionLoss", GetSpecification("InsertionLoss"), 1)
                 Me.Failures1.Text = FormatPercent(((Test1Fail / UUTNum)), 1)
                 Me.Total1.Text = UUTNum
                 Me.FailTotal1.Text = Test1Fail
@@ -3103,7 +3111,7 @@ ReallyComplete:
                     PassFail = Tests.ReturnLoss_Marker(, TestID)
                 End If
                 RetrnVal = RL
-                SaveTestData("ReturnLoss", RetrnVal)
+                SaveTestData("ReturnLoss", RetrnVal, 2)
                 status("Blue", "TEST2")
                 PF2.Text = PassFail
                 RetrnStr = CStr(TruncateDecimal(RetrnVal, 1))
@@ -3149,7 +3157,7 @@ ReallyComplete:
             Else
                 TEST2PASS = True
                 status("Blue", "TEST2")
-                SaveTestData("ReturnLoss", VSWRtoRL(SQL.GetSpecification("VSWR")))
+                SaveTestData("ReturnLoss", VSWRtoRL(SQL.GetSpecification("VSWR")), 2)
                 Me.Failures2.Text = FormatPercent(((Test2Fail / UUTNum)), 1)
                 Me.Total2.Text = UUTNum
                 Me.FailTotal2.Text = Test2Fail
@@ -3176,22 +3184,23 @@ Test2SubRet:
                 If SpecType <> "SINGLE DIRECTIONAL COUPLER" Then
                     If SpecType = "BI DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Then
                         RetrnVal = DIR
-                        SaveTestData("Directivity", RetrnVal)
+                        SaveTestData("Directivity", RetrnVal, 3)
                     Else
                         If SpecAB_TF Then
                             RetrnVal = AB1
-                            SaveTestData("AmplitudeBalance1", RetrnVal)
+                            SaveTestData("AmplitudeBalance1", RetrnVal, 3)
                             RetrnVal = AB2
-                            SaveTestData("AmplitudeBalance2", RetrnVal)
+                            SaveTestData("AmplitudeBalance2", RetrnVal, 3)
                             'remove later
                             RetrnVal = AB
-                            SaveTestData("AmplitudeBalance", RetrnVal)
+                            SaveTestData("AmplitudeBalance", RetrnVal, 3)
                         Else
                             RetrnVal = AB
-                            SaveTestData("AmplitudeBalance", RetrnVal)
+                            SaveTestData("AmplitudeBalance", RetrnVal, 3)
                         End If
                     End If
                     status("Blue", "TEST4")
+                    Me.Total4.Text = UUTNum
                     If SpecAB_TF Then
                         AB1 = Format(AB1, "0.00")
                         AB2 = Format(AB2, "0.00")
@@ -3219,11 +3228,11 @@ Test2SubRet:
                             ElseIf AB2Pass = "Fail" Then
                                 status("Red", "TEST4H", True)
                             End If
+                            TEST4Fail = TEST4Fail + 1
+                            GlobalFail = GlobalFail + 1
+                            TEST4PASS = False
                             If SpecType <> "DUAL DIRECTIONAL COUPLER" And SpecType <> "SINGLE DIRECTIONAL COUPLER" Then
-                                TEST4PASS = False
-                                TEST4Fail = TEST4Fail + 1
                                 If Not GlobalFailed Then
-                                    GlobalFail = GlobalFail + 1
                                     GlobalFailed = True
                                 End If
                                 If GlobalFail > GlobalFailMax And Not GlobalFail_bypass And Not Master_bypass Then
@@ -3244,10 +3253,12 @@ Test2SubRet:
                                     TEST4Failing = False
                                     ErrorTimer.Stop()
                                 End If
-                                status("Red", "TEST4")
+                                Me.FailTotal4.Text = TEST4Fail
                                 TEST4FailRetest = TEST4FailRetest + 1
                                 UUTFail = 1
                             End If
+                            Me.Failures4.Text = FormatPercent(((TEST4Fail / UUTNum)), 1)
+                            Me.Total4.Text = UUTNum
                         End If
                     Else
                         If PassFail = "Pass" Then
@@ -3261,7 +3272,6 @@ Test2SubRet:
                             PF4.Text = PassFail
                             TEST4PASS = False
                             TEST4Fail = TEST4Fail + 1
-                            Me.Failures4.Text = FormatPercent(((TEST4Fail / UUTNum)), 1)
                             Me.Total4.Text = UUTNum
                             Me.FailTotal4.Text = TEST4Fail
                             If Not GlobalFailed Then
@@ -3288,9 +3298,12 @@ Test2SubRet:
                             End If
                             status("Red", "TEST4")
                             TEST4FailRetest = TEST4FailRetest + 1
+                            Me.FailTotal4.Text = TEST4Fail
                             UUTFail = 1
                         End If
-                    End If
+                     End If
+                    Me.Failures4.Text = FormatPercent(((TEST4Fail / UUTNum)), 1)
+                    Me.Total4.Text = UUTNum
                 End If
             End If
             Me.Refresh()
@@ -3309,10 +3322,10 @@ Test2SubRet:
                 End If
                 If InStr(SpecType, "DIRECTIONAL COUPLER") Then
                     RetrnVal = CF
-                    SaveTestData("CoupledFlatness", RetrnVal)
+                    SaveTestData("CoupledFlatness", RetrnVal, 5)
                 Else
                     RetrnVal = PB
-                    SaveTestData("PhaseBalance", RetrnVal)
+                    SaveTestData("PhaseBalance", RetrnVal, 5)
                 End If
                 status("Blue", "TEST5")
                 PF5.Text = PassFail
@@ -3365,8 +3378,8 @@ Test2SubRet:
             Else
                 TEST5PASS = True
                 status("Blue", "TEST5")
-                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") Then SaveTestData("PhaseBalance", GetSpecification("PhaseBalance"))
-                If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then SaveTestData("CoupledFlatness", GetSpecification("CoupledFlatness"))
+                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") Then SaveTestData("PhaseBalance", GetSpecification("PhaseBalance"), 5)
+                If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then SaveTestData("CoupledFlatness", GetSpecification("CoupledFlatness"), 5)
 
                 Me.Failures5.Text = FormatPercent(((TEST5Fail / UUTNum)), 1)
                 Me.Total5.Text = UUTNum
@@ -3427,28 +3440,28 @@ Test2Sub:
                         End If
 
                         If SQLAccess Then
-                            SaveTestData("IsolationL", ISoL)
+                            SaveTestData("IsolationL", ISoL, 3)
                             RetrnStr = CStr(TruncateDecimal(ISoL, 1))
-                            SaveTestData("IsolationH", ISoH)
+                            SaveTestData("IsolationH", ISoH, 3)
                             RetrnStr = CStr(TruncateDecimal(ISoH, 1))
                         Else
-                            SaveTestData("IsoL", ISoL)
+                            SaveTestData("IsoL", ISoL, 3)
                             RetrnStr = CStr(TruncateDecimal(ISoL, 1))
-                            SaveTestData("IsoH", ISoH)
+                            SaveTestData("IsoH", ISoH, 3)
                             RetrnStr = CStr(TruncateDecimal(ISoH, 1))
                         End If
                     ElseIf SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("COMBINER/DIVIDER") Or SpecType.Contains("BALUN") Then
                         RetrnVal = ISo
                         If SQLAccess Then
-                            SaveTestData("Isolation", RetrnVal)
+                            SaveTestData("Isolation", RetrnVal, 3)
                             RetrnStr = CStr(TruncateDecimal(RetrnVal, 1))
                         Else
-                            SaveTestData("Iso", RetrnVal)
+                            SaveTestData("Iso", RetrnVal, 3)
                             RetrnStr = CStr(TruncateDecimal(RetrnVal, 1))
                         End If
                     Else
                         RetrnVal = COuP
-                        SaveTestData("Coupling", RetrnVal)
+                        SaveTestData("Coupling", RetrnVal, 3)
                         RetrnStr = CStr(TruncateDecimal(RetrnVal, 1))
                     End If
                     If Not ISO_TF Then
@@ -3503,14 +3516,14 @@ Test2Sub:
                     TEST3PASS = True
                     status("Blue", "TEST3")
                     If SQLAccess Then
-                        If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") And SQLAccess Then SaveTestData("Isolation", 0 - GetSpecification("Isolation"))
-                        If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") And Not SQLAccess Then SaveTestData("Isolation", 0 - GetSpecification("Isolation"))
+                        If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") And SQLAccess Then SaveTestData("Isolation", 0 - GetSpecification("Isolation"), 3)
+                        If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") And Not SQLAccess Then SaveTestData("Isolation", 0 - GetSpecification("Isolation"), 3)
                     Else
-                        If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") And SQLAccess Then SaveTestData("Iso", 0 - GetSpecification("Isolation"))
-                        If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") And Not SQLAccess Then SaveTestData("Iso", 0 - GetSpecification("Isolation"))
+                        If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") And SQLAccess Then SaveTestData("Iso", 0 - GetSpecification("Isolation"), 3)
+                        If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") And Not SQLAccess Then SaveTestData("Iso", 0 - GetSpecification("Isolation"), 3)
                     End If
 
-                    If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then SaveTestData("Coupling", 0 - GetSpecification("Coupling"))
+                    If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then SaveTestData("Coupling", 0 - GetSpecification("Coupling"), 3)
                     Me.Failures3.Text = FormatPercent(((TEST3Fail / UUTNum)), 1)
                     Me.Total3.Text = UUTNum
                     Me.FailTotal3.Text = TEST3Fail
@@ -3538,7 +3551,7 @@ TestComplete:  ' For everything except Directional Couplers
                 PassFail = Tests.Coupling(2, SpecType, , TestID)
                 RetrnVal = COuP
                 RetrnStr = CStr(TruncateDecimal(RetrnVal, 1))
-                SaveTestData("Coupling", RetrnVal)
+                SaveTestData("Coupling", RetrnVal, 3)
                 status("Blue", "TEST3")
                 PF3.Text = PassFail
                 Data3.Text = Format(RetrnVal, "0.00")
@@ -3594,7 +3607,7 @@ TestComplete:  ' For everything except Directional Couplers
                 status("Blue", "TEST4")
                 PF4.Text = PassFail
                 RetrnVal = DIR
-                SaveTestData("Directivity", RetrnVal)
+                SaveTestData("Directivity", RetrnVal, 4)
                 RetrnStr = CStr(TruncateDecimal(RetrnVal, 1))
                 Data4.Text = Format(RetrnVal, "0.0")
                 If PassFail = "Pass" Then
@@ -3643,7 +3656,7 @@ TestComplete:  ' For everything except Directional Couplers
                 If Me.ckROBOT.Checked Then RobotStatus()
                 PassFail = Tests.CoupledFlatness(2, SpecType, , TestID)
                 RetrnVal = CF
-                SaveTestData("CoupledFlatness", RetrnVal)
+                SaveTestData("CoupledFlatness", RetrnVal, 5)
                 status("Blue", "TEST5")
                 PF5.Text = PassFail
                 RetrnStr = CStr(TruncateDecimal(RetrnVal, 1))
@@ -4006,6 +4019,7 @@ TestReallyComplete:
             End If
         End If
         Index = FailureLog.Items.Count
+        SaveStatus(1)
     End Sub
 
     Private Function RemoveLastEntryFailureLog() As Boolean
@@ -4045,12 +4059,17 @@ TestReallyComplete:
                 Else
                     Me.Data1.ForeColor = Drawing.Color.LawnGreen
                 End If
-                If Not Retest Then Me.Failures1.ForeColor = Drawing.Color.LawnGreen
-                If Not Retest Then Me.FailTotal1.ForeColor = Drawing.Color.LawnGreen
+                If Not Me.FailTotal1.Text > 0 Then
+                    Me.Failures1.ForeColor = Drawing.Color.LawnGreen
+                    If Not Retest Then Me.FailTotal1.ForeColor = Drawing.Color.LawnGreen
+                End If
+                Me.Total1.ForeColor = Drawing.Color.LawnGreen
             End If
+
             If Color = "Red" Then
                 If Not Retest Then Me.Failures1.ForeColor = Drawing.Color.Red
                 If Not Retest Then Me.FailTotal1.ForeColor = Drawing.Color.Red
+                If Not Retest Then Me.Total1.ForeColor = Drawing.Color.Red
                 Me.PF1.ForeColor = Drawing.Color.Red
                 If IL_TF Then
                     If IL1_status = "Pass" Then
@@ -4100,12 +4119,16 @@ TestReallyComplete:
                 If UUTFail = 0 Or Retest Then Me.UUTCount.ForeColor = Drawing.Color.LawnGreen
                 Me.PF2.ForeColor = Drawing.Color.LawnGreen
                 Me.Data2.ForeColor = Drawing.Color.LawnGreen
-                If Not Retest Then Me.Failures2.ForeColor = Drawing.Color.LawnGreen
-                If Not Retest Then Me.FailTotal2.ForeColor = Drawing.Color.LawnGreen
+                If Not Me.FailTotal2.Text > 0 Then
+                    Me.Failures2.ForeColor = Drawing.Color.LawnGreen
+                    If Not Retest Then Me.FailTotal2.ForeColor = Drawing.Color.LawnGreen
+                End If
+                Me.Total2.ForeColor = Drawing.Color.LawnGreen
             End If
             If Color = "Red" Then
                 If Not Retest Then Me.Failures2.ForeColor = Drawing.Color.Red
                 If Not Retest Then Me.FailTotal2.ForeColor = Drawing.Color.Red
+                If Not Retest Then Me.Total2.ForeColor = Drawing.Color.Red
                 Me.UUTStatusColor.BackColor = Drawing.Color.Red
                 Me.StartTestFrame.BackColor = Drawing.Color.Red
                 Me.ReTestFrame.BackColor = Drawing.Color.Red
@@ -4135,12 +4158,16 @@ TestReallyComplete:
                 If UUTFail = 0 Or Retest Then Me.UUTCount.ForeColor = Drawing.Color.LawnGreen
                 Me.PF3.ForeColor = Drawing.Color.LawnGreen
                 Me.Data3.ForeColor = Drawing.Color.LawnGreen
-                If Not Retest Then Me.Failures3.ForeColor = Drawing.Color.LawnGreen
-                If Not Retest Then Me.FailTotal3.ForeColor = Drawing.Color.LawnGreen
+                If Not Me.FailTotal3.Text > 0 Then
+                    Me.Failures3.ForeColor = Drawing.Color.LawnGreen
+                    If Not Retest Then Me.FailTotal3.ForeColor = Drawing.Color.LawnGreen
+                End If
+                Me.Total3.ForeColor = Drawing.Color.LawnGreen
             End If
             If Color = "Red" Then
                 If Not Retest Then Me.Failures3.ForeColor = Drawing.Color.Red
                 If Not Retest Then Me.FailTotal3.ForeColor = Drawing.Color.Red
+                If Not Retest Then Me.Total3.ForeColor = Drawing.Color.Red
                 Me.PF3.ForeColor = Drawing.Color.Red
                 Me.Data3.ForeColor = Drawing.Color.Red
                 Me.UUTStatusColor.BackColor = Drawing.Color.Red
@@ -4171,12 +4198,16 @@ TestReallyComplete:
                 If UUTFail = 0 Or Retest Then Me.UUTCount.ForeColor = Drawing.Color.LawnGreen
                 Me.PF3.ForeColor = Drawing.Color.LawnGreen
                 Me.Data3L.ForeColor = Drawing.Color.LawnGreen
-                If Not Retest Then Me.Failures3.ForeColor = Drawing.Color.LawnGreen
-                If Not Retest Then Me.FailTotal3.ForeColor = Drawing.Color.LawnGreen
+                If Not Me.FailTotal3.Text > 0 Then
+                    Me.Failures3.ForeColor = Drawing.Color.LawnGreen
+                    If Not Retest Then Me.FailTotal3.ForeColor = Drawing.Color.LawnGreen
+                End If
+                Me.Total3.ForeColor = Drawing.Color.LawnGreen
             End If
             If Color = "Red" Then
                 If Not Retest Then Me.Failures3.ForeColor = Drawing.Color.Red
                 If Not Retest Then Me.FailTotal3.ForeColor = Drawing.Color.Red
+                If Not Retest Then Me.Total3.ForeColor = Drawing.Color.Red
                 Me.PF3.ForeColor = Drawing.Color.Red
                 Me.Data3L.ForeColor = Drawing.Color.Red
                 Me.UUTStatusColor.BackColor = Drawing.Color.Red
@@ -4206,12 +4237,16 @@ TestReallyComplete:
                 If UUTFail = 0 Or Retest Then Me.UUTCount.ForeColor = Drawing.Color.LawnGreen
                 Me.PF3.ForeColor = Drawing.Color.LawnGreen
                 Me.Data3H.ForeColor = Drawing.Color.LawnGreen
-                If Not Retest Then Me.Failures3.ForeColor = Drawing.Color.LawnGreen
-                If Not Retest Then Me.FailTotal3.ForeColor = Drawing.Color.LawnGreen
+                If Not Me.FailTotal3.Text > 0 Then
+                    Me.Failures3.ForeColor = Drawing.Color.LawnGreen
+                    If Not Retest Then Me.FailTotal3.ForeColor = Drawing.Color.LawnGreen
+                End If
+                Me.Total3.ForeColor = Drawing.Color.LawnGreen
             End If
             If Color = "Red" Then
                 If Not Retest Then Me.Failures3.ForeColor = Drawing.Color.Red
                 If Not Retest Then Me.FailTotal3.ForeColor = Drawing.Color.Red
+                If Not Retest Then Me.Total3.ForeColor = Drawing.Color.Red
                 Me.PF3.ForeColor = Drawing.Color.Red
                 Me.Data3H.ForeColor = Drawing.Color.Red
                 Me.UUTStatusColor.BackColor = Drawing.Color.Red
@@ -4242,12 +4277,16 @@ TestReallyComplete:
                 If UUTFail = 0 Or Retest Then Me.UUTCount.ForeColor = Drawing.Color.LawnGreen
                 Me.PF4.ForeColor = Drawing.Color.LawnGreen
                 Me.Data4.ForeColor = Drawing.Color.LawnGreen
-                If Not Retest Then Me.Failures4.ForeColor = Drawing.Color.LawnGreen
-                If Not Retest Then Me.FailTotal4.ForeColor = Drawing.Color.LawnGreen
+                If Not Me.FailTotal4.Text > 0 Then
+                    Me.Failures4.ForeColor = Drawing.Color.LawnGreen
+                    If Not Retest Then Me.FailTotal4.ForeColor = Drawing.Color.LawnGreen
+                End If
+                Me.Total4.ForeColor = Drawing.Color.LawnGreen
             End If
             If Color = "Red" Then
                 If Not Retest Then Me.Failures4.ForeColor = Drawing.Color.Red
                 If Not Retest Then Me.FailTotal4.ForeColor = Drawing.Color.Red
+                If Not Retest Then Me.Total4.ForeColor = Drawing.Color.Red
                 Me.PF4.ForeColor = Drawing.Color.Red
                 Me.Data4.ForeColor = Drawing.Color.Red
                 Me.UUTStatusColor.BackColor = Drawing.Color.Red
@@ -4277,12 +4316,16 @@ TestReallyComplete:
                 If UUTFail = 0 Or Retest Then Me.UUTCount.ForeColor = Drawing.Color.LawnGreen
                 Me.PF4.ForeColor = Drawing.Color.LawnGreen
                 Me.Data4L.ForeColor = Drawing.Color.LawnGreen
-                If Not Retest Then Me.Failures4.ForeColor = Drawing.Color.LawnGreen
-                If Not Retest Then Me.FailTotal4.ForeColor = Drawing.Color.LawnGreen
+                If Not Me.FailTotal4.Text > 0 Then
+                    Me.Failures4.ForeColor = Drawing.Color.LawnGreen
+                    If Not Retest Then Me.FailTotal4.ForeColor = Drawing.Color.LawnGreen
+                End If
+                Me.Total4.ForeColor = Drawing.Color.LawnGreen
             End If
             If Color = "Red" Then
                 If Not Retest Then Me.Failures4.ForeColor = Drawing.Color.Red
                 If Not Retest Then Me.FailTotal4.ForeColor = Drawing.Color.Red
+                If Not Retest Then Me.Total4.ForeColor = Drawing.Color.Red
                 Me.PF4.ForeColor = Drawing.Color.Red
                 Me.Data4L.ForeColor = Drawing.Color.Red
                 Me.UUTStatusColor.BackColor = Drawing.Color.Red
@@ -4290,6 +4333,9 @@ TestReallyComplete:
                 Me.ReTestFrame.BackColor = Drawing.Color.Red
                 Me.UUTLabel.ForeColor = Drawing.Color.Red
                 Me.UUTCount.ForeColor = Drawing.Color.Red
+                Me.Failures4.ForeColor = Drawing.Color.Red
+                Me.FailTotal4.ForeColor = Drawing.Color.Red
+                Me.Total4.ForeColor = Drawing.Color.Red
             End If
             If Color = "Blue" Then
                 PF4.ForeColor = Drawing.Color.CornflowerBlue
@@ -4312,12 +4358,16 @@ TestReallyComplete:
                 If UUTFail = 0 Or Retest Then Me.UUTCount.ForeColor = Drawing.Color.LawnGreen
                 Me.PF4.ForeColor = Drawing.Color.LawnGreen
                 Me.Data4H.ForeColor = Drawing.Color.LawnGreen
-                If Not Retest Then Me.Failures4.ForeColor = Drawing.Color.LawnGreen
-                If Not Retest Then Me.FailTotal4.ForeColor = Drawing.Color.LawnGreen
+                If Not Me.FailTotal4.Text > 0 Then
+                    Me.Failures4.ForeColor = Drawing.Color.LawnGreen
+                    If Not Retest Then Me.FailTotal4.ForeColor = Drawing.Color.LawnGreen
+                End If
+                Me.Total4.ForeColor = Drawing.Color.LawnGreen
             End If
             If Color = "Red" Then
                 If Not Retest Then Me.Failures4.ForeColor = Drawing.Color.Red
                 If Not Retest Then Me.FailTotal4.ForeColor = Drawing.Color.Red
+                If Not Retest Then Me.Total4.ForeColor = Drawing.Color.Red
                 Me.PF4.ForeColor = Drawing.Color.Red
                 Me.Data4H.ForeColor = Drawing.Color.Red
                 Me.UUTStatusColor.BackColor = Drawing.Color.Red
@@ -4325,6 +4375,9 @@ TestReallyComplete:
                 Me.ReTestFrame.BackColor = Drawing.Color.Red
                 Me.UUTLabel.ForeColor = Drawing.Color.Red
                 Me.UUTCount.ForeColor = Drawing.Color.Red
+                Me.Failures4.ForeColor = Drawing.Color.Red
+                Me.FailTotal4.ForeColor = Drawing.Color.Red
+                Me.Total4.ForeColor = Drawing.Color.Red
             End If
             If Color = "Blue" Then
                 PF4.ForeColor = Drawing.Color.CornflowerBlue
@@ -4348,12 +4401,16 @@ TestReallyComplete:
                 If UUTFail = 0 Or Retest Then Me.UUTCount.ForeColor = Drawing.Color.LawnGreen
                 Me.PF5.ForeColor = Drawing.Color.LawnGreen
                 Me.Data5.ForeColor = Drawing.Color.LawnGreen
-                If Not Retest Then Me.Failures5.ForeColor = Drawing.Color.LawnGreen
-                If Not Retest Then Me.FailTotal5.ForeColor = Drawing.Color.LawnGreen
+                If Not Me.FailTotal5.Text > 0 Then
+                    Me.Failures5.ForeColor = Drawing.Color.LawnGreen
+                    If Not Retest Then Me.FailTotal5.ForeColor = Drawing.Color.LawnGreen
+                End If
+                Me.Total5.ForeColor = Drawing.Color.LawnGreen
             End If
             If Color = "Red" Then
                 If Not Retest Then Me.Failures5.ForeColor = Drawing.Color.Red
                 If Not Retest Then Me.FailTotal5.ForeColor = Drawing.Color.Red
+                If Not Retest Then Me.Total5.ForeColor = Drawing.Color.Red
                 Me.PF5.ForeColor = Drawing.Color.Red
                 Me.Data5.ForeColor = Drawing.Color.Red
                 Me.UUTStatusColor.BackColor = Drawing.Color.Red
@@ -4361,6 +4418,7 @@ TestReallyComplete:
                 Me.ReTestFrame.BackColor = Drawing.Color.Red
                 Me.UUTLabel.ForeColor = Drawing.Color.Red
                 Me.UUTCount.ForeColor = Drawing.Color.Red
+
             End If
             If Color = "Blue" Then
                 PF5.ForeColor = Drawing.Color.CornflowerBlue
@@ -4427,800 +4485,825 @@ TestReallyComplete:
         Dim thisJob As String = ""
         Dim thisStation As String = ""
         Dim complete As String = ""
+        Dim test_status As String
 
         Try
             TestExist = False
             OldTitle = txtTitle.Text
             ResetLot()
-
-            UUTNum = 0
-            ResumeTesting = False
-            If Me.cmbJob.Text = " " Then Exit Function
-            TempAccess = SQLAccess
-            TempNetwork = NetworkAccess
-            Dim test_status As String = GetTestStatus()
-            stopTest = False
-            SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "' And WorkStation = '" & WorkStation & "'"
-            If test_status = "None" Then
-                If SQL.CheckforRow(SQLstr, "NetworkData") > 0 Then GoTo StartResume
-            ElseIf test_status = "One" Then
-                If ReportStatus(0) = "test running" And WorkStation = SavedWorkStation(0) And SavedJob(0) = Job Then
-                    SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "'"
+            SQLstr = "select * from Status where JobNumber = '" & Me.cmbJob.Text & "'"
+            If SQL.CheckforRow(SQLstr, "NetworkData") > 0 Then
+                test_status = GetTestStatus()
+                complete = GeUUTCount()
+                If MsgBox("The Job is already on record. Resume Testing", vbYesNo, "Continue from UUT" & complete & " or Start Over") = vbNo Then
+                    SQLstr = "UPDATE ReportQueue Set ReportStatus = 'test running' where JobNumber = '" & Me.cmbJob.Text & "' And WorkStation = '" & WorkStation & "'"
+                    SQL.ExecuteSQLCommand(SQLstr, "Effeciency")
+                    If MsgBox("Do you want to erase The data?", vbYesNo, "Erasing Job Data") = vbNo Then
+                        stopTest = False
+                        ResumeTesting = True
+                        Exit Function
+                    Else
+                        EraseThisTest()
+                        stopTest = True
+                        ResumeTesting = False
+                        Exit Function
+                    End If
+                Else
+                    GetStatus()
+                    stopTest = False
+                    ResumeTesting = True
+                    Exit Function
+                End If
+            Else
+                UUTNum = 0
+                ResumeTesting = False
+                If Me.cmbJob.Text = " " Then Exit Function
+                TempAccess = SQLAccess
+                TempNetwork = NetworkAccess
+                test_status = GetTestStatus()
+                stopTest = False
+                SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "' And WorkStation = '" & WorkStation & "'"
+                If test_status = "None" Then
                     If SQL.CheckforRow(SQLstr, "NetworkData") > 0 Then GoTo StartResume
-                ElseIf ReportStatus(0) = "test running" And WorkStation = SavedWorkStation(0) And Not SavedJob(0) = Job Then
-                    If MsgBox("Are you sure you  want to continue at UUT" & SavedComplete(0) & "??", vbYesNo, SavedJob(0) & " has not been completed by " & SavedUser(0) & " at Workstation " & SavedWorkStation(0)) = vbYes Then
-                        If MsgBox("Do you want to close " & SavedJob(0) & "from Workstation " & SavedWorkStation(0) & "?", vbYesNo, "Yes or No") = vbYes Then
-                            SQLstr = "UPDATE ReportQueue Set ReportStatus = job closed where JobNumber = '" & Job & "'"
-                            SQL.ExecuteSQLCommand(SQLstr, "Effeciency")
-                            SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "''"
+                ElseIf test_status = "One" Then
+                    If ReportStatus(0) = "test running" And WorkStation = SavedWorkStation(0) And SavedJob(0) = Job Then
+                        SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "'"
+                        If SQL.CheckforRow(SQLstr, "NetworkData") > 0 Then GoTo StartResume
+                    ElseIf ReportStatus(0) = "test running" And WorkStation = SavedWorkStation(0) And Not SavedJob(0) = Job Then
+                        If MsgBox("Are you sure you  want to continue at UUT" & SavedComplete(0) & "??", vbYesNo, SavedJob(0) & " has not been completed by " & SavedUser(0) & " at Workstation " & SavedWorkStation(0)) = vbYes Then
+                            If MsgBox("Do you want to close " & SavedJob(0) & "from Workstation " & SavedWorkStation(0) & "?", vbYesNo, "Yes or No") = vbYes Then
+                                SQLstr = "UPDATE ReportQueue Set ReportStatus = job closed where JobNumber = '" & Job & "'"
+                                SQL.ExecuteSQLCommand(SQLstr, "Effeciency")
+                                SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "''"
+                                If SQL.CheckforRow(SQLstr, "NetworkData") > 0 Then GoTo StartResume
+                                stopTest = False
+                            Else
+                                stopTest = True
+                            End If
+                        End If
+                    ElseIf ReportStatus(0) = "report complete" Or ReportStatus(0) = "report complete" Then
+                        If MsgBox("Are you sure you  want to continue at UUT" & SavedComplete(0) & "??", vbYesNo, SavedJob(0) & " has been completed by " & SavedUser(0) & " at Workstation " & SavedWorkStation(0)) = vbYes Then
+                            SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "'"
+                            If SQL.CheckforRow(SQLstr, "NetworkData") > 0 Then GoTo StartResume
+                            GoTo StartResume
+                        End If
+                    ElseIf ReportStatus(0) = "job closed" Then
+                        If MsgBox("Are you sure you  want to continue at UUT" & SavedComplete(0) & "??", vbYesNo, SavedJob(0) & " has been paused by " & SavedUser(0) & " at Workstation " & SavedWorkStation(0)) = vbYes Then
+                            GoTo StartResume
+                        Else
+                            stopTest = True
+                        End If
+                    Else
+                        GoTo StartResume
+                    End If
+                ElseIf test_status = "Multiple" Then
+                    complete = 0
+                    For x = 0 To ReportStatus.Length - 1
+                        thisStatus1 = ReportStatus(x)
+                        If thisStatus1 = "job closed" Then
+                            thisStatus = ReportStatus(x)
+                            If SavedComplete(x) > complete Then
+                                complete = SavedComplete(x)
+                            End If
+                            thisUser = SavedUser(x)
+                            thisStation = SavedWorkStation(x)
+                            thisJob = SavedJob(x)
+                            Exit For
+                        Else
+                            thisStatus = thisStatus1
+                        End If
+                    Next
+                    If Not complete = 0 Then GoTo letsgetiton
+                    complete = 0
+                    For x = 0 To ReportStatus.Length - 1
+                        thisStatus2 = ReportStatus(x)
+                        If thisStatus2 = "test running" Then
+                            thisStatus = ReportStatus(x)
+                            If SavedComplete(x) > complete Then
+                                complete = SavedComplete(x)
+                            End If
+                            thisUser = SavedUser(x)
+                            thisStation = SavedWorkStation(x)
+                            thisJob = SavedJob(x)
+                            Exit For
+                        End If
+                    Next
+                    If Not complete = 0 Then GoTo letsgetiton
+                    complete = 0
+                    For x = 0 To ReportStatus.Length - 1
+                        thisStatus2 = ReportStatus(x)
+                        If thisStatus2 = "report queue" Then
+                            thisStatus = ReportStatus(x)
+                            If SavedComplete(x) > complete Then
+                                complete = SavedComplete(x)
+                            End If
+                            thisUser = SavedUser(x)
+                            thisStation = SavedWorkStation(x)
+                            thisJob = SavedJob(x)
+                            Exit For
+                        End If
+                    Next
+                    If Not complete = 0 Then GoTo letsgetiton
+                    complete = 0
+                    For x = 0 To ReportStatus.Length - 1
+                        thisStatus3 = ReportStatus(x)
+                        If thisStatus3 = "job closed" Then
+                            thisStatus = ReportStatus(x)
+                            If SavedComplete(x) > complete Then
+                                complete = SavedComplete(x)
+                            End If
+                            thisUser = SavedUser(x)
+                            thisStation = SavedWorkStation(x)
+                            thisJob = SavedJob(x)
+                            Exit For
+                        End If
+                    Next
+letsgetiton:
+                    If MsgBox("Are you sure you  want to continue at UUT" & complete & " ??", vbYesNo, thisJob & " has not been completed by multiple Users and/or Workstations") = vbYes Then
+                        SQLstr = "UPDATE ReportQueue Set ReportStatus = job closed where JobNumber = '" & Job & "'"
+                        SQL.ExecuteSQLCommand(SQLstr, "Effeciency")
+                        SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "'"
+                        If SQL.CheckforRow(SQLstr, "NetworkData") > 0 Then GoTo StartResume
+                        stopTest = False
+                    Else
+                        If MsgBox("Do you want to close " & SavedJob(0) & "?", vbYesNo, "Yes or No") = vbYes Then
+
+                            If MsgBox("Do you want to erase the data from This Job", vbYesNo, "Cannot be undone.") = vbYes Then
+                                EraseThisTest()
+                            End If
+                            SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "'"
                             If SQL.CheckforRow(SQLstr, "NetworkData") > 0 Then GoTo StartResume
                             stopTest = False
                         Else
                             stopTest = True
                         End If
                     End If
-                ElseIf ReportStatus(0) = "report complete" Or ReportStatus(0) = "report complete" Then
-                    If MsgBox("Are you sure you  want to continue at UUT" & SavedComplete(0) & "??", vbYesNo, SavedJob(0) & " has been completed by " & SavedUser(0) & " at Workstation " & SavedWorkStation(0)) = vbYes Then
-                        SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "'"
-                        If SQL.CheckforRow(SQLstr, "NetworkData") > 0 Then GoTo StartResume
-                        GoTo StartResume
-                    End If
-                ElseIf ReportStatus(0) = "job closed" Then
-                    If MsgBox("Are you sure you  want to continue at UUT" & SavedComplete(0) & "??", vbYesNo, SavedJob(0) & " has been paused by " & SavedUser(0) & " at Workstation " & SavedWorkStation(0)) = vbYes Then
-                        GoTo StartResume
-                    Else
-                        stopTest = True
-                    End If
-                Else
-                    GoTo StartResume
                 End If
-            ElseIf test_status = "Multiple" Then
-                complete = 0
-                For x = 0 To ReportStatus.Length - 1
-                    thisStatus1 = ReportStatus(x)
-                    If thisStatus1 = "job closed" Then
-                        thisStatus = ReportStatus(x)
-                        If SavedComplete(x) > complete Then
-                            complete = SavedComplete(x)
-                        End If
-                        thisUser = SavedUser(x)
-                        thisStation = SavedWorkStation(x)
-                        thisJob = SavedJob(x)
-                        Exit For
-                    Else
-                        thisStatus = thisStatus1
-                    End If
-
-                Next
-                If Not complete = 0 Then GoTo letsgetiton
-                complete = 0
-                For x = 0 To ReportStatus.Length - 1
-                    thisStatus2 = ReportStatus(x)
-                    If thisStatus2 = "test running" Then
-                        thisStatus = ReportStatus(x)
-                        If SavedComplete(x) > complete Then
-                            complete = SavedComplete(x)
-                        End If
-                        thisUser = SavedUser(x)
-                        thisStation = SavedWorkStation(x)
-                        thisJob = SavedJob(x)
-                        Exit For
-                    End If
-                Next
-                If Not complete = 0 Then GoTo letsgetiton
-                complete = 0
-                For x = 0 To ReportStatus.Length - 1
-                    thisStatus2 = ReportStatus(x)
-                    If thisStatus2 = "report queue" Then
-                        thisStatus = ReportStatus(x)
-                        If SavedComplete(x) > complete Then
-                            complete = SavedComplete(x)
-                        End If
-                        thisUser = SavedUser(x)
-                        thisStation = SavedWorkStation(x)
-                        thisJob = SavedJob(x)
-                        Exit For
-                    End If
-                Next
-                If Not complete = 0 Then GoTo letsgetiton
-                complete = 0
-                For x = 0 To ReportStatus.Length - 1
-                    thisStatus3 = ReportStatus(x)
-                    If thisStatus3 = "job closed" Then
-                        thisStatus = ReportStatus(x)
-                        If SavedComplete(x) > complete Then
-                            complete = SavedComplete(x)
-                        End If
-                        thisUser = SavedUser(x)
-                        thisStation = SavedWorkStation(x)
-                        thisJob = SavedJob(x)
-                        Exit For
-                    End If
-                Next
-letsgetiton:
-                If MsgBox("Are you sure you  want to continue at UUT" & complete & " ??", vbYesNo, thisJob & " has not been completed by multiple Users and/or Workstations") = vbYes Then
-                    SQLstr = "UPDATE ReportQueue Set ReportStatus = job closed where JobNumber = '" & Job & "'"
-                    SQL.ExecuteSQLCommand(SQLstr, "Effeciency")
-                    SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "'"
-                    If SQL.CheckforRow(SQLstr, "NetworkData") > 0 Then GoTo StartResume
-                    stopTest = False
-                Else
-                    If MsgBox("Do you want to close " & SavedJob(0) & "?", vbYesNo, "Yes or No") = vbYes Then
-
-                        If MsgBox("Do you want to erase the data from This Job", vbYesNo, "Cannot be undone.") = vbYes Then
-                            EraseThisTest()
-                        End If
-                        SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "'"
-                        If SQL.CheckforRow(SQLstr, "NetworkData") > 0 Then GoTo StartResume
-                        stopTest = False
-                    Else
-                        stopTest = True
-                    End If
-                End If
-            End If
-            SQLAccess = TempAccess
-            NetworkAccess = TempNetwork
-            GoTo NoResume
+                SQLAccess = TempAccess
+                NetworkAccess = TempNetwork
+                GoTo NoResume
 
 StartResume:
-            SQLAccess = TempAccess
-            NetworkAccess = TempNetwork
-            ResumeTesting = True
-            stopTest = False
-            TestExist = True
-            If TweakMode Then Exit Function
-            If MsgBox("The Job is already on record. Resume Testing", vbYesNo, "Continue or Start Over") = vbNo Then
-                If MsgBox("Do you want to erase The data?", vbYesNo, "Erasing Job Data") = vbNo Then
-                    Exit Function
-                Else
-                    EraseThisTest()
-                    Exit Function
-                End If
-            Else
+                SQLAccess = TempAccess
+                NetworkAccess = TempNetwork
                 ResumeTesting = True
-                txtTitle.Text = " Updating Test Run Please Wait "
-                If SpecAB_TF Then
-                    Data4L.Visible = True
-                    Data4H.Visible = True
-                    Data4.Visible = False
+                stopTest = False
+                TestExist = True
+                If TweakMode Then Exit Function
+                If MsgBox("The Job is already on record. Resume Testing", vbYesNo, "Continue or Start Over") = vbNo Then
+                    If MsgBox("Do you want to erase The data?", vbYesNo, "Erasing Job Data") = vbNo Then
+                        Exit Function
+                    Else
+                        EraseThisTest()
+                        Exit Function
+                    End If
                 Else
-                    Data4L.Visible = False
-                    Data4H.Visible = False
-                    Data4.Visible = True
-                End If
-                If SQLAccess Then
-                    Dim ats As SqlConnection = New SqlConnection(SQLConnStr)
-                    Dim cmd As SqlCommand = New SqlCommand(SQLstr, ats)
-                    ats.Open()
-                    System.Threading.Thread.Sleep(20)
-                    Me.Refresh()
-                    Dim dr As SqlDataReader = cmd.ExecuteReader()
-                    While Not dr.Read = Nothing
-                        Me.RunStatus.ForeColor = Color.Red
-                        UUTNum = UUTNum + 1
-                        UUTNum_Reset = UUTNum_Reset + 1
-                        EraseTest.Text = "Remove UUT" & UUTNum - 1
-                        If UUTNum > 5 And Not BypassUnchecked Then Me.GetTrace.Checked = False
-                        UUTCount.Text = Str(UUTNum)
-                        If TweakMode Then
-                            Me.UUTMessage.Text = "  UUT TESTS  --   Testing Undisclosed Unit"
-                        ElseIf Not TraceChecked Then
-                            UUTMessage.Text = "  UUT TESTS Marker Mode  --   Load Unit #" & UUTNum + 1
-                        Else
-                            Me.UUTMessage.Text = "  UUT TESTS  --   Testing Unit #" & UUTNum
-                        End If
-                        Me.cmdStartTest.Text = "UUT" & UUTNum
-                        Me.cmdStartTest.Enabled = False
-                        ResetTests()
-
-                        'Insertion Loss
-                        If Not IsDBNull(dr.Item(6)) Then
-                            RetrnVal = CDbl(dr.Item(6))
-                        Else
-                            If Not Incomplete Then
-                                UUTNum = UUTNum - 1
-                                UUTNum_Reset = UUTNum_Reset - 1
-                                Me.txtTitle.Text = "     DELETED BAD DATA. UUT" & UUTNum_Reset
-                                SQLstr = "Delete from TestData where JobNumber = '" & Me.cmbJob.Text & "' and SerialNumber = UUT" & UUTNum_Reset & "'"
-                                SQL.ExecuteSQLCommand(SQLstr, "NetworkData")
-                                Incomplete = True
-                                GoTo Recap
-                            End If
-                        End If
-                        PassFail = Tests.InsertionLoss3dB(True)
-                        status("Blue", "TEST1")
-                        PF1.Text = PassFail
-                        RetrnStr = CStr(TruncateDecimal(RetrnVal, 2))
-                        Data1.Text = Format(RetrnVal, "0.00")
-                        If PassFail = "Pass" Then
-                            TEST1PASS = True
-                            status("Green", "TEST1")
-                            MSChart.UpDateChartData(SpecType, "IL", "Pass")
-                        ElseIf PassFail = "Fail" Then
-                            TEST1PASS = False
-                            status("Red", "TEST1")
-
-                            MSChart.UpDateChartData(SpecType, "IL", "Fail")
-                            UUTFail = 1
-                        End If
-                        Me.Failures1.Text = FormatPercent(((Test1Fail / UUTNum)), 1)
-                        Me.Total1.Text = UUTNum
-                        Me.FailTotal1.Text = Test1Fail
-
-                        'Return Loss
-                        If Not IsDBNull(dr.Item(7)) Then
-                            RetrnVal = CDbl(dr.Item(7))
-                        Else
-                            If Not TEST2PASS Then
-                                Test2Fail = Test2Fail - 1
-                                status("Green", "TEST1")
-                                MSChart.UpDateChartData(SpecType, "RL", "Pass")
-                            End If
-                            If Not TEST2PASS Then
-                                If Test2Fail = 0 Then status("Green", "TEST2")
-                                MSChart.UpDateChartData(SpecType, "RL", "Pass")
-                            End If
-                            If Not Incomplete Then
-                                UUTNum = UUTNum - 1
-                                UUTNum_Reset = UUTNum_Reset - 1
-                                Me.txtTitle.Text = "     DELETED BAD DATA. UUT" & UUTNum_Reset
-                                SQLstr = "Delete from TestData where JobNumber = '" & Me.cmbJob.Text & "' and SerialNumber = UUT" & UUTNum_Reset & "'"
-                                SQL.ExecuteSQLCommand(SQLstr, "NetworkData")
-                                Incomplete = True
-                                GoTo Recap
-                            End If
-                        End If
-                        PassFail = Tests.ReturnLoss(True)
-                        RetrnStr = CStr(TruncateDecimal(RetrnVal, 2))
-                        status("Blue", "TEST2")
-                        PF2.Text = PassFail
-                        RetrnStr = CStr(TruncateDecimal(RetrnVal, 2))
-                        Data2.Text = Format(RetrnVal, "0.0")
-                        If PassFail = "Pass" Then
-                            TEST2PASS = True
-                            status("Green", "TEST2")
-                        ElseIf PassFail = "Fail" Then
-                            TEST2PASS = False
-                            status("Red", "TEST2")
-                            UUTFail = 1
-                        End If
-                        Me.Failures2.Text = FormatPercent(((Test2Fail / UUTNum)), 1)
-                        Me.Total2.Text = UUTNum
-                        Me.FailTotal2.Text = Test2Fail
-
-                        'Isolation
-                        'Coupling
-                        If SpecType.Contains("COMBINER/DIVIDER") And ISO_TF Then
-                            ISoL = CDbl(dr.Item(9))
-                            ISoH = CDbl(dr.Item(18))
-                            If ISoL > ISoH Then
-                                RetrnVal = ISoL
-                            Else
-                                RetrnVal = ISoH
-                            End If
-                        ElseIf (SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN")) And Not IsDBNull(dr.Item(9)) Then
-                            RetrnVal = CDbl(dr.Item(9))
-                        ElseIf (SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER") And Not IsDBNull(dr.Item(8)) Then
-                            RetrnVal = CDbl(dr.Item(8))
-                        Else
-                            If Not TEST1PASS Then
-                                If Test1Fail = 0 Then status("Green", "TEST1")
-                                MSChart.UpDateChartData(SpecType, "IL", "Pass")
-                            End If
-                            If Not TEST2PASS Then
-                                status("Green", "TEST2")
-                                MSChart.UpDateChartData(SpecType, "RL", "Pass")
-                            End If
-                            If Not TEST3PASS Then
-                                status("Green", "TEST3")
-                                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") Then MSChart.UpDateChartData(SpecType, "ISO", "Pass")
-                                If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then MSChart.UpDateChartData(SpecType, "COU", "Pass")
-                            End If
-                            If Not Incomplete Then
-                                UUTNum = UUTNum - 1
-                                UUTNum_Reset = UUTNum_Reset - 1
-                                Me.txtTitle.Text = "     DELETED BAD DATA. UUT" & UUTNum_Reset
-                                SQLstr = "Delete from TestData where JobNumber = '" & Me.cmbJob.Text & "' and SerialNumber = UUT" & UUTNum_Reset & "'"
-                                SQL.ExecuteSQLCommand(SQLstr, "NetworkData")
-                                Incomplete = True
-                                GoTo Recap
-                            End If
-                        End If
-                        PassFail = Tests.Isolation(RetrnVal, True)
-                        RetrnStr = CStr(TruncateDecimal(RetrnVal, 1))
-                        If ISO_TF Then
-                            status("Blue", "TEST3L")
-                            status("Blue", "TEST3H")
-                        Else
-                            status("Blue", "TEST3")
-                        End If
-                        PF3.Text = PassFail
-                        Data3.Text = Format(RetrnVal, "0.0")
-                        If PassFail = "Pass" Then
-                            TEST3PASS = True
-                            status("Green", "TEST3")
-                        ElseIf PassFail = "Fail" Then
-                            TEST3PASS = False
-                            status("Red", "TEST3")
-                            UUTFail = 1
-                        End If
-                        Me.Failures3.Text = FormatPercent(((TEST3Fail / UUTNum)), 1)
-                        Me.Total3.Text = UUTNum
-                        Me.FailTotal3.Text = TEST3Fail
-
-                        'AmplitudeBalance
-                        'Directivity
-                        If (SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN")) And Not IsDBNull(dr.Item(11)) Then
-                            If SpecAB_TF Then
-                                AB1 = CDbl(dr.Item(16))
-                                AB2 = CDbl(dr.Item(17))
-                            Else
-                                RetrnVal = CDbl(dr.Item(11))
-                            End If
-
-                        ElseIf (SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER") And Not IsDBNull(dr.Item(10)) Then
-                            RetrnVal = CDbl(dr.Item(10))
-                        Else
-                            If Not TEST1PASS Then
-                                If Test1Fail = 0 Then status("Green", "TEST1")
-                                ' MSChart.UpDateChartData(SpecType, "IL", "Pass")
-                            End If
-                            If Not TEST2PASS Then
-                                status("Green", "TEST2")
-                                'MSChart.UpDateChartData(SpecType, "RL", "Pass")
-                            End If
-                            If Not TEST3PASS Then
-                                status("Green", "TEST3")
-                                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") Then MSChart.UpDateChartData(SpecType, "ISO", "Pass")
-                                If (SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER") Then MSChart.UpDateChartData(SpecType, "COU", "Pass")
-                            End If
-                            If Not TEST4PASS Then
-                                status("Green", "TEST4")
-                                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") Then MSChart.UpDateChartData(SpecType, "AB", "Pass")
-                                If (SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER") Then MSChart.UpDateChartData(SpecType, "DIR", "Pass")
-                            End If
-                            If Not Incomplete Then
-                                If MsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
-                                    UUTNum = UUTNum - 1
-                                    EraseTest.Text = "Remove UUT" & UUTNum - 1
-                                    UUTNum_Reset = UUTNum_Reset - 1
-                                    Incomplete = True
-                                    GoTo Recap
-                                End If
-                            End If
-                        End If
-                        If Not SpecType = "TRANSFORMER" Then
-                            PassFail = Tests.AmplitudeBalance(True)
-                            RetrnVal = AB
-                            If SpecAB_TF Then
-                                status("Blue", "TEST4L")
-                                status("Blue", "TEST4H")
-                            Else
-                                status("Blue", "TEST4")
-                            End If
-                            PF4.Text = PassFail
-                            If SpecAB_TF And Not AB1 = 0.0 Then
-                                AB1 = CStr(TruncateDecimal(AB1, 2))
-                                AB2 = CStr(TruncateDecimal(AB2, 2))
-                                Data4L.Text = AB1
-                                Data4H.Text = AB2
-                                Me.Total4.Text = UUTNum
-                                If AB1Pass = "Pass" Then
-                                    status("Green", "TEST4L", True)
-                                ElseIf AB1Pass = "Fail" Then
-                                    status("Red", "TEST4L", True)
-                                End If
-                                If AB2Pass = "Pass" Then
-                                    status("Green", "TEST4H", True)
-                                ElseIf AB2Pass = "Fail" Then
-                                    status("Red", "TEST4H", True)
-                                End If
-                            Else
-                                RetrnStr = CStr(TruncateDecimal(RetrnVal, 2))
-                                Data4.Text = Format(RetrnVal, "0.00")
-                                If PassFail = "Pass" Then
-                                    TEST4PASS = True
-                                    status("Green", "TEST4")
-                                ElseIf PassFail = "Fail" Then
-                                    TEST4PASS = False
-
-                                    status("Red", "TEST4")
-                                    UUTFail = 1
-                                End If
-                            End If
-                        End If
-
-                        Me.Failures4.Text = FormatPercent(((TEST4Fail / UUTNum)), 1)
-                        Me.Total4.Text = UUTNum
-                        Me.FailTotal4.Text = TEST4Fail
-
-                        'PhaseBalance
-                        'Coupled Flatness
-                        If (SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN")) And Not IsDBNull(dr.Item(13)) Then
-                            RetrnVal = CDbl(dr.Item(13))
-                        ElseIf (SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER") And Not IsDBNull(dr.Item(12)) Then
-                            RetrnVal = CDbl(dr.Item(12))
-                        Else
-                            If Not TEST1PASS Then
-                                If Test1Fail = 0 Then status("Green", "TEST1")
-                                MSChart.UpDateChartData(SpecType, "IL", "Pass")
-                            End If
-                            If Not TEST2PASS Then
-                                status("Green", "TEST2")
-                                MSChart.UpDateChartData(SpecType, "RL", "Pass")
-                            End If
-                            If Not TEST3PASS Then
-                                status("Green", "TEST3")
-                                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") Then MSChart.UpDateChartData(SpecType, "ISO", "Pass")
-                                If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then MSChart.UpDateChartData(SpecType, "COU", "Pass")
-                            End If
-                            If Not TEST4PASS Then
-                                status("Green", "TEST4")
-                                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") Then MSChart.UpDateChartData(SpecType, "AB", "Pass")
-                                If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then MSChart.UpDateChartData(SpecType, "DIR", "Pass")
-                            End If
-                            If Not TEST5PASS Then
-                                status("Green", "TEST5")
-                                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") Then MSChart.UpDateChartData(SpecType, "PB", "Pass")
-                                If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then MSChart.UpDateChartData(SpecType, "CB", "Pass")
-                            End If
-                            If Not Incomplete Then
-                                If MsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
-                                    UUTNum = UUTNum - 1
-                                    EraseTest.Text = "Remove UUT" & UUTNum - 1
-                                    UUTNum_Reset = UUTNum_Reset - 1
-                                    Incomplete = True
-                                    GoTo Recap
-                                End If
-                            End If
-                        End If
-                        PassFail = Tests.PhaseBalance(SpecType, True)
-                        status("Blue", "TEST5")
-                        PF5.Text = PassFail
-                        RetrnStr = CStr(TruncateDecimal(RetrnVal, 1))
-                        Data5.Text = Format(RetrnVal, "0.0")
-                        If PassFail = "Pass" Then
-                            TEST5PASS = True
-                            status("Green", "TEST5")
-                        ElseIf PassFail = "Fail" Then
-                            TEST5PASS = False
-                            status("Red", "TEST5")
-                        End If
-                        Me.Failures5.Text = FormatPercent(((TEST5Fail / UUTNum)), 1)
-                        Me.Total5.Text = UUTNum
-                        Me.FailTotal5.Text = TEST5Fail
-
-                        If Not TEST2PASS Or Not TEST1PASS Or Not TEST3PASS Or Not TEST4PASS Or Not TEST5PASS Then
-                            UpdateFailureLog(Me.PF1.Text, Me.PF2.Text, Me.PF3.Text, Me.PF4.Text, Me.PF5.Text)
-                            LOTFail = LOTFail + 1
-                            Me.Refresh()
-
-                        End If
-Recap:
-                        If LOTFail = 0 Then LotTestFrame.BackColor = Color.LawnGreen
-                        If LOTFail = 0 Then LotFailureFrame.BackColor = Color.LawnGreen
-                        If LOTFail > 0 Then LotTestFrame.BackColor = Color.Red
-                        If LOTFail > 0 Then LotFailureFrame.BackColor = Color.Red
-                        If LOTFail > 0 Then UUTStatusColor.BackColor = Color.Red
-                        If UUTFail = 1 Then Me.cmdRetest.Enabled = True
-                        If UUTFail = 0 Then Me.cmdRetest.Enabled = False
-                        If UUTFail = 1 Then Me.EraseTest.Enabled = True
-                        If UUTFail = 0 Then Me.EraseTest.Enabled = False
-                        If UUTNum <> 0 Then Me.LotFailure.Text = FormatPercent(((LOTFail / UUTNum)), 1)
-                        If TweakMode Then
-                            UUTMessage.Text = "  UUT TESTS  --   Tweak Mode. No Data Logging"
-                        ElseIf Not TraceChecked Then
-                            UUTMessage.Text = "  UUT TESTS Marker Mode  --   Load Unit #" & UUTNum + 1
-                        Else
-                            UUTMessage.Text = "  UUT TESTS  --   Load Unit #" & UUTNum + 1
-                        End If
-
-                        Me.cmdStartTest.Text = "Next UUT"
-                        cmdStartTest.Enabled = True
-                        ' Me.cmdRetest.Enabled = True
-
-                        TEST1PASS = True
-                        TEST2PASS = True
-                        TEST3PASS = True
-                        TEST4PASS = True
-                        TEST5PASS = True
+                    ResumeTesting = True
+                    txtTitle.Text = " Updating Test Run Please Wait "
+                    If SpecAB_TF Then
+                        Data4L.Visible = True
+                        Data4H.Visible = True
+                        Data4.Visible = False
+                    Else
+                        Data4L.Visible = False
+                        Data4H.Visible = False
+                        Data4.Visible = True
+                    End If
+                    If SQLAccess Then
+                        Dim ats As SqlConnection = New SqlConnection(SQLConnStr)
+                        Dim cmd As SqlCommand = New SqlCommand(SQLstr, ats)
+                        ats.Open()
+                        System.Threading.Thread.Sleep(20)
                         Me.Refresh()
-                    End While
-                Else
-                    Dim strConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source= " & AccessDatabaseFolder("NetworkData")
-                    Dim atsLocal As New OleDb.OleDbConnection
-                    atsLocal.ConnectionString = strConnectionString
-                    Dim cmd As OleDb.OleDbCommand = New OleDb.OleDbCommand(SQLstr, atsLocal)
-                    atsLocal.Open()
-                    System.Threading.Thread.Sleep(20)
-                    Dim drLocal As OleDb.OleDbDataReader = cmd.ExecuteReader
+                        Dim dr As SqlDataReader = cmd.ExecuteReader()
+                        While Not dr.Read = Nothing
+                            Me.RunStatus.ForeColor = Color.Red
+                            UUTNum = UUTNum + 1
+                            UUTNum_Reset = UUTNum_Reset + 1
+                            EraseTest.Text = "Remove UUT" & UUTNum - 1
+                            If UUTNum > 5 And Not BypassUnchecked Then Me.GetTrace.Checked = False
+                            UUTCount.Text = Str(UUTNum)
+                            If TweakMode Then
+                                Me.UUTMessage.Text = "  UUT TESTS  --   Testing Undisclosed Unit"
+                            ElseIf Not TraceChecked Then
+                                UUTMessage.Text = "  UUT TESTS Marker Mode  --   Load Unit #" & UUTNum + 1
+                            Else
+                                Me.UUTMessage.Text = "  UUT TESTS  --   Testing Unit #" & UUTNum
+                            End If
+                            Me.cmdStartTest.Text = "UUT" & UUTNum
+                            Me.cmdStartTest.Enabled = False
+                            ResetTests()
 
-                    While Not drLocal.Read = Nothing
-                        Me.RunStatus.ForeColor = Color.Red
-                        UUTNum = UUTNum + 1
-                        EraseTest.Text = "Remove UUT" & UUTNum
-                        UUTNum_Reset = UUTNum_Reset + 1
-                        If UUTNum > 5 And Not BypassUnchecked Then Me.GetTrace.Checked = False
-                        UUTCount.Text = Str(UUTNum)
-                        If TweakMode Then
-                            Me.UUTMessage.Text = "  UUT TESTS  --   Testing Undisclosed Unit"
-                        ElseIf TraceChecked Then
-                            UUTMessage.Text = "  UUT TESTS Marker Mode  --   Load Unit #" & UUTNum + 1
-                        Else
-                            Me.UUTMessage.Text = "  UUT TESTS  --   Testing Unit #" & UUTNum
-                        End If
-                        Me.cmdStartTest.Text = "UUT" & UUTNum
-                        Me.cmdStartTest.Enabled = False
-                        ResetTests()
-
-                        'Insertion Loss
-                        If drLocal.Item(6) IsNot Nothing Then
-                            RetrnVal = CDbl(drLocal.Item(6))
-                        Else
-                            If Not Incomplete Then
-                                If MsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
+                            'Insertion Loss
+                            If Not IsDBNull(dr.Item(6)) Then
+                                RetrnVal = CDbl(dr.Item(6))
+                            Else
+                                If Not Incomplete Then
                                     UUTNum = UUTNum - 1
                                     UUTNum_Reset = UUTNum_Reset - 1
+                                    Me.txtTitle.Text = "     DELETED BAD DATA. UUT" & UUTNum_Reset
+                                    SQLstr = "Delete from TestData where JobNumber = '" & Me.cmbJob.Text & "' and SerialNumber = UUT" & UUTNum_Reset & "'"
+                                    SQL.ExecuteSQLCommand(SQLstr, "NetworkData")
                                     Incomplete = True
                                     GoTo Recap
                                 End If
                             End If
-                        End If
-                        PassFail = Tests.InsertionLoss3dB(True)
-                        status("Blue", "TEST1")
-                        PF1.Text = PassFail
-                        RetrnStr = CStr(TruncateDecimal(RetrnVal, 2))
-                        Data1.Text = Format(RetrnVal, "0.00")
-                        If PassFail = "Pass" Then
-                            TEST1PASS = True
-                            status("Green", "TEST1")
-                        ElseIf PassFail = "Fail" Then
-                            TEST1PASS = False
-                            status("Red", "TEST1")
-                            UUTFail = 1
-                        End If
-                        Me.Failures1.Text = FormatPercent(((Test1Fail / UUTNum)), 1)
-                        Me.Total1.Text = UUTNum
-                        Me.FailTotal1.Text = Test1Fail
-
-                        'Return Loss
-                        If Not IsDBNull(drLocal.Item(7)) Then
-                            RetrnVal = CDbl(drLocal.Item(7))
-                        Else
-                            If Not TEST2PASS Then
+                            PassFail = Tests.InsertionLoss3dB(True)
+                            status("Blue", "TEST1")
+                            PF1.Text = PassFail
+                            RetrnStr = CStr(TruncateDecimal(RetrnVal, 2))
+                            Data1.Text = Format(RetrnVal, "0.00")
+                            If PassFail = "Pass" Then
+                                TEST1PASS = True
                                 status("Green", "TEST1")
+                                MSChart.UpDateChartData(SpecType, "IL", "Pass")
+                            ElseIf PassFail = "Fail" Then
+                                TEST1PASS = False
+                                status("Red", "TEST1")
+
+                                MSChart.UpDateChartData(SpecType, "IL", "Fail")
+                                UUTFail = 1
                             End If
-                            If Not TEST2PASS Then
-                                status("Green", "TEST2")
-                            End If
-                            If Not Incomplete Then
-                                If MsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
+                            Me.Failures1.Text = FormatPercent(((Test1Fail / UUTNum)), 1)
+                            Me.Total1.Text = UUTNum
+                            Me.FailTotal1.Text = Test1Fail
+
+                            'Return Loss
+                            If Not IsDBNull(dr.Item(7)) Then
+                                RetrnVal = CDbl(dr.Item(7))
+                            Else
+                                If Not TEST2PASS Then
+                                    Test2Fail = Test2Fail - 1
+                                    status("Green", "TEST1")
+                                    MSChart.UpDateChartData(SpecType, "RL", "Pass")
+                                End If
+                                If Not TEST2PASS Then
+                                    If Test2Fail = 0 Then status("Green", "TEST2")
+                                    MSChart.UpDateChartData(SpecType, "RL", "Pass")
+                                End If
+                                If Not Incomplete Then
                                     UUTNum = UUTNum - 1
-                                    EraseTest.Text = "Remove UUT" & UUTNum
                                     UUTNum_Reset = UUTNum_Reset - 1
+                                    Me.txtTitle.Text = "     DELETED BAD DATA. UUT" & UUTNum_Reset
+                                    SQLstr = "Delete from TestData where JobNumber = '" & Me.cmbJob.Text & "' and SerialNumber = UUT" & UUTNum_Reset & "'"
+                                    SQL.ExecuteSQLCommand(SQLstr, "NetworkData")
                                     Incomplete = True
                                     GoTo Recap
                                 End If
                             End If
-                        End If
-                        PassFail = Tests.ReturnLoss(True)
-                        status("Blue", "TEST2")
-                        PF2.Text = PassFail
-                        RetrnStr = CStr(TruncateDecimal(RetrnVal, 2))
-                        Data2.Text = Format(RetrnVal, "0.0")
-                        If PassFail = "Pass" Then
-                            TEST2PASS = True
-                            status("Green", "TEST2")
-                        ElseIf PassFail = "Fail" Then
-                            TEST2PASS = False
-                            status("Red", "TEST2")
-                            UUTFail = 1
-                        End If
-                        Me.Failures2.Text = FormatPercent(((Test2Fail / UUTNum)), 1)
-                        Me.Total2.Text = UUTNum
-                        Me.FailTotal2.Text = Test2Fail
-
-                        'Isolation
-                        'Coupling
-                        If (SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN")) And Not IsDBNull(drLocal.Item(9)) Then
-                            RetrnVal = CDbl(drLocal.Item(9))
-                        ElseIf (SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER") And Not IsDBNull(drLocal.Item(8)) Then
-                            RetrnVal = CDbl(drLocal.Item(8))
-                        Else
-                            If Not TEST1PASS Then
-                                If Test1Fail = 0 Then status("Green", "TEST1")
-                            End If
-                            If Not TEST2PASS Then
+                            PassFail = Tests.ReturnLoss(True)
+                            RetrnStr = CStr(TruncateDecimal(RetrnVal, 2))
+                            status("Blue", "TEST2")
+                            PF2.Text = PassFail
+                            RetrnStr = CStr(TruncateDecimal(RetrnVal, 2))
+                            Data2.Text = Format(RetrnVal, "0.0")
+                            If PassFail = "Pass" Then
+                                TEST2PASS = True
                                 status("Green", "TEST2")
+                            ElseIf PassFail = "Fail" Then
+                                TEST2PASS = False
+                                status("Red", "TEST2")
+                                UUTFail = 1
                             End If
-                            If Not TEST3PASS Then
-                                status("Green", "TEST3")
-                            End If
-                            If Not Incomplete Then
-                                If MsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
+                            Me.Failures2.Text = FormatPercent(((Test2Fail / UUTNum)), 1)
+                            Me.Total2.Text = UUTNum
+                            Me.FailTotal2.Text = Test2Fail
+
+                            'Isolation
+                            'Coupling
+                            If SpecType.Contains("COMBINER/DIVIDER") And ISO_TF Then
+                                ISoL = CDbl(dr.Item(9))
+                                ISoH = CDbl(dr.Item(18))
+                                If ISoL > ISoH Then
+                                    RetrnVal = ISoL
+                                Else
+                                    RetrnVal = ISoH
+                                End If
+                            ElseIf (SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN")) And Not IsDBNull(dr.Item(9)) Then
+                                RetrnVal = CDbl(dr.Item(9))
+                            ElseIf (SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER") And Not IsDBNull(dr.Item(8)) Then
+                                RetrnVal = CDbl(dr.Item(8))
+                            Else
+                                If Not TEST1PASS Then
+                                    If Test1Fail = 0 Then status("Green", "TEST1")
+                                    MSChart.UpDateChartData(SpecType, "IL", "Pass")
+                                End If
+                                If Not TEST2PASS Then
+                                    status("Green", "TEST2")
+                                    MSChart.UpDateChartData(SpecType, "RL", "Pass")
+                                End If
+                                If Not TEST3PASS Then
+                                    status("Green", "TEST3")
+                                    If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") Then MSChart.UpDateChartData(SpecType, "ISO", "Pass")
+                                    If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then MSChart.UpDateChartData(SpecType, "COU", "Pass")
+                                End If
+                                If Not Incomplete Then
                                     UUTNum = UUTNum - 1
-                                    EraseTest.Text = "Remove UUT" & UUTNum
                                     UUTNum_Reset = UUTNum_Reset - 1
+                                    Me.txtTitle.Text = "     DELETED BAD DATA. UUT" & UUTNum_Reset
+                                    SQLstr = "Delete from TestData where JobNumber = '" & Me.cmbJob.Text & "' and SerialNumber = UUT" & UUTNum_Reset & "'"
+                                    SQL.ExecuteSQLCommand(SQLstr, "NetworkData")
                                     Incomplete = True
                                     GoTo Recap
                                 End If
                             End If
-                        End If
-                        PassFail = Tests.Isolation(RetrnVal, True)
-                        status("Blue", "TEST3")
-                        PF3.Text = PassFail
-                        RetrnStr = CStr(TruncateDecimal(RetrnVal, 1))
-                        Data3.Text = Format(RetrnVal, "0.0")
-                        If PassFail = "Pass" Then
-                            TEST3PASS = True
-                            status("Green", "TEST3")
-                        ElseIf PassFail = "Fail" Then
-                            TEST3PASS = False
-                            status("Red", "TEST3")
-                            GlobalFail = GlobalFail + 1
-                            TEST3Fail = TEST3Fail + 1
-                            TEST3FailRetest = TEST3FailRetest + 1
-                            UUTFail = 1
-                        End If
-                        Me.Failures3.Text = FormatPercent(((TEST3Fail / UUTNum)), 1)
-                        Me.Total3.Text = UUTNum
-                        Me.FailTotal3.Text = TEST3Fail
-
-                        'AmplitudeBalance
-                        'Directivity
-                        If (SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN")) And Not IsDBNull(drLocal.Item(11)) Then
-                            RetrnVal = CDbl(drLocal.Item(11))
-                        ElseIf (SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER") And Not IsDBNull(drLocal.Item(10)) Then
-                            RetrnVal = CDbl(drLocal.Item(10))
-                        Else
-                            If Not TEST1PASS Then
-                                Test1Fail = Test1Fail - 1
-                                If Test1Fail = 0 Then status("Green", "TEST1")
+                            PassFail = Tests.Isolation(RetrnVal, True)
+                            RetrnStr = CStr(TruncateDecimal(RetrnVal, 1))
+                            If ISO_TF Then
+                                status("Blue", "TEST3L")
+                                status("Blue", "TEST3H")
+                            Else
+                                status("Blue", "TEST3")
                             End If
-                            If Not TEST2PASS Then
-                                status("Green", "TEST2")
-                            End If
-                            If Not TEST3PASS Then
+                            PF3.Text = PassFail
+                            Data3.Text = Format(RetrnVal, "0.0")
+                            If PassFail = "Pass" Then
+                                TEST3PASS = True
                                 status("Green", "TEST3")
+                            ElseIf PassFail = "Fail" Then
+                                TEST3PASS = False
+                                status("Red", "TEST3")
+                                UUTFail = 1
                             End If
-                            If Not TEST4PASS Then
-                                status("Green", "TEST4")
-                            End If
-                            If Not Incomplete Then
-                                If MsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
-                                    UUTNum = UUTNum - 1
-                                    EraseTest.Text = "Remove UUT" & UUTNum
-                                    UUTNum_Reset = UUTNum_Reset - 1
-                                    Incomplete = True
-                                    GoTo Recap
+                            Me.Failures3.Text = FormatPercent(((TEST3Fail / UUTNum)), 1)
+                            Me.Total3.Text = UUTNum
+                            Me.FailTotal3.Text = TEST3Fail
+
+                            'AmplitudeBalance
+                            'Directivity
+                            If (SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN")) And Not IsDBNull(dr.Item(11)) Then
+                                If SpecAB_TF Then
+                                    AB1 = CDbl(dr.Item(16))
+                                    AB2 = CDbl(dr.Item(17))
+                                Else
+                                    RetrnVal = CDbl(dr.Item(11))
+                                End If
+
+                            ElseIf (SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER") And Not IsDBNull(dr.Item(10)) Then
+                                RetrnVal = CDbl(dr.Item(10))
+                            Else
+                                If Not TEST1PASS Then
+                                    If Test1Fail = 0 Then status("Green", "TEST1")
+                                    ' MSChart.UpDateChartData(SpecType, "IL", "Pass")
+                                End If
+                                If Not TEST2PASS Then
+                                    status("Green", "TEST2")
+                                    'MSChart.UpDateChartData(SpecType, "RL", "Pass")
+                                End If
+                                If Not TEST3PASS Then
+                                    status("Green", "TEST3")
+                                    If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") Then MSChart.UpDateChartData(SpecType, "ISO", "Pass")
+                                    If (SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER") Then MSChart.UpDateChartData(SpecType, "COU", "Pass")
+                                End If
+                                If Not TEST4PASS Then
+                                    status("Green", "TEST4")
+                                    If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") Then MSChart.UpDateChartData(SpecType, "AB", "Pass")
+                                    If (SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER") Then MSChart.UpDateChartData(SpecType, "DIR", "Pass")
+                                End If
+                                If Not Incomplete Then
+                                    If MsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
+                                        UUTNum = UUTNum - 1
+                                        EraseTest.Text = "Remove UUT" & UUTNum - 1
+                                        UUTNum_Reset = UUTNum_Reset - 1
+                                        Incomplete = True
+                                        GoTo Recap
+                                    End If
                                 End If
                             End If
-                        End If
-                        PassFail = Tests.AmplitudeBalance(, True)
-                        status("Blue", "TEST4")
-                        RetrnVal = AB
-                        PF4.Text = PassFail
-                        RetrnStr = CStr(TruncateDecimal(RetrnVal, 2))
-                        Data4.Text = Format(RetrnVal, "0.00")
+                            If Not SpecType = "TRANSFORMER" Then
+                                PassFail = Tests.AmplitudeBalance(True)
+                                RetrnVal = AB
+                                If SpecAB_TF Then
+                                    status("Blue", "TEST4L")
+                                    status("Blue", "TEST4H")
+                                Else
+                                    status("Blue", "TEST4")
+                                End If
+                                PF4.Text = PassFail
+                                If SpecAB_TF And Not AB1 = 0.0 Then
+                                    AB1 = CStr(TruncateDecimal(AB1, 2))
+                                    AB2 = CStr(TruncateDecimal(AB2, 2))
+                                    Data4L.Text = AB1
+                                    Data4H.Text = AB2
+                                    Me.Total4.Text = UUTNum
+                                    If AB1Pass = "Pass" Then
+                                        status("Green", "TEST4L", True)
+                                    ElseIf AB1Pass = "Fail" Then
+                                        status("Red", "TEST4L", True)
+                                    End If
+                                    If AB2Pass = "Pass" Then
+                                        status("Green", "TEST4H", True)
+                                    ElseIf AB2Pass = "Fail" Then
+                                        status("Red", "TEST4H", True)
+                                    End If
+                                Else
+                                    RetrnStr = CStr(TruncateDecimal(RetrnVal, 2))
+                                    Data4.Text = Format(RetrnVal, "0.00")
+                                    If PassFail = "Pass" Then
+                                        TEST4PASS = True
+                                        status("Green", "TEST4")
+                                    ElseIf PassFail = "Fail" Then
+                                        TEST4PASS = False
 
-                        If PassFail = "Pass" Then
-                            TEST4PASS = True
-                            status("Green", "TEST4")
-                        ElseIf PassFail = "Fail" Then
-                            TEST4PASS = False
-                            status("Red", "TEST4")
-                            GlobalFail = GlobalFail + 1
-                            TEST4Fail = TEST4Fail + 1
-                            TEST4FailRetest = TEST4FailRetest + 1
-                            UUTFail = 1
-                        End If
-                        Me.Failures4.Text = FormatPercent(((TEST4Fail / UUTNum)), 1)
-                        Me.Total4.Text = UUTNum
-                        Me.FailTotal4.Text = TEST4Fail
+                                        status("Red", "TEST4")
+                                        UUTFail = 1
+                                    End If
+                                End If
+                            End If
 
-                        'PhaseBalance
-                        'Coupled Flatness
-                        If (SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN")) And Not IsDBNull(drLocal.Item(13)) Then
-                            RetrnVal = CDbl(drLocal.Item(13))
-                        ElseIf (SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER") And Not IsDBNull(drLocal.Item(12)) Then
-                            RetrnVal = CDbl(drLocal.Item(12))
-                        Else
-                            If Not TEST1PASS Then
-                                status("Green", "TEST1")
+                            Me.Failures4.Text = FormatPercent(((TEST4Fail / UUTNum)), 1)
+                            Me.Total4.Text = UUTNum
+                            Me.FailTotal4.Text = TEST4Fail
+
+                            'PhaseBalance
+                            'Coupled Flatness
+                            If (SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN")) And Not IsDBNull(dr.Item(13)) Then
+                                RetrnVal = CDbl(dr.Item(13))
+                            ElseIf (SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER") And Not IsDBNull(dr.Item(12)) Then
+                                RetrnVal = CDbl(dr.Item(12))
+                            Else
+                                If Not TEST1PASS Then
+                                    If Test1Fail = 0 Then status("Green", "TEST1")
+                                    MSChart.UpDateChartData(SpecType, "IL", "Pass")
+                                End If
+                                If Not TEST2PASS Then
+                                    status("Green", "TEST2")
+                                    MSChart.UpDateChartData(SpecType, "RL", "Pass")
+                                End If
+                                If Not TEST3PASS Then
+                                    status("Green", "TEST3")
+                                    If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") Then MSChart.UpDateChartData(SpecType, "ISO", "Pass")
+                                    If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then MSChart.UpDateChartData(SpecType, "COU", "Pass")
+                                End If
+                                If Not TEST4PASS Then
+                                    status("Green", "TEST4")
+                                    If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") Then MSChart.UpDateChartData(SpecType, "AB", "Pass")
+                                    If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then MSChart.UpDateChartData(SpecType, "DIR", "Pass")
+                                End If
+                                If Not TEST5PASS Then
+                                    status("Green", "TEST5")
+                                    If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") Then MSChart.UpDateChartData(SpecType, "PB", "Pass")
+                                    If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then MSChart.UpDateChartData(SpecType, "CB", "Pass")
+                                End If
+                                If Not Incomplete Then
+                                    If MsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
+                                        UUTNum = UUTNum - 1
+                                        EraseTest.Text = "Remove UUT" & UUTNum - 1
+                                        UUTNum_Reset = UUTNum_Reset - 1
+                                        Incomplete = True
+                                        GoTo Recap
+                                    End If
+                                End If
                             End If
-                            If Not TEST2PASS Then
-                                status("Green", "TEST2")
-                            End If
-                            If Not TEST3PASS Then
-                                status("Green", "TEST3")
-                            End If
-                            If Not TEST4PASS Then
-                                status("Green", "TEST4")
-                            End If
-                            If Not TEST5PASS Then
+                            PassFail = Tests.PhaseBalance(SpecType, True)
+                            status("Blue", "TEST5")
+                            PF5.Text = PassFail
+                            RetrnStr = CStr(TruncateDecimal(RetrnVal, 1))
+                            Data5.Text = Format(RetrnVal, "0.0")
+                            If PassFail = "Pass" Then
+                                TEST5PASS = True
                                 status("Green", "TEST5")
+                            ElseIf PassFail = "Fail" Then
+                                TEST5PASS = False
+                                status("Red", "TEST5")
                             End If
-                            If Not Incomplete Then
-                                If MsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
-                                    UUTNum = UUTNum - 1
-                                    EraseTest.Text = "Remove UUT" & UUTNum
-                                    UUTNum_Reset = UUTNum_Reset - 1
-                                    Incomplete = True
-                                    GoTo Recap
+                            Me.Failures5.Text = FormatPercent(((TEST5Fail / UUTNum)), 1)
+                            Me.Total5.Text = UUTNum
+                            Me.FailTotal5.Text = TEST5Fail
+
+                            If Not TEST2PASS Or Not TEST1PASS Or Not TEST3PASS Or Not TEST4PASS Or Not TEST5PASS Then
+                                UpdateFailureLog(Me.PF1.Text, Me.PF2.Text, Me.PF3.Text, Me.PF4.Text, Me.PF5.Text)
+                                LOTFail = LOTFail + 1
+                                Me.Refresh()
+
+                            End If
+Recap:
+                            If LOTFail = 0 Then LotTestFrame.BackColor = Color.LawnGreen
+                            If LOTFail = 0 Then LotFailureFrame.BackColor = Color.LawnGreen
+                            If LOTFail > 0 Then LotTestFrame.BackColor = Color.Red
+                            If LOTFail > 0 Then LotFailureFrame.BackColor = Color.Red
+                            If LOTFail > 0 Then UUTStatusColor.BackColor = Color.Red
+                            If UUTFail = 1 Then Me.cmdRetest.Enabled = True
+                            If UUTFail = 0 Then Me.cmdRetest.Enabled = False
+                            If UUTFail = 1 Then Me.EraseTest.Enabled = True
+                            If UUTFail = 0 Then Me.EraseTest.Enabled = False
+                            If UUTNum <> 0 Then Me.LotFailure.Text = FormatPercent(((LOTFail / UUTNum)), 1)
+                            If TweakMode Then
+                                UUTMessage.Text = "  UUT TESTS  --   Tweak Mode. No Data Logging"
+                            ElseIf Not TraceChecked Then
+                                UUTMessage.Text = "  UUT TESTS Marker Mode  --   Load Unit #" & UUTNum + 1
+                            Else
+                                UUTMessage.Text = "  UUT TESTS  --   Load Unit #" & UUTNum + 1
+                            End If
+
+                            Me.cmdStartTest.Text = "Next UUT"
+                            cmdStartTest.Enabled = True
+                            ' Me.cmdRetest.Enabled = True
+
+                            TEST1PASS = True
+                            TEST2PASS = True
+                            TEST3PASS = True
+                            TEST4PASS = True
+                            TEST5PASS = True
+                            Me.Refresh()
+                        End While
+                    Else
+                        Dim strConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source= " & AccessDatabaseFolder("NetworkData")
+                        Dim atsLocal As New OleDb.OleDbConnection
+                        atsLocal.ConnectionString = strConnectionString
+                        Dim cmd As OleDb.OleDbCommand = New OleDb.OleDbCommand(SQLstr, atsLocal)
+                        atsLocal.Open()
+                        System.Threading.Thread.Sleep(20)
+                        Dim drLocal As OleDb.OleDbDataReader = cmd.ExecuteReader
+
+                        While Not drLocal.Read = Nothing
+                            Me.RunStatus.ForeColor = Color.Red
+                            UUTNum = UUTNum + 1
+                            EraseTest.Text = "Remove UUT" & UUTNum
+                            UUTNum_Reset = UUTNum_Reset + 1
+                            If UUTNum > 5 And Not BypassUnchecked Then Me.GetTrace.Checked = False
+                            UUTCount.Text = Str(UUTNum)
+                            If TweakMode Then
+                                Me.UUTMessage.Text = "  UUT TESTS  --   Testing Undisclosed Unit"
+                            ElseIf TraceChecked Then
+                                UUTMessage.Text = "  UUT TESTS Marker Mode  --   Load Unit #" & UUTNum + 1
+                            Else
+                                Me.UUTMessage.Text = "  UUT TESTS  --   Testing Unit #" & UUTNum
+                            End If
+                            Me.cmdStartTest.Text = "UUT" & UUTNum
+                            Me.cmdStartTest.Enabled = False
+                            ResetTests()
+
+                            'Insertion Loss
+                            If drLocal.Item(6) IsNot Nothing Then
+                                RetrnVal = CDbl(drLocal.Item(6))
+                            Else
+                                If Not Incomplete Then
+                                    If MsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
+                                        UUTNum = UUTNum - 1
+                                        UUTNum_Reset = UUTNum_Reset - 1
+                                        Incomplete = True
+                                        GoTo Recap
+                                    End If
                                 End If
                             End If
-                        End If
-                        PassFail = Tests.PhaseBalance(SpecType, RetrnVal, True)
+                            PassFail = Tests.InsertionLoss3dB(True)
+                            status("Blue", "TEST1")
+                            PF1.Text = PassFail
+                            RetrnStr = CStr(TruncateDecimal(RetrnVal, 2))
+                            Data1.Text = Format(RetrnVal, "0.00")
+                            If PassFail = "Pass" Then
+                                TEST1PASS = True
+                                status("Green", "TEST1")
+                            ElseIf PassFail = "Fail" Then
+                                TEST1PASS = False
+                                status("Red", "TEST1")
+                                UUTFail = 1
+                            End If
+                            Me.Failures1.Text = FormatPercent(((Test1Fail / UUTNum)), 1)
+                            Me.Total1.Text = UUTNum
+                            Me.FailTotal1.Text = Test1Fail
 
-                        status("Blue", "TEST5")
-                        PF5.Text = PassFail
-                        RetrnStr = CStr(TruncateDecimal(RetrnVal, 1))
-                        Data5.Text = Format(RetrnVal, "0.0")
-                        If PassFail = "Pass" Then
-                            TEST5PASS = True
-                            status("Green", "TEST5")
-                        ElseIf PassFail = "Fail" Then
-                            TEST5PASS = False
-                            status("Red", "TEST5")
-                            GlobalFail = GlobalFail + 1
-                            TEST5Fail = TEST5Fail + 1
-                            TEST5FailRetest = TEST5FailRetest + 1
-                            UUTFail = 1
-                        End If
-                        Me.Failures5.Text = FormatPercent(((TEST5Fail / UUTNum)), 1)
-                        Me.Total5.Text = UUTNum
-                        Me.FailTotal5.Text = TEST5Fail
+                            'Return Loss
+                            If Not IsDBNull(drLocal.Item(7)) Then
+                                RetrnVal = CDbl(drLocal.Item(7))
+                            Else
+                                If Not TEST2PASS Then
+                                    status("Green", "TEST1")
+                                End If
+                                If Not TEST2PASS Then
+                                    status("Green", "TEST2")
+                                End If
+                                If Not Incomplete Then
+                                    If MsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
+                                        UUTNum = UUTNum - 1
+                                        EraseTest.Text = "Remove UUT" & UUTNum
+                                        UUTNum_Reset = UUTNum_Reset - 1
+                                        Incomplete = True
+                                        GoTo Recap
+                                    End If
+                                End If
+                            End If
+                            PassFail = Tests.ReturnLoss(True)
+                            status("Blue", "TEST2")
+                            PF2.Text = PassFail
+                            RetrnStr = CStr(TruncateDecimal(RetrnVal, 2))
+                            Data2.Text = Format(RetrnVal, "0.0")
+                            If PassFail = "Pass" Then
+                                TEST2PASS = True
+                                status("Green", "TEST2")
+                            ElseIf PassFail = "Fail" Then
+                                TEST2PASS = False
+                                status("Red", "TEST2")
+                                UUTFail = 1
+                            End If
+                            Me.Failures2.Text = FormatPercent(((Test2Fail / UUTNum)), 1)
+                            Me.Total2.Text = UUTNum
+                            Me.FailTotal2.Text = Test2Fail
 
-                        If Not TEST2PASS Or Not TEST1PASS Or Not TEST3PASS Or Not TEST4PASS Or Not TEST5PASS Then
-                            UpdateFailureLog(Me.PF1.Text, Me.PF2.Text, Me.PF3.Text, Me.PF4.Text, Me.PF5.Text)
-                            LOTFail = LOTFail + 1
-                        End If
+                            'Isolation
+                            'Coupling
+                            If (SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN")) And Not IsDBNull(drLocal.Item(9)) Then
+                                RetrnVal = CDbl(drLocal.Item(9))
+                            ElseIf (SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER") And Not IsDBNull(drLocal.Item(8)) Then
+                                RetrnVal = CDbl(drLocal.Item(8))
+                            Else
+                                If Not TEST1PASS Then
+                                    If Test1Fail = 0 Then status("Green", "TEST1")
+                                End If
+                                If Not TEST2PASS Then
+                                    status("Green", "TEST2")
+                                End If
+                                If Not TEST3PASS Then
+                                    status("Green", "TEST3")
+                                End If
+                                If Not Incomplete Then
+                                    If MsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
+                                        UUTNum = UUTNum - 1
+                                        EraseTest.Text = "Remove UUT" & UUTNum
+                                        UUTNum_Reset = UUTNum_Reset - 1
+                                        Incomplete = True
+                                        GoTo Recap
+                                    End If
+                                End If
+                            End If
+                            PassFail = Tests.Isolation(RetrnVal, True)
+                            status("Blue", "TEST3")
+                            PF3.Text = PassFail
+                            RetrnStr = CStr(TruncateDecimal(RetrnVal, 1))
+                            Data3.Text = Format(RetrnVal, "0.0")
+                            If PassFail = "Pass" Then
+                                TEST3PASS = True
+                                status("Green", "TEST3")
+                            ElseIf PassFail = "Fail" Then
+                                TEST3PASS = False
+                                status("Red", "TEST3")
+                                GlobalFail = GlobalFail + 1
+                                TEST3Fail = TEST3Fail + 1
+                                TEST3FailRetest = TEST3FailRetest + 1
+                                UUTFail = 1
+                            End If
+                            Me.Failures3.Text = FormatPercent(((TEST3Fail / UUTNum)), 1)
+                            Me.Total3.Text = UUTNum
+                            Me.FailTotal3.Text = TEST3Fail
+
+                            'AmplitudeBalance
+                            'Directivity
+                            If (SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN")) And Not IsDBNull(drLocal.Item(11)) Then
+                                RetrnVal = CDbl(drLocal.Item(11))
+                            ElseIf (SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER") And Not IsDBNull(drLocal.Item(10)) Then
+                                RetrnVal = CDbl(drLocal.Item(10))
+                            Else
+                                If Not TEST1PASS Then
+                                    Test1Fail = Test1Fail - 1
+                                    If Test1Fail = 0 Then status("Green", "TEST1")
+                                End If
+                                If Not TEST2PASS Then
+                                    status("Green", "TEST2")
+                                End If
+                                If Not TEST3PASS Then
+                                    status("Green", "TEST3")
+                                End If
+                                If Not TEST4PASS Then
+                                    status("Green", "TEST4")
+                                End If
+                                If Not Incomplete Then
+                                    If MsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
+                                        UUTNum = UUTNum - 1
+                                        EraseTest.Text = "Remove UUT" & UUTNum
+                                        UUTNum_Reset = UUTNum_Reset - 1
+                                        Incomplete = True
+                                        GoTo Recap
+                                    End If
+                                End If
+                            End If
+                            PassFail = Tests.AmplitudeBalance(, True)
+                            status("Blue", "TEST4")
+                            RetrnVal = AB
+                            PF4.Text = PassFail
+                            RetrnStr = CStr(TruncateDecimal(RetrnVal, 2))
+                            Data4.Text = Format(RetrnVal, "0.00")
+
+                            If PassFail = "Pass" Then
+                                TEST4PASS = True
+                                status("Green", "TEST4")
+                            ElseIf PassFail = "Fail" Then
+                                TEST4PASS = False
+                                status("Red", "TEST4")
+                                GlobalFail = GlobalFail + 1
+                                TEST4Fail = TEST4Fail + 1
+                                TEST4FailRetest = TEST4FailRetest + 1
+                                UUTFail = 1
+                            End If
+                            Me.Failures4.Text = FormatPercent(((TEST4Fail / UUTNum)), 1)
+                            Me.Total4.Text = UUTNum
+                            Me.FailTotal4.Text = TEST4Fail
+
+                            'PhaseBalance
+                            'Coupled Flatness
+                            If (SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN")) And Not IsDBNull(drLocal.Item(13)) Then
+                                RetrnVal = CDbl(drLocal.Item(13))
+                            ElseIf (SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER") And Not IsDBNull(drLocal.Item(12)) Then
+                                RetrnVal = CDbl(drLocal.Item(12))
+                            Else
+                                If Not TEST1PASS Then
+                                    status("Green", "TEST1")
+                                End If
+                                If Not TEST2PASS Then
+                                    status("Green", "TEST2")
+                                End If
+                                If Not TEST3PASS Then
+                                    status("Green", "TEST3")
+                                End If
+                                If Not TEST4PASS Then
+                                    status("Green", "TEST4")
+                                End If
+                                If Not TEST5PASS Then
+                                    status("Green", "TEST5")
+                                End If
+                                If Not Incomplete Then
+                                    If MsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
+                                        UUTNum = UUTNum - 1
+                                        EraseTest.Text = "Remove UUT" & UUTNum
+                                        UUTNum_Reset = UUTNum_Reset - 1
+                                        Incomplete = True
+                                        GoTo Recap
+                                    End If
+                                End If
+                            End If
+                            PassFail = Tests.PhaseBalance(SpecType, RetrnVal, True)
+
+                            status("Blue", "TEST5")
+                            PF5.Text = PassFail
+                            RetrnStr = CStr(TruncateDecimal(RetrnVal, 1))
+                            Data5.Text = Format(RetrnVal, "0.0")
+                            If PassFail = "Pass" Then
+                                TEST5PASS = True
+                                status("Green", "TEST5")
+                            ElseIf PassFail = "Fail" Then
+                                TEST5PASS = False
+                                status("Red", "TEST5")
+                                GlobalFail = GlobalFail + 1
+                                TEST5Fail = TEST5Fail + 1
+                                TEST5FailRetest = TEST5FailRetest + 1
+                                UUTFail = 1
+                            End If
+                            Me.Failures5.Text = FormatPercent(((TEST5Fail / UUTNum)), 1)
+                            Me.Total5.Text = UUTNum
+                            Me.FailTotal5.Text = TEST5Fail
+
+                            If Not TEST2PASS Or Not TEST1PASS Or Not TEST3PASS Or Not TEST4PASS Or Not TEST5PASS Then
+                                UpdateFailureLog(Me.PF1.Text, Me.PF2.Text, Me.PF3.Text, Me.PF4.Text, Me.PF5.Text)
+                                LOTFail = LOTFail + 1
+                            End If
 Recap1:
-                        If LOTFail = 0 Then LotTestFrame.BackColor = Color.LawnGreen
-                        If LOTFail = 0 Then LotFailureFrame.BackColor = Color.LawnGreen
-                        If LOTFail > 0 Then LotTestFrame.BackColor = Color.Red
-                        If LOTFail > 0 Then LotFailureFrame.BackColor = Color.Red
-                        If LOTFail > 0 Then UUTStatusColor.BackColor = Color.Red
-                        If UUTFail = 1 Then Me.cmdRetest.Enabled = True
-                        If UUTFail = 0 Then Me.cmdRetest.Enabled = False
-                        If UUTFail = 1 Then Me.EraseTest.Enabled = True
-                        If UUTFail = 0 Then Me.EraseTest.Enabled = False
-                        If UUTNum <> 0 Then Me.LotFailure.Text = FormatPercent(((LOTFail / UUTNum)), 1)
-                        If TweakMode Then
-                            UUTMessage.Text = "  UUT TESTS  --   Tweak Mode. No Data Logging"
-                        ElseIf Not TraceChecked Then
-                            UUTMessage.Text = "  UUT TESTS Marker Mode  --   Load Unit #" & UUTNum + 1
-                        Else
-                            UUTMessage.Text = "  UUT TESTS  --   Load Unit #" & UUTNum + 1
-                        End If
+                            If LOTFail = 0 Then LotTestFrame.BackColor = Color.LawnGreen
+                            If LOTFail = 0 Then LotFailureFrame.BackColor = Color.LawnGreen
+                            If LOTFail > 0 Then LotTestFrame.BackColor = Color.Red
+                            If LOTFail > 0 Then LotFailureFrame.BackColor = Color.Red
+                            If LOTFail > 0 Then UUTStatusColor.BackColor = Color.Red
+                            If UUTFail = 1 Then Me.cmdRetest.Enabled = True
+                            If UUTFail = 0 Then Me.cmdRetest.Enabled = False
+                            If UUTFail = 1 Then Me.EraseTest.Enabled = True
+                            If UUTFail = 0 Then Me.EraseTest.Enabled = False
+                            If UUTNum <> 0 Then Me.LotFailure.Text = FormatPercent(((LOTFail / UUTNum)), 1)
+                            If TweakMode Then
+                                UUTMessage.Text = "  UUT TESTS  --   Tweak Mode. No Data Logging"
+                            ElseIf Not TraceChecked Then
+                                UUTMessage.Text = "  UUT TESTS Marker Mode  --   Load Unit #" & UUTNum + 1
+                            Else
+                                UUTMessage.Text = "  UUT TESTS  --   Load Unit #" & UUTNum + 1
+                            End If
 
-                        Me.cmdStartTest.Text = "Next UUT"
-                        cmdStartTest.Enabled = True
-                        ' Me.cmdRetest.Enabled = True
+                            Me.cmdStartTest.Text = "Next UUT"
+                            cmdStartTest.Enabled = True
+                            ' Me.cmdRetest.Enabled = True
 
-                        MSChart.UpDateChart(SpecType)
+                            MSChart.UpDateChart(SpecType)
 
-                        TEST1PASS = True
-                        TEST2PASS = True
-                        TEST3PASS = True
-                        TEST4PASS = True
-                        TEST5PASS = True
-                    End While
+                            TEST1PASS = True
+                            TEST2PASS = True
+                            TEST3PASS = True
+                            TEST4PASS = True
+                            TEST5PASS = True
+                        End While
+                    End If
+                    UUTCount.Text = Str(UUTNum)
                 End If
-                UUTCount.Text = Str(UUTNum)
-            End If
 
 
 NoResume:
-            'txtNet.Text = "Local"
-            'txtNet.ForeColor = Color.DarkOrange
-            txtTitle.Text = OldTitle
-            Exit Function
+                'txtNet.Text = "Local"
+                'txtNet.ForeColor = Color.DarkOrange
+                txtTitle.Text = OldTitle
+                Exit Function
 Trap:
-            MsgBox("Database Error. Cannot Resume")
-            txtNet.Text = "Local"
-            txtNet.ForeColor = Color.DarkOrange
-            txtTitle.Text = OldTitle
+                MsgBox("Database Error. Cannot Resume")
+                txtNet.Text = "Local"
+                txtNet.ForeColor = Color.DarkOrange
+                txtTitle.Text = OldTitle
+
+            End If
 
         Catch ex As Exception
             ResumeTesting = False
@@ -6722,7 +6805,7 @@ TestComplete:  ' For everything except Directional Couplers
             SQLstr = "Insert Into ReportQueue (ReportName, ReportType,ReportStatus,JobNumber,WorkStation,PartNumber,Operator,ActiveDate,MaxValue) values ('" & SpecType & "','" & ReportType & "','" & Status & "','" & Job & "','" & GetComputerName() & "','" & Part & "','" & User & "','" & DateTime.Now.ToString & "','" & Quantity & "')"
             SQL.ExecuteSQLCommand(SQLstr, "NetworkData")
         Else
-            SQLstr = "UPDATE ReportQueue Set ReportStatus = " & Status & " where JobNumber = '" & Job & "' And WorkStation = '" & GetComputerName() & "'"
+            SQLstr = "UPDATE ReportQueue Set ReportStatus = '" & Status & "' where JobNumber = '" & Job & "' And WorkStation = '" & GetComputerName() & "'"
             SQL.ExecuteSQLCommand(SQLstr, "ReportQueue")
             SQLstr = "UPDATE ReportQueue Set Value = " & value & " where JobNumber = '" & Job & "' And WorkStation = '" & GetComputerName() & "'"
             SQL.ExecuteSQLCommand(SQLstr, "ReportQueue")
@@ -6734,7 +6817,7 @@ TestComplete:  ' For everything except Directional Couplers
 
     Public Sub ReportPing(ping As String)
         Dim SQLstr As String
-        SQLstr = "UPDATE ReportQueue Set Ping = " & ping & " where JobNumber = '" & Job & "' And WorkStation = '" & GetComputerName() & "'"
+        SQLstr = "UPDATE ReportQueue Set Ping = '" & ping & "' where JobNumber = '" & Job & "' And WorkStation = '" & GetComputerName() & "'"
         SQL.ExecuteSQLCommand(SQLstr, "ReportQueue")
     End Sub
 
@@ -7659,9 +7742,294 @@ Skip3:
         Process.Start("http://inn-sqlexpress:8888/trouble/trouble_ticket_open/")
     End Sub
 
-    Private Sub HelpToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HelpToolStripMenuItem.Click
+    Public Sub GetStatus()
+        Try
+            Dim CountRow As Integer = 0
+            Dim SQLstr As String
+            Dim statusL As String = ""
+            Dim FailureL As String = ""
+            ClearStatusLog()
+            ClearFailureLog()
 
+            SQLstr = "SELECT * from Status where JobNumber = '" & Job & "' And PartNumber = '" & Part & "'"
+            'Job = frmAUTOTEST.cmbJob.Text
+            If SQLAccess Then
+                Dim ats As SqlConnection = New SqlConnection(SQLConnStr)
+                Dim cmd As SqlCommand = New SqlCommand(SQLstr, ats)
+                ats.Open()
+                System.Threading.Thread.Sleep(0.001)
+                Dim dr As SqlDataReader = cmd.ExecuteReader()
+                While Not dr.Read = Nothing
+                    If dr.Item(0) IsNot Nothing Then
+                        Me.UUTCount.Text = dr.Item(0)
+                        UUTNum = dr.Item(0)
+                    End If
+                    Dim test = dr.Item(0)
+                    If dr.Item(3) IsNot Nothing Then Me.Total1.Text = dr.Item(3)
+                    If dr.Item(4) IsNot Nothing Then Me.Total2.Text = dr.Item(4)
+                    If dr.Item(5) IsNot Nothing Then Me.Total3.Text = dr.Item(5)
+                    If dr.Item(6) IsNot Nothing Then Me.Total4.Text = dr.Item(6)
+                    If dr.Item(7) IsNot Nothing Then Me.Total5.Text = dr.Item(7)
+                    If dr.Item(8) IsNot Nothing Then Me.Failures1.Text = dr.Item(8)
+                    If dr.Item(9) IsNot Nothing Then Me.Failures2.Text = dr.Item(9)
+                    If dr.Item(10) IsNot Nothing Then Me.Failures3.Text = dr.Item(10)
+                    If dr.Item(11) IsNot Nothing Then Me.Failures4.Text = dr.Item(11)
+                    If dr.Item(12) IsNot Nothing Then Me.Failures5.Text = dr.Item(12)
+                    If dr.Item(13) IsNot Nothing Then Me.FailTotal1.Text = dr.Item(13)
+                    If dr.Item(14) IsNot Nothing Then Me.FailTotal2.Text = dr.Item(14)
+                    If dr.Item(15) IsNot Nothing Then Me.FailTotal3.Text = dr.Item(15)
+                    If dr.Item(16) IsNot Nothing Then Me.FailTotal4.Text = dr.Item(16)
+                    If dr.Item(17) IsNot Nothing Then Me.FailTotal5.Text = dr.Item(17)
+                    If dr.Item(18) IsNot Nothing Then statusL = dr.Item(18)
+                    If dr.Item(19) IsNot Nothing Then FailureL = dr.Item(19)
+                    Dim setback As Boolean = False
+                    Dim realtotal As Integer = Total1.Text
+                    Test1Fail = Me.FailTotal1.Text
+                    Test2Fail = Me.FailTotal2.Text
+                    TEST3Fail = Me.FailTotal3.Text
+                    TEST4Fail = Me.FailTotal4.Text
+                    TEST5Fail = Me.FailTotal5.Text
+
+                    If Total2.Text < Total1.Text Then
+                        Total1.Text = Int(Total1.Text) - 1
+                        realtotal = Total1.Text
+                        setback = True
+                    End If
+                    If Total3.Text < realtotal Then
+                        Total3.Text = realtotal
+                        setback = True
+                    End If
+                    If Total4.Text < realtotal Then
+                        Total4.Text = realtotal
+                        setback = True
+                    End If
+                    If Total5.Text < realtotal Then
+                        Total5.Text = realtotal
+                        setback = True
+                    End If
+
+                    If setback Then
+                        Me.UUTCount.Text = dr.Item(0) - 1
+                        UUTNum = dr.Item(0) - 1
+                    End If
+                    If Not FailTotal1.Text = 0 Then
+                        If IL_TF Then
+                            Me.Data1L.ForeColor = Drawing.Color.LawnGreen
+                            Me.Data1H.ForeColor = Drawing.Color.LawnGreen
+                        Else
+                            Me.Data1.ForeColor = Drawing.Color.LawnGreen
+                        End If
+                        Me.UUTStatusColor.BackColor = Drawing.Color.Red
+                        Me.Failures1.ForeColor = Drawing.Color.LawnGreen
+                        Me.FailTotal1.ForeColor = Drawing.Color.Red
+                        Me.StartTestFrame.BackColor = Drawing.Color.LawnGreen
+                        Me.ReTestFrame.BackColor = Drawing.Color.LawnGreen
+                        Me.UUTLabel.ForeColor = Drawing.Color.LawnGreen
+                        Me.UUTCount.ForeColor = Drawing.Color.LawnGreen
+                        Me.Total1.ForeColor = Drawing.Color.LawnGreen
+                    Else
+                        Me.Total1.ForeColor = Drawing.Color.LawnGreen
+                        Me.Failures1.ForeColor = Drawing.Color.LawnGreen
+                        Me.FailTotal1.ForeColor = Drawing.Color.LawnGreen
+                    End If
+                    If Not FailTotal2.Text = 0 Then
+                        Me.UUTStatusColor.BackColor = Drawing.Color.Red
+                        Me.Failures2.ForeColor = Drawing.Color.LawnGreen
+                        Me.FailTotal2.ForeColor = Drawing.Color.Red
+                        Me.Data2.ForeColor = Drawing.Color.LawnGreen
+                        Me.StartTestFrame.BackColor = Drawing.Color.LawnGreen
+                        Me.ReTestFrame.BackColor = Drawing.Color.LawnGreen
+                        Me.UUTLabel.ForeColor = Drawing.Color.LawnGreen
+                        Me.UUTCount.ForeColor = Drawing.Color.LawnGreen
+                        Me.Total2.ForeColor = Drawing.Color.LawnGreen
+                    Else
+                        Me.Total2.ForeColor = Drawing.Color.LawnGreen
+                        Me.Failures2.ForeColor = Drawing.Color.LawnGreen
+                        Me.FailTotal2.ForeColor = Drawing.Color.LawnGreen
+                    End If
+                    If Not FailTotal3.Text = 0 Then
+                        If ISO_TF Then
+                            Me.Data3L.ForeColor = Drawing.Color.LawnGreen
+                            Me.Data3H.ForeColor = Drawing.Color.LawnGreen
+                        Else
+                            Me.Data3.ForeColor = Drawing.Color.LawnGreen
+                        End If
+                        Me.UUTStatusColor.BackColor = Drawing.Color.Red
+                        Me.Failures3.ForeColor = Drawing.Color.LawnGreen
+                        Me.FailTotal3.ForeColor = Drawing.Color.Red
+                        Me.StartTestFrame.BackColor = Drawing.Color.LawnGreen
+                        Me.ReTestFrame.BackColor = Drawing.Color.LawnGreen
+                        Me.UUTLabel.ForeColor = Drawing.Color.LawnGreen
+                        Me.UUTCount.ForeColor = Drawing.Color.LawnGreen
+                        Me.Total3.ForeColor = Drawing.Color.LawnGreen
+                    Else
+                        Me.Total3.ForeColor = Drawing.Color.LawnGreen
+                        Me.Failures3.ForeColor = Drawing.Color.LawnGreen
+                        Me.FailTotal3.ForeColor = Drawing.Color.LawnGreen
+                    End If
+                    If Not FailTotal4.Text = 0 Then
+                        If SpecAB_TF Then
+                            Me.Data4L.ForeColor = Drawing.Color.LawnGreen
+                            Me.Data4H.ForeColor = Drawing.Color.LawnGreen
+                        Else
+                            Me.Data1.ForeColor = Drawing.Color.LawnGreen
+                        End If
+                        Me.UUTStatusColor.BackColor = Drawing.Color.Red
+                        Me.Failures4.ForeColor = Drawing.Color.LawnGreen
+                        Me.FailTotal4.ForeColor = Drawing.Color.Red
+                        Me.StartTestFrame.BackColor = Drawing.Color.LawnGreen
+                        Me.ReTestFrame.BackColor = Drawing.Color.LawnGreen
+                        Me.UUTLabel.ForeColor = Drawing.Color.LawnGreen
+                        Me.UUTCount.ForeColor = Drawing.Color.LawnGreen
+                        Me.Total4.ForeColor = Drawing.Color.LawnGreen
+                    Else
+                        Me.Total4.ForeColor = Drawing.Color.LawnGreen
+                        Me.Failures4.ForeColor = Drawing.Color.LawnGreen
+                        Me.FailTotal4.ForeColor = Drawing.Color.LawnGreen
+                    End If
+                    If Not FailTotal5.Text = 0 Then
+                        Me.UUTStatusColor.BackColor = Drawing.Color.Red
+                        Me.Failures5.ForeColor = Drawing.Color.LawnGreen
+                        Me.FailTotal5.ForeColor = Drawing.Color.Red
+                        Me.Data5.ForeColor = Drawing.Color.LawnGreen
+                        Me.StartTestFrame.BackColor = Drawing.Color.LawnGreen
+                        Me.ReTestFrame.BackColor = Drawing.Color.LawnGreen
+                        Me.UUTLabel.ForeColor = Drawing.Color.LawnGreen
+                        Me.UUTCount.ForeColor = Drawing.Color.LawnGreen
+                        Me.Total5.ForeColor = Drawing.Color.LawnGreen
+                    Else
+                        Me.Total4.ForeColor = Drawing.Color.LawnGreen
+                        Me.Failures4.ForeColor = Drawing.Color.LawnGreen
+                        Me.FailTotal4.ForeColor = Drawing.Color.LawnGreen
+                    End If
+                    Dim reLst
+                    reLst = statusL.Split(",")
+                    For i As Integer = 0 To reLst.Length - 1
+                        StatusLog.Items.Add(reLst(i))
+                    Next
+                    reLst = FailureL.Split(",")
+                    For i As Integer = 0 To reLst.Length - 1
+                        FailureLog.Items.Add(reLst(i))
+                    Next
+                End While
+                ats.Close()
+            Else
+                Dim strConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source= " & AccessDatabaseFolder("NetworkSpecs")
+                Dim atsLocal As New OleDb.OleDbConnection
+                atsLocal.ConnectionString = strConnectionString
+                Dim cmd As OleDb.OleDbCommand = New OleDb.OleDbCommand(SQLstr, atsLocal)
+                atsLocal.Open()
+                System.Threading.Thread.Sleep(0.001)
+                Dim drLocal As OleDb.OleDbDataReader = cmd.ExecuteReader
+                While Not drLocal.Read = Nothing
+                    If drLocal.Item(0) IsNot Nothing Then Me.UUTCount.Text = drLocal.Item(0)
+                    If drLocal.Item(3) IsNot Nothing Then Me.Total1.Text = drLocal.Item(3)
+                    If drLocal.Item(4) IsNot Nothing Then Me.Total2.Text = drLocal.Item(4)
+                    If drLocal.Item(5) IsNot Nothing Then Me.Total3.Text = drLocal.Item(5)
+                    If drLocal.Item(6) IsNot Nothing Then Me.Total4.Text = drLocal.Item(6)
+                    If drLocal.Item(7) IsNot Nothing Then Me.Total4.Text = drLocal.Item(7)
+                    If drLocal.Item(8) IsNot Nothing Then Me.Failures1.Text = drLocal.Item(8)
+                    If drLocal.Item(9) IsNot Nothing Then Me.Failures2.Text = drLocal.Item(9)
+                    If drLocal.Item(10) IsNot Nothing Then Me.Failures3.Text = drLocal.Item(10)
+                    If drLocal.Item(11) IsNot Nothing Then Me.Failures4.Text = drLocal.Item(11)
+                    If drLocal.Item(12) IsNot Nothing Then Me.Failures4.Text = drLocal.Item(12)
+                    If drLocal.Item(13) IsNot Nothing Then Me.FailTotal1.Text = drLocal.Item(13)
+                    If drLocal.Item(14) IsNot Nothing Then Me.FailTotal2.Text = drLocal.Item(14)
+                    If drLocal.Item(15) IsNot Nothing Then Me.FailTotal3.Text = drLocal.Item(15)
+                    If drLocal.Item(16) IsNot Nothing Then Me.FailTotal4.Text = drLocal.Item(16)
+                    If drLocal.Item(17) IsNot Nothing Then Me.FailTotal4.Text = drLocal.Item(17)
+                    If drLocal.Item(18) IsNot Nothing Then Me.StatusLog.Text = drLocal.Item(18)
+                    If drLocal.Item(19) IsNot Nothing Then Me.FailureLog.Text = drLocal.Item(19)
+                End While
+                atsLocal.Close()
+            End If
+        Catch
+        End Try
     End Sub
 
-   
+    Public Sub SaveStatus(this_test As Integer)
+        Dim SQLStr As String
+
+        If TweakMode Then Exit Sub
+        Try
+            SQLStr = "SELECT * from Status where JobNumber = '" & Job & "' And PartNumber = '" & Part & "'"
+            If SQL.CheckforRow(SQLStr, "NetworkData") = 0 Then
+                SQLStr = "Insert Into Status (JobNumber, PartNumber) values ('" & Job & "','" & Part & "')"
+                SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+            End If
+            SQLStr = "UPDATE Status Set UUTCount = '" & Trim(Me.UUTCount.Text) & "' where JobNumber = '" & Job & "' And PartNumber = '" & Part & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE Status Set Total1 = '" & Trim(Me.Total1.Text) & "' where JobNumber = '" & Job & "' And PartNumber = '" & Part & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE Status Set Total2 = '" & Trim(Me.Total2.Text) & "' where JobNumber = '" & Job & "' And PartNumber = '" & Part & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE Status Set Total3 = '" & Trim(Me.Total3.Text) & "' where JobNumber = '" & Job & "' And PartNumber = '" & Part & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE Status Set Total4 = '" & Trim(Me.Total4.Text) & "' where JobNumber = '" & Job & "' And PartNumber = '" & Part & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE Status Set Total5 = '" & Trim(Me.Total5.Text) & "' where JobNumber = '" & Job & "' And PartNumber = '" & Part & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE Status Set Failures1 = '" & Trim(Me.Failures1.Text) & "' where JobNumber = '" & Job & "' And PartNumber = '" & Part & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE Status Set Failures2 = '" & Trim(Me.Failures2.Text) & "' where JobNumber = '" & Job & "' And PartNumber = '" & Part & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE Status Set Failures3 = '" & Trim(Me.Failures3.Text) & "' where JobNumber = '" & Job & "' And PartNumber = '" & Part & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE Status Set Failures4 = '" & Trim(Me.Failures4.Text) & "' where JobNumber = '" & Job & "' And PartNumber = '" & Part & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE Status Set Failures5 = '" & Trim(Me.Failures5.Text) & "' where JobNumber = '" & Job & "' And PartNumber = '" & Part & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE Status Set FailTotal1 = '" & Trim(Me.FailTotal1.Text) & "' where JobNumber = '" & Job & "' And PartNumber = '" & Part & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE Status Set FailTotal2 = '" & Trim(Me.FailTotal2.Text) & "' where JobNumber = '" & Job & "' And PartNumber = '" & Part & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE Status Set FailTotal3 = '" & Trim(Me.FailTotal3.Text) & "' where JobNumber = '" & Job & "' And PartNumber = '" & Part & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE Status Set FailTotal4 = '" & Trim(Me.FailTotal4.Text) & "' where JobNumber = '" & Job & "' And PartNumber = '" & Part & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE Status Set FailTotal5 = '" & Trim(Me.FailTotal5.Text) & "' where JobNumber = '" & Job & "' And PartNumber = '" & Part & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            Dim vars = (From var As Object In Me.StatusLog.Items Where Not String.IsNullOrWhiteSpace(var.ToString)).ToArray
+            Dim statusLog As String = ""
+            For i As Integer = 0 To vars.Count - 1
+                statusLog &= vars(i) & ","
+            Next
+            SQLStr = "UPDATE Status Set StatusLog = '" & Trim(statusLog) & "' where JobNumber = '" & Job & "' And PartNumber = '" & Part & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            vars = (From var As Object In Me.FailureLog.Items Where Not String.IsNullOrWhiteSpace(var.ToString)).ToArray
+            Dim failLog As String = ""
+            For i As Integer = 0 To vars.Count - 1
+
+                If i = vars.Count - 1 Then
+                    failLog &= vars(i)
+                Else
+                    failLog &= vars(i) & ","
+                End If
+
+            Next
+            SQLStr = "UPDATE Status Set FailureLog = '" & Trim(failLog) & "' where JobNumber = '" & Job & "' And PartNumber = '" & Part & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
 End Class
