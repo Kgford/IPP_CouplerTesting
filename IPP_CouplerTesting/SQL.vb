@@ -563,6 +563,67 @@ SkipDataBase:
 
         End Try
     End Sub
+    Public Sub SaveTuning(KitQty As Integer, QtyTest As String, KitQtyTuned As String, Percent As String, item1 As String, part1 As String, Desc1 As String, item2 As String, part2 As String, Desc2 As String, item3 As String, part3 As String, Desc3 As String)
+        Dim SQLStr As String
+
+        If TweakMode Then Exit Sub
+        Try
+            SQLStr = "SELECT * from TuningLog where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "'"
+            If SQL.CheckforRow(SQLStr, "NetworkData") = 0 Then
+                SQLStr = "Insert Into TuningLog (JobNumber, PartNumber,SerialNumber,WorkStation,artwork_rev) values ('" & Job & "','" & Part & "','" & SerialNumber & "','" & GetComputerName() & "','" & ArtworkRevision & "')"
+                SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+            End If
+
+            SQLStr = "UPDATE TuningLog Set artwork  = '" & ArtworkRevision & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE TuningLog Set KitQuantity  = '" & KitQty & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE TuningLog Set QuantityToTest  = '" & QtyTest & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE TuningLog Set Tuned  = '" & KitQtyTuned & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE TuningLog Set percentage  = '" & Percent & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE TuningLog Set Item1  = '" & Item1 & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE TuningLog Set part1  = '" & part1 & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE TuningLog Set Description1  = '" & Desc1 & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            If Desc2 <> "" Then
+                SQLStr = "UPDATE TuningLog Set Item2  = '" & item2 & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "'"
+                SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+                SQLStr = "UPDATE TuningLog Set part2  = '" & part2 & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "'"
+                SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+                SQLStr = "UPDATE TuningLog Set Description2  = '" & Desc2 & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "'"
+                SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+            End If
+
+            If Desc3 <> "" Then
+                SQLStr = "UPDATE TuningLog Set Item3  = '" & item3 & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "'"
+                SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+                SQLStr = "UPDATE TuningLog Set part3  = '" & part3 & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "'"
+                SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+                SQLStr = "UPDATE TuningLog Set Description3  = '" & Desc3 & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "'"
+                SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+            End If
+
+        Catch ex As Exception
+
+        End Try
+    End Sub
     
     Public Function GeUUTCount() As Integer
         Try

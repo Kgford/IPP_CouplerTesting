@@ -26,7 +26,7 @@
     <UpdateUrl>\\ippdc\Test Automation\ATE_Publish\</UpdateUrl>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>127</ApplicationRevision>
+    <ApplicationRevision>135</ApplicationRevision>
     <ApplicationVersion>4.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -158,6 +158,13 @@
     <Compile Include="AddArtWorkRevision.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmMANUALTEST.Designer.vb">
+      <DependentUpon>frmMANUALTEST.vb</DependentUpon>
+    </Compile>
+    <Compile Include="frmMANUALTEST.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManualTests.vb" />
     <Compile Include="Supervisor.Designer.vb">
       <DependentUpon>Supervisor.vb</DependentUpon>
     </Compile>
@@ -277,6 +284,9 @@
   <ItemGroup>
     <EmbeddedResource Include="AddArtWorkRevision.resx">
       <DependentUpon>AddArtWorkRevision.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMANUALTEST.resx">
+      <DependentUpon>frmMANUALTEST.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Supervisor.resx">
       <DependentUpon>Supervisor.vb</DependentUpon>

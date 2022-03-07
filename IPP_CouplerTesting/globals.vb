@@ -227,7 +227,6 @@ Module globals
     Public ProgTitle As String
     Public ProgVer As String
     Public TraceID As String
-    Public Points As Integer
     Public ActiveDate As String
     Public ActiveData As Double
 
@@ -340,7 +339,11 @@ Module globals
         reStr &= lst.Item(lst.Count - 1)
         ListToString = reStr
     End Function
-
+    Public Function TruncateDecimal(value As Decimal, precision As Integer) As Decimal
+        Dim stepper As Decimal = Math.Pow(10, precision)
+        Dim tmp As Decimal = Math.Truncate(stepper * value)
+        Return tmp / stepper
+    End Function
 
     Public Function StringToList(ByVal str As String) As List(Of String)
         Dim reLst As New List(Of String)

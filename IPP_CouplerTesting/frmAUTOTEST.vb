@@ -1204,7 +1204,7 @@ Skip4:
             UUTCount.Text = Str(UUTNum)
             If Simulation.Checked = False And GoodJob Then
                 RecallCal(1)
-                Tests.SetupVNA(True, 1)
+                SetupVNA(True, 1)
             End If
 
             Exit Sub
@@ -1212,7 +1212,6 @@ Skip4:
         Catch ex As Exception
 
         End Try
-
 
     End Sub
     Private Sub cmbPart_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbPart.SelectedIndexChanged
@@ -1607,7 +1606,7 @@ Skip4:
             End If
 
             UUTCount.Text = Str(UUTNum)
-            If Simulation.Checked = False And GoodJob Then Tests.SetupVNA(True, 1)
+            If Simulation.Checked = False And GoodJob Then SetupVNA(True, 1)
             Exit Sub
 
         Catch ex As Exception
@@ -1846,13 +1845,13 @@ GetOut:
 
     End Sub
 
-    Private Sub ResetLot()
+    Private Sub ResetLot(Optional remove = False)
         'MSChart.ResetChartData(SpecType)
         'MSChart.UpDateChart(SpecType)
         Me.UUTStatusColor.BackColor = Color.LawnGreen
         Me.StartTestFrame.BackColor = Color.LawnGreen
         Me.ReTestFrame.BackColor = Color.LawnGreen
-        UUTNum = 0
+        If remove = False Then UUTNum = 0
         GlobalFail = 0
         Test1Fail = 0
         Test2Fail = 0
@@ -2571,7 +2570,7 @@ TestComplete:  ' For everything except Directional Couplers
                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, ISO = SW3"
                 If SpecType = "BI DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, REFL = SW3"
                 txtTitle.Text = SpecType & SwPos
-                'MsgBox("Please turn the Directional Coupler in the Reverse direction")
+                MsgBox("Please turn the Directional Coupler in the Reverse direction")
             End If
 
             'Reverse Coupling
@@ -3830,7 +3829,7 @@ TestReallyComplete:
         ILSetDone = False
         If MsgBox("Are you sure you want to erase UUT" & UUTNum_Reset, vbYesNo, "Cannot be undone.") = vbYes Then
 
-            ResetLot()
+            ResetLot(True)
             Me.txtTitle.Text = "     DELETING  UUT" & UUTNum_Reset & " TEST DATA"
             SQLstr = "Delete from TestData where JobNumber = '" & Me.cmbJob.Text & "' and SerialNumber = UUT" & UUTNum_Reset & "' and artwork_rev = '" & Me.txtArtwork.Text & "'"
             SQL.ExecuteSQLCommand(SQLstr, "NetworkData")
@@ -3933,10 +3932,10 @@ TestReallyComplete:
         TEST4PASS = True
         TEST5PASS = True
         If Me.MutiCal.Checked = False Then
-            Tests.SetupVNA(True, 1)
+            SetupVNA(True, 1)
         Else
             pos = cmbSwitch.SelectedIndex + 1
-            Tests.SetupVNA(True, pos)
+            SetupVNA(True, pos)
         End If
         ILSetDone = False
         Me.txtTitle.Text = SaveMessage
@@ -7739,7 +7738,7 @@ Skip3:
     End Sub
 
     Private Sub NewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewToolStripMenuItem.Click
-        Process.Start("http://inn-sqlexpress:8888/trouble/trouble_ticket_open/")
+        Process.Start("http://innpriority:8888/tickets/inquiry/?task_type=Trouble Ticket&selected_group=Test")
     End Sub
 
     Public Sub GetStatus()
@@ -8030,6 +8029,17 @@ Skip3:
         Catch ex As Exception
 
         End Try
+    End Sub
+
+    
+    Private Sub ManualTuningToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ManualTuningToolStripMenuItem.Click
+        Me.Hide()
+        Dim TUNE As New frmMANUALTEST
+        StatusLog.Items.Add("Opening Specs:" & "" & DateTime.Now.ToString)
+        TUNE.StartPosition = FormStartPosition.Manual
+        TUNE.Location = New Point(globals.XLocation, globals.YLocation)
+        TUNE.ShowDialog()
+        Me.Show()
     End Sub
 
 End Class

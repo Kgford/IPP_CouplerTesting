@@ -71,3 +71,4 @@ C:\SRC\IPP_CouplerTesting_ver 4.0.83\obj\Release\IPP_CouplerTesting.TestDataView
 C:\SRC\IPP_CouplerTesting_ver 4.0.83\obj\Release\IPP_CouplerTesting.vbproj.GenerateResource.Cache
 C:\SRC\IPP_CouplerTesting_ver 4.0.83\obj\Release\IPP_CouplerTesting.exe.manifest
 C:\SRC\IPP_CouplerTesting_ver 4.0.83\obj\Release\IPP_CouplerTesting.application
+C:\SRC\IPP_CouplerTesting\IPP_CouplerTesting\obj\Release\IPP_CouplerTesting.frmMANUALTEST.resources
