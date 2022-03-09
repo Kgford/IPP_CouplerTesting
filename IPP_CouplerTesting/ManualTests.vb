@@ -4718,6 +4718,7 @@ Round:
         If frmMANUALTEST.txtOffset4.Text = "" Then frmMANUALTEST.txtOffset4.Text = 0
         t1 = New Trace
         Spec = GetSpecification("Directivity")
+        SwitchPorts = SQL.GetSpecification("SwitchPorts")
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmMANUALTEST.txtOffset4.Text)
             If TruncateDecimal(RetrnVal, 2) <= Spec Then
@@ -4935,6 +4936,7 @@ Round:
                 End If
             End If
 
+            DIR = Math.Abs(DIR)
             DIR = Format(TruncateDecimal(DIR, 1) + frmMANUALTEST.txtOffset4.Text, "0.0")
             If DIR >= Spec Then
                 Directivity_Marker = "Pass"

@@ -5184,6 +5184,7 @@ Round:
                 End If
             End If
 
+            DIR = Math.Abs(DIR)
             DIR = Format(TruncateDecimal(DIR, 1) + frmAUTOTEST.txtOffset4.Text, "0.0")
             If DIR >= Spec Then
                 Directivity_Marker = "Pass"
