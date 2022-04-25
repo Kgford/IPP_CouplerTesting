@@ -15,7 +15,7 @@
         If typeVal <> 0 Then
             If typeVal <> 117 Then  'Code for miniLAB-1008 is 117
                 MyMessage = "A miniLAB-1008 was not assigned to Board " & BoardNum & " in InstaCal."
-                r = MsgBox(MyMessage, vbExclamation, "miniLAB-1008 not detected.")
+                r = MYMsgBox(MyMessage, vbExclamation, "miniLAB-1008 not detected.")
                 End
             End If
         End If

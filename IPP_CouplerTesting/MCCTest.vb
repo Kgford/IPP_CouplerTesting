@@ -82,7 +82,7 @@ Public Class CalGizmo
             tx_b3.Text = Bits(3)
             tx_b4.Text = Bits(4)
         Catch ex As Exception
-            MsgBox("Input BIT Error", , "Please check your MINILab")
+            MYMsgBox("Input BIT Error", , "Please check your MINILab")
         End Try
 
     End Sub

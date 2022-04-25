@@ -49,10 +49,15 @@ Module globals
     Public Master_bypass As Boolean = False
     Public Percent_bypass As Boolean = False
     Public ArtworkRevision As String = "N/A"
+    Public Artwork As String = "N/A"
+    Public Panel As String = "N/A"
+    Public Quadrant As String = "N/A"
+    Public LOT As String = "N/A"
     Public jobSpec As String
     Public PartSpec As String
     Public SwitchModel As String
     Public SwitchPorts As Integer
+    Public ActivePage As String = "Full Auto"
 
 
     Public OverrideLogForm As Boolean
@@ -134,6 +139,10 @@ Module globals
     Public TimeComplete As TimeSpan
     Public Pausenow As Long
     Public TPP As Double
+    Public MYMSG_RTN As Integer
+    Public MYMSG_BTN As Integer
+    Public MYMSG_TITLE As String
+    Public MYMSG_PROMPT As String
 
     Public NetworkAccess As Boolean = False
     Public NoInit As Boolean = False
@@ -878,5 +887,131 @@ Trap:
         json_serializer = " 'results': [{'reportname': 'This is a test','reporttype': " & SpecType & ",'reportstatus': 0,'jobnumber':" & JobNumber & ",'workstation': " & WorkStation & ",'partnumber': " & Part & ",'operator': " & User & ",'activedate': " & today & "}]"
     End Function
 
+    Public Function MYMsgBox(msg As String, Optional button As Integer = 0, Optional title As String = "") As Integer
+        MYMSG_TITLE = title
+        MYMSG_PROMPT = msg
+        If button = 0 Then 'Display OK button only
+            MYMSG_BTN = 0
+            If Not title = "" Then
+                Dim MSGB As New MYMsg
+                MSGB.StartPosition = FormStartPosition.Manual
+                MSGB.Location = New Point(globals.XLocation + 450, globals.YLocation + 200)
+                MSGB.ShowDialog()
+                Return MYMSG_RTN
+            Else
+                Dim MSGB As New MYMsg
+                MSGB.StartPosition = FormStartPosition.Manual
+                MSGB.Location = New Point(globals.XLocation + 450, globals.YLocation + 200)
+                MSGB.ShowDialog()
+                Return MYMSG_RTN
+            End If
+        ElseIf button = 1 Then 'Display OK and Cancel buttons
+            MYMSG_BTN = 1
+            If Not title = "" Then
+                Dim MSGB As New MYMsg
+                MSGB.StartPosition = FormStartPosition.Manual
+                MSGB.Location = New Point(globals.XLocation + 450, globals.YLocation + 200)
+                MSGB.ShowDialog()
+                Return MYMSG_RTN
+            Else
+                Dim MSGB As New MYMsg
+                MSGB.StartPosition = FormStartPosition.Manual
+                MSGB.Location = New Point(globals.XLocation + 450, globals.YLocation + 200)
+                MSGB.ShowDialog()
+                Return MYMSG_RTN
+            End If
+        ElseIf button = 2 Then 'Display Abort, Retry, and Ignore buttons
+            MYMSG_BTN = 2
+            If Not title = "" Then
+                Dim MSGB As New MYMsg
+                MSGB.StartPosition = FormStartPosition.Manual
+                MSGB.Location = New Point(globals.XLocation + 450, globals.YLocation + 200)
+                MSGB.ShowDialog()
+                Return MYMSG_RTN
+            Else
+                Dim MSGB As New MYMsg
+                MSGB.StartPosition = FormStartPosition.Manual
+                MSGB.Location = New Point(globals.XLocation + 450, globals.YLocation + 200)
+                MSGB.ShowDialog()
+                Return MYMSG_RTN
+            End If
+        ElseIf button = 3 Then 'Display Yes, No, and Cancel buttons.
+            MYMSG_BTN = 3
+            If Not title = "" Then
+                Dim MSGB As New MYMsg
+                MSGB.StartPosition = FormStartPosition.Manual
+                MSGB.Location = New Point(globals.XLocation + 450, globals.YLocation + 200)
+                MSGB.ShowDialog()
+                Return MYMSG_RTN
+            Else
+                Dim MSGB As New MYMsg
+                MSGB.StartPosition = FormStartPosition.Manual
+                MSGB.Location = New Point(globals.XLocation + 450, globals.YLocation + 200)
+                MSGB.ShowDialog()
+                Return MYMSG_RTN
+            End If
+        ElseIf button = 4 Then 'Display Yes and No buttons.
+            MYMSG_BTN = 4
+            If Not title = "" Then
+                Dim MSGB As New MYMsg
+                MSGB.StartPosition = FormStartPosition.Manual
+                MSGB.Location = New Point(globals.XLocation + 450, globals.YLocation + 200)
+                MSGB.ShowDialog()
+            Else
+                Dim MSGB As New MYMsg
+                MSGB.StartPosition = FormStartPosition.Manual
+                MSGB.Location = New Point(globals.XLocation + 450, globals.YLocation + 200)
+                MSGB.ShowDialog()
+                Return MYMSG_RTN
+            End If
+        ElseIf button = 5 Then 'Display Retry and Cancel buttons.
+            MYMSG_BTN = 5
+            If Not title = "" Then
+                Dim MSGB As New MYMsg
+                MSGB.StartPosition = FormStartPosition.Manual
+                MSGB.Location = New Point(globals.XLocation, globals.YLocation + 50)
+                MSGB.ShowDialog()
+                Return MYMSG_RTN
+            Else
+                Dim MSGB As New MYMsg
+                MSGB.StartPosition = FormStartPosition.Manual
+                MSGB.Location = New Point(globals.XLocation, globals.YLocation + 50)
+                MSGB.ShowDialog()
+                Return MYMSG_RTN
+            End If
+        ElseIf button = 16 Then 'Display Critical Message icon.
+            MYMSG_BTN = 16
+            If Not title = "" Then
+                Return MYMsgBox(msg, vbCritical, title)
+            Else
+                Return MYMsgBox(msg, vbCritical)
+            End If
+        ElseIf button = 32 Then 'Display Warning Query icon
+            MYMSG_BTN = 32
+            If Not title = "" Then
+                Return MYMsgBox(msg, vbQuestion, title)
+            Else
+                Return MYMsgBox(msg, vbQuestion)
+            End If
+        ElseIf button = 48 Then 'Display Warning Message icon
+            MYMSG_BTN = 48
+            If Not title = "" Then
+                Return MYMsgBox(msg, vbExclamation, title)
+            Else
+                Return MYMsgBox(msg, vbExclamation)
+            End If
+        ElseIf button = 64 Then 'Display Information Message icon
+            MYMSG_BTN = 64
+            If Not title = "" Then
+                Return MYMsgBox(msg, vbInformation, title)
+            Else
+                Return MYMsgBox(msg, vbInformation)
+            End If
+        Else
+            Return 0
+        End If
 
+
+
+    End Function
 End Module

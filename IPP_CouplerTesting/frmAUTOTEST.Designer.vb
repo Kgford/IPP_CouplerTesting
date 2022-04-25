@@ -145,6 +145,7 @@ Partial Class frmAUTOTEST
         Me.MenuStrip3 = New System.Windows.Forms.MenuStrip()
         Me.AutotestToolStripSetupTrace = New System.Windows.Forms.ToolStripMenuItem()
         Me.ScanGPIBToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ManualTuningToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SpecificationsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SupervisorPasswordToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ROBOTToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -168,12 +169,17 @@ Partial Class frmAUTOTEST
         Me.txtFullAuto = New System.Windows.Forms.TextBox()
         Me.RobotTimer = New System.Windows.Forms.Timer(Me.components)
         Me.ErrorTimer = New System.Windows.Forms.Timer(Me.components)
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.lblArtwork = New System.Windows.Forms.TextBox()
         Me.txtArtwork = New System.Windows.Forms.TextBox()
         Me.Panel3 = New System.Windows.Forms.Panel()
         Me.EraseTest = New System.Windows.Forms.Button()
-        Me.ManualTuningToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.txtPanel = New System.Windows.Forms.TextBox()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.TextBox4 = New System.Windows.Forms.TextBox()
+        Me.txtLOT = New System.Windows.Forms.TextBox()
+        Me.TextBox3 = New System.Windows.Forms.TextBox()
+        Me.txtQuadrant = New System.Windows.Forms.TextBox()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.UUTMessage.SuspendLayout()
         Me.UUTStatusColor.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -186,8 +192,8 @@ Partial Class frmAUTOTEST
         Me.MenuStrip3.SuspendLayout()
         Me.ReTestFrame.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.Panel3.SuspendLayout()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'cmbJob
@@ -1685,6 +1691,12 @@ Partial Class frmAUTOTEST
         Me.ScanGPIBToolStripMenuItem.Size = New System.Drawing.Size(77, 21)
         Me.ScanGPIBToolStripMenuItem.Text = "Calibrate"
         '
+        'ManualTuningToolStripMenuItem
+        '
+        Me.ManualTuningToolStripMenuItem.Name = "ManualTuningToolStripMenuItem"
+        Me.ManualTuningToolStripMenuItem.Size = New System.Drawing.Size(115, 21)
+        Me.ManualTuningToolStripMenuItem.Text = "Manual Tuning"
+        '
         'SpecificationsToolStripMenuItem
         '
         Me.SpecificationsToolStripMenuItem.Name = "SpecificationsToolStripMenuItem"
@@ -1824,7 +1836,7 @@ Partial Class frmAUTOTEST
         Me.DeleteOp.AutoSize = True
         Me.DeleteOp.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.DeleteOp.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.DeleteOp.Location = New System.Drawing.Point(1184, 210)
+        Me.DeleteOp.Location = New System.Drawing.Point(1274, 219)
         Me.DeleteOp.Name = "DeleteOp"
         Me.DeleteOp.Size = New System.Drawing.Size(94, 20)
         Me.DeleteOp.TabIndex = 54
@@ -1837,7 +1849,7 @@ Partial Class frmAUTOTEST
         Me.ckTweakMode.AutoSize = True
         Me.ckTweakMode.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ckTweakMode.ForeColor = System.Drawing.Color.OrangeRed
-        Me.ckTweakMode.Location = New System.Drawing.Point(177, 217)
+        Me.ckTweakMode.Location = New System.Drawing.Point(476, 219)
         Me.ckTweakMode.Name = "ckTweakMode"
         Me.ckTweakMode.Size = New System.Drawing.Size(183, 20)
         Me.ckTweakMode.TabIndex = 40
@@ -1850,7 +1862,7 @@ Partial Class frmAUTOTEST
         Me.ckROBOT.Enabled = False
         Me.ckROBOT.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ckROBOT.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.ckROBOT.Location = New System.Drawing.Point(360, 217)
+        Me.ckROBOT.Location = New System.Drawing.Point(654, 217)
         Me.ckROBOT.Name = "ckROBOT"
         Me.ckROBOT.Size = New System.Drawing.Size(80, 20)
         Me.ckROBOT.TabIndex = 56
@@ -1863,9 +1875,9 @@ Partial Class frmAUTOTEST
         Me.txtFullAuto.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txtFullAuto.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtFullAuto.ForeColor = System.Drawing.Color.OrangeRed
-        Me.txtFullAuto.Location = New System.Drawing.Point(442, 211)
+        Me.txtFullAuto.Location = New System.Drawing.Point(730, 216)
         Me.txtFullAuto.Name = "txtFullAuto"
-        Me.txtFullAuto.Size = New System.Drawing.Size(736, 22)
+        Me.txtFullAuto.Size = New System.Drawing.Size(538, 22)
         Me.txtFullAuto.TabIndex = 57
         Me.txtFullAuto.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -1876,35 +1888,25 @@ Partial Class frmAUTOTEST
         'ErrorTimer
         '
         '
-        'PictureBox1
-        '
-        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.InitialImage = CType(resources.GetObject("PictureBox1.InitialImage"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(0, 22)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(1375, 54)
-        Me.PictureBox1.TabIndex = 50
-        Me.PictureBox1.TabStop = False
-        '
         'lblArtwork
         '
         Me.lblArtwork.BackColor = System.Drawing.SystemColors.Desktop
         Me.lblArtwork.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.lblArtwork.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblArtwork.ForeColor = System.Drawing.Color.OrangeRed
-        Me.lblArtwork.Location = New System.Drawing.Point(9, 215)
+        Me.lblArtwork.Location = New System.Drawing.Point(0, 215)
         Me.lblArtwork.Name = "lblArtwork"
-        Me.lblArtwork.Size = New System.Drawing.Size(88, 17)
+        Me.lblArtwork.Size = New System.Drawing.Size(60, 17)
         Me.lblArtwork.TabIndex = 58
-        Me.lblArtwork.Text = "Artwork Rev:"
+        Me.lblArtwork.Text = "Artwork"
         Me.lblArtwork.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'txtArtwork
         '
         Me.txtArtwork.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtArtwork.Location = New System.Drawing.Point(103, 212)
+        Me.txtArtwork.Location = New System.Drawing.Point(66, 213)
         Me.txtArtwork.Name = "txtArtwork"
-        Me.txtArtwork.Size = New System.Drawing.Size(66, 24)
+        Me.txtArtwork.Size = New System.Drawing.Size(47, 24)
         Me.txtArtwork.TabIndex = 59
         Me.txtArtwork.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -1929,11 +1931,81 @@ Partial Class frmAUTOTEST
         Me.EraseTest.Text = "Remove Part"
         Me.EraseTest.UseVisualStyleBackColor = False
         '
-        'ManualTuningToolStripMenuItem
+        'txtPanel
         '
-        Me.ManualTuningToolStripMenuItem.Name = "ManualTuningToolStripMenuItem"
-        Me.ManualTuningToolStripMenuItem.Size = New System.Drawing.Size(115, 21)
-        Me.ManualTuningToolStripMenuItem.Text = "Manual Tuning"
+        Me.txtPanel.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtPanel.Location = New System.Drawing.Point(165, 212)
+        Me.txtPanel.Name = "txtPanel"
+        Me.txtPanel.Size = New System.Drawing.Size(47, 24)
+        Me.txtPanel.TabIndex = 61
+        Me.txtPanel.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'TextBox2
+        '
+        Me.TextBox2.BackColor = System.Drawing.SystemColors.Desktop
+        Me.TextBox2.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox2.ForeColor = System.Drawing.Color.OrangeRed
+        Me.TextBox2.Location = New System.Drawing.Point(119, 217)
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.Size = New System.Drawing.Size(40, 17)
+        Me.TextBox2.TabIndex = 60
+        Me.TextBox2.Text = "Panel"
+        Me.TextBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'TextBox4
+        '
+        Me.TextBox4.BackColor = System.Drawing.SystemColors.Desktop
+        Me.TextBox4.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox4.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox4.ForeColor = System.Drawing.Color.OrangeRed
+        Me.TextBox4.Location = New System.Drawing.Point(219, 216)
+        Me.TextBox4.Name = "TextBox4"
+        Me.TextBox4.Size = New System.Drawing.Size(65, 17)
+        Me.TextBox4.TabIndex = 62
+        Me.TextBox4.Text = "Quadrant"
+        Me.TextBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'txtLOT
+        '
+        Me.txtLOT.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtLOT.Location = New System.Drawing.Point(377, 216)
+        Me.txtLOT.Name = "txtLOT"
+        Me.txtLOT.Size = New System.Drawing.Size(82, 24)
+        Me.txtLOT.TabIndex = 65
+        Me.txtLOT.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'TextBox3
+        '
+        Me.TextBox3.BackColor = System.Drawing.SystemColors.Desktop
+        Me.TextBox3.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox3.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox3.ForeColor = System.Drawing.Color.OrangeRed
+        Me.TextBox3.Location = New System.Drawing.Point(307, 217)
+        Me.TextBox3.Name = "TextBox3"
+        Me.TextBox3.Size = New System.Drawing.Size(65, 17)
+        Me.TextBox3.TabIndex = 64
+        Me.TextBox3.Text = "LOT"
+        Me.TextBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'txtQuadrant
+        '
+        Me.txtQuadrant.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtQuadrant.Location = New System.Drawing.Point(290, 215)
+        Me.txtQuadrant.Name = "txtQuadrant"
+        Me.txtQuadrant.Size = New System.Drawing.Size(47, 24)
+        Me.txtQuadrant.TabIndex = 66
+        Me.txtQuadrant.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'PictureBox1
+        '
+        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
+        Me.PictureBox1.InitialImage = CType(resources.GetObject("PictureBox1.InitialImage"), System.Drawing.Image)
+        Me.PictureBox1.Location = New System.Drawing.Point(0, 22)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(1375, 54)
+        Me.PictureBox1.TabIndex = 50
+        Me.PictureBox1.TabStop = False
         '
         'frmAUTOTEST
         '
@@ -1941,6 +2013,12 @@ Partial Class frmAUTOTEST
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.ClientSize = New System.Drawing.Size(1368, 668)
+        Me.Controls.Add(Me.txtQuadrant)
+        Me.Controls.Add(Me.txtLOT)
+        Me.Controls.Add(Me.TextBox3)
+        Me.Controls.Add(Me.TextBox4)
+        Me.Controls.Add(Me.txtPanel)
+        Me.Controls.Add(Me.TextBox2)
         Me.Controls.Add(Me.Panel3)
         Me.Controls.Add(Me.txtArtwork)
         Me.Controls.Add(Me.lblArtwork)
@@ -2007,8 +2085,8 @@ Partial Class frmAUTOTEST
         Me.MenuStrip3.PerformLayout()
         Me.ReTestFrame.ResumeLayout(False)
         Me.GroupBox2.ResumeLayout(False)
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.Panel3.ResumeLayout(False)
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -2163,5 +2241,11 @@ Partial Class frmAUTOTEST
     Friend WithEvents UpdateToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents Label17 As System.Windows.Forms.Label
     Friend WithEvents ManualTuningToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents txtPanel As System.Windows.Forms.TextBox
+    Friend WithEvents TextBox2 As System.Windows.Forms.TextBox
+    Friend WithEvents TextBox4 As System.Windows.Forms.TextBox
+    Friend WithEvents txtLOT As System.Windows.Forms.TextBox
+    Friend WithEvents TextBox3 As System.Windows.Forms.TextBox
+    Friend WithEvents txtQuadrant As System.Windows.Forms.TextBox
 
 End Class

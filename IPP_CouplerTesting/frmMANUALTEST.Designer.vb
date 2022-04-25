@@ -96,8 +96,6 @@ Partial Class frmMANUALTEST
         Me.Label10 = New System.Windows.Forms.Label()
         Me.SaveStats = New System.Windows.Forms.Button()
         Me.GetTrace = New System.Windows.Forms.CheckBox()
-        Me.txtArtwork = New System.Windows.Forms.TextBox()
-        Me.lblArtwork = New System.Windows.Forms.TextBox()
         Me.cmbVNA = New System.Windows.Forms.ComboBox()
         Me.Before = New System.Windows.Forms.Button()
         Me.After = New System.Windows.Forms.Button()
@@ -128,6 +126,15 @@ Partial Class frmMANUALTEST
         Me.txtItem3 = New System.Windows.Forms.TextBox()
         Me.txtDesc3 = New System.Windows.Forms.TextBox()
         Me.Label20 = New System.Windows.Forms.Label()
+        Me.btSpecs = New System.Windows.Forms.Button()
+        Me.TextBox4 = New System.Windows.Forms.TextBox()
+        Me.txtPanel = New System.Windows.Forms.TextBox()
+        Me.TextBox2 = New System.Windows.Forms.TextBox()
+        Me.txtArtwork = New System.Windows.Forms.TextBox()
+        Me.lblArtwork = New System.Windows.Forms.TextBox()
+        Me.txtLOT = New System.Windows.Forms.TextBox()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
+        Me.txtQuadrant = New System.Windows.Forms.TextBox()
         Me.UUTMessage.SuspendLayout()
         Me.UUTStatusColor.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -1031,34 +1038,12 @@ Partial Class frmMANUALTEST
         Me.GetTrace.CheckState = System.Windows.Forms.CheckState.Checked
         Me.GetTrace.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.GetTrace.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.GetTrace.Location = New System.Drawing.Point(25, 223)
+        Me.GetTrace.Location = New System.Drawing.Point(28, 184)
         Me.GetTrace.Name = "GetTrace"
         Me.GetTrace.Size = New System.Drawing.Size(140, 20)
         Me.GetTrace.TabIndex = 86
         Me.GetTrace.Text = "Trace test mode"
         Me.GetTrace.UseVisualStyleBackColor = True
-        '
-        'txtArtwork
-        '
-        Me.txtArtwork.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtArtwork.Location = New System.Drawing.Point(265, 220)
-        Me.txtArtwork.Name = "txtArtwork"
-        Me.txtArtwork.Size = New System.Drawing.Size(66, 24)
-        Me.txtArtwork.TabIndex = 88
-        Me.txtArtwork.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'lblArtwork
-        '
-        Me.lblArtwork.BackColor = System.Drawing.SystemColors.Desktop
-        Me.lblArtwork.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.lblArtwork.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblArtwork.ForeColor = System.Drawing.Color.OrangeRed
-        Me.lblArtwork.Location = New System.Drawing.Point(171, 223)
-        Me.lblArtwork.Name = "lblArtwork"
-        Me.lblArtwork.Size = New System.Drawing.Size(88, 17)
-        Me.lblArtwork.TabIndex = 87
-        Me.lblArtwork.Text = "Artwork Rev:"
-        Me.lblArtwork.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'cmbVNA
         '
@@ -1161,7 +1146,7 @@ Partial Class frmMANUALTEST
         'AvgS
         '
         Me.AvgS.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.AvgS.Location = New System.Drawing.Point(346, 220)
+        Me.AvgS.Location = New System.Drawing.Point(475, 222)
         Me.AvgS.Name = "AvgS"
         Me.AvgS.Size = New System.Drawing.Size(37, 24)
         Me.AvgS.TabIndex = 99
@@ -1173,7 +1158,7 @@ Partial Class frmMANUALTEST
         Me.ExtraAverage.AutoSize = True
         Me.ExtraAverage.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ExtraAverage.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.ExtraAverage.Location = New System.Drawing.Point(389, 224)
+        Me.ExtraAverage.Location = New System.Drawing.Point(515, 226)
         Me.ExtraAverage.Name = "ExtraAverage"
         Me.ExtraAverage.Size = New System.Drawing.Size(137, 20)
         Me.ExtraAverage.TabIndex = 98
@@ -1185,9 +1170,9 @@ Partial Class frmMANUALTEST
         Me.btSwitch1.BackColor = System.Drawing.Color.Gold
         Me.btSwitch1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btSwitch1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.btSwitch1.Location = New System.Drawing.Point(629, 70)
+        Me.btSwitch1.Location = New System.Drawing.Point(628, 77)
         Me.btSwitch1.Name = "btSwitch1"
-        Me.btSwitch1.Size = New System.Drawing.Size(129, 41)
+        Me.btSwitch1.Size = New System.Drawing.Size(143, 36)
         Me.btSwitch1.TabIndex = 100
         Me.btSwitch1.Text = "Switch 1"
         Me.btSwitch1.UseVisualStyleBackColor = False
@@ -1198,9 +1183,9 @@ Partial Class frmMANUALTEST
         Me.btSwitch2.BackColor = System.Drawing.Color.Gold
         Me.btSwitch2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btSwitch2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.btSwitch2.Location = New System.Drawing.Point(629, 101)
+        Me.btSwitch2.Location = New System.Drawing.Point(628, 117)
         Me.btSwitch2.Name = "btSwitch2"
-        Me.btSwitch2.Size = New System.Drawing.Size(129, 33)
+        Me.btSwitch2.Size = New System.Drawing.Size(143, 33)
         Me.btSwitch2.TabIndex = 101
         Me.btSwitch2.Text = "Switch 2"
         Me.btSwitch2.UseVisualStyleBackColor = False
@@ -1211,9 +1196,9 @@ Partial Class frmMANUALTEST
         Me.btSwitch3.BackColor = System.Drawing.Color.Gold
         Me.btSwitch3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btSwitch3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.btSwitch3.Location = New System.Drawing.Point(629, 131)
+        Me.btSwitch3.Location = New System.Drawing.Point(628, 155)
         Me.btSwitch3.Name = "btSwitch3"
-        Me.btSwitch3.Size = New System.Drawing.Size(129, 32)
+        Me.btSwitch3.Size = New System.Drawing.Size(143, 32)
         Me.btSwitch3.TabIndex = 102
         Me.btSwitch3.Text = "Switch 3"
         Me.btSwitch3.UseVisualStyleBackColor = False
@@ -1224,9 +1209,9 @@ Partial Class frmMANUALTEST
         Me.btSwitch4.BackColor = System.Drawing.Color.Gold
         Me.btSwitch4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btSwitch4.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.btSwitch4.Location = New System.Drawing.Point(629, 160)
+        Me.btSwitch4.Location = New System.Drawing.Point(628, 191)
         Me.btSwitch4.Name = "btSwitch4"
-        Me.btSwitch4.Size = New System.Drawing.Size(129, 33)
+        Me.btSwitch4.Size = New System.Drawing.Size(143, 36)
         Me.btSwitch4.TabIndex = 103
         Me.btSwitch4.Text = "Switch 4"
         Me.btSwitch4.UseVisualStyleBackColor = False
@@ -1237,9 +1222,9 @@ Partial Class frmMANUALTEST
         Me.btSwitch5.BackColor = System.Drawing.Color.Gold
         Me.btSwitch5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btSwitch5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.btSwitch5.Location = New System.Drawing.Point(629, 190)
+        Me.btSwitch5.Location = New System.Drawing.Point(795, 156)
         Me.btSwitch5.Name = "btSwitch5"
-        Me.btSwitch5.Size = New System.Drawing.Size(129, 33)
+        Me.btSwitch5.Size = New System.Drawing.Size(136, 33)
         Me.btSwitch5.TabIndex = 104
         Me.btSwitch5.Text = "Switch 5"
         Me.btSwitch5.UseVisualStyleBackColor = False
@@ -1250,9 +1235,9 @@ Partial Class frmMANUALTEST
         Me.btSwitch6.BackColor = System.Drawing.Color.Gold
         Me.btSwitch6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.btSwitch6.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.btSwitch6.Location = New System.Drawing.Point(629, 220)
+        Me.btSwitch6.Location = New System.Drawing.Point(795, 193)
         Me.btSwitch6.Name = "btSwitch6"
-        Me.btSwitch6.Size = New System.Drawing.Size(129, 23)
+        Me.btSwitch6.Size = New System.Drawing.Size(136, 34)
         Me.btSwitch6.TabIndex = 105
         Me.btSwitch6.Text = "Switch 6"
         Me.btSwitch6.UseVisualStyleBackColor = False
@@ -1406,12 +1391,121 @@ Partial Class frmMANUALTEST
         Me.Label20.TabIndex = 121
         Me.Label20.Text = "Tuning Notes"
         '
+        'btSpecs
+        '
+        Me.btSpecs.BackColor = System.Drawing.SystemColors.ActiveCaption
+        Me.btSpecs.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btSpecs.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.btSpecs.Location = New System.Drawing.Point(415, 77)
+        Me.btSpecs.Name = "btSpecs"
+        Me.btSpecs.Size = New System.Drawing.Size(97, 34)
+        Me.btSpecs.TabIndex = 122
+        Me.btSpecs.Text = "New Job"
+        Me.btSpecs.UseVisualStyleBackColor = False
+        '
+        'TextBox4
+        '
+        Me.TextBox4.BackColor = System.Drawing.SystemColors.Desktop
+        Me.TextBox4.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox4.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox4.ForeColor = System.Drawing.Color.OrangeRed
+        Me.TextBox4.Location = New System.Drawing.Point(222, 227)
+        Me.TextBox4.Name = "TextBox4"
+        Me.TextBox4.Size = New System.Drawing.Size(65, 17)
+        Me.TextBox4.TabIndex = 127
+        Me.TextBox4.Text = "Quadrant"
+        Me.TextBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'txtPanel
+        '
+        Me.txtPanel.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtPanel.Location = New System.Drawing.Point(169, 223)
+        Me.txtPanel.Name = "txtPanel"
+        Me.txtPanel.Size = New System.Drawing.Size(47, 24)
+        Me.txtPanel.TabIndex = 126
+        Me.txtPanel.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'TextBox2
+        '
+        Me.TextBox2.BackColor = System.Drawing.SystemColors.Desktop
+        Me.TextBox2.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox2.ForeColor = System.Drawing.Color.OrangeRed
+        Me.TextBox2.Location = New System.Drawing.Point(123, 226)
+        Me.TextBox2.Name = "TextBox2"
+        Me.TextBox2.Size = New System.Drawing.Size(40, 17)
+        Me.TextBox2.TabIndex = 125
+        Me.TextBox2.Text = "Panel"
+        Me.TextBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'txtArtwork
+        '
+        Me.txtArtwork.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtArtwork.Location = New System.Drawing.Point(70, 223)
+        Me.txtArtwork.Name = "txtArtwork"
+        Me.txtArtwork.Size = New System.Drawing.Size(47, 24)
+        Me.txtArtwork.TabIndex = 124
+        Me.txtArtwork.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'lblArtwork
+        '
+        Me.lblArtwork.BackColor = System.Drawing.SystemColors.Desktop
+        Me.lblArtwork.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.lblArtwork.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblArtwork.ForeColor = System.Drawing.Color.OrangeRed
+        Me.lblArtwork.Location = New System.Drawing.Point(4, 225)
+        Me.lblArtwork.Name = "lblArtwork"
+        Me.lblArtwork.Size = New System.Drawing.Size(60, 17)
+        Me.lblArtwork.TabIndex = 123
+        Me.lblArtwork.Text = "Artwork"
+        Me.lblArtwork.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'txtLOT
+        '
+        Me.txtLOT.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtLOT.Location = New System.Drawing.Point(381, 222)
+        Me.txtLOT.Name = "txtLOT"
+        Me.txtLOT.Size = New System.Drawing.Size(88, 24)
+        Me.txtLOT.TabIndex = 129
+        Me.txtLOT.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'TextBox1
+        '
+        Me.TextBox1.BackColor = System.Drawing.SystemColors.Desktop
+        Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox1.ForeColor = System.Drawing.Color.OrangeRed
+        Me.TextBox1.Location = New System.Drawing.Point(334, 226)
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.Size = New System.Drawing.Size(40, 17)
+        Me.TextBox1.TabIndex = 131
+        Me.TextBox1.Text = "LOT"
+        Me.TextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
+        '
+        'txtQuadrant
+        '
+        Me.txtQuadrant.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtQuadrant.Location = New System.Drawing.Point(293, 224)
+        Me.txtQuadrant.Name = "txtQuadrant"
+        Me.txtQuadrant.Size = New System.Drawing.Size(47, 24)
+        Me.txtQuadrant.TabIndex = 132
+        Me.txtQuadrant.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
         'frmMANUALTEST
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlText
         Me.ClientSize = New System.Drawing.Size(1187, 576)
+        Me.Controls.Add(Me.txtQuadrant)
+        Me.Controls.Add(Me.TextBox1)
+        Me.Controls.Add(Me.txtLOT)
+        Me.Controls.Add(Me.TextBox4)
+        Me.Controls.Add(Me.txtPanel)
+        Me.Controls.Add(Me.TextBox2)
+        Me.Controls.Add(Me.txtArtwork)
+        Me.Controls.Add(Me.lblArtwork)
+        Me.Controls.Add(Me.btSpecs)
         Me.Controls.Add(Me.Label20)
         Me.Controls.Add(Me.txtPart3)
         Me.Controls.Add(Me.txtItem3)
@@ -1442,8 +1536,6 @@ Partial Class frmMANUALTEST
         Me.Controls.Add(Me.After)
         Me.Controls.Add(Me.Before)
         Me.Controls.Add(Me.cmbVNA)
-        Me.Controls.Add(Me.txtArtwork)
-        Me.Controls.Add(Me.lblArtwork)
         Me.Controls.Add(Me.GetTrace)
         Me.Controls.Add(Me.SaveStats)
         Me.Controls.Add(Me.Label10)
@@ -1554,8 +1646,6 @@ Partial Class frmMANUALTEST
     Friend WithEvents Label10 As System.Windows.Forms.Label
     Friend WithEvents SaveStats As System.Windows.Forms.Button
     Friend WithEvents GetTrace As System.Windows.Forms.CheckBox
-    Friend WithEvents txtArtwork As System.Windows.Forms.TextBox
-    Friend WithEvents lblArtwork As System.Windows.Forms.TextBox
     Friend WithEvents cmbVNA As System.Windows.Forms.ComboBox
     Friend WithEvents Before As System.Windows.Forms.Button
     Friend WithEvents After As System.Windows.Forms.Button
@@ -1586,4 +1676,13 @@ Partial Class frmMANUALTEST
     Friend WithEvents txtItem3 As System.Windows.Forms.TextBox
     Friend WithEvents txtDesc3 As System.Windows.Forms.TextBox
     Friend WithEvents Label20 As System.Windows.Forms.Label
+    Friend WithEvents btSpecs As System.Windows.Forms.Button
+    Friend WithEvents TextBox4 As System.Windows.Forms.TextBox
+    Friend WithEvents txtPanel As System.Windows.Forms.TextBox
+    Friend WithEvents TextBox2 As System.Windows.Forms.TextBox
+    Friend WithEvents txtArtwork As System.Windows.Forms.TextBox
+    Friend WithEvents lblArtwork As System.Windows.Forms.TextBox
+    Friend WithEvents txtLOT As System.Windows.Forms.TextBox
+    Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
+    Friend WithEvents txtQuadrant As System.Windows.Forms.TextBox
 End Class

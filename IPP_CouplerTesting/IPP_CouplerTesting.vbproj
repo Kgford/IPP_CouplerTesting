@@ -26,7 +26,7 @@
     <UpdateUrl>\\ippdc\Test Automation\ATE_Publish\</UpdateUrl>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>136</ApplicationRevision>
+    <ApplicationRevision>146</ApplicationRevision>
     <ApplicationVersion>4.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -66,10 +66,10 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>6EE7383DBA313427B27AD8E79976883E1CF43719</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>26045F00E7038D729A9A60915E011B9863590386</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>IPP_CouplerTesting_15_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>IPP_CouplerTesting_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -156,6 +156,12 @@
       <DependentUpon>AddArtWorkRevision.vb</DependentUpon>
     </Compile>
     <Compile Include="AddArtWorkRevision.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MYMsg.Designer.vb">
+      <DependentUpon>MYMsg.vb</DependentUpon>
+    </Compile>
+    <Compile Include="MYMsg.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmMANUALTEST.Designer.vb">
@@ -285,6 +291,9 @@
     <EmbeddedResource Include="AddArtWorkRevision.resx">
       <DependentUpon>AddArtWorkRevision.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MYMsg.resx">
+      <DependentUpon>MYMsg.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmMANUALTEST.resx">
       <DependentUpon>frmMANUALTEST.vb</DependentUpon>
     </EmbeddedResource>
@@ -348,6 +357,7 @@
     <None Include="IPP_CouplerTesting_13_TemporaryKey.pfx" />
     <None Include="IPP_CouplerTesting_14_TemporaryKey.pfx" />
     <None Include="IPP_CouplerTesting_15_TemporaryKey.pfx" />
+    <None Include="IPP_CouplerTesting_TemporaryKey.pfx" />
     <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>

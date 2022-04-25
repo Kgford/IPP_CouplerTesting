@@ -12,7 +12,7 @@ Module ScanGPIB
             'myVNA.WriteLine("SWE:POIN 601")
 
         Catch ex As Exception
-            MsgBox("VNA Error: " + ex.Message)
+            MYMsgBox("VNA Error: " + ex.Message)
             Return False
         End Try
         Return True
@@ -22,7 +22,7 @@ Module ScanGPIB
         Try
             myVNA.WriteLine(cmdStr)
         Catch ex As Exception
-            'MsgBox("VNA Error: " + ex.Message)
+            'MYMsgBox("VNA Error: " + ex.Message)
             Return False
         End Try
         Return True
@@ -32,7 +32,7 @@ Module ScanGPIB
         Try
             BusRead = myVNA.Read()
         Catch ex As Exception
-            'MsgBox("VNA Error: " + ex.Message)
+            'MYMsgBox("VNA Error: " + ex.Message)
             BusRead = "Error"
         End Try
     End Function
@@ -46,7 +46,7 @@ Module ScanGPIB
             System.Threading.Thread.Sleep(50)
             DeviceQuery = BusRead()
         Catch ex As Exception
-            MsgBox("VNA Error: " + ex.Message)
+            MYMsgBox("VNA Error: " + ex.Message)
             DeviceQuery = "Error"
         End Try
 
@@ -64,7 +64,7 @@ Module ScanGPIB
             MarkerQuery = valArray(0)
 
         Catch ex As Exception
-            MsgBox("VNA Error: " + ex.Message)
+            MYMsgBox("VNA Error: " + ex.Message)
             MarkerQuery = "Error"
         End Try
 
@@ -85,7 +85,7 @@ Module ScanGPIB
         GetStartFreq = CDbl(cmdStr)
         Exit Function
 Trap:
-        'MsgBox "GPIB Communication lost. Please restart and resume", , "GPIB Failure Get Start Freq"
+        'MYMsgBox "GPIB Communication lost. Please restart and resume", , "GPIB Failure Get Start Freq"
         '
     End Function
 
@@ -105,7 +105,7 @@ Trap:
         GetStopFreq = CDbl(cmdStr)
         Exit Function
 Trap:
-        'MsgBox "GPIB Communication lost. Please restart and resume", , " Get Stop Freq"
+        'MYMsgBox "GPIB Communication lost. Please restart and resume", , " Get Stop Freq"
         'End
     End Function
 
@@ -122,7 +122,7 @@ Trap:
         Exit Function
 Trap:
         GetNumPoints = 201
-        'MsgBox "GPIB Communication lost. Please restart and resume", , "GPIB Failure  Get Points"
+        'MYMsgBox "GPIB Communication lost. Please restart and resume", , "GPIB Failure  Get Points"
         'End
     End Function
 
@@ -146,7 +146,7 @@ Trap:
         If GetModel = "" Then GetModel = VNAStr ' Fail safe
         Exit Function
 Trap:
-        'MsgBox "GPIB Communication lost. Please restart and resume", , "GPIB Failure  Get Points"
+        'MYMsgBox "GPIB Communication lost. Please restart and resume", , "GPIB Failure  Get Points"
         'End
     End Function
 

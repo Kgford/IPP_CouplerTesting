@@ -46,7 +46,7 @@
         If txtPassword.Text = SupervisorPassword Then
             Me.Close()
         Else
-            MsgBox("Enter the Supervisor Password", MsgBoxStyle.Critical, "Password Required")
+            MYMsgBox("Enter the Supervisor Password", MsgBoxStyle.Critical, "Password Required")
         End If
     End Sub
 
@@ -67,7 +67,7 @@
             End If
             Me.Close()
         Else
-            MsgBox("Enter the Supervisor Password", MsgBoxStyle.Critical, "Password Required")
+            MYMsgBox("Enter the Supervisor Password", MsgBoxStyle.Critical, "Password Required")
         End If
     End Sub
 
@@ -82,7 +82,7 @@
             End If
             Me.Close()
         Else
-            MsgBox("Enter the Supervisor Password", MsgBoxStyle.Critical, "Password Required")
+            MYMsgBox("Enter the Supervisor Password", MsgBoxStyle.Critical, "Password Required")
         End If
     End Sub
 End Class

@@ -5,7 +5,7 @@
             Master_bypass = True
             Percent_bypass = True
         Else
-            MsgBox("Enter the Supervisor Password", MsgBoxStyle.Critical, "Password Required")
+            MYMsgBox("Enter the Supervisor Password", MsgBoxStyle.Critical, "Password Required")
             Master_bypass = False
             Percent_bypass = False
         End If

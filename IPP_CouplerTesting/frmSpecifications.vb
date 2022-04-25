@@ -1677,26 +1677,39 @@ Public Class frmSpecifications
                 End While
                 atsLocal.Close()
             End If
-            frmAUTOTEST.cmbJob.Text = Job
-            frmAUTOTEST.cmbPart.Text = Part
-            frmAUTOTEST.txtStartFreq.Text = SpecStartFreq
-            frmAUTOTEST.txtStopFreq.Text = SpecStopFreq
+            
 
 
             Me.Hide()
-            frmAUTOTEST.Show()
+            If ActivePage = "Full Auto" Then
+                frmAUTOTEST.Show()
+                frmAUTOTEST.cmbJob.Text = Job
+                frmAUTOTEST.cmbPart.Text = Part
+                frmAUTOTEST.txtStartFreq.Text = SpecStartFreq
+                frmAUTOTEST.txtStopFreq.Text = SpecStopFreq
+            Else
+                frmMANUALTEST.Show()
+                frmMANUALTEST.cmbJob.Text = Job
+                frmMANUALTEST.cmbPart.Text = Part
+                frmMANUALTEST.txtStartFreq.Text = SpecStartFreq
+                frmMANUALTEST.txtStopFreq.Text = SpecStopFreq
+            End If
             Exit Sub
 StupidUser:
-            MsgBox("Please fill out all required fields")
+            MYMsgBox("Please fill out all required fields")
             Exit Sub
 NoRatio:
-            MsgBox("Ratio is already included in VSWR Spec. Please remove the :")
+            MYMsgBox("Ratio is already included in VSWR Spec. Please remove the :")
 NotNumber:
-            MsgBox("Please recheck out all required fields. You must have all Numerials and no Characters")
+            MYMsgBox("Please recheck out all required fields. You must have all Numerials and no Characters")
             Exit Sub
         Catch ex As Exception
             Me.Hide()
-            frmAUTOTEST.Show()
+            If ActivePage = "Full Auto" Then
+                frmAUTOTEST.Show()
+            Else
+                frmMANUALTEST.Show()
+            End If
         End Try
     End Sub
 
@@ -1772,7 +1785,7 @@ NotNumber:
     Private Sub txtFail_TextChanged(sender As Object, e As EventArgs) Handles txtFail.TextChanged
         Dim failTemp = txtFail.Text
         If Not IsNumeric(txtFail.Text) Then
-            MsgBox("Enter Numbers only", , "No Characters")
+            MYMsgBox("Enter Numbers only", , "No Characters")
             txtFail.Text = GetFailPercent()
             Me.Close()
         End If

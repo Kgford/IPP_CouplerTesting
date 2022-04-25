@@ -55,7 +55,7 @@ Partial Class OperatorEntry
         '
         'Label1
         '
-        Me.Label1.BackColor = System.Drawing.Color.Maroon
+        Me.Label1.BackColor = System.Drawing.Color.Black
         Me.Label1.Font = New System.Drawing.Font("Arial Black", 26.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
         Me.Label1.Location = New System.Drawing.Point(71, 78)
@@ -67,7 +67,7 @@ Partial Class OperatorEntry
         'lblOperator
         '
         Me.lblOperator.AutoSize = True
-        Me.lblOperator.BackColor = System.Drawing.Color.Maroon
+        Me.lblOperator.BackColor = System.Drawing.Color.Black
         Me.lblOperator.Font = New System.Drawing.Font("Arial Narrow", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblOperator.ForeColor = System.Drawing.Color.White
         Me.lblOperator.Location = New System.Drawing.Point(199, 130)
@@ -80,7 +80,7 @@ Partial Class OperatorEntry
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.BackColor = System.Drawing.Color.Maroon
+        Me.Label3.BackColor = System.Drawing.Color.Black
         Me.Label3.Font = New System.Drawing.Font("Arial Narrow", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.ForeColor = System.Drawing.Color.White
         Me.Label3.Location = New System.Drawing.Point(3, 130)
@@ -125,8 +125,8 @@ Partial Class OperatorEntry
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.Maroon
-        Me.ClientSize = New System.Drawing.Size(443, 238)
+        Me.BackColor = System.Drawing.Color.Black
+        Me.ClientSize = New System.Drawing.Size(439, 234)
         Me.ControlBox = False
         Me.Controls.Add(Me.DeleteOperator)
         Me.Controls.Add(Me.btOK)

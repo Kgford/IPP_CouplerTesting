@@ -17,7 +17,7 @@ Public Class OperatorEntry
             End If
             Me.cmbOperator.Items.Clear()
             Me.cmbOperator.Items.Add("New Operator")
-            SQLStr = "SELECT DISTINCT Operator from Effeciency where Operator is not null and  Operator <> ''"
+            SQLStr = "SELECT DISTINCT Operator from Effeciency where Operator is not null and  Operator <> ''  ORDER BY Operator"
             If SQLAccess Then
                 Dim ats As SqlConnection = New SqlConnection(SQLConnStr)
                 Dim cmd As SqlCommand = New SqlCommand(SQLStr, ats)
@@ -76,11 +76,11 @@ Public Class OperatorEntry
 
     Private Sub DeleteOperator_Click(sender As Object, e As EventArgs) Handles DeleteOperator.Click
         If txtOperator.Text = "" Then
-            MsgBox("Please Choose Operator to Delete", , "No Operator choosen!")
+            MYMsgBox("Please Choose Operator to Delete", , "No Operator choosen!")
             Me.Close()
             Exit Sub
         End If
-        If MsgBox("Are you sure you want to erase" & txtOperator.Text & "From the records", vbYesNo, "Are you sure??") = vbNo Then
+        If MYMsgBox("Are you sure you want to erase" & txtOperator.Text & "From the records", vbYesNo, "Are you sure??") = vbNo Then
             Me.Close()
             Exit Sub
         End If

@@ -107,7 +107,7 @@ Module SQL
         Dim Count As Integer = 0
         Try
             If Job = "" Or Job = Nothing Then
-                MsgBox("Please select a Job")
+                MYMsgBox("Please select a Job")
                 GetSpecification = "N/A"
             End If
             GetSpecification = 0.0
@@ -544,18 +544,17 @@ SkipDataBase:
         Try
             SQLStr = "SELECT * from TestData where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork_rev = '" & ArtworkRevision & "'"
             If SQL.CheckforRow(SQLStr, "NetworkData") = 0 Then
-                SQLStr = "Insert Into TestData (JobNumber, PartNumber,SerialNumber,WorkStation,artwork_rev) values ('" & Job & "','" & Part & "','" & SerialNumber & "','" & GetComputerName() & "','" & ArtworkRevision & "')"
+                SQLStr = "Insert Into TestData (JobNumber, PartNumber,SerialNumber,WorkStation,artwork_rev,artwork,Panel,Quadrant,LOT) values ('" & Job & "','" & Part & "','" & SerialNumber & "','" & GetComputerName() & "','" & ArtworkRevision & "','" & Artwork & "','" & Panel & "','" & Quadrant & "','" & LOT & "')"
                 SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
             End If
 
-            SQLStr = "UPDATE TestData Set " & Test & " = '" & Value & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork_rev = '" & ArtworkRevision & "'"
+            SQLStr = "UPDATE TestData Set " & Test & " = '" & Value & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Quadrant = '" & Quadrant & "' and artwork_rev = '" & ArtworkRevision & "'"
             SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
 
-            SQLStr = "UPDATE TestData Set artwork_rev  = '" & ArtworkRevision & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork_rev = '" & ArtworkRevision & "'"
+            SQLStr = "UPDATE TestData Set artwork_rev  = '" & ArtworkRevision & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Quadrant = '" & Quadrant & "' and artwork_rev = '" & ArtworkRevision & "'"
             SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
 
-            SQLStr = "UPDATE TestData Set Operator  = '" & User & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork_rev = '" & ArtworkRevision & "'"
-            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+            SQLStr = "UPDATE TestData Set Operator  = '" & User & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork_rev = '" & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Quadrant = '" & Quadrant & "' and artwork_rev = '" & ArtworkRevision & "'"
 
             frmAUTOTEST.SaveStatus(this_test)
 
@@ -570,7 +569,7 @@ SkipDataBase:
         Try
             SQLStr = "SELECT * from TuningLog where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "'"
             If SQL.CheckforRow(SQLStr, "NetworkData") = 0 Then
-                SQLStr = "Insert Into TuningLog (JobNumber, PartNumber,SerialNumber,WorkStation,artwork_rev) values ('" & Job & "','" & Part & "','" & SerialNumber & "','" & GetComputerName() & "','" & ArtworkRevision & "')"
+                SQLStr = "Insert Into TuningLog (JobNumber, PartNumber,SerialNumber,WorkStation,Artwork,Panel,Quadrant,LOT) values ('" & Job & "','" & Part & "','" & SerialNumber & "','" & GetComputerName() & "','" & Artwork & "','" & Panel & "','" & Quadrant & "','" & LOT & "')"
                 SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
             End If
 
@@ -624,7 +623,7 @@ SkipDataBase:
 
         End Try
     End Sub
-    
+
     Public Function GeUUTCount() As Integer
         Try
             Dim CountRow As Integer = 0
@@ -661,7 +660,7 @@ SkipDataBase:
         End Try
     End Function
 
-    
+
 
     Public Sub CleanUpEffeciency()
 
@@ -1042,7 +1041,7 @@ IGNORE2:
             Return 0
         End Try
     End Function
-    
+
     Public Function GetTraceID(SQLstr As String, Table As String) As Integer
         Try
             Dim CountRow As Integer = 0
@@ -1191,7 +1190,7 @@ IGNORE2:
             End If
             '*******************************************************************************
         Catch ex As Exception
-            MsgBox("Critical Error during GetTraceID! " & ex.Message, MsgBoxStyle.Critical, "Error")
+            MYMsgBox("Critical Error during GetTraceID! " & ex.Message, MsgBoxStyle.Critical, "Error")
             GetTraceID = 0
         End Try
 
@@ -1239,6 +1238,14 @@ IGNORE2:
                 cmd.CommandText = "UPDATE Trace SET  SpecID = '" & SpecID & "'" & Expression
                 cmd.ExecuteNonQuery()
                 cmd.CommandText = "UPDATE Trace SET  artwork_rev = '" & ArtworkRevision & "'" & Expression
+                cmd.ExecuteNonQuery()
+                cmd.CommandText = "UPDATE Trace SET  artwork = '" & Artwork & "'" & Expression
+                cmd.ExecuteNonQuery()
+                cmd.CommandText = "UPDATE Trace SET  Panel = '" & Panel & "'" & Expression
+                cmd.ExecuteNonQuery()
+                cmd.CommandText = "UPDATE Trace SET  Quadrant = '" & Quadrant & "'" & Expression
+                cmd.ExecuteNonQuery()
+                cmd.CommandText = "UPDATE Trace SET  LOT = '" & LOT & "'" & Expression
                 cmd.ExecuteNonQuery()
                 cmd.CommandText = "UPDATE Trace SET  Operator = '" & User & "'" & Expression
                 cmd.ExecuteNonQuery()
@@ -1299,6 +1306,14 @@ IGNORE2:
                 cmd.CommandText = "UPDATE Trace SET  SpecID = " & SpecID & "" & Expression
                 cmd.ExecuteNonQuery()
                 cmd.CommandText = "UPDATE Trace SET  artwork_rev = '" & ArtworkRevision & "'" & Expression
+                cmd.ExecuteNonQuery()
+                cmd.CommandText = "UPDATE Trace SET  artwork = '" & Artwork & "'" & Expression
+                cmd.ExecuteNonQuery()
+                cmd.CommandText = "UPDATE Trace SET  Panel = '" & Panel & "'" & Expression
+                cmd.ExecuteNonQuery()
+                cmd.CommandText = "UPDATE Trace SET  Quadrant = '" & Quadrant & "'" & Expression
+                cmd.ExecuteNonQuery()
+                cmd.CommandText = "UPDATE Trace SET  LOT = '" & LOT & "'" & Expression
                 cmd.ExecuteNonQuery()
                 cmd.CommandText = "UPDATE Trace SET  Operator = '" & User & "'" & Expression
                 cmd.ExecuteNonQuery()

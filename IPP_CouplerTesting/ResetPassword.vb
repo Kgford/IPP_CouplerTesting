@@ -69,7 +69,7 @@ SendOut:
         Dim ActivePassword As String
         If txtPassword.Text = SupervisorPassword Then
             If lblMatch.Text = False Then
-                MsgBox("Passwords must Match. Please redo", , "Re-enter Passwords")
+                MYMsgBox("Passwords must Match. Please redo", , "Re-enter Passwords")
                 txtResponse.Text = "Passwords must Match. Please redo"
                 txtPassword.Text = ""
                 txtNewPassword1.Text = ""
@@ -78,7 +78,7 @@ SendOut:
                 Exit Sub
             End If
             If Not lblStrong.Text.ToUpper.Contains("STRONG") Then
-                MsgBox("Password is not strong. Please redo", , "Re-enter Passwords")
+                MYMsgBox("Password is not strong. Please redo", , "Re-enter Passwords")
                 txtResponse.Text = "Password is not strong. Please redo"
                 txtPassword.Text = ""
                 txtPassword.Text = ""
@@ -106,7 +106,7 @@ SendOut:
             txtNewPassword1.Text = ""
             txtNewPassword2.Text = ""
             txtResponse.Text = "Enter the Supervisor Passwod"
-            MsgBox("Enter the Supervisor Passwor", MsgBoxStyle.Critical, "Password Required")
+            MYMsgBox("Enter the Supervisor Passwor", MsgBoxStyle.Critical, "Password Required")
             txtResponse.Text = ""
             Me.Refresh()
         End If

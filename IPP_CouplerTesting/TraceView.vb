@@ -1155,7 +1155,7 @@ GotIt:
             End If
 
             If TraceID1 = -1 Then
-                MsgBox("No trace available")
+                MYMsgBox("No trace available")
                 Exit Sub
             End If
 
@@ -1202,7 +1202,7 @@ GotIt:
             ExcelReports.SaveAs(SubFolder & "TestData " & "TraceData.xls")
 
         Catch
-            MsgBox("An Error has Occured In The Trace Data Report" & vbCr & "Report This Error To AutomatedTestSolutions@Gmail.com" & vbCr & "Error Details :-" & vbCr & "Error Number : " & Err.Number & vbCr & "Error Description : " & Err.Description, vbCritical, "FlexGrid Example")
+            MYMsgBox("An Error has Occured In The Trace Data Report" & vbCr & "Report This Error To AutomatedTestSolutions@Gmail.com" & vbCr & "Error Details :-" & vbCr & "Error Number : " & Err.Number & vbCr & "Error Description : " & Err.Description, vbCritical, "FlexGrid Example")
         End Try
 
     End Sub

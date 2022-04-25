@@ -78,7 +78,7 @@
                 frmAUTOTEST.cmbSwitch.Text = "Switch POS 1"
                 System.Threading.Thread.Sleep(500)
             Else
-                MsgBox("Move RF Cables to Position 1", vbOKOnly, "Manual Switch")
+                MYMsgBox("Move RF Cables to Position 1", vbOKOnly, "Manual Switch")
             End If
             VNAStr = ScanGPIB.GetModel
             VNAStr = VNAStr
@@ -107,14 +107,14 @@
             POW = "10"
         ElseIf VNAStr = "HP_8753C" Then
             ScanGPIB.BusWrite("PRES;")
-            If MsgBox("Calibrate to 6GHZ ?", vbYesNo, "High Frequency") = vbYes Then
-                MsgBox("Turn Doubler on ", , "System - Freq Range 6GHz")
+            If MYMsgBox("Calibrate to 6GHZ ?", vbYesNo, "High Frequency") = vbYes Then
+                MYMsgBox("Turn Doubler on ", , "System - Freq Range 6GHz")
                 StartFreq = "3MHZ"
                 StopFreq = "6GHZ"
                 SetVNAFreq(6000)
                 POW = "20"
             Else
-                MsgBox("Set VNA to Low Frequency Mode")
+                MYMsgBox("Set VNA to Low Frequency Mode")
                 StartFreq = "30KHZ"
                 StopFreq = "3GHZ"
                 SetVNAFreq(3000)
@@ -211,7 +211,7 @@
             ScanGPIB.BusWrite("OPC?;POIN1601;")
         End If
         ExtraAvg(2)
-        If MsgBox("Perform Full (1P or 2P)Calibration on Switch Poistion 1 then Press OK when complete", vbOKCancel, "Position 1 Full Calibration") = vbCancel Then
+        If MYMsgBox("Perform Full (1P or 2P)Calibration on Switch Poistion 1 then Press OK when complete", vbOKCancel, "Position 1 Full Calibration") = vbCancel Then
             CalibrateVNA = False
             Exit Function
         End If
@@ -231,9 +231,9 @@
             frmAUTOTEST.cmbSwitch.Text = "POS 2"
             System.Threading.Thread.Sleep(500)
         Else
-            MsgBox("Move RF Cables to Position 2", vbOKOnly, "Manual Switch")
+            MYMsgBox("Move RF Cables to Position 2", vbOKOnly, "Manual Switch")
         End If
-        MsgBox("Calibrate Response Only on Switch Poistion 2 then Press OK when complete", vbOKOnly, "Position 2 Response Calibration Only")
+        MYMsgBox("Calibrate Response Only on Switch Poistion 2 then Press OK when complete", vbOKOnly, "Position 2 Response Calibration Only")
         If VNAStr = "AG_E5071B" Then
             ScanGPIB.BusWrite(":MMEM:STOR 'State02.sta'")
         ElseIf VNAStr = "N3383A" Then
@@ -249,9 +249,9 @@
             frmAUTOTEST.cmbSwitch.Text = "POS 3"
             System.Threading.Thread.Sleep(500)
         Else
-            MsgBox("Move RF Cables to Position 3", vbOKOnly, "Manual Switch")
+            MYMsgBox("Move RF Cables to Position 3", vbOKOnly, "Manual Switch")
         End If
-        MsgBox("Calibrate Response Only on Switch Poistion 3 then Press OK when complete", vbOKOnly, "Position 3 Response Calibration Only")
+        MYMsgBox("Calibrate Response Only on Switch Poistion 3 then Press OK when complete", vbOKOnly, "Position 3 Response Calibration Only")
         If VNAStr = "AG_E5071B" Then
             ScanGPIB.BusWrite(":MMEM:STOR 'State03.sta'")
         ElseIf VNAStr = "N3383A" Then
@@ -267,9 +267,9 @@
             frmAUTOTEST.cmbSwitch.Text = "POS 4"
             System.Threading.Thread.Sleep(500)
         Else
-            MsgBox("Move RF Cables to Position 4", vbOKOnly, "Manual Switch")
+            MYMsgBox("Move RF Cables to Position 4", vbOKOnly, "Manual Switch")
         End If
-        MsgBox("Calibrate Response Only on Switch Poistion 4 then Press OK when complete", vbOKOnly, "Position 4 Response Calibration Only")
+        MYMsgBox("Calibrate Response Only on Switch Poistion 4 then Press OK when complete", vbOKOnly, "Position 4 Response Calibration Only")
         If VNAStr = "AG_E5071B" Then
             ScanGPIB.BusWrite(":MMEM:STOR 'State04.sta'")
         ElseIf VNAStr = "N3383A" Then
@@ -286,7 +286,7 @@
             frmAUTOTEST.cmbSwitch.Text = "Switch POS 1"
             System.Threading.Thread.Sleep(500)
         Else
-            MsgBox("Move RF Cables to Position 1", vbOKOnly, "Manual Switch")
+            MYMsgBox("Move RF Cables to Position 1", vbOKOnly, "Manual Switch")
         End If
         CalibrateVNA = True
     End Function
@@ -572,7 +572,7 @@
                 End If
                 frmAUTOTEST.cmbSwitch.SelectedIndex = 0
             Else
-                MsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
+                MYMsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
             End If
 
             If MutiCalChecked Then
@@ -643,7 +643,7 @@
                 frmAUTOTEST.cmbSwitch.SelectedIndex = 1
             Else
                 SetSwitchesPosition = 2
-                MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
+                MYMsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
             End If
 
             If MutiCalChecked Then
@@ -881,7 +881,7 @@
                 End If
                 frmAUTOTEST.cmbSwitch.SelectedIndex = 0
             Else
-                MsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
+                MYMsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
             End If
 
             If MutiCalChecked Then
@@ -958,7 +958,7 @@
                 frmAUTOTEST.cmbSwitch.SelectedIndex = 1
             Else
                 SetSwitchesPosition = 2
-                MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
+                MYMsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
             End If
 
             If MutiCalChecked Then
@@ -1050,7 +1050,7 @@
                 End If
                 frmAUTOTEST.cmbSwitch.SelectedIndex = 0
             Else
-                MsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
+                MYMsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
             End If
 
             If MutiCalChecked Then
@@ -1091,7 +1091,7 @@
                 frmAUTOTEST.cmbSwitch.SelectedIndex = 1
             Else
                 SetSwitchesPosition = 2
-                MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
+                MYMsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
             End If
 
             If MutiCalChecked Then
@@ -1311,7 +1311,7 @@
                 End If
                 frmAUTOTEST.cmbSwitch.SelectedIndex = 0
             Else
-                MsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
+                MYMsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
             End If
 
             If MutiCalChecked Then
@@ -1379,7 +1379,7 @@
                 frmAUTOTEST.cmbSwitch.SelectedIndex = 1
             Else
                 SetSwitchesPosition = 2
-                MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
+                MYMsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
             End If
             ExtraAvg(2)
             frmAUTOTEST.Refresh()
@@ -1590,7 +1590,7 @@
                 End If
                 frmAUTOTEST.cmbSwitch.SelectedIndex = 0
             Else
-                MsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
+                MYMsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
             End If
 
             If MutiCalChecked Then SetupVNA(True, 3)
@@ -1738,7 +1738,7 @@
                 End If
                 frmAUTOTEST.cmbSwitch.SelectedIndex = 0
             Else
-                MsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
+                MYMsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
             End If
 
             If MutiCalChecked Then SetupVNA(True, 3)
@@ -2389,7 +2389,7 @@
                     frmAUTOTEST.cmbSwitch.SelectedIndex = x - 1
                     frmAUTOTEST.cmbSwitch.SelectedIndex = x - 1
                 Else
-                    MsgBox("Move Cables to RF Position " & x & " ")
+                    MYMsgBox("Move Cables to RF Position " & x & " ")
                 End If
 
                 If MutiCalChecked Then SetupVNA(True, x)
@@ -2548,7 +2548,7 @@
                     frmAUTOTEST.cmbSwitch.SelectedIndex = x - 1
                     frmAUTOTEST.cmbSwitch.SelectedIndex = x - 1
                 Else
-                    MsgBox("Move Cables to RF Position " & x & " ")
+                    MYMsgBox("Move Cables to RF Position " & x & " ")
                 End If
 
                 If MutiCalChecked Then SetupVNA(True, x)
@@ -2697,7 +2697,7 @@
                     End If
                     frmAUTOTEST.cmbSwitch.SelectedIndex = 4
                 Else
-                    MsgBox("Move Cables to RF Position 5", vbOKOnly, "Manual Switch")
+                    MYMsgBox("Move Cables to RF Position 5", vbOKOnly, "Manual Switch")
                 End If
             Else ' ~~~~~~~ 4 port stuff ~~~~~~~~~
                 If SwitchedChecked Then  'Auto RF Switching
@@ -2709,7 +2709,7 @@
                     End If
                     frmAUTOTEST.cmbSwitch.SelectedIndex = 0
                 Else
-                    MsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
+                    MYMsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
                 End If
             End If
 
@@ -2822,7 +2822,7 @@
                 End If
                 frmAUTOTEST.cmbSwitch.SelectedIndex = 0
             Else
-                MsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
+                MYMsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
             End If
 
             frmAUTOTEST.Refresh()
@@ -2944,7 +2944,7 @@
                 End If
                 frmAUTOTEST.cmbSwitch.SelectedIndex = 2
             Else
-                MsgBox("Move Cables to RF Position 3", vbOKOnly, "Manual Switch")
+                MYMsgBox("Move Cables to RF Position 3", vbOKOnly, "Manual Switch")
             End If
             If MutiCalChecked Then SetupVNA(True, 3)
 
@@ -3077,7 +3077,7 @@
                     End If
                     frmAUTOTEST.cmbSwitch.SelectedIndex = 1
                 Else
-                    MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
+                    MYMsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
                 End If
             Else ' ~~~~~~~ 4 port stuff ~~~~~~~~~
                 If SwitchedChecked Then  'Auto RF Switching
@@ -3089,7 +3089,7 @@
                     End If
                     frmAUTOTEST.cmbSwitch.SelectedIndex = 2
                 Else
-                    MsgBox("Move Cables to RF Position 3", vbOKOnly, "Manual Switch")
+                    MYMsgBox("Move Cables to RF Position 3", vbOKOnly, "Manual Switch")
                 End If
             End If
 
@@ -3216,7 +3216,7 @@
             frmAUTOTEST.Refresh()
         Else
             ILSetDone = False
-            MsgBox("Turn the Combiner/Divider around. Connect J2 To VNA Port1. Add 50 OHM load to J1", , "Isolation Test")
+            MYMsgBox("Turn the Combiner/Divider around. Connect J2 To VNA Port1. Add 50 OHM load to J1", , "Isolation Test")
             NumPorts = GetSpecification("Ports")
             PortNum = CByte(NumPorts)
             Ports = Int(NumPorts)
@@ -3232,7 +3232,7 @@
                     System.Threading.Thread.Sleep(500)
                     frmAUTOTEST.cmbSwitch.SelectedIndex = b - 1
                 Else
-                    MsgBox("Move Cables to RF Position " & b & " ")
+                    MYMsgBox("Move Cables to RF Position " & b & " ")
                 End If
 
                 If MutiCalChecked Then SetupVNA(True, x)
@@ -3422,7 +3422,7 @@ SetPoints:
             frmAUTOTEST.Refresh()
         Else
             ILSetDone = False
-            MsgBox("Turn the Combiner/Divider around. Connect J2 To VNA Port1. Add 50 OHM load to J1", , "Isolation Test")
+            MYMsgBox("Turn the Combiner/Divider around. Connect J2 To VNA Port1. Add 50 OHM load to J1", , "Isolation Test")
             NumPorts = GetSpecification("Ports")
             PortNum = CByte(NumPorts)
             Ports = Int(NumPorts)
@@ -3438,7 +3438,7 @@ SetPoints:
                     System.Threading.Thread.Sleep(500)
                     frmAUTOTEST.cmbSwitch.SelectedIndex = b - 1
                 Else
-                    MsgBox("Move Cables to RF Position " & b & " ")
+                    MYMsgBox("Move Cables to RF Position " & b & " ")
                 End If
 
                 If MutiCalChecked Then SetupVNA(True, b)
@@ -3587,7 +3587,7 @@ SetPoints:
                         End If
                         frmAUTOTEST.cmbSwitch.SelectedIndex = 1
                     Else
-                        MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
+                        MYMsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
                     End If
                     If MutiCalChecked Then SetupVNA(True, 1)
                 ElseIf Direction = 2 Then
@@ -3600,7 +3600,7 @@ SetPoints:
                         End If
                         frmAUTOTEST.cmbSwitch.SelectedIndex = 3
                     Else
-                        MsgBox("Move Cables to RF Position 4", vbOKOnly, "Manual Switch")
+                        MYMsgBox("Move Cables to RF Position 4", vbOKOnly, "Manual Switch")
                     End If
                     If MutiCalChecked Then SetupVNA(True, 1)
                 End If
@@ -3615,7 +3615,7 @@ SetPoints:
                         End If
                         frmAUTOTEST.cmbSwitch.SelectedIndex = 1
                     Else
-                        MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
+                        MYMsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
                     End If
                     If MutiCalChecked Then SetupVNA(True, 1)
                 ElseIf Direction = 2 Then
@@ -3628,7 +3628,7 @@ SetPoints:
                         End If
                         frmAUTOTEST.cmbSwitch.SelectedIndex = 1
                     Else
-                        MsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
+                        MYMsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
                     End If
                     If MutiCalChecked Then SetupVNA(True, 1)
                 End If
@@ -4302,7 +4302,7 @@ Round:
                     System.Threading.Thread.Sleep(500)
                     frmAUTOTEST.cmbSwitch.SelectedIndex = x - 1
                 Else
-                    MsgBox("Move Cables to RF Position " & x & " ")
+                    MYMsgBox("Move Cables to RF Position " & x & " ")
                 End If
 
                 If MutiCalChecked Then
@@ -4527,7 +4527,7 @@ Round:
                     System.Threading.Thread.Sleep(500)
                     frmAUTOTEST.cmbSwitch.SelectedIndex = x - 1
                 Else
-                    MsgBox("Move Cables to RF Position " & x & " ")
+                    MYMsgBox("Move Cables to RF Position " & x & " ")
                 End If
 
                 If MutiCalChecked Then
@@ -4730,7 +4730,7 @@ Round:
 
                         frmAUTOTEST.cmbSwitch.SelectedIndex = 2
                     Else
-                        MsgBox("Move Cables to RF Position 3", vbOKOnly, "Manual Switch")
+                        MYMsgBox("Move Cables to RF Position 3", vbOKOnly, "Manual Switch")
                     End If
                 Else
                     If SwitchedChecked Then   'Auto RF Switching
@@ -4741,7 +4741,7 @@ Round:
 
                         frmAUTOTEST.cmbSwitch.SelectedIndex = 4
                     Else
-                        MsgBox("Move Cables to RF Position 5", vbOKOnly, "Manual Switch")
+                        MYMsgBox("Move Cables to RF Position 5", vbOKOnly, "Manual Switch")
                     End If
                 End If
             Else ' ~~~~~~~ 4 port stuff ~~~~~~~~~
@@ -4753,7 +4753,7 @@ Round:
 
                     frmAUTOTEST.cmbSwitch.SelectedIndex = 2
                 Else
-                    MsgBox("Move Cables to RF Position 3", vbOKOnly, "Manual Switch")
+                    MYMsgBox("Move Cables to RF Position 3", vbOKOnly, "Manual Switch")
                 End If
             End If
 
@@ -4814,7 +4814,7 @@ Round:
                     System.Threading.Thread.Sleep(500)
                     frmAUTOTEST.cmbSwitch.SelectedIndex = 2
                 Else
-                    MsgBox("Move Cables to RF Position 3", vbOKOnly, "Manual Switch")
+                    MYMsgBox("Move Cables to RF Position 3", vbOKOnly, "Manual Switch")
                 End If
 
                 If MutiCalChecked Then SetupVNA(True, 1)
@@ -4828,7 +4828,7 @@ Round:
                             System.Threading.Thread.Sleep(500)
                             frmAUTOTEST.cmbSwitch.SelectedIndex = 1
                         Else
-                            MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
+                            MYMsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
                         End If
                     Else
                         If SwitchedChecked Then  'Auto RF Switching
@@ -4838,7 +4838,7 @@ Round:
                             System.Threading.Thread.Sleep(500)
                             frmAUTOTEST.cmbSwitch.SelectedIndex = 3
                         Else
-                            MsgBox("Move Cables to RF Position 4", vbOKOnly, "Manual Switch")
+                            MYMsgBox("Move Cables to RF Position 4", vbOKOnly, "Manual Switch")
                         End If
                     End If
                 Else '~~~~~~~~~~~~~4 port stuff~~~~~~~~~~~~~~
@@ -4849,7 +4849,7 @@ Round:
                         System.Threading.Thread.Sleep(500)
                         frmAUTOTEST.cmbSwitch.SelectedIndex = 1
                     Else
-                        MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
+                        MYMsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
                     End If
                 End If
                 If MutiCalChecked Then SetupVNA(True, 2)
@@ -5017,7 +5017,7 @@ Round:
 
                         frmAUTOTEST.cmbSwitch.SelectedIndex = 2
                     Else
-                        MsgBox("Move Cables to RF Position 3", vbOKOnly, "Manual Switch")
+                        MYMsgBox("Move Cables to RF Position 3", vbOKOnly, "Manual Switch")
                     End If
                 Else
                     If SwitchedChecked Then   'Auto RF Switching
@@ -5028,7 +5028,7 @@ Round:
 
                         frmAUTOTEST.cmbSwitch.SelectedIndex = 4
                     Else
-                        MsgBox("Move Cables to RF Position 5", vbOKOnly, "Manual Switch")
+                        MYMsgBox("Move Cables to RF Position 5", vbOKOnly, "Manual Switch")
                     End If
                 End If
             Else ' ~~~~~~~ 4 port stuff ~~~~~~~~~
@@ -5040,7 +5040,7 @@ Round:
 
                     frmAUTOTEST.cmbSwitch.SelectedIndex = 2
                 Else
-                    MsgBox("Move Cables to RF Position 3", vbOKOnly, "Manual Switch")
+                    MYMsgBox("Move Cables to RF Position 3", vbOKOnly, "Manual Switch")
                 End If
             End If
 
@@ -5097,7 +5097,7 @@ Round:
                     System.Threading.Thread.Sleep(500)
                     frmAUTOTEST.cmbSwitch.SelectedIndex = 2
                 Else
-                    MsgBox("Move Cables to RF Position 3", vbOKOnly, "Manual Switch")
+                    MYMsgBox("Move Cables to RF Position 3", vbOKOnly, "Manual Switch")
                 End If
 
                 If MutiCalChecked Then SetupVNA(True, 1)
@@ -5111,7 +5111,7 @@ Round:
                             System.Threading.Thread.Sleep(500)
                             frmAUTOTEST.cmbSwitch.SelectedIndex = 3
                         Else
-                            MsgBox("Move Cables to RF Position 4", vbOKOnly, "Manual Switch")
+                            MYMsgBox("Move Cables to RF Position 4", vbOKOnly, "Manual Switch")
                         End If
                     Else
                         If SwitchedChecked Then  'Auto RF Switching
@@ -5121,7 +5121,7 @@ Round:
                             System.Threading.Thread.Sleep(500)
                             frmAUTOTEST.cmbSwitch.SelectedIndex = 1
                         Else
-                            MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
+                            MYMsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
                         End If
                     End If
                 Else '~~~~~~~~~~~~~4 port stuff~~~~~~~~~~~~~~
@@ -5132,7 +5132,7 @@ Round:
                         System.Threading.Thread.Sleep(500)
                         frmAUTOTEST.cmbSwitch.SelectedIndex = 1
                     Else
-                        MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
+                        MYMsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
                     End If
                 End If
 
@@ -5265,7 +5265,7 @@ Round:
                     System.Threading.Thread.Sleep(500)
                     frmAUTOTEST.cmbSwitch.SelectedIndex = 1
                 Else
-                    MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
+                    MYMsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
                 End If
                 If MutiCalChecked Then SetupVNA(True, 1)
             ElseIf SpecType = "DUAL DIRECTIONAL COUPLER" And Direction = 1 Then
@@ -5277,7 +5277,7 @@ Round:
                         System.Threading.Thread.Sleep(500)
                         frmAUTOTEST.cmbSwitch.SelectedIndex = 1
                     Else
-                        MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
+                        MYMsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
                     End If
                 Else
                     If SwitchedChecked Then  'Auto RF Switching
@@ -5287,7 +5287,7 @@ Round:
                         System.Threading.Thread.Sleep(500)
                         frmAUTOTEST.cmbSwitch.SelectedIndex = 1
                     Else
-                        MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
+                        MYMsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
                     End If
                 End If
 
@@ -5301,7 +5301,7 @@ Round:
                         System.Threading.Thread.Sleep(500)
                         frmAUTOTEST.cmbSwitch.SelectedIndex = 3
                     Else
-                        MsgBox("Move Cables to RF Position 4", vbOKOnly, "Manual Switch")
+                        MYMsgBox("Move Cables to RF Position 4", vbOKOnly, "Manual Switch")
                     End If
                 Else
                     If SwitchedChecked Then  'Auto RF Switching
@@ -5311,7 +5311,7 @@ Round:
                         System.Threading.Thread.Sleep(500)
                         frmAUTOTEST.cmbSwitch.SelectedIndex = 1
                     Else
-                        MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
+                        MYMsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
                     End If
                 End If
 
@@ -5526,7 +5526,7 @@ Round:
                 End If
                 frmAUTOTEST.cmbSwitch.SelectedIndex = 0
             Else
-                MsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
+                MYMsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
                 If MutiCalChecked Then RecallCal(1)
             End If
 
@@ -5599,7 +5599,7 @@ Round:
                 End If
                 frmAUTOTEST.cmbSwitch.SelectedIndex = 1
             Else
-                MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
+                MYMsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
             End If
             frmAUTOTEST.Refresh()
 
@@ -5894,7 +5894,7 @@ Round:
                 End If
                 frmAUTOTEST.cmbSwitch.SelectedIndex = 0
             Else
-                MsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
+                MYMsgBox("Move Cables to RF Position 1", vbOKOnly, "Manual Switch")
                 If MutiCalChecked Then RecallCal(1)
             End If
 
@@ -5942,7 +5942,7 @@ Round:
                 End If
                 frmAUTOTEST.cmbSwitch.SelectedIndex = 1
             Else
-                MsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
+                MYMsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
             End If
             frmAUTOTEST.Refresh()
 
@@ -6220,7 +6220,7 @@ Round:
                     System.Threading.Thread.Sleep(500)
                     frmAUTOTEST.cmbSwitch.SelectedIndex = x - 1
                 Else
-                    MsgBox("Move Cables to RF Position " & x & " ")
+                    MYMsgBox("Move Cables to RF Position " & x & " ")
                 End If
                 If x = 1 Then
                     If VNAStr = "AG_E5071B" Then
@@ -6468,7 +6468,7 @@ Round:
                     System.Threading.Thread.Sleep(500)
                     frmAUTOTEST.cmbSwitch.SelectedIndex = x - 1
                 Else
-                    MsgBox("Move Cables to RF Position " & x & " ")
+                    MYMsgBox("Move Cables to RF Position " & x & " ")
                 End If
                 If x = 1 Then
                     If VNAStr = "AG_E5071B" Then
@@ -6751,7 +6751,7 @@ Round:
     '    End If
     '
     '    If TraceID1 = -1 Then
-    '        MsgBox "No trace available"
+    '        MYMsgBox "No trace available"
     '       Exit Function
     '    End If
     '
@@ -6808,7 +6808,7 @@ Round:
     'Exit Function
     '
     'ErrHandler:
-    ' MsgBox "An Error has Occured In The Form_Load() Procedure" & vbCr & "Report This Error To R_K_T_ASHOKA@RediffMail.com" & vbCr & "Error Details :-" & vbCr & "Error Number : " & Err.Number & vbCr & "Error Description : " & Err.Description, vbCritical, "FlexGrid Example"
+    ' MYMsgBox "An Error has Occured In The Form_Load() Procedure" & vbCr & "Report This Error To R_K_T_ASHOKA@RediffMail.com" & vbCr & "Error Details :-" & vbCr & "Error Number : " & Err.Number & vbCr & "Error Description : " & Err.Description, vbCritical, "FlexGrid Example"
     '
     '
     'End Function

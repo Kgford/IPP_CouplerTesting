@@ -2,8 +2,6 @@
 Imports System.Data.SqlClient
 Imports System.Reflection
 
-
-
 Public Class frmAUTOTEST
     Private Incomplete As Boolean = False
     Private GlobalFailMax As Integer = 10
@@ -109,6 +107,7 @@ Public Class frmAUTOTEST
             NetworkChecked()
 
             Me.txtVersion.Text = "Version: " + GetVersion()
+
             Uploading = False
             ILSetDone = False
 
@@ -650,6 +649,7 @@ Skip4:
             If Me.cmbJob.Text = "Add New" Then
                 StatusLog.Items.Add("Opening Specs:" & "" & DateTime.Now.ToString)
                 Dim SPEC As New frmSpecifications
+                ActivePage = "Full Auto"
                 SPEC.StartPosition = FormStartPosition.Manual
                 ' SPEC.Location = New Point(Globals.XLocation + NewXLocation, Globals.YLocation + Globals.XSize)
                 SPEC.ShowDialog()
@@ -658,9 +658,48 @@ Skip4:
             End If
             Dim OP As New AddArtWorkRevision
             OP.StartPosition = FormStartPosition.Manual
-            OP.Location = New Point(globals.XLocation, globals.YLocation)
+            OP.Location = New Point(globals.XLocation + 450, globals.YLocation + 200)
             OP.ShowDialog()
-            txtArtwork.Text = ArtworkRevision
+
+            If Artwork = "N/A" And Panel = "N/A" And Quadrant = "N/A" And Not ArtworkRevision = "N/A" Then
+                Dim splitstring(10) As String
+                If ArtworkRevision.Contains("P") = True Then
+                    splitstring = ArtworkRevision.Split("P")
+                    If splitstring(1).Contains("Q") Then
+                        Artwork = splitstring(0)
+                        splitstring = ArtworkRevision.Split("P")
+                        Panel = splitstring(1)
+                        Quadrant = splitstring(1)
+                    Else
+                        Artwork = splitstring(0)
+                        Panel = splitstring(1)
+                        Quadrant = "N/A"
+                    End If
+                    Artwork = splitstring(0)
+                Else
+                    Artwork = ArtworkRevision
+                    Panel = "N/A"
+                    Quadrant = "N/A"
+                End If
+            End If
+            txtArtwork.Text = Artwork
+            txtPanel.Text = Panel
+            txtQuadrant.Text = Quadrant
+            txtLOT.Text = LOT
+            ArtworkRevision = txtArtwork.Text
+
+            If txtPanel.Text <> "" Then
+                ArtworkRevision = ArtworkRevision & txtPanel.Text
+                Panel = txtPanel.Text
+            End If
+            If txtQuadrant.Text <> "" Then
+                ArtworkRevision = ArtworkRevision & txtQuadrant.Text
+                Quadrant = txtQuadrant.Text
+            End If
+
+
+
+
             Me.Refresh()
 
             TEST1PASS = True
@@ -1002,14 +1041,14 @@ Skip4:
             Me.cmbVNA.Text = ScanGPIB.GetModel
             If Me.cmbVNA.Text = "HP_8753C" Or Me.cmbVNA.Text = "HP_8753E" Then
                 If SpecStopFreq > 6000 Then
-                    MsgBox(SpecStopFreq & "MHz  Exceeds the Frequency Range of the " & Me.cmbVNA.Text & ".  Please move to capible workstation or choose another Job")
+                    MYMsgBox(SpecStopFreq & "MHz  Exceeds the Frequency Range of the " & Me.cmbVNA.Text & ".  Please move to capible workstation or choose another Job")
                     Exit Sub
                 End If
             End If
 
             If Me.cmbVNA.Text = "HP_8753C" Then
                 If SpecStopFreq > GetVNAFreq() Then
-                    MsgBox(SpecStopFreq & "MHz  Exceeds the Calibrated Frequency Range of the " & Me.cmbVNA.Text & ".  Please Calibrate the 6GHZ Range")
+                    MYMsgBox(SpecStopFreq & "MHz  Exceeds the Calibrated Frequency Range of the " & Me.cmbVNA.Text & ".  Please Calibrate the 6GHZ Range")
                     Tests.CalibrateVNA()
                     Exit Sub
                 End If
@@ -1028,7 +1067,7 @@ Skip4:
             Else
                 Me.txtStopFreq.Text = SpecStopFreq
             End If
-           
+
 
             If IL_TF Then
                 Me.Spec1Max.Text = Format(GetSpecification("InsertionLoss"), "0.00") & "/" & Format(GetSpecification("IL_ex"), "0.00")
@@ -1425,14 +1464,14 @@ Skip4:
             Me.cmbVNA.Text = ScanGPIB.GetModel
             If Me.cmbVNA.Text = "HP_8753C" Or Me.cmbVNA.Text = "HP_8753E" Then
                 If SpecStopFreq > 6000 Then
-                    MsgBox(SpecStopFreq & "MHz  Exceeds the Frequency Range of the " & Me.cmbVNA.Text & ".  Please move to capible workstation or choose another Job")
+                    MYMsgBox(SpecStopFreq & "MHz  Exceeds the Frequency Range of the " & Me.cmbVNA.Text & ".  Please move to capible workstation or choose another Job")
                     Exit Sub
                 End If
             End If
 
             If Me.cmbVNA.Text = "HP_8753C" Then
                 If SpecStopFreq > GetVNAFreq() Then
-                    MsgBox(SpecStopFreq & "MHz  Exceeds the Calibrated Frequency Range of the " & Me.cmbVNA.Text & ".  Please Calibrate the 6GHZ Range")
+                    MYMsgBox(SpecStopFreq & "MHz  Exceeds the Calibrated Frequency Range of the " & Me.cmbVNA.Text & ".  Please Calibrate the 6GHZ Range")
                     Tests.CalibrateVNA()
                     Exit Sub
                 End If
@@ -1948,8 +1987,7 @@ GetOut:
 
         ExpectedProgress.Value = 0
         ActualProgress.Value = 0
-        EndLot.Enabled = False
-
+        If Not remove Then EndLot.Enabled = False
 
     End Sub
 
@@ -2105,7 +2143,7 @@ GetOut:
             If SpecType = "DUAL DIRECTIONAL COUPLER" And SwitchPorts = 1 Then SwPos = " OUT = SW1, CPL_J4 = SW2, ISO_J3 = SW3, CPL_J3 = SW4, ISO_J4 = SW5"
             If SpecType = "SINGLE DIRECTIONAL COUPLER" Then SwPos = "          J2(OUT) = SW3, J3(CLP) = SW1"
             txtTitle.Text = SpecType & SwPos
-            'MsgBox("Please turn Directional Coupler in Forward direction")
+            'MYMsgBox("Please turn Directional Coupler in Forward direction")
         End If
         Me.Refresh()
 
@@ -2135,7 +2173,7 @@ GetOut:
             SerialNumber = "UUT" & UUTNum_Reset
             SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "' and WorkStation = '" & GetComputerName() & "' And SerialNumber = 'UUT" & UUTNum_Reset & "' and artwork_rev = '" & ArtworkRevision & "'"
             If SQL.CheckforRow(SQLstr, "NetworkData") = 0 Then
-                SQLstr = "Insert Into TestData (JobNumber, PartNumber,SerialNumber,WorkStation,artwork_rev) values ('" & Job & "','" & Part & "','" & SerialNumber & "','" & GetComputerName() & "','" & ArtworkRevision & "')"
+                SQLstr = "Insert Into TestData (JobNumber, PartNumber,SerialNumber,WorkStation,artwork_rev,artwork,Panel,Quadrant) values ('" & Job & "','" & Part & "','" & SerialNumber & "','" & GetComputerName() & "','" & ArtworkRevision & "','" & Artwork & "','" & Panel & "','" & Quadrant & "')"
                 SQL.ExecuteSQLCommand(SQLstr, "NetworkData")
             End If
             SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "' and WorkStation = '" & GetComputerName() & "' And SerialNumber = 'UUT" & UUTNum_Reset & "' and artwork_rev = '" & ArtworkRevision & "'"
@@ -2298,14 +2336,14 @@ Test2SubRet:
                         AB2 = Format(AB2, "0.00")
                         Data4L.Text = AB1
                         Data4H.Text = AB2
-                        If PassFail = "Pass" Then
+                        If AB1Pass = "Pass" And AB2Pass = "Pass" Then
                             TEST4PASS = True
                             status("Green", "TEST4L", True)
                             status("Green", "TEST4H", True)
                             If SpecType <> "DUAL DIRECTIONAL COUPLER" And SpecType <> "SINGLE DIRECTIONAL COUPLER" Then
                                 TEST4PASS = True
                             End If
-                        ElseIf PassFail = "Fail" Then
+                        ElseIf AB1Pass = "Fail" Or AB2Pass = "Fail" Then
                             TEST4PASS = False
                             TEST4Fail = TEST4Fail + 1
                             If AB1Pass = "Pass" Then
@@ -2526,8 +2564,6 @@ Test2Sub:
                 status("Blue", "TEST3")
                 Data3.Text = Format(RetrnVal, "0.0")
                 If PassFail = "Pass" Then
-
-                ElseIf PassFail = "Pass" Then
                     TEST3PASS = True
                     status("Green", "TEST3", True)
                     PF3.Text = PassFail
@@ -2570,7 +2606,7 @@ TestComplete:  ' For everything except Directional Couplers
                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, ISO = SW3"
                 If SpecType = "BI DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, REFL = SW3"
                 txtTitle.Text = SpecType & SwPos
-                MsgBox("Please turn the Directional Coupler in the Reverse direction")
+                MYMsgBox("Please turn the Directional Coupler in the Reverse direction")
             End If
 
             'Reverse Coupling
@@ -2812,7 +2848,27 @@ ReallyComplete:
             RetEST3Fail = 0
             RetEST4Fail = 0
             RetEST5Fail = 0
+
+            If Artwork = "N/A" And Panel = "N/A" And Quadrant = "N/A" And Not ArtworkRevision = "N/A" Then
+                Dim splitstring(10) As String
+                splitstring = ArtworkRevision.Split("P")
+
+            End If
+            txtArtwork.Text = Artwork
+            txtPanel.Text = Panel
+            txtQuadrant.Text = Quadrant
+            txtLOT.Text = LOT
             ArtworkRevision = txtArtwork.Text
+
+
+            If txtPanel.Text <> "" Then
+                ArtworkRevision = ArtworkRevision & txtPanel.Text
+                Panel = txtPanel.Text
+            End If
+            If txtQuadrant.Text <> "" Then
+                ArtworkRevision = ArtworkRevision & txtQuadrant.Text
+                Quadrant = txtQuadrant.Text
+            End If
 
             If SpecAB_TF Then
                 Data4L.Visible = True
@@ -2847,12 +2903,12 @@ ReallyComplete:
             SwPos = ""
             If DontclickTheButton = True Then Exit Sub
             If Me.cmbJob.Text = "" Or Me.cmbJob.Text = " " Then
-                MsgBox("Please select Job")
+                MYMsgBox("Please select Job")
                 MutiCal.Checked = False
                 Exit Sub
             End If
             If Me.txtArtwork.Text = "" Then
-                MsgBox("Please input the Artwork Revision")
+                MYMsgBox("Please input the Artwork Revision")
                 Exit Sub
             End If
 
@@ -2868,7 +2924,7 @@ ReallyComplete:
             FailCount = 0
             Dir1Failed = False
             If Me.cmbJob.Text = "" Then
-                MsgBox("Please Choose the Job Number first", , "Not Ready to Start")
+                MYMsgBox("Please Choose the Job Number first", , "Not Ready to Start")
                 MutiCal.Checked = False
                 ClearStatusLog()
                 Exit Sub
@@ -2878,7 +2934,7 @@ ReallyComplete:
                     Exit Sub
                 End If
                 If Not TweakMode And (Not TEST1PASS Or Not TEST2PASS Or Not TEST3PASS Or Not TEST4PASS Or Not TEST5PASS) Then
-                    If MsgBox("Are you sure you want to fail UUT" & UUTNum, vbYesNo, "Are you sure??") = vbNo Then Exit Sub
+                    If MYMsgBox("Are you sure you want to fail UUT" & UUTNum, vbYesNo, "Are you sure??") = vbNo Then Exit Sub
                 End If
                 TestExist = False
                 If resumeTest Then
@@ -2894,7 +2950,7 @@ ReallyComplete:
                         DeleteOp.Checked = False
                         Dim OP As New OperatorEntry
                         OP.StartPosition = FormStartPosition.Manual
-                        OP.Location = New Point(globals.XLocation, globals.YLocation)
+                        OP.Location = New Point(globals.XLocation + 450, globals.YLocation + 200)
                         OP.ShowDialog()
                         TestCompleteSignal(False)
                         RobotTimer.Start()
@@ -2902,7 +2958,7 @@ ReallyComplete:
                         DeleteOp.Checked = False
                         Dim OP As New OperatorEntry
                         OP.StartPosition = FormStartPosition.Manual
-                        OP.Location = New Point(globals.XLocation, globals.YLocation)
+                        OP.Location = New Point(globals.XLocation + 450, globals.YLocation + 200)
                         OP.ShowDialog()
                     End If
                     'ATS Developer does not save data while developing
@@ -3010,7 +3066,7 @@ ReallyComplete:
             SerialNumber = "UUT" & UUTNum_Reset
             SQLstr = "SELECT * from TestData where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork_rev = '" & ArtworkRevision & "'"
             If SQL.CheckforRow(SQLstr, "NetworkData") = 0 Then
-                SQLstr = "Insert Into TestData (JobNumber, PartNumber,SerialNumber,WorkStation,artwork_rev) values ('" & Job & "','" & Part & "','" & SerialNumber & "','" & GetComputerName() & "','" & ArtworkRevision & "')"
+                SQLstr = "Insert Into TestData (JobNumber, PartNumber,SerialNumber,WorkStation,artwork_rev,artwork,Panel,Quadrant) values ('" & Job & "','" & Part & "','" & SerialNumber & "','" & GetComputerName() & "','" & ArtworkRevision & "','" & Artwork & "','" & Panel & "','" & Quadrant & "')"
                 SQL.ExecuteSQLCommand(SQLstr, "NetworkData")
             End If
             SQLstr = "SELECT * from TestData where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork_rev = '" & ArtworkRevision & "'"
@@ -3300,7 +3356,7 @@ Test2SubRet:
                             Me.FailTotal4.Text = TEST4Fail
                             UUTFail = 1
                         End If
-                     End If
+                    End If
                     Me.Failures4.Text = FormatPercent(((TEST4Fail / UUTNum)), 1)
                     Me.Total4.Text = UUTNum
                 End If
@@ -3387,7 +3443,7 @@ Test2SubRet:
 
             If SpecType <> "COMBINER/DIVIDER" Then
                 If SpecType = "DUAL DIRECTIONAL COUPLER" And PF1.Text <> "Fail" And PF2.Text <> "Fail" And (PF3.Text = "Fail" Or PF4.Text = "Fail" Or PF5.Text = "Fail") Then
-                    If MsgBox("Try Forward Measurement Again", vbYesNo) = vbYes Then
+                    If MYMsgBox("Try Forward Measurement Again", vbYesNo) = vbYes Then
                         GoTo Test2Sub
                     Else
                         GoTo TestComplete
@@ -3541,7 +3597,7 @@ TestComplete:  ' For everything except Directional Couplers
                 If SpecType = "SINGLE DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, ISO = SW3"
                 If SpecType = "BI DIRECTIONAL COUPLER" Then SwPos = "          OUT = SW1, CPL = SW2, REFL = SW3"
                 txtTitle.Text = SpecType & SwPos
-                MsgBox("Please turn the Directional Coupler in the Reverse direction")
+                MYMsgBox("Please turn the Directional Coupler in the Reverse direction")
             End If
 
             'Reverse Coupling
@@ -3701,7 +3757,7 @@ TestComplete:  ' For everything except Directional Couplers
                 Me.FailTotal5.Text = TEST5Fail
             End If
             If SpecType = "DUAL DIRECTIONAL COUPLER" And Not Dir1Failed And PF1.Text <> "Fail" And PF2.Text <> "Fail" And (PF3.Text = "Fail" Or PF4.Text = "Fail" Or PF5.Text = "Fail") Then
-                If MsgBox("Try Reverse Measurement Again?", vbYesNo) = vbYes Then
+                If MYMsgBox("Try Reverse Measurement Again?", vbYesNo) = vbYes Then
                     GoTo TestComplete
                 End If
 
@@ -3773,7 +3829,7 @@ TestReallyComplete:
     End Sub
     Private Sub EmptyTraceData_Click()
         Dim SQLstr As String
-        If MsgBox("Are you sure you want to erase All Local Trace Data", vbYesNo, "Cannot be undone.") = vbYes Then
+        If MYMsgBox("Are you sure you want to erase All Local Trace Data", vbYesNo, "Cannot be undone.") = vbYes Then
             SQLstr = "Delete from Trace "
             SQL.ExecuteSQLCommand(SQLstr, "LocalTraceData")
 
@@ -3796,7 +3852,7 @@ TestReallyComplete:
         ResetLot()
         cmbJob.Text = " "
         FirstPart = False
-        If MsgBox("Do you want to erase the data from This Job", vbYesNo, "Cannot be undone.") = vbYes Then
+        If MYMsgBox("Do you want to erase the data from This Job", vbYesNo, "Cannot be undone.") = vbYes Then
             EraseThisTest()
         End If
         SQLstr = "Delete from Trace "
@@ -3827,7 +3883,7 @@ TestReallyComplete:
         ActualProgress.Maximum = 4
 
         ILSetDone = False
-        If MsgBox("Are you sure you want to erase UUT" & UUTNum_Reset, vbYesNo, "Cannot be undone.") = vbYes Then
+        If MYMsgBox("Are you sure you want to erase UUT" & UUTNum_Reset, vbYesNo, "Cannot be undone.") = vbYes Then
 
             ResetLot(True)
             Me.txtTitle.Text = "     DELETING  UUT" & UUTNum_Reset & " TEST DATA"
@@ -3865,7 +3921,7 @@ TestReallyComplete:
         SQLstr = "select * from Trace where JobNumber = '" & Me.cmbJob.Text & "'"
         TraceID = GetTestID(SQLstr, "LocalTraceData")
 
-        If MsgBox("Are you sure you want to erase ALL DATA from This Job", vbYesNo, "Cannot be undone.") = vbYes Then
+        If MYMsgBox("Are you sure you want to erase ALL DATA from This Job", vbYesNo, "Cannot be undone.") = vbYes Then
 
             ResetLot()
             Me.txtTitle.Text = "     DELETING " & Me.cmbJob.Text & " TEST DATA"
@@ -3886,7 +3942,7 @@ TestReallyComplete:
             SQLstr = "Delete from Trace where JobNumber = '" & Me.cmbJob.Text & "'"
             If Not TweakMode Then If ActualProgress.Value + 1 <= ActualProgress.Maximum Then ActualProgress.Value = ExpectedProgress.Value + 1
 
-            If MsgBox("Do you want to erase the Specification?", vbYesNo, "Cannot be undone.") = vbYes Then
+            If MYMsgBox("Do you want to erase the Specification?", vbYesNo, "Cannot be undone.") = vbYes Then
                 Me.txtTitle.Text = "     DELETING " & Me.cmbJob.Text & " Specifications"
                 SQLstr = "Delete from Specifications where JobNumber = '" & Me.cmbJob.Text & "'"
                 SQL.ExecuteSQLCommand(SQLstr, "NetworkSpecs")
@@ -4494,10 +4550,10 @@ TestReallyComplete:
             If SQL.CheckforRow(SQLstr, "NetworkData") > 0 Then
                 test_status = GetTestStatus()
                 complete = GeUUTCount()
-                If MsgBox("The Job is already on record. Resume Testing", vbYesNo, "Continue from UUT" & complete & " or Start Over") = vbNo Then
+                If MYMsgBox("The Job is already on record. Resume Testing", vbYesNo, "Continue from UUT" & complete & " or Start Over") = vbNo Then
                     SQLstr = "UPDATE ReportQueue Set ReportStatus = 'test running' where JobNumber = '" & Me.cmbJob.Text & "' And WorkStation = '" & WorkStation & "'"
                     SQL.ExecuteSQLCommand(SQLstr, "Effeciency")
-                    If MsgBox("Do you want to erase The data?", vbYesNo, "Erasing Job Data") = vbNo Then
+                    If MYMsgBox("Do you want to erase The data?", vbYesNo, "Erasing Job Data") = vbNo Then
                         stopTest = False
                         ResumeTesting = True
                         Exit Function
@@ -4529,8 +4585,8 @@ TestReallyComplete:
                         SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "'"
                         If SQL.CheckforRow(SQLstr, "NetworkData") > 0 Then GoTo StartResume
                     ElseIf ReportStatus(0) = "test running" And WorkStation = SavedWorkStation(0) And Not SavedJob(0) = Job Then
-                        If MsgBox("Are you sure you  want to continue at UUT" & SavedComplete(0) & "??", vbYesNo, SavedJob(0) & " has not been completed by " & SavedUser(0) & " at Workstation " & SavedWorkStation(0)) = vbYes Then
-                            If MsgBox("Do you want to close " & SavedJob(0) & "from Workstation " & SavedWorkStation(0) & "?", vbYesNo, "Yes or No") = vbYes Then
+                        If MYMsgBox("Are you sure you  want to continue at UUT" & SavedComplete(0) & "??", vbYesNo, SavedJob(0) & " has not been completed by " & SavedUser(0) & " at Workstation " & SavedWorkStation(0)) = vbYes Then
+                            If MYMsgBox("Do you want to close " & SavedJob(0) & "from Workstation " & SavedWorkStation(0) & "?", vbYesNo, "Yes or No") = vbYes Then
                                 SQLstr = "UPDATE ReportQueue Set ReportStatus = job closed where JobNumber = '" & Job & "'"
                                 SQL.ExecuteSQLCommand(SQLstr, "Effeciency")
                                 SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "''"
@@ -4541,13 +4597,13 @@ TestReallyComplete:
                             End If
                         End If
                     ElseIf ReportStatus(0) = "report complete" Or ReportStatus(0) = "report complete" Then
-                        If MsgBox("Are you sure you  want to continue at UUT" & SavedComplete(0) & "??", vbYesNo, SavedJob(0) & " has been completed by " & SavedUser(0) & " at Workstation " & SavedWorkStation(0)) = vbYes Then
+                        If MYMsgBox("Are you sure you  want to continue at UUT" & SavedComplete(0) & "??", vbYesNo, SavedJob(0) & " has been completed by " & SavedUser(0) & " at Workstation " & SavedWorkStation(0)) = vbYes Then
                             SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "'"
                             If SQL.CheckforRow(SQLstr, "NetworkData") > 0 Then GoTo StartResume
                             GoTo StartResume
                         End If
                     ElseIf ReportStatus(0) = "job closed" Then
-                        If MsgBox("Are you sure you  want to continue at UUT" & SavedComplete(0) & "??", vbYesNo, SavedJob(0) & " has been paused by " & SavedUser(0) & " at Workstation " & SavedWorkStation(0)) = vbYes Then
+                        If MYMsgBox("Are you sure you  want to continue at UUT" & SavedComplete(0) & "??", vbYesNo, SavedJob(0) & " has been paused by " & SavedUser(0) & " at Workstation " & SavedWorkStation(0)) = vbYes Then
                             GoTo StartResume
                         Else
                             stopTest = True
@@ -4618,16 +4674,16 @@ TestReallyComplete:
                         End If
                     Next
 letsgetiton:
-                    If MsgBox("Are you sure you  want to continue at UUT" & complete & " ??", vbYesNo, thisJob & " has not been completed by multiple Users and/or Workstations") = vbYes Then
+                    If MYMsgBox("Are you sure you  want to continue at UUT" & complete & " ??", vbYesNo, thisJob & " has not been completed by multiple Users and/or Workstations") = vbYes Then
                         SQLstr = "UPDATE ReportQueue Set ReportStatus = job closed where JobNumber = '" & Job & "'"
                         SQL.ExecuteSQLCommand(SQLstr, "Effeciency")
                         SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "'"
                         If SQL.CheckforRow(SQLstr, "NetworkData") > 0 Then GoTo StartResume
                         stopTest = False
                     Else
-                        If MsgBox("Do you want to close " & SavedJob(0) & "?", vbYesNo, "Yes or No") = vbYes Then
+                        If MYMsgBox("Do you want to close " & SavedJob(0) & "?", vbYesNo, "Yes or No") = vbYes Then
 
-                            If MsgBox("Do you want to erase the data from This Job", vbYesNo, "Cannot be undone.") = vbYes Then
+                            If MYMsgBox("Do you want to erase the data from This Job", vbYesNo, "Cannot be undone.") = vbYes Then
                                 EraseThisTest()
                             End If
                             SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "'"
@@ -4649,8 +4705,8 @@ StartResume:
                 stopTest = False
                 TestExist = True
                 If TweakMode Then Exit Function
-                If MsgBox("The Job is already on record. Resume Testing", vbYesNo, "Continue or Start Over") = vbNo Then
-                    If MsgBox("Do you want to erase The data?", vbYesNo, "Erasing Job Data") = vbNo Then
+                If MYMsgBox("The Job is already on record. Resume Testing", vbYesNo, "Continue or Start Over") = vbNo Then
+                    If MYMsgBox("Do you want to erase The data?", vbYesNo, "Erasing Job Data") = vbNo Then
                         Exit Function
                     Else
                         EraseThisTest()
@@ -4860,7 +4916,7 @@ StartResume:
                                     If (SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER") Then MSChart.UpDateChartData(SpecType, "DIR", "Pass")
                                 End If
                                 If Not Incomplete Then
-                                    If MsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
+                                    If MYMsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
                                         UUTNum = UUTNum - 1
                                         EraseTest.Text = "Remove UUT" & UUTNum - 1
                                         UUTNum_Reset = UUTNum_Reset - 1
@@ -4945,7 +5001,7 @@ StartResume:
                                     If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then MSChart.UpDateChartData(SpecType, "CB", "Pass")
                                 End If
                                 If Not Incomplete Then
-                                    If MsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
+                                    If MYMsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
                                         UUTNum = UUTNum - 1
                                         EraseTest.Text = "Remove UUT" & UUTNum - 1
                                         UUTNum_Reset = UUTNum_Reset - 1
@@ -5038,7 +5094,7 @@ Recap:
                                 RetrnVal = CDbl(drLocal.Item(6))
                             Else
                                 If Not Incomplete Then
-                                    If MsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
+                                    If MYMsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
                                         UUTNum = UUTNum - 1
                                         UUTNum_Reset = UUTNum_Reset - 1
                                         Incomplete = True
@@ -5074,7 +5130,7 @@ Recap:
                                     status("Green", "TEST2")
                                 End If
                                 If Not Incomplete Then
-                                    If MsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
+                                    If MYMsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
                                         UUTNum = UUTNum - 1
                                         EraseTest.Text = "Remove UUT" & UUTNum
                                         UUTNum_Reset = UUTNum_Reset - 1
@@ -5117,7 +5173,7 @@ Recap:
                                     status("Green", "TEST3")
                                 End If
                                 If Not Incomplete Then
-                                    If MsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
+                                    If MYMsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
                                         UUTNum = UUTNum - 1
                                         EraseTest.Text = "Remove UUT" & UUTNum
                                         UUTNum_Reset = UUTNum_Reset - 1
@@ -5167,7 +5223,7 @@ Recap:
                                     status("Green", "TEST4")
                                 End If
                                 If Not Incomplete Then
-                                    If MsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
+                                    If MYMsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
                                         UUTNum = UUTNum - 1
                                         EraseTest.Text = "Remove UUT" & UUTNum
                                         UUTNum_Reset = UUTNum_Reset - 1
@@ -5221,7 +5277,7 @@ Recap:
                                     status("Green", "TEST5")
                                 End If
                                 If Not Incomplete Then
-                                    If MsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
+                                    If MYMsgBox("Data is incomplete at UUT" & UUTNum, vbOKOnly, "Resume Testing At " & UUTNum) = vbOK Then
                                         UUTNum = UUTNum - 1
                                         EraseTest.Text = "Remove UUT" & UUTNum
                                         UUTNum_Reset = UUTNum_Reset - 1
@@ -5297,7 +5353,7 @@ NoResume:
                 txtTitle.Text = OldTitle
                 Exit Function
 Trap:
-                MsgBox("Database Error. Cannot Resume")
+                MYMsgBox("Database Error. Cannot Resume")
                 txtNet.Text = "Local"
                 txtNet.ForeColor = Color.DarkOrange
                 txtTitle.Text = OldTitle
@@ -6168,7 +6224,7 @@ Trap:
     Public Sub UndoUUT(Fail As Boolean)
         Dim SQLstr As String
 
-        If MsgBox("Are you sure you want to erase UUT" + Me.UUTCount.Text, vbOKCancel, "???") = vbCancel Then Exit Sub
+        If MYMsgBox("Are you sure you want to erase UUT" + Me.UUTCount.Text, vbOKCancel, "???") = vbCancel Then Exit Sub
         SQLstr = "Delete from TestData where JobNumber = '" + Me.cmbJob.Text & "' And SerialNumber = 'UUT" & UUTNum_Reset & "'"
         SQL.ExecuteSQLCommand(SQLstr, "NetworkData")
 
@@ -6254,12 +6310,12 @@ Trap:
 
         If DontclickTheButton = True Then Exit Sub
         If Me.cmbJob.Text = "" Or Me.cmbJob.Text = " " Then
-            MsgBox("Please select Job")
+            MYMsgBox("Please select Job")
             Exit Sub
         End If
         FailCount = 0
         If Me.cmbJob.Text = "" Then
-            MsgBox("Please Choose the Job Number first", , "Not Ready to Start")
+            MYMsgBox("Please Choose the Job Number first", , "Not Ready to Start")
             Exit Sub
         Else
             If Me.ckTest1.Checked Then txtOffset1.Text = 0
@@ -6413,7 +6469,7 @@ TestComplete:  ' For everything except Directional Couplers
 
             'Directonal Couplers reverse direction
             If Not TweakMode And (SpecType = "DUAL DIRECTIONAL COUPLER" Or (SpecType = "BI DIRECTIONAL COUPLER" And Me.ckTest4.Text)) Then
-                MsgBox("Please turn the Directional Coupler in the Reverse direction")
+                MYMsgBox("Please turn the Directional Coupler in the Reverse direction")
             End If
 
             'Reverse Coupling
@@ -6585,7 +6641,7 @@ TestComplete:  ' For everything except Directional Couplers
             If SQLVerified Then
                 SQLAccess = txtNet.Checked
             Else
-                MsgBox("The SQL Server was not available at Start Up", , "Can't do it!!!")
+                MYMsgBox("The SQL Server was not available at Start Up", , "Can't do it!!!")
                 SQLAccess = False
                 txtNet.Checked = False
             End If
@@ -6740,6 +6796,7 @@ TestComplete:  ' For everything except Directional Couplers
     Private Sub SpecificationsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SpecificationsToolStripMenuItem.Click
         Dim SPEC As New frmSpecifications
         Me.Hide()
+        ActivePage = "Full Auto"
         StatusLog.Items.Add("Opening Specs:" & "" & DateTime.Now.ToString)
         SPEC.StartPosition = FormStartPosition.Manual
         SPEC.Location = New Point(globals.XLocation, globals.YLocation)
@@ -6841,7 +6898,7 @@ TestComplete:  ' For everything except Directional Couplers
 
             Test = SQL.CheckforRow(SQLstr, "NetworkData")
             If Test = 0 Then
-                MsgBox("Sorry no data on record")
+                MYMsgBox("Sorry no data on record")
                 Exit Sub
             End If
             Temp = txtTitle.Text
@@ -7008,7 +7065,7 @@ TestComplete:  ' For everything except Directional Couplers
             ' ExcelReports.EndReport()
             txtTitle.Text = Temp
         Catch
-            ' MsgBox("An Error has Occured In The TestData Report" & vbCr & "Report This Error To AutomatedTestSolutions@Gmail.com" & vbCr & "Error Details :-" & vbCr & "Error Number : " & Err.Number & vbCr & "Error Description : " & Err.Description, vbCritical, "F")
+            ' MYMsgBox("An Error has Occured In The TestData Report" & vbCr & "Report This Error To AutomatedTestSolutions@Gmail.com" & vbCr & "Error Details :-" & vbCr & "Error Number : " & Err.Number & vbCr & "Error Description : " & Err.Description, vbCritical, "F")
         End Try
 
     End Sub
@@ -7575,25 +7632,25 @@ Skip3:
         GetTrayStatus()
         TestCompleteSignal(False)
         If NewTray.ToUpper.Contains("REPLACE") Then
-            MsgBox("GIZMO says 'Replace the New Tray'", vbOK, "New Tray")
+            MYMsgBox("GIZMO says 'Replace the New Tray'", vbOK, "New Tray")
             saveConfigurationVal(iniPathName, "new_tray", "OK")
         End If
         If PassTray.ToUpper.Contains("REPLACE") Then
-            MsgBox("GIZMO says 'Replace the Pass Tray'", vbOK, "Pass Tray")
+            MYMsgBox("GIZMO says 'Replace the Pass Tray'", vbOK, "Pass Tray")
             saveConfigurationVal(iniPathName, "pass_tray", "OK")
         End If
         If FailTray.ToUpper.Contains("REPLACE") Then
-            MsgBox("GIZMO says 'Replace the Fail Tray'", vbOK, "Fail Tray")
+            MYMsgBox("GIZMO says 'Replace the Fail Tray'", vbOK, "Fail Tray")
             saveConfigurationVal(iniPathName, "fail_tray", "OK")
         End If
 
         If RobotError And ReadySignal And RobotMoving Then
             txtFullAuto.Text = "HALT!!! ROBOT is reporting an Error."
-            MsgBox("GIZMO is reporting an error", vbOK, "ERROR.")
+            MYMsgBox("GIZMO is reporting an error", vbOK, "ERROR.")
 
         ElseIf RobotError And (Not ReadySignal Or Not RobotMoving) Then
             txtFullAuto.Text = "ROBOT attention is required"
-            MsgBox("GIZMO needs assistence", vbOK, "ERROR.")
+            MYMsgBox("GIZMO needs assistence", vbOK, "ERROR.")
         ElseIf ReadySignal And RobotMoving Then
             txtFullAuto.Text = "Full Automation. WARNING!!! ROBOT Moving"
         ElseIf ReadySignal And RobotMoving Then
@@ -7724,8 +7781,71 @@ Skip3:
         UUTReset = True
         txtArtwork.SelectionStart = Len(txtArtwork.Text)
         txtArtwork.Text = Trim(txtArtwork.Text.ToUpper)
-        ArtworkRevision = txtArtwork.Text
+        Artwork = txtArtwork.Text
 
+        ArtworkRevision = txtArtwork.Text
+        If txtPanel.Text <> "" And txtPanel.Text <> "N/A" Then
+            ArtworkRevision = ArtworkRevision & txtPanel.Text
+            Panel = txtPanel.Text
+        End If
+        If txtLOT.Text <> "" And txtLOT.Text <> "N/A" Then
+            LOT = txtLOT.Text
+        End If
+        If txtQuadrant.Text <> "" And txtQuadrant.Text <> "N/A" Then
+            ArtworkRevision = ArtworkRevision & txtQuadrant.Text
+            Panel = txtPanel.Text
+            Quadrant = txtQuadrant.Text
+        End If
+
+    End Sub
+    Private Sub txtLOT_TextChanged(sender As Object, e As EventArgs) Handles txtLOT.TextChanged
+        UUTReset = True
+        txtArtwork.SelectionStart = Len(txtArtwork.Text)
+        txtArtwork.Text = Trim(txtArtwork.Text.ToUpper)
+        Artwork = txtArtwork.Text
+        ArtworkRevision = txtArtwork.Text
+        If txtPanel.Text <> "" And txtPanel.Text <> "N/A" Then
+            ArtworkRevision = ArtworkRevision & txtPanel.Text
+            Panel = txtPanel.Text
+        End If
+        If txtLOT.Text <> "" And txtLOT.Text <> "N/A" Then
+            LOT = txtLOT.Text
+        End If
+        If txtQuadrant.Text <> "" And txtQuadrant.Text <> "N/A" Then
+            ArtworkRevision = ArtworkRevision & txtQuadrant.Text
+            Quadrant = txtQuadrant.Text
+        End If
+    End Sub
+
+    Private Sub txtPanel_TextChanged(sender As Object, e As EventArgs) Handles txtPanel.TextChanged
+        UUTReset = True
+        txtPanel.SelectionStart = Len(txtPanel.Text)
+        txtPanel.Text = Trim(txtPanel.Text.ToUpper)
+        ArtworkRevision = txtArtwork.Text
+        If txtLOT.Text <> "" And txtLOT.Text <> "N/A" Then
+            LOT = txtLOT.Text
+        End If
+        If txtPanel.Text <> "" And txtPanel.Text <> "N/A" Then
+            ArtworkRevision = ArtworkRevision & txtPanel.Text
+        End If
+        If txtQuadrant.Text <> "" And txtQuadrant.Text <> "N/A" Then
+            ArtworkRevision = ArtworkRevision & txtQuadrant.Text
+        End If
+    End Sub
+    Private Sub txtQuadrant_TextChanged(sender As Object, e As EventArgs)
+        UUTReset = True
+        txtQuadrant.SelectionStart = Len(txtQuadrant.Text)
+        txtQuadrant.Text = Trim(txtQuadrant.Text.ToUpper)
+        ArtworkRevision = txtArtwork.Text
+        If txtLOT.Text <> "" And txtLOT.Text <> "N/A" Then
+            LOT = txtLOT.Text
+        End If
+        If txtPanel.Text <> "" And txtPanel.Text <> "N/A" Then
+            ArtworkRevision = ArtworkRevision & txtPanel.Text
+        End If
+        If txtQuadrant.Text <> "" And txtQuadrant.Text <> "N/A" Then
+            ArtworkRevision = ArtworkRevision & txtQuadrant.Text
+        End If
     End Sub
 
 
@@ -8042,4 +8162,5 @@ Skip3:
         Me.Show()
     End Sub
 
+   
 End Class
