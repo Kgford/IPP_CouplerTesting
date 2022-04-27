@@ -544,17 +544,32 @@ SkipDataBase:
         Try
             SQLStr = "SELECT * from TestData where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork_rev = '" & ArtworkRevision & "'"
             If SQL.CheckforRow(SQLStr, "NetworkData") = 0 Then
-                SQLStr = "Insert Into TestData (JobNumber, PartNumber,SerialNumber,WorkStation,artwork_rev,artwork,Panel,Quadrant,LOT) values ('" & Job & "','" & Part & "','" & SerialNumber & "','" & GetComputerName() & "','" & ArtworkRevision & "','" & Artwork & "','" & Panel & "','" & Quadrant & "','" & LOT & "')"
+                SQLStr = "Insert Into TestData (JobNumber, PartNumber,SerialNumber,WorkStation,artwork_rev,artwork,Panel,Sector,LOT) values ('" & Job & "','" & Part & "','" & SerialNumber & "','" & GetComputerName() & "','" & ArtworkRevision & "','" & Artwork & "','" & Panel & "','" & Sector & "','" & LOT & "')"
                 SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
             End If
 
-            SQLStr = "UPDATE TestData Set " & Test & " = '" & Value & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Quadrant = '" & Quadrant & "' and artwork_rev = '" & ArtworkRevision & "'"
+            SQLStr = "UPDATE TestData Set " & Test & " = '" & Value & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
             SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
 
-            SQLStr = "UPDATE TestData Set artwork_rev  = '" & ArtworkRevision & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Quadrant = '" & Quadrant & "' and artwork_rev = '" & ArtworkRevision & "'"
+            SQLStr = "UPDATE TestData Set artwork_rev  = '" & ArtworkRevision & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
             SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
 
-            SQLStr = "UPDATE TestData Set Operator  = '" & User & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork_rev = '" & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Quadrant = '" & Quadrant & "' and artwork_rev = '" & ArtworkRevision & "'"
+            SQLStr = "UPDATE TestData Set artwork  = '" & Artwork & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE TestData Set Revision  = '" & Rev & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE TestData Set Panel  = '" & Panel & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE TestData Set Sector  = '" & Sector & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE TestData Set LOT  = '" & LOT & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE TestData Set Operator  = '" & User & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork_rev = '" & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
 
             frmAUTOTEST.SaveStatus(this_test)
 
@@ -569,7 +584,7 @@ SkipDataBase:
         Try
             SQLStr = "SELECT * from TuningLog where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "'"
             If SQL.CheckforRow(SQLStr, "NetworkData") = 0 Then
-                SQLStr = "Insert Into TuningLog (JobNumber, PartNumber,SerialNumber,WorkStation,Artwork,Panel,Quadrant,LOT) values ('" & Job & "','" & Part & "','" & SerialNumber & "','" & GetComputerName() & "','" & Artwork & "','" & Panel & "','" & Quadrant & "','" & LOT & "')"
+                SQLStr = "Insert Into TuningLog (JobNumber, PartNumber,SerialNumber,WorkStation,Artwork,Panel,Quadrant,LOT) values ('" & Job & "','" & Part & "','" & SerialNumber & "','" & GetComputerName() & "','" & Artwork & "','" & Panel & "','" & Sector & "','" & LOT & "')"
                 SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
             End If
 
@@ -1241,9 +1256,11 @@ IGNORE2:
                 cmd.ExecuteNonQuery()
                 cmd.CommandText = "UPDATE Trace SET  artwork = '" & Artwork & "'" & Expression
                 cmd.ExecuteNonQuery()
+                cmd.CommandText = "UPDATE Trace SET  Revision = '" & Rev & "'" & Expression
+                cmd.ExecuteNonQuery()
                 cmd.CommandText = "UPDATE Trace SET  Panel = '" & Panel & "'" & Expression
                 cmd.ExecuteNonQuery()
-                cmd.CommandText = "UPDATE Trace SET  Quadrant = '" & Quadrant & "'" & Expression
+                cmd.CommandText = "UPDATE Trace SET  Sector = '" & Sector & "'" & Expression
                 cmd.ExecuteNonQuery()
                 cmd.CommandText = "UPDATE Trace SET  LOT = '" & LOT & "'" & Expression
                 cmd.ExecuteNonQuery()
@@ -1311,7 +1328,7 @@ IGNORE2:
                 cmd.ExecuteNonQuery()
                 cmd.CommandText = "UPDATE Trace SET  Panel = '" & Panel & "'" & Expression
                 cmd.ExecuteNonQuery()
-                cmd.CommandText = "UPDATE Trace SET  Quadrant = '" & Quadrant & "'" & Expression
+                cmd.CommandText = "UPDATE Trace SET  Sector = '" & Sector & "'" & Expression
                 cmd.ExecuteNonQuery()
                 cmd.CommandText = "UPDATE Trace SET  LOT = '" & LOT & "'" & Expression
                 cmd.ExecuteNonQuery()

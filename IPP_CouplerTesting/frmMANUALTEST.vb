@@ -96,7 +96,10 @@ Public Class frmMANUALTEST
                 Pass.Visible = False
             End If
             Pass.Visible = False
-
+            txtArtwork.Text = Artwork + Rev
+            txtPanel.Text = Panel
+            txtSector.Text = Sector
+            txtLOT.Text = LOT
             Version = "Version: " & GetVersion()
             xTitle = "Freq MHz"
             yTitle = "Signal dBm"
@@ -305,6 +308,7 @@ Skip4:
                     DontclickTheButton = False
 
                     SwitchPorts = SQL.GetSpecification("SwitchPorts")
+                    LastJob = Job
                 End If
             End If
         Catch ex As Exception
@@ -326,15 +330,13 @@ Skip4:
                 Me.Hide()
                 frmSpecifications.ShowDialog()
             End If
-            ArtworkRevision = txtArtwork.Text
-            If txtPanel.Text <> "" And txtPanel.Text <> "N/A" Then
-                ArtworkRevision = ArtworkRevision & txtPanel.Text
-            End If
-            If txtQuadrant.Text <> "" And txtQuadrant.Text <> "N/A" Then
-                ArtworkRevision = ArtworkRevision & txtQuadrant.Text
-                Panel = txtPanel.Text
-                Quadrant = txtQuadrant.Text
-            End If
+            txtArtwork.Text = Artwork + Rev
+            txtPanel.Text = Panel
+            txtSector.Text = Sector
+            txtLOT.Text = LOT
+            Panel = txtPanel.Text
+            Sector = txtSector.Text
+            ArtworkRevision = Artwork + Rev + Panel + Sector + LOT
             Me.Refresh()
 
             TEST1PASS = True
@@ -1407,15 +1409,13 @@ Skip4:
             TestComplete = False
             GlobalFailed = False
 
-            ArtworkRevision = txtArtwork.Text
-            If txtPanel.Text <> "" And txtPanel.Text <> "N/A" Then
-                ArtworkRevision = ArtworkRevision & txtPanel.Text
-            End If
-            If txtQuadrant.Text <> "" And txtQuadrant.Text <> "N/A" Then
-                ArtworkRevision = ArtworkRevision & txtQuadrant.Text
-                Panel = txtPanel.Text
-                Quadrant = txtQuadrant.Text
-            End If
+            txtArtwork.Text = Artwork + Rev
+            txtPanel.Text = Panel
+            txtSector.Text = Sector
+            txtLOT.Text = LOT
+            Panel = txtPanel.Text
+            Sector = txtSector.Text
+            ArtworkRevision = Artwork + Rev + Panel + Sector + LOT
 
             If SpecAB_TF Then
                 Data4L.Visible = True
@@ -1480,7 +1480,7 @@ Skip4:
                     Quantity = SQL.GetSpecification("Quantity")
                     Dim OP As New OperatorEntry
                     OP.StartPosition = FormStartPosition.Manual
-                    OP.Location = New Point(globals.XLocation, globals.YLocation)
+                    OP.Location = New Point(globals.XLocation + 450, globals.YLocation + 200)
                     OP.ShowDialog()
 
                     'ATS Developer does not save data while developing
@@ -2629,7 +2629,7 @@ TestReallyComplete:
         Me.Refresh()
         status = SwitchCom.SetSwitchPosition(3) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
         status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
-   End Sub
+    End Sub
 
     Private Sub btSwitch4_Click(sender As Object, e As EventArgs) Handles btSwitch4.Click
         Dim status As Integer
@@ -2653,7 +2653,7 @@ TestReallyComplete:
         cmbSwitch.Text = "Switch POS 4"
         status = SwitchCom.SetSwitchPosition(4) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
         status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
-     End Sub
+    End Sub
     Private Sub btSwitch5_Click(sender As Object, e As EventArgs) Handles btSwitch5.Click
         Dim status As Integer
         Dim StatusRet As Integer
@@ -2713,74 +2713,96 @@ TestReallyComplete:
         UUTReset = True
         txtArtwork.SelectionStart = Len(txtArtwork.Text)
         txtArtwork.Text = Trim(txtArtwork.Text.ToUpper)
-        Artwork = txtArtwork.Text
-
-        ArtworkRevision = txtArtwork.Text
-        If txtPanel.Text <> "" And txtPanel.Text <> "N/A" Then
-            ArtworkRevision = ArtworkRevision & txtPanel.Text
+        Artwork = txtArtwork.Text(0)
+        If txtArtwork.Text.Length() > 0 Then
+            Rev = txtArtwork.Text.Substring(1, 2)
         End If
-        If txtQuadrant.Text <> "" And txtQuadrant.Text <> "N/A" Then
-            ArtworkRevision = ArtworkRevision & txtQuadrant.Text
+        If txtPanel.Text.Length() = 1 Then
+            txtPanel.Text = "0" + txtPanel.Text
             Panel = txtPanel.Text
-            Quadrant = txtQuadrant.Text
         End If
-        If txtLOT.Text <> "" And txtLOT.Text <> "N/A" Then
-            LOT = txtLOT.Text
+        If txtLOT.Text.Length() = 1 Then
+            txtLOT.Text = "000000000000" + txtLOT.Text
+        ElseIf txtLOT.Text.Length() = 2 Then
+            txtLOT.Text = "00000000000" + txtLOT.Text
+        ElseIf txtLOT.Text.Length() = 3 Then
+            txtLOT.Text = "0000000000" + txtLOT.Text
+        ElseIf txtLOT.Text.Length() = 4 Then
+            txtLOT.Text = "000000000" + txtLOT.Text
+        ElseIf txtLOT.Text.Length() = 5 Then
+            txtLOT.Text = "00000000" + txtLOT.Text
+        ElseIf txtLOT.Text.Length() = 6 Then
+            txtLOT.Text = "0000000" + txtLOT.Text
+        ElseIf txtLOT.Text.Length() = 7 Then
+            txtLOT.Text = "000000" + txtLOT.Text
+        ElseIf txtLOT.Text.Length() = 8 Then
+            txtLOT.Text = "00000" + txtLOT.Text
+        ElseIf txtLOT.Text.Length() = 9 Then
+            txtLOT.Text = "0000" + txtLOT.Text
+        ElseIf txtLOT.Text.Length() = 10 Then
+            txtLOT.Text = "000" + txtLOT.Text
+        ElseIf txtLOT.Text.Length() = 11 Then
+            txtLOT.Text = "00" + txtLOT.Text
+        ElseIf txtLOT.Text.Length() = 12 Then
+            txtLOT.Text = "0" + txtLOT.Text
         End If
-
+        ArtworkRevision = Artwork + Rev + Panel + Sector + LOT
+       
     End Sub
 
     Private Sub txtPanel_TextChanged(sender As Object, e As EventArgs) Handles txtPanel.TextChanged
         UUTReset = True
         txtPanel.SelectionStart = Len(txtPanel.Text)
         txtPanel.Text = Trim(txtPanel.Text.ToUpper)
-        ArtworkRevision = txtArtwork.Text
-        If txtLOT.Text <> "" And txtLOT.Text <> "N/A" Then
-            LOT = txtLOT.Text
-        End If
-        If txtPanel.Text <> "" And txtPanel.Text <> "N/A" Then
-            ArtworkRevision = ArtworkRevision & txtPanel.Text
-        End If
-        If txtQuadrant.Text <> "" And txtQuadrant.Text <> "N/A" Then
-            ArtworkRevision = ArtworkRevision & txtQuadrant.Text
+        Panel = txtPanel.Text
+        If txtPanel.Text.Length() = 1 Then
+            txtPanel.Text = "0" + txtPanel.Text
             Panel = txtPanel.Text
-            Quadrant = txtQuadrant.Text
         End If
-    End Sub
-    Private Sub txtQuadrant_TextChanged(sender As Object, e As EventArgs)
-        UUTReset = True
-        txtQuadrant.SelectionStart = Len(txtQuadrant.Text)
-        txtQuadrant.Text = Trim(txtQuadrant.Text.ToUpper)
-        ArtworkRevision = txtArtwork.Text
+        If txtArtwork.Text <> "" And txtSector.Text <> "" And txtLOT.Text <> "" Then
+            Artwork = txtArtwork.Text(0)
+            If txtArtwork.Text.Length() > 0 Then
+                Rev = txtArtwork.Text.Substring(1, 2)
+            End If
+            
+            Sector = txtSector.Text
+            LOT = txtLOT.Text
+            ArtworkRevision = Artwork + Rev + Panel + Sector + LOT
+        End If
 
-        If txtLOT.Text <> "" And txtLOT.Text <> "N/A" Then
-            LOT = txtLOT.Text
-        End If
-        If txtPanel.Text <> "" And txtPanel.Text <> "N/A" Then
-            ArtworkRevision = ArtworkRevision & txtPanel.Text
-        End If
-        If txtQuadrant.Text <> "" And txtQuadrant.Text <> "N/A" Then
-            ArtworkRevision = ArtworkRevision & txtQuadrant.Text
+
+    End Sub
+    Private Sub txtSector_TextChanged(sender As Object, e As EventArgs) Handles txtSector.TextChanged
+        UUTReset = True
+        txtSector.SelectionStart = Len(txtSector.Text)
+        txtSector.Text = Trim(txtSector.Text.ToUpper)
+        Sector = txtSector.Text
+        If txtArtwork.Text <> "" And txtPanel.Text <> "" And txtLOT.Text <> "" Then
+            Artwork = txtArtwork.Text(0)
+            If txtArtwork.Text.Length() > 0 Then
+                Rev = txtArtwork.Text.Substring(1, 2)
+            End If
             Panel = txtPanel.Text
-            Quadrant = txtQuadrant.Text
+            LOT = txtLOT.Text
+            ArtworkRevision = Artwork + Rev + Panel + Sector + LOT
         End If
+
+
     End Sub
 
     Private Sub txtLOT_TextChanged(sender As Object, e As EventArgs) Handles txtLOT.TextChanged
         UUTReset = True
-        txtQuadrant.SelectionStart = Len(txtQuadrant.Text)
-        txtQuadrant.Text = Trim(txtQuadrant.Text.ToUpper)
-        ArtworkRevision = txtArtwork.Text
-        If txtLOT.Text <> "" And txtLOT.Text <> "N/A" Then
-            LOT = txtLOT.Text
-        End If
-        If txtPanel.Text <> "" And txtPanel.Text <> "N/A" Then
-            ArtworkRevision = ArtworkRevision & txtPanel.Text
-        End If
-        If txtQuadrant.Text <> "" And txtQuadrant.Text <> "N/A" Then
-            ArtworkRevision = ArtworkRevision & txtQuadrant.Text
+        txtLOT.SelectionStart = Len(txtSector.Text)
+        txtLOT.Text = Trim(txtLOT.Text.ToUpper)
+        LOT = txtLOT.Text
+        If txtArtwork.Text <> "" And txtPanel.Text <> "" And txtArtwork.Text <> "" Then
+            Artwork = txtArtwork.Text(0)
+            If txtArtwork.Text.Length() > 0 Then
+                Rev = txtArtwork.Text.Substring(1, 2)
+            End If
             Panel = txtPanel.Text
-            Quadrant = txtQuadrant.Text
+            Rev = txtArtwork.Text
+            ArtworkRevision = Artwork + Rev + Panel + Sector + LOT
         End If
     End Sub
 End Class

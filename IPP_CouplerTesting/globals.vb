@@ -49,10 +49,11 @@ Module globals
     Public Master_bypass As Boolean = False
     Public Percent_bypass As Boolean = False
     Public ArtworkRevision As String = "N/A"
-    Public Artwork As String = "N/A"
-    Public Panel As String = "N/A"
-    Public Quadrant As String = "N/A"
-    Public LOT As String = "N/A"
+    Public Artwork As String = ""
+    Public Rev As String = ""
+    Public Panel As String = ""
+    Public Sector As String = ""
+    Public LOT As String = ""
     Public jobSpec As String
     Public PartSpec As String
     Public SwitchModel As String
@@ -121,6 +122,7 @@ Module globals
     Public YData As Double
     Public SerialNumber As String
     Public Job As String
+    Public LastJob As String = "N/A"
     Public Test As String
     Public PPH As Double = 115
     Public Quantity As Double = 215
@@ -982,36 +984,34 @@ Trap:
         ElseIf button = 16 Then 'Display Critical Message icon.
             MYMSG_BTN = 16
             If Not title = "" Then
-                Return MYMsgBox(msg, vbCritical, title)
+                Return MsgBox(msg, vbCritical, title)
             Else
-                Return MYMsgBox(msg, vbCritical)
+                Return MsgBox(msg, vbCritical)
             End If
         ElseIf button = 32 Then 'Display Warning Query icon
             MYMSG_BTN = 32
             If Not title = "" Then
-                Return MYMsgBox(msg, vbQuestion, title)
+                Return MsgBox(msg, vbQuestion, title)
             Else
-                Return MYMsgBox(msg, vbQuestion)
+                Return MsgBox(msg, vbQuestion)
             End If
         ElseIf button = 48 Then 'Display Warning Message icon
             MYMSG_BTN = 48
             If Not title = "" Then
-                Return MYMsgBox(msg, vbExclamation, title)
+                Return MsgBox(msg, vbExclamation, title)
             Else
-                Return MYMsgBox(msg, vbExclamation)
+                Return MsgBox(msg, vbExclamation)
             End If
         ElseIf button = 64 Then 'Display Information Message icon
             MYMSG_BTN = 64
             If Not title = "" Then
-                Return MYMsgBox(msg, vbInformation, title)
+                Return MsgBox(msg, vbInformation, title)
             Else
-                Return MYMsgBox(msg, vbInformation)
+                Return MsgBox(msg, vbInformation)
             End If
         Else
             Return 0
         End If
-
-
 
     End Function
 End Module

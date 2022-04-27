@@ -609,6 +609,7 @@ Skip4:
                     DontclickTheButton = False
                     Me.ckROBOT.Enabled = True
                     SwitchPorts = SQL.GetSpecification("SwitchPorts")
+                    LastJob = Job
                 End If
             End If
         Catch ex As Exception
@@ -656,49 +657,17 @@ Skip4:
                 Me.Hide()
                 frmSpecifications.ShowDialog()
             End If
-            Dim OP As New AddArtWorkRevision
-            OP.StartPosition = FormStartPosition.Manual
-            OP.Location = New Point(globals.XLocation + 450, globals.YLocation + 200)
-            OP.ShowDialog()
 
-            If Artwork = "N/A" And Panel = "N/A" And Quadrant = "N/A" And Not ArtworkRevision = "N/A" Then
-                Dim splitstring(10) As String
-                If ArtworkRevision.Contains("P") = True Then
-                    splitstring = ArtworkRevision.Split("P")
-                    If splitstring(1).Contains("Q") Then
-                        Artwork = splitstring(0)
-                        splitstring = ArtworkRevision.Split("P")
-                        Panel = splitstring(1)
-                        Quadrant = splitstring(1)
-                    Else
-                        Artwork = splitstring(0)
-                        Panel = splitstring(1)
-                        Quadrant = "N/A"
-                    End If
-                    Artwork = splitstring(0)
-                Else
-                    Artwork = ArtworkRevision
-                    Panel = "N/A"
-                    Quadrant = "N/A"
-                End If
+            If Artwork = "" Or Not Job = LastJob Then
+                Dim OP As New AddArtWorkRevision
+                OP.StartPosition = FormStartPosition.Manual
+                OP.Location = New Point(globals.XLocation + 450, globals.YLocation + 200)
+                OP.ShowDialog()
+                txtArtwork.Text = Artwork + Rev
+                txtPanel.Text = Panel
+                txtSector.Text = Sector
+                txtLOT.Text = LOT
             End If
-            txtArtwork.Text = Artwork
-            txtPanel.Text = Panel
-            txtQuadrant.Text = Quadrant
-            txtLOT.Text = LOT
-            ArtworkRevision = txtArtwork.Text
-
-            If txtPanel.Text <> "" Then
-                ArtworkRevision = ArtworkRevision & txtPanel.Text
-                Panel = txtPanel.Text
-            End If
-            If txtQuadrant.Text <> "" Then
-                ArtworkRevision = ArtworkRevision & txtQuadrant.Text
-                Quadrant = txtQuadrant.Text
-            End If
-
-
-
 
             Me.Refresh()
 
@@ -2173,7 +2142,7 @@ GetOut:
             SerialNumber = "UUT" & UUTNum_Reset
             SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "' and WorkStation = '" & GetComputerName() & "' And SerialNumber = 'UUT" & UUTNum_Reset & "' and artwork_rev = '" & ArtworkRevision & "'"
             If SQL.CheckforRow(SQLstr, "NetworkData") = 0 Then
-                SQLstr = "Insert Into TestData (JobNumber, PartNumber,SerialNumber,WorkStation,artwork_rev,artwork,Panel,Quadrant) values ('" & Job & "','" & Part & "','" & SerialNumber & "','" & GetComputerName() & "','" & ArtworkRevision & "','" & Artwork & "','" & Panel & "','" & Quadrant & "')"
+                SQLstr = "Insert Into TestData (JobNumber, PartNumber,SerialNumber,WorkStation,artwork_rev,artwork,Panel,Sector) values ('" & Job & "','" & Part & "','" & SerialNumber & "','" & GetComputerName() & "','" & ArtworkRevision & "','" & Artwork & "','" & Panel & "','" & Sector & "')"
                 SQL.ExecuteSQLCommand(SQLstr, "NetworkData")
             End If
             SQLstr = "select * from TestData where JobNumber = '" & Me.cmbJob.Text & "' and WorkStation = '" & GetComputerName() & "' And SerialNumber = 'UUT" & UUTNum_Reset & "' and artwork_rev = '" & ArtworkRevision & "'"
@@ -2338,6 +2307,7 @@ Test2SubRet:
                         Data4H.Text = AB2
                         If AB1Pass = "Pass" And AB2Pass = "Pass" Then
                             TEST4PASS = True
+                            PF4.Text = "Pass"
                             status("Green", "TEST4L", True)
                             status("Green", "TEST4H", True)
                             If SpecType <> "DUAL DIRECTIONAL COUPLER" And SpecType <> "SINGLE DIRECTIONAL COUPLER" Then
@@ -2849,26 +2819,13 @@ ReallyComplete:
             RetEST4Fail = 0
             RetEST5Fail = 0
 
-            If Artwork = "N/A" And Panel = "N/A" And Quadrant = "N/A" And Not ArtworkRevision = "N/A" Then
-                Dim splitstring(10) As String
-                splitstring = ArtworkRevision.Split("P")
-
-            End If
-            txtArtwork.Text = Artwork
+            txtArtwork.Text = Artwork + Rev
             txtPanel.Text = Panel
-            txtQuadrant.Text = Quadrant
+            txtSector.Text = Sector
             txtLOT.Text = LOT
-            ArtworkRevision = txtArtwork.Text
-
-
-            If txtPanel.Text <> "" Then
-                ArtworkRevision = ArtworkRevision & txtPanel.Text
-                Panel = txtPanel.Text
-            End If
-            If txtQuadrant.Text <> "" Then
-                ArtworkRevision = ArtworkRevision & txtQuadrant.Text
-                Quadrant = txtQuadrant.Text
-            End If
+            Panel = txtPanel.Text
+            Sector = txtSector.Text
+            ArtworkRevision = Artwork + Rev + Panel + Sector + LOT
 
             If SpecAB_TF Then
                 Data4L.Visible = True
@@ -2991,7 +2948,7 @@ ReallyComplete:
                     DeleteOp.Checked = False
                     Dim OP As New OperatorEntry
                     OP.StartPosition = FormStartPosition.Manual
-                    OP.Location = New Point(globals.XLocation, globals.YLocation)
+                    OP.Location = New Point(globals.XLocation + 450, globals.YLocation + 200)
                     OP.ShowDialog()
                     TestCompleteSignal(False)
                     RobotTimer.Start()
@@ -2999,7 +2956,7 @@ ReallyComplete:
                     DeleteOp.Checked = False
                     Dim OP As New OperatorEntry
                     OP.StartPosition = FormStartPosition.Manual
-                    OP.Location = New Point(globals.XLocation, globals.YLocation)
+                    OP.Location = New Point(globals.XLocation + 450, globals.YLocation + 200)
                     OP.ShowDialog()
                 End If
                 UUTCount.Text = UUTNum
@@ -3066,7 +3023,7 @@ ReallyComplete:
             SerialNumber = "UUT" & UUTNum_Reset
             SQLstr = "SELECT * from TestData where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork_rev = '" & ArtworkRevision & "'"
             If SQL.CheckforRow(SQLstr, "NetworkData") = 0 Then
-                SQLstr = "Insert Into TestData (JobNumber, PartNumber,SerialNumber,WorkStation,artwork_rev,artwork,Panel,Quadrant) values ('" & Job & "','" & Part & "','" & SerialNumber & "','" & GetComputerName() & "','" & ArtworkRevision & "','" & Artwork & "','" & Panel & "','" & Quadrant & "')"
+                SQLstr = "Insert Into TestData (JobNumber, PartNumber,SerialNumber,WorkStation,artwork_rev,artwork,Panel,Sector) values ('" & Job & "','" & Part & "','" & SerialNumber & "','" & GetComputerName() & "','" & ArtworkRevision & "','" & Artwork & "','" & Panel & "','" & Sector & "')"
                 SQL.ExecuteSQLCommand(SQLstr, "NetworkData")
             End If
             SQLstr = "SELECT * from TestData where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork_rev = '" & ArtworkRevision & "'"
@@ -3263,7 +3220,7 @@ Test2SubRet:
                         Data4H.Text = AB2
                         If AB1Pass = "Pass" And AB2Pass = "Pass" Then
                             TEST4PASS = True
-                            PF4.Text = PassFail
+                            PF4.Text = "Pass"
                             status("Green", "TEST4L", True)
                             status("Green", "TEST4H", True)
                             If SpecType <> "DUAL DIRECTIONAL COUPLER" And SpecType <> "SINGLE DIRECTIONAL COUPLER" Then
@@ -4550,7 +4507,7 @@ TestReallyComplete:
             If SQL.CheckforRow(SQLstr, "NetworkData") > 0 Then
                 test_status = GetTestStatus()
                 complete = GeUUTCount()
-                If MYMsgBox("The Job is already on record. Resume Testing", vbYesNo, "Continue from UUT" & complete & " or Start Over") = vbNo Then
+                If MYMsgBox("The Job is already on record. Resume Testing", vbYesNo, "Continue from UUT" & complete & "?") = vbNo Then
                     SQLstr = "UPDATE ReportQueue Set ReportStatus = 'test running' where JobNumber = '" & Me.cmbJob.Text & "' And WorkStation = '" & WorkStation & "'"
                     SQL.ExecuteSQLCommand(SQLstr, "Effeciency")
                     If MYMsgBox("Do you want to erase The data?", vbYesNo, "Erasing Job Data") = vbNo Then
@@ -7549,7 +7506,7 @@ Skip3:
         DeleteOp.Checked = True
         Dim OP As New OperatorEntry
         OP.StartPosition = FormStartPosition.Manual
-        OP.Location = New Point(globals.XLocation, globals.YLocation)
+        OP.Location = New Point(globals.XLocation + 450, globals.YLocation + 200)
         OP.ShowDialog()
     End Sub
 
@@ -7781,71 +7738,61 @@ Skip3:
         UUTReset = True
         txtArtwork.SelectionStart = Len(txtArtwork.Text)
         txtArtwork.Text = Trim(txtArtwork.Text.ToUpper)
-        Artwork = txtArtwork.Text
-
-        ArtworkRevision = txtArtwork.Text
-        If txtPanel.Text <> "" And txtPanel.Text <> "N/A" Then
-            ArtworkRevision = ArtworkRevision & txtPanel.Text
+        Artwork = txtArtwork.Text(0)
+        If txtArtwork.Text.Length() > 1 Then
+            Rev = txtArtwork.Text.Substring(1, 2)
+        End If
+        If txtPanel.Text.Length() = 1 Then
+            txtPanel.Text = "0" + txtPanel.Text
             Panel = txtPanel.Text
         End If
-        If txtLOT.Text <> "" And txtLOT.Text <> "N/A" Then
-            LOT = txtLOT.Text
-        End If
-        If txtQuadrant.Text <> "" And txtQuadrant.Text <> "N/A" Then
-            ArtworkRevision = ArtworkRevision & txtQuadrant.Text
-            Panel = txtPanel.Text
-            Quadrant = txtQuadrant.Text
-        End If
-
+       
+        ArtworkRevision = Artwork + Rev + Panel + Sector + LOT
     End Sub
     Private Sub txtLOT_TextChanged(sender As Object, e As EventArgs) Handles txtLOT.TextChanged
         UUTReset = True
-        txtArtwork.SelectionStart = Len(txtArtwork.Text)
-        txtArtwork.Text = Trim(txtArtwork.Text.ToUpper)
-        Artwork = txtArtwork.Text
-        ArtworkRevision = txtArtwork.Text
-        If txtPanel.Text <> "" And txtPanel.Text <> "N/A" Then
-            ArtworkRevision = ArtworkRevision & txtPanel.Text
-            Panel = txtPanel.Text
+        txtLOT.SelectionStart = Len(txtLOT.Text)
+        txtLOT.Text = Trim(txtLOT.Text)
+        If txtLOT.Text.Length() = 1 Then
+            txtLOT.Text = "000000000000" + txtLOT.Text
+        ElseIf txtLOT.Text.Length() = 2 Then
+            txtLOT.Text = "00000000000" + txtLOT.Text
+        ElseIf txtLOT.Text.Length() = 3 Then
+            txtLOT.Text = "0000000000" + txtLOT.Text
+        ElseIf txtLOT.Text.Length() = 4 Then
+            txtLOT.Text = "000000000" + txtLOT.Text
+        ElseIf txtLOT.Text.Length() = 5 Then
+            txtLOT.Text = "00000000" + txtLOT.Text
+        ElseIf txtLOT.Text.Length() = 6 Then
+            txtLOT.Text = "0000000" + txtLOT.Text
+        ElseIf txtLOT.Text.Length() = 7 Then
+            txtLOT.Text = "000000" + txtLOT.Text
+        ElseIf txtLOT.Text.Length() = 8 Then
+            txtLOT.Text = "00000" + txtLOT.Text
+        ElseIf txtLOT.Text.Length() = 9 Then
+            txtLOT.Text = "0000" + txtLOT.Text
+        ElseIf txtLOT.Text.Length() = 10 Then
+            txtLOT.Text = "000" + txtLOT.Text
+        ElseIf txtLOT.Text.Length() = 11 Then
+            txtLOT.Text = "00" + txtLOT.Text
+        ElseIf txtLOT.Text.Length() = 12 Then
+            txtLOT.Text = "0" + txtLOT.Text
         End If
-        If txtLOT.Text <> "" And txtLOT.Text <> "N/A" Then
-            LOT = txtLOT.Text
-        End If
-        If txtQuadrant.Text <> "" And txtQuadrant.Text <> "N/A" Then
-            ArtworkRevision = ArtworkRevision & txtQuadrant.Text
-            Quadrant = txtQuadrant.Text
-        End If
+        
+        ArtworkRevision = Artwork + Rev + Panel + Sector + LOT
     End Sub
 
     Private Sub txtPanel_TextChanged(sender As Object, e As EventArgs) Handles txtPanel.TextChanged
         UUTReset = True
         txtPanel.SelectionStart = Len(txtPanel.Text)
         txtPanel.Text = Trim(txtPanel.Text.ToUpper)
-        ArtworkRevision = txtArtwork.Text
-        If txtLOT.Text <> "" And txtLOT.Text <> "N/A" Then
-            LOT = txtLOT.Text
-        End If
-        If txtPanel.Text <> "" And txtPanel.Text <> "N/A" Then
-            ArtworkRevision = ArtworkRevision & txtPanel.Text
-        End If
-        If txtQuadrant.Text <> "" And txtQuadrant.Text <> "N/A" Then
-            ArtworkRevision = ArtworkRevision & txtQuadrant.Text
-        End If
+        ArtworkRevision = Artwork + Rev + Panel + Sector + LOT
     End Sub
-    Private Sub txtQuadrant_TextChanged(sender As Object, e As EventArgs)
+    Private Sub txtSector_TextChanged(sender As Object, e As EventArgs) Handles txtSector.TextChanged
         UUTReset = True
-        txtQuadrant.SelectionStart = Len(txtQuadrant.Text)
-        txtQuadrant.Text = Trim(txtQuadrant.Text.ToUpper)
-        ArtworkRevision = txtArtwork.Text
-        If txtLOT.Text <> "" And txtLOT.Text <> "N/A" Then
-            LOT = txtLOT.Text
-        End If
-        If txtPanel.Text <> "" And txtPanel.Text <> "N/A" Then
-            ArtworkRevision = ArtworkRevision & txtPanel.Text
-        End If
-        If txtQuadrant.Text <> "" And txtQuadrant.Text <> "N/A" Then
-            ArtworkRevision = ArtworkRevision & txtQuadrant.Text
-        End If
+        txtSector.SelectionStart = Len(txtSector.Text)
+        txtSector.Text = Trim(txtSector.Text.ToUpper)
+        ArtworkRevision = Artwork + Rev + Panel + Sector + LOT
     End Sub
 
 
@@ -8153,6 +8100,17 @@ Skip3:
 
     
     Private Sub ManualTuningToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ManualTuningToolStripMenuItem.Click
+
+        If Artwork = "" Then
+            Dim OP As New AddArtWorkRevision
+            OP.StartPosition = FormStartPosition.Manual
+            OP.Location = New Point(globals.XLocation + 450, globals.YLocation + 200)
+            OP.ShowDialog()
+            txtArtwork.Text = Artwork + Rev
+            txtPanel.Text = Panel
+            txtSector.Text = Sector
+            txtLOT.Text = LOT
+        End If
         Me.Hide()
         Dim TUNE As New frmMANUALTEST
         StatusLog.Items.Add("Opening Specs:" & "" & DateTime.Now.ToString)

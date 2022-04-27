@@ -134,18 +134,18 @@ Partial Class frmMANUALTEST
         Me.lblArtwork = New System.Windows.Forms.TextBox()
         Me.txtLOT = New System.Windows.Forms.TextBox()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.txtQuadrant = New System.Windows.Forms.TextBox()
-        Me.UUTMessage.SuspendLayout()
-        Me.UUTStatusColor.SuspendLayout()
-        Me.Panel1.SuspendLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.SuspendLayout()
+        Me.txtSector = New System.Windows.Forms.TextBox()
+        Me.UUTMessage.SuspendLayout
+        Me.UUTStatusColor.SuspendLayout
+        Me.Panel1.SuspendLayout
+        CType(Me.PictureBox1,System.ComponentModel.ISupportInitialize).BeginInit
+        Me.SuspendLayout
         '
         'txtTitle
         '
         Me.txtTitle.BackColor = System.Drawing.SystemColors.Desktop
         Me.txtTitle.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtTitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.txtTitle.ForeColor = System.Drawing.Color.White
         Me.txtTitle.Location = New System.Drawing.Point(10, 250)
         Me.txtTitle.Name = "txtTitle"
@@ -158,13 +158,13 @@ Partial Class frmMANUALTEST
         '
         Me.UUTMessage.BackColor = System.Drawing.SystemColors.ControlText
         Me.UUTMessage.Controls.Add(Me.UUTStatusColor)
-        Me.UUTMessage.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.UUTMessage.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.UUTMessage.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.UUTMessage.Location = New System.Drawing.Point(28, 287)
         Me.UUTMessage.Name = "UUTMessage"
         Me.UUTMessage.Size = New System.Drawing.Size(758, 225)
         Me.UUTMessage.TabIndex = 70
-        Me.UUTMessage.TabStop = False
+        Me.UUTMessage.TabStop = false
         Me.UUTMessage.Text = "  UUT TESTS  --   Load Part Number"
         '
         'UUTStatusColor
@@ -225,7 +225,7 @@ Partial Class frmMANUALTEST
         Me.Panel1.Controls.Add(Me.TestLabel3)
         Me.Panel1.Controls.Add(Me.TestLabel2)
         Me.Panel1.Controls.Add(Me.TestLabel1)
-        Me.Panel1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Panel1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Panel1.ForeColor = System.Drawing.SystemColors.ControlLight
         Me.Panel1.Location = New System.Drawing.Point(7, 4)
         Me.Panel1.Name = "Panel1"
@@ -235,68 +235,68 @@ Partial Class frmMANUALTEST
         'cmdStartTest5
         '
         Me.cmdStartTest5.BackColor = System.Drawing.SystemColors.Control
-        Me.cmdStartTest5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdStartTest5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.cmdStartTest5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.cmdStartTest5.Location = New System.Drawing.Point(646, 153)
         Me.cmdStartTest5.Name = "cmdStartTest5"
         Me.cmdStartTest5.Size = New System.Drawing.Size(51, 25)
         Me.cmdStartTest5.TabIndex = 51
         Me.cmdStartTest5.Text = "Test5"
-        Me.cmdStartTest5.UseVisualStyleBackColor = False
+        Me.cmdStartTest5.UseVisualStyleBackColor = false
         '
         'cmdStartTest4
         '
         Me.cmdStartTest4.BackColor = System.Drawing.SystemColors.Control
-        Me.cmdStartTest4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdStartTest4.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.cmdStartTest4.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.cmdStartTest4.Location = New System.Drawing.Point(646, 121)
         Me.cmdStartTest4.Name = "cmdStartTest4"
         Me.cmdStartTest4.Size = New System.Drawing.Size(51, 25)
         Me.cmdStartTest4.TabIndex = 50
         Me.cmdStartTest4.Text = "Test4"
-        Me.cmdStartTest4.UseVisualStyleBackColor = False
+        Me.cmdStartTest4.UseVisualStyleBackColor = false
         '
         'cmdStartTest3
         '
         Me.cmdStartTest3.BackColor = System.Drawing.SystemColors.Control
-        Me.cmdStartTest3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdStartTest3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.cmdStartTest3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.cmdStartTest3.Location = New System.Drawing.Point(646, 88)
         Me.cmdStartTest3.Name = "cmdStartTest3"
         Me.cmdStartTest3.Size = New System.Drawing.Size(51, 25)
         Me.cmdStartTest3.TabIndex = 49
         Me.cmdStartTest3.Text = "Test3"
-        Me.cmdStartTest3.UseVisualStyleBackColor = False
+        Me.cmdStartTest3.UseVisualStyleBackColor = false
         '
         'cmdStartTest2
         '
         Me.cmdStartTest2.BackColor = System.Drawing.SystemColors.Control
-        Me.cmdStartTest2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdStartTest2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.cmdStartTest2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.cmdStartTest2.Location = New System.Drawing.Point(646, 54)
         Me.cmdStartTest2.Name = "cmdStartTest2"
         Me.cmdStartTest2.Size = New System.Drawing.Size(51, 25)
         Me.cmdStartTest2.TabIndex = 48
         Me.cmdStartTest2.Text = "Test2"
-        Me.cmdStartTest2.UseVisualStyleBackColor = False
+        Me.cmdStartTest2.UseVisualStyleBackColor = false
         '
         'cmdStartTest1
         '
         Me.cmdStartTest1.BackColor = System.Drawing.SystemColors.Control
-        Me.cmdStartTest1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cmdStartTest1.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.cmdStartTest1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.cmdStartTest1.Location = New System.Drawing.Point(646, 22)
         Me.cmdStartTest1.Name = "cmdStartTest1"
         Me.cmdStartTest1.Size = New System.Drawing.Size(51, 25)
         Me.cmdStartTest1.TabIndex = 47
         Me.cmdStartTest1.Text = "Test1"
-        Me.cmdStartTest1.UseVisualStyleBackColor = False
+        Me.cmdStartTest1.UseVisualStyleBackColor = false
         '
         'Label17
         '
-        Me.Label17.AutoSize = True
+        Me.Label17.AutoSize = true
         Me.Label17.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label17.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label17.Font = New System.Drawing.Font("Microsoft Sans Serif", 9!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Label17.ForeColor = System.Drawing.Color.White
         Me.Label17.Location = New System.Drawing.Point(512, 5)
         Me.Label17.Name = "Label17"
@@ -307,7 +307,7 @@ Partial Class frmMANUALTEST
         'Data1H
         '
         Me.Data1H.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Data1H.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Data1H.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Data1H.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.Data1H.Location = New System.Drawing.Point(354, 23)
         Me.Data1H.Name = "Data1H"
@@ -315,12 +315,12 @@ Partial Class frmMANUALTEST
         Me.Data1H.TabIndex = 45
         Me.Data1H.Text = "ILH"
         Me.Data1H.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.Data1H.Visible = False
+        Me.Data1H.Visible = false
         '
         'Data1L
         '
         Me.Data1L.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Data1L.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Data1L.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Data1L.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.Data1L.Location = New System.Drawing.Point(290, 23)
         Me.Data1L.Name = "Data1L"
@@ -328,12 +328,12 @@ Partial Class frmMANUALTEST
         Me.Data1L.TabIndex = 44
         Me.Data1L.Text = "ILL"
         Me.Data1L.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.Data1L.Visible = False
+        Me.Data1L.Visible = false
         '
         'Data3H
         '
         Me.Data3H.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Data3H.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Data3H.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Data3H.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.Data3H.Location = New System.Drawing.Point(354, 96)
         Me.Data3H.Name = "Data3H"
@@ -341,12 +341,12 @@ Partial Class frmMANUALTEST
         Me.Data3H.TabIndex = 43
         Me.Data3H.Text = "ISOH"
         Me.Data3H.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.Data3H.Visible = False
+        Me.Data3H.Visible = false
         '
         'Data3L
         '
         Me.Data3L.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Data3L.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Data3L.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Data3L.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.Data3L.Location = New System.Drawing.Point(282, 95)
         Me.Data3L.Name = "Data3L"
@@ -354,12 +354,12 @@ Partial Class frmMANUALTEST
         Me.Data3L.TabIndex = 42
         Me.Data3L.Text = "ISOL"
         Me.Data3L.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.Data3L.Visible = False
+        Me.Data3L.Visible = false
         '
         'Data4H
         '
         Me.Data4H.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Data4H.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Data4H.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Data4H.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.Data4H.Location = New System.Drawing.Point(354, 127)
         Me.Data4H.Name = "Data4H"
@@ -367,12 +367,12 @@ Partial Class frmMANUALTEST
         Me.Data4H.TabIndex = 41
         Me.Data4H.Text = "ABH"
         Me.Data4H.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.Data4H.Visible = False
+        Me.Data4H.Visible = false
         '
         'Data4L
         '
         Me.Data4L.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Data4L.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Data4L.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Data4L.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.Data4L.Location = New System.Drawing.Point(284, 126)
         Me.Data4L.Name = "Data4L"
@@ -380,13 +380,13 @@ Partial Class frmMANUALTEST
         Me.Data4L.TabIndex = 40
         Me.Data4L.Text = "ABL"
         Me.Data4L.TextAlign = System.Drawing.ContentAlignment.TopCenter
-        Me.Data4L.Visible = False
+        Me.Data4L.Visible = false
         '
         'Label13
         '
-        Me.Label13.AutoSize = True
+        Me.Label13.AutoSize = true
         Me.Label13.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label13.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label13.Font = New System.Drawing.Font("Microsoft Sans Serif", 9!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Label13.ForeColor = System.Drawing.Color.White
         Me.Label13.Location = New System.Drawing.Point(331, 3)
         Me.Label13.Name = "Label13"
@@ -397,7 +397,7 @@ Partial Class frmMANUALTEST
         '
         'txtOffset5
         '
-        Me.txtOffset5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtOffset5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.txtOffset5.Location = New System.Drawing.Point(588, 156)
         Me.txtOffset5.Name = "txtOffset5"
         Me.txtOffset5.Size = New System.Drawing.Size(52, 21)
@@ -407,7 +407,7 @@ Partial Class frmMANUALTEST
         '
         'txtOffset4
         '
-        Me.txtOffset4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtOffset4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.txtOffset4.Location = New System.Drawing.Point(588, 123)
         Me.txtOffset4.Name = "txtOffset4"
         Me.txtOffset4.Size = New System.Drawing.Size(52, 21)
@@ -417,7 +417,7 @@ Partial Class frmMANUALTEST
         '
         'txtOffset3
         '
-        Me.txtOffset3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtOffset3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.txtOffset3.Location = New System.Drawing.Point(588, 89)
         Me.txtOffset3.Name = "txtOffset3"
         Me.txtOffset3.Size = New System.Drawing.Size(52, 21)
@@ -427,7 +427,7 @@ Partial Class frmMANUALTEST
         '
         'txtOffset2
         '
-        Me.txtOffset2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtOffset2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.txtOffset2.Location = New System.Drawing.Point(588, 56)
         Me.txtOffset2.Name = "txtOffset2"
         Me.txtOffset2.Size = New System.Drawing.Size(52, 21)
@@ -437,7 +437,7 @@ Partial Class frmMANUALTEST
         '
         'txtOffset1
         '
-        Me.txtOffset1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtOffset1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.txtOffset1.Location = New System.Drawing.Point(588, 23)
         Me.txtOffset1.Name = "txtOffset1"
         Me.txtOffset1.Size = New System.Drawing.Size(52, 21)
@@ -447,9 +447,9 @@ Partial Class frmMANUALTEST
         '
         'Label14
         '
-        Me.Label14.AutoSize = True
+        Me.Label14.AutoSize = true
         Me.Label14.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label14.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Label14.ForeColor = System.Drawing.Color.White
         Me.Label14.Location = New System.Drawing.Point(592, 3)
         Me.Label14.Name = "Label14"
@@ -460,7 +460,7 @@ Partial Class frmMANUALTEST
         'PF5
         '
         Me.PF5.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.PF5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PF5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.PF5.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.PF5.Location = New System.Drawing.Point(512, 156)
         Me.PF5.Name = "PF5"
@@ -472,7 +472,7 @@ Partial Class frmMANUALTEST
         'PF4
         '
         Me.PF4.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.PF4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PF4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.PF4.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.PF4.Location = New System.Drawing.Point(512, 125)
         Me.PF4.Name = "PF4"
@@ -484,7 +484,7 @@ Partial Class frmMANUALTEST
         'PF3
         '
         Me.PF3.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.PF3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PF3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.PF3.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.PF3.Location = New System.Drawing.Point(512, 93)
         Me.PF3.Name = "PF3"
@@ -496,7 +496,7 @@ Partial Class frmMANUALTEST
         'PF2
         '
         Me.PF2.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.PF2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PF2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.PF2.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.PF2.Location = New System.Drawing.Point(512, 58)
         Me.PF2.Name = "PF2"
@@ -508,7 +508,7 @@ Partial Class frmMANUALTEST
         'PF1
         '
         Me.PF1.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.PF1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PF1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.PF1.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.PF1.Location = New System.Drawing.Point(512, 26)
         Me.PF1.Name = "PF1"
@@ -520,7 +520,7 @@ Partial Class frmMANUALTEST
         'Spec5Max
         '
         Me.Spec5Max.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Spec5Max.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Spec5Max.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Spec5Max.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.Spec5Max.Location = New System.Drawing.Point(401, 156)
         Me.Spec5Max.Name = "Spec5Max"
@@ -532,7 +532,7 @@ Partial Class frmMANUALTEST
         'Data5
         '
         Me.Data5.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Data5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Data5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Data5.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.Data5.Location = New System.Drawing.Point(310, 154)
         Me.Data5.Name = "Data5"
@@ -544,7 +544,7 @@ Partial Class frmMANUALTEST
         'Spec5Min
         '
         Me.Spec5Min.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Spec5Min.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Spec5Min.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Spec5Min.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.Spec5Min.Location = New System.Drawing.Point(196, 153)
         Me.Spec5Min.Name = "Spec5Min"
@@ -556,7 +556,7 @@ Partial Class frmMANUALTEST
         'Spec4Max
         '
         Me.Spec4Max.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Spec4Max.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Spec4Max.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Spec4Max.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.Spec4Max.Location = New System.Drawing.Point(401, 126)
         Me.Spec4Max.Name = "Spec4Max"
@@ -568,7 +568,7 @@ Partial Class frmMANUALTEST
         'Data4
         '
         Me.Data4.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Data4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Data4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Data4.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.Data4.Location = New System.Drawing.Point(307, 127)
         Me.Data4.Name = "Data4"
@@ -580,7 +580,7 @@ Partial Class frmMANUALTEST
         'Spec4Min
         '
         Me.Spec4Min.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Spec4Min.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Spec4Min.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Spec4Min.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.Spec4Min.Location = New System.Drawing.Point(197, 126)
         Me.Spec4Min.Name = "Spec4Min"
@@ -592,7 +592,7 @@ Partial Class frmMANUALTEST
         'Spec3Max
         '
         Me.Spec3Max.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Spec3Max.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Spec3Max.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Spec3Max.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.Spec3Max.Location = New System.Drawing.Point(404, 95)
         Me.Spec3Max.Name = "Spec3Max"
@@ -604,7 +604,7 @@ Partial Class frmMANUALTEST
         'Data3
         '
         Me.Data3.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Data3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Data3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Data3.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.Data3.Location = New System.Drawing.Point(307, 95)
         Me.Data3.Name = "Data3"
@@ -616,7 +616,7 @@ Partial Class frmMANUALTEST
         'Spec3Min
         '
         Me.Spec3Min.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Spec3Min.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Spec3Min.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Spec3Min.ForeColor = System.Drawing.Color.White
         Me.Spec3Min.Location = New System.Drawing.Point(197, 95)
         Me.Spec3Min.Name = "Spec3Min"
@@ -628,7 +628,7 @@ Partial Class frmMANUALTEST
         'Spec2Max
         '
         Me.Spec2Max.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Spec2Max.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Spec2Max.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Spec2Max.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.Spec2Max.Location = New System.Drawing.Point(404, 61)
         Me.Spec2Max.Name = "Spec2Max"
@@ -640,7 +640,7 @@ Partial Class frmMANUALTEST
         'Data2
         '
         Me.Data2.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Data2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Data2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Data2.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.Data2.Location = New System.Drawing.Point(307, 58)
         Me.Data2.Name = "Data2"
@@ -652,7 +652,7 @@ Partial Class frmMANUALTEST
         'Spec2Min
         '
         Me.Spec2Min.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Spec2Min.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Spec2Min.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Spec2Min.ForeColor = System.Drawing.Color.White
         Me.Spec2Min.Location = New System.Drawing.Point(196, 58)
         Me.Spec2Min.Name = "Spec2Min"
@@ -664,7 +664,7 @@ Partial Class frmMANUALTEST
         'Spec1Max
         '
         Me.Spec1Max.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Spec1Max.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Spec1Max.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Spec1Max.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.Spec1Max.Location = New System.Drawing.Point(401, 23)
         Me.Spec1Max.Name = "Spec1Max"
@@ -676,7 +676,7 @@ Partial Class frmMANUALTEST
         'Data1
         '
         Me.Data1.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Data1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Data1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Data1.ForeColor = System.Drawing.Color.CornflowerBlue
         Me.Data1.Location = New System.Drawing.Point(307, 23)
         Me.Data1.Name = "Data1"
@@ -687,9 +687,9 @@ Partial Class frmMANUALTEST
         '
         'Label12
         '
-        Me.Label12.AutoSize = True
+        Me.Label12.AutoSize = true
         Me.Label12.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label12.Font = New System.Drawing.Font("Microsoft Sans Serif", 9!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Label12.ForeColor = System.Drawing.Color.White
         Me.Label12.Location = New System.Drawing.Point(419, 5)
         Me.Label12.Name = "Label12"
@@ -699,9 +699,9 @@ Partial Class frmMANUALTEST
         '
         'Label11
         '
-        Me.Label11.AutoSize = True
+        Me.Label11.AutoSize = true
         Me.Label11.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label11.Font = New System.Drawing.Font("Microsoft Sans Serif", 9!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Label11.ForeColor = System.Drawing.Color.White
         Me.Label11.Location = New System.Drawing.Point(215, 3)
         Me.Label11.Name = "Label11"
@@ -713,7 +713,7 @@ Partial Class frmMANUALTEST
         'Spec1Min
         '
         Me.Spec1Min.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Spec1Min.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Spec1Min.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Spec1Min.ForeColor = System.Drawing.Color.White
         Me.Spec1Min.Location = New System.Drawing.Point(197, 23)
         Me.Spec1Min.Name = "Spec1Min"
@@ -725,7 +725,7 @@ Partial Class frmMANUALTEST
         'TestLabel5
         '
         Me.TestLabel5.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.TestLabel5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TestLabel5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.TestLabel5.ForeColor = System.Drawing.Color.White
         Me.TestLabel5.Location = New System.Drawing.Point(3, 152)
         Me.TestLabel5.Name = "TestLabel5"
@@ -737,7 +737,7 @@ Partial Class frmMANUALTEST
         'TestLabel4
         '
         Me.TestLabel4.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.TestLabel4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TestLabel4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.TestLabel4.ForeColor = System.Drawing.Color.White
         Me.TestLabel4.Location = New System.Drawing.Point(0, 124)
         Me.TestLabel4.Name = "TestLabel4"
@@ -749,7 +749,7 @@ Partial Class frmMANUALTEST
         'TestLabel3
         '
         Me.TestLabel3.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.TestLabel3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TestLabel3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.TestLabel3.ForeColor = System.Drawing.Color.White
         Me.TestLabel3.Location = New System.Drawing.Point(3, 95)
         Me.TestLabel3.Name = "TestLabel3"
@@ -761,7 +761,7 @@ Partial Class frmMANUALTEST
         'TestLabel2
         '
         Me.TestLabel2.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.TestLabel2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TestLabel2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.TestLabel2.ForeColor = System.Drawing.Color.White
         Me.TestLabel2.Location = New System.Drawing.Point(0, 58)
         Me.TestLabel2.Name = "TestLabel2"
@@ -773,7 +773,7 @@ Partial Class frmMANUALTEST
         'TestLabel1
         '
         Me.TestLabel1.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.TestLabel1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TestLabel1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.TestLabel1.ForeColor = System.Drawing.Color.White
         Me.TestLabel1.Location = New System.Drawing.Point(0, 22)
         Me.TestLabel1.Name = "TestLabel1"
@@ -784,9 +784,9 @@ Partial Class frmMANUALTEST
         '
         'Label6
         '
-        Me.Label6.AutoSize = True
+        Me.Label6.AutoSize = true
         Me.Label6.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Label6.ForeColor = System.Drawing.Color.White
         Me.Label6.Location = New System.Drawing.Point(560, 161)
         Me.Label6.Name = "Label6"
@@ -796,9 +796,9 @@ Partial Class frmMANUALTEST
         '
         'Label5
         '
-        Me.Label5.AutoSize = True
+        Me.Label5.AutoSize = true
         Me.Label5.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Label5.ForeColor = System.Drawing.Color.White
         Me.Label5.Location = New System.Drawing.Point(560, 135)
         Me.Label5.Name = "Label5"
@@ -810,7 +810,7 @@ Partial Class frmMANUALTEST
         '
         Me.txtStopFreq.BackColor = System.Drawing.SystemColors.Desktop
         Me.txtStopFreq.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtStopFreq.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtStopFreq.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.txtStopFreq.ForeColor = System.Drawing.Color.White
         Me.txtStopFreq.Location = New System.Drawing.Point(488, 154)
         Me.txtStopFreq.Name = "txtStopFreq"
@@ -823,7 +823,7 @@ Partial Class frmMANUALTEST
         '
         Me.txtStartFreq.BackColor = System.Drawing.SystemColors.Desktop
         Me.txtStartFreq.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.txtStartFreq.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtStartFreq.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.txtStartFreq.ForeColor = System.Drawing.Color.White
         Me.txtStartFreq.Location = New System.Drawing.Point(488, 131)
         Me.txtStartFreq.Name = "txtStartFreq"
@@ -834,9 +834,9 @@ Partial Class frmMANUALTEST
         '
         'Label4
         '
-        Me.Label4.AutoSize = True
+        Me.Label4.AutoSize = true
         Me.Label4.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 12!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Label4.ForeColor = System.Drawing.Color.White
         Me.Label4.Location = New System.Drawing.Point(386, 156)
         Me.Label4.Name = "Label4"
@@ -846,9 +846,9 @@ Partial Class frmMANUALTEST
         '
         'LabelArray
         '
-        Me.LabelArray.AutoSize = True
+        Me.LabelArray.AutoSize = true
         Me.LabelArray.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.LabelArray.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.LabelArray.Font = New System.Drawing.Font("Microsoft Sans Serif", 12!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.LabelArray.ForeColor = System.Drawing.Color.White
         Me.LabelArray.Location = New System.Drawing.Point(384, 131)
         Me.LabelArray.Name = "LabelArray"
@@ -858,9 +858,9 @@ Partial Class frmMANUALTEST
         '
         'Label2
         '
-        Me.Label2.AutoSize = True
+        Me.Label2.AutoSize = true
         Me.Label2.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Label2.ForeColor = System.Drawing.Color.White
         Me.Label2.Location = New System.Drawing.Point(75, 161)
         Me.Label2.Name = "Label2"
@@ -870,8 +870,8 @@ Partial Class frmMANUALTEST
         '
         'cmbPart
         '
-        Me.cmbPart.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbPart.FormattingEnabled = True
+        Me.cmbPart.Font = New System.Drawing.Font("Microsoft Sans Serif", 9!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.cmbPart.FormattingEnabled = true
         Me.cmbPart.Location = New System.Drawing.Point(196, 161)
         Me.cmbPart.Name = "cmbPart"
         Me.cmbPart.Size = New System.Drawing.Size(156, 23)
@@ -879,9 +879,9 @@ Partial Class frmMANUALTEST
         '
         'Label1
         '
-        Me.Label1.AutoSize = True
+        Me.Label1.AutoSize = true
         Me.Label1.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
         Me.Label1.Location = New System.Drawing.Point(75, 132)
         Me.Label1.Name = "Label1"
@@ -891,8 +891,8 @@ Partial Class frmMANUALTEST
         '
         'cmbJob
         '
-        Me.cmbJob.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.cmbJob.FormattingEnabled = True
+        Me.cmbJob.Font = New System.Drawing.Font("Microsoft Sans Serif", 9!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.cmbJob.FormattingEnabled = true
         Me.cmbJob.Location = New System.Drawing.Point(195, 132)
         Me.cmbJob.Name = "cmbJob"
         Me.cmbJob.Size = New System.Drawing.Size(156, 23)
@@ -900,7 +900,7 @@ Partial Class frmMANUALTEST
         '
         'txtKitQty
         '
-        Me.txtKitQty.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtKitQty.Font = New System.Drawing.Font("Microsoft Sans Serif", 9!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.txtKitQty.Location = New System.Drawing.Point(820, 314)
         Me.txtKitQty.Name = "txtKitQty"
         Me.txtKitQty.Size = New System.Drawing.Size(62, 21)
@@ -910,9 +910,9 @@ Partial Class frmMANUALTEST
         '
         'Label3
         '
-        Me.Label3.AutoSize = True
+        Me.Label3.AutoSize = true
         Me.Label3.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Label3.ForeColor = System.Drawing.Color.White
         Me.Label3.Location = New System.Drawing.Point(830, 297)
         Me.Label3.Name = "Label3"
@@ -922,9 +922,9 @@ Partial Class frmMANUALTEST
         '
         'Label7
         '
-        Me.Label7.AutoSize = True
+        Me.Label7.AutoSize = true
         Me.Label7.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Label7.ForeColor = System.Drawing.Color.White
         Me.Label7.Location = New System.Drawing.Point(896, 295)
         Me.Label7.Name = "Label7"
@@ -934,7 +934,7 @@ Partial Class frmMANUALTEST
         '
         'txtQtyTest
         '
-        Me.txtQtyTest.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtQtyTest.Font = New System.Drawing.Font("Microsoft Sans Serif", 9!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.txtQtyTest.Location = New System.Drawing.Point(899, 314)
         Me.txtQtyTest.Name = "txtQtyTest"
         Me.txtQtyTest.Size = New System.Drawing.Size(73, 21)
@@ -944,9 +944,9 @@ Partial Class frmMANUALTEST
         '
         'Label8
         '
-        Me.Label8.AutoSize = True
+        Me.Label8.AutoSize = true
         Me.Label8.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label8.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Label8.ForeColor = System.Drawing.Color.White
         Me.Label8.Location = New System.Drawing.Point(985, 295)
         Me.Label8.Name = "Label8"
@@ -956,7 +956,7 @@ Partial Class frmMANUALTEST
         '
         'txtQtyTuned
         '
-        Me.txtQtyTuned.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtQtyTuned.Font = New System.Drawing.Font("Microsoft Sans Serif", 9!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.txtQtyTuned.Location = New System.Drawing.Point(988, 314)
         Me.txtQtyTuned.Name = "txtQtyTuned"
         Me.txtQtyTuned.Size = New System.Drawing.Size(73, 21)
@@ -966,9 +966,9 @@ Partial Class frmMANUALTEST
         '
         'txtDesc1
         '
-        Me.txtDesc1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtDesc1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.txtDesc1.Location = New System.Drawing.Point(912, 360)
-        Me.txtDesc1.Multiline = True
+        Me.txtDesc1.Multiline = true
         Me.txtDesc1.Name = "txtDesc1"
         Me.txtDesc1.Size = New System.Drawing.Size(254, 47)
         Me.txtDesc1.TabIndex = 78
@@ -976,9 +976,9 @@ Partial Class frmMANUALTEST
         '
         'Label9
         '
-        Me.Label9.AutoSize = True
+        Me.Label9.AutoSize = true
         Me.Label9.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label9.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.Label9.ForeColor = System.Drawing.Color.White
         Me.Label9.Location = New System.Drawing.Point(951, 341)
         Me.Label9.Name = "Label9"
@@ -988,10 +988,10 @@ Partial Class frmMANUALTEST
         '
         'txtPercent
         '
-        Me.txtPercent.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtPercent.Font = New System.Drawing.Font("Microsoft Sans Serif", 9!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.txtPercent.Location = New System.Drawing.Point(1085, 314)
         Me.txtPercent.Name = "txtPercent"
-        Me.txtPercent.ReadOnly = True
+        Me.txtPercent.ReadOnly = true
         Me.txtPercent.Size = New System.Drawing.Size(73, 21)
         Me.txtPercent.TabIndex = 80
         Me.txtPercent.Text = "0"
@@ -999,11 +999,11 @@ Partial Class frmMANUALTEST
         '
         'PictureBox1
         '
-        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
+        Me.PictureBox1.Image = Global.IPP_CouplerTesting.My.Resources.Resources.ipplogo_burst400_jpg
         Me.PictureBox1.InitialImage = CType(resources.GetObject("PictureBox1.InitialImage"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(79, 57)
+        Me.PictureBox1.Location = New System.Drawing.Point(11, 4)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(330, 54)
+        Me.PictureBox1.Size = New System.Drawing.Size(404, 109)
         Me.PictureBox1.TabIndex = 81
         Me.PictureBox1.TabStop = False
         '
@@ -1146,7 +1146,7 @@ Partial Class frmMANUALTEST
         'AvgS
         '
         Me.AvgS.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.AvgS.Location = New System.Drawing.Point(475, 222)
+        Me.AvgS.Location = New System.Drawing.Point(520, 222)
         Me.AvgS.Name = "AvgS"
         Me.AvgS.Size = New System.Drawing.Size(37, 24)
         Me.AvgS.TabIndex = 99
@@ -1158,7 +1158,7 @@ Partial Class frmMANUALTEST
         Me.ExtraAverage.AutoSize = True
         Me.ExtraAverage.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ExtraAverage.ForeColor = System.Drawing.SystemColors.ButtonHighlight
-        Me.ExtraAverage.Location = New System.Drawing.Point(515, 226)
+        Me.ExtraAverage.Location = New System.Drawing.Point(563, 226)
         Me.ExtraAverage.Name = "ExtraAverage"
         Me.ExtraAverage.Size = New System.Drawing.Size(137, 20)
         Me.ExtraAverage.TabIndex = 98
@@ -1249,7 +1249,7 @@ Partial Class frmMANUALTEST
         Me.Label15.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.Label15.Font = New System.Drawing.Font("Microsoft Sans Serif", 36.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label15.ForeColor = System.Drawing.Color.White
-        Me.Label15.Location = New System.Drawing.Point(302, -1)
+        Me.Label15.Location = New System.Drawing.Point(406, -1)
         Me.Label15.Name = "Label15"
         Me.Label15.Size = New System.Drawing.Size(525, 55)
         Me.Label15.TabIndex = 108
@@ -1413,7 +1413,7 @@ Partial Class frmMANUALTEST
         Me.TextBox4.Name = "TextBox4"
         Me.TextBox4.Size = New System.Drawing.Size(65, 17)
         Me.TextBox4.TabIndex = 127
-        Me.TextBox4.Text = "Quadrant"
+        Me.TextBox4.Text = "Sector"
         Me.TextBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
         'txtPanel
@@ -1465,7 +1465,7 @@ Partial Class frmMANUALTEST
         Me.txtLOT.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtLOT.Location = New System.Drawing.Point(381, 222)
         Me.txtLOT.Name = "txtLOT"
-        Me.txtLOT.Size = New System.Drawing.Size(88, 24)
+        Me.txtLOT.Size = New System.Drawing.Size(131, 24)
         Me.txtLOT.TabIndex = 129
         Me.txtLOT.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -1473,7 +1473,7 @@ Partial Class frmMANUALTEST
         '
         Me.TextBox1.BackColor = System.Drawing.SystemColors.Desktop
         Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.TextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
         Me.TextBox1.ForeColor = System.Drawing.Color.OrangeRed
         Me.TextBox1.Location = New System.Drawing.Point(334, 226)
         Me.TextBox1.Name = "TextBox1"
@@ -1482,22 +1482,22 @@ Partial Class frmMANUALTEST
         Me.TextBox1.Text = "LOT"
         Me.TextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right
         '
-        'txtQuadrant
+        'txtSector
         '
-        Me.txtQuadrant.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtQuadrant.Location = New System.Drawing.Point(293, 224)
-        Me.txtQuadrant.Name = "txtQuadrant"
-        Me.txtQuadrant.Size = New System.Drawing.Size(47, 24)
-        Me.txtQuadrant.TabIndex = 132
-        Me.txtQuadrant.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.txtSector.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0,Byte))
+        Me.txtSector.Location = New System.Drawing.Point(293, 224)
+        Me.txtSector.Name = "txtSector"
+        Me.txtSector.Size = New System.Drawing.Size(47, 24)
+        Me.txtSector.TabIndex = 132
+        Me.txtSector.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'frmMANUALTEST
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ControlText
         Me.ClientSize = New System.Drawing.Size(1187, 576)
-        Me.Controls.Add(Me.txtQuadrant)
+        Me.Controls.Add(Me.txtSector)
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.txtLOT)
         Me.Controls.Add(Me.TextBox4)
@@ -1561,18 +1561,18 @@ Partial Class frmMANUALTEST
         Me.Controls.Add(Me.cmbPart)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.cmbJob)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
+        Me.Icon = CType(resources.GetObject("$this.Icon"),System.Drawing.Icon)
         Me.Name = "frmMANUALTEST"
         Me.Text = "Manual Tuning Control Center"
-        Me.UUTMessage.ResumeLayout(False)
-        Me.UUTStatusColor.ResumeLayout(False)
-        Me.Panel1.ResumeLayout(False)
-        Me.Panel1.PerformLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.ResumeLayout(False)
-        Me.PerformLayout()
+        Me.UUTMessage.ResumeLayout(false)
+        Me.UUTStatusColor.ResumeLayout(false)
+        Me.Panel1.ResumeLayout(false)
+        Me.Panel1.PerformLayout
+        CType(Me.PictureBox1,System.ComponentModel.ISupportInitialize).EndInit
+        Me.ResumeLayout(false)
+        Me.PerformLayout
 
-    End Sub
+End Sub
     Friend WithEvents txtTitle As System.Windows.Forms.TextBox
     Friend WithEvents UUTMessage As System.Windows.Forms.GroupBox
     Friend WithEvents UUTStatusColor As System.Windows.Forms.Panel
@@ -1684,5 +1684,5 @@ Partial Class frmMANUALTEST
     Friend WithEvents lblArtwork As System.Windows.Forms.TextBox
     Friend WithEvents txtLOT As System.Windows.Forms.TextBox
     Friend WithEvents TextBox1 As System.Windows.Forms.TextBox
-    Friend WithEvents txtQuadrant As System.Windows.Forms.TextBox
+    Friend WithEvents txtSector As System.Windows.Forms.TextBox
 End Class

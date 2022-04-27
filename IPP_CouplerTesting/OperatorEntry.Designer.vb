@@ -39,7 +39,7 @@ Partial Class OperatorEntry
         Me.cmbOperator.AutoCompleteCustomSource.AddRange(New String() {"New Operator"})
         Me.cmbOperator.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cmbOperator.FormattingEnabled = True
-        Me.cmbOperator.Location = New System.Drawing.Point(6, 148)
+        Me.cmbOperator.Location = New System.Drawing.Point(6, 169)
         Me.cmbOperator.Name = "cmbOperator"
         Me.cmbOperator.Size = New System.Drawing.Size(166, 24)
         Me.cmbOperator.TabIndex = 0
@@ -48,7 +48,7 @@ Partial Class OperatorEntry
         'txtOperator
         '
         Me.txtOperator.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtOperator.Location = New System.Drawing.Point(178, 148)
+        Me.txtOperator.Location = New System.Drawing.Point(178, 169)
         Me.txtOperator.Name = "txtOperator"
         Me.txtOperator.Size = New System.Drawing.Size(149, 22)
         Me.txtOperator.TabIndex = 3
@@ -58,7 +58,7 @@ Partial Class OperatorEntry
         Me.Label1.BackColor = System.Drawing.Color.Black
         Me.Label1.Font = New System.Drawing.Font("Arial Black", 26.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(71, 78)
+        Me.Label1.Location = New System.Drawing.Point(71, 99)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(271, 52)
         Me.Label1.TabIndex = 4
@@ -70,7 +70,7 @@ Partial Class OperatorEntry
         Me.lblOperator.BackColor = System.Drawing.Color.Black
         Me.lblOperator.Font = New System.Drawing.Font("Arial Narrow", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblOperator.ForeColor = System.Drawing.Color.White
-        Me.lblOperator.Location = New System.Drawing.Point(199, 130)
+        Me.lblOperator.Location = New System.Drawing.Point(199, 151)
         Me.lblOperator.Name = "lblOperator"
         Me.lblOperator.Size = New System.Drawing.Size(91, 15)
         Me.lblOperator.TabIndex = 5
@@ -83,7 +83,7 @@ Partial Class OperatorEntry
         Me.Label3.BackColor = System.Drawing.Color.Black
         Me.Label3.Font = New System.Drawing.Font("Arial Narrow", 8.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label3.ForeColor = System.Drawing.Color.White
-        Me.Label3.Location = New System.Drawing.Point(3, 130)
+        Me.Label3.Location = New System.Drawing.Point(3, 151)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(170, 15)
         Me.Label3.TabIndex = 4
@@ -92,10 +92,10 @@ Partial Class OperatorEntry
         'PictureBox1
         '
         Me.PictureBox1.ErrorImage = CType(resources.GetObject("PictureBox1.ErrorImage"), System.Drawing.Image)
-        Me.PictureBox1.Image = Global.IPP_CouplerTesting.My.Resources.Resources.ipplogo2_Automation1
+        Me.PictureBox1.Image = Global.IPP_CouplerTesting.My.Resources.Resources.ipplogo_burst400_jpg
         Me.PictureBox1.Location = New System.Drawing.Point(26, 12)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(371, 64)
+        Me.PictureBox1.Size = New System.Drawing.Size(389, 86)
         Me.PictureBox1.TabIndex = 6
         Me.PictureBox1.TabStop = False
         '
@@ -103,7 +103,7 @@ Partial Class OperatorEntry
         '
         Me.btOK.BackColor = System.Drawing.SystemColors.ControlDarkDark
         Me.btOK.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btOK.Location = New System.Drawing.Point(333, 139)
+        Me.btOK.Location = New System.Drawing.Point(341, 160)
         Me.btOK.Name = "btOK"
         Me.btOK.Size = New System.Drawing.Size(82, 40)
         Me.btOK.TabIndex = 7
@@ -114,7 +114,7 @@ Partial Class OperatorEntry
         '
         Me.DeleteOperator.BackColor = System.Drawing.SystemColors.ControlDarkDark
         Me.DeleteOperator.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.DeleteOperator.Location = New System.Drawing.Point(333, 139)
+        Me.DeleteOperator.Location = New System.Drawing.Point(333, 160)
         Me.DeleteOperator.Name = "DeleteOperator"
         Me.DeleteOperator.Size = New System.Drawing.Size(108, 40)
         Me.DeleteOperator.TabIndex = 8
@@ -126,7 +126,7 @@ Partial Class OperatorEntry
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Black
-        Me.ClientSize = New System.Drawing.Size(439, 234)
+        Me.ClientSize = New System.Drawing.Size(452, 262)
         Me.ControlBox = False
         Me.Controls.Add(Me.DeleteOperator)
         Me.Controls.Add(Me.btOK)

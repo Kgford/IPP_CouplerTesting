@@ -645,7 +645,6 @@
                 SetSwitchesPosition = 2
                 MYMsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
             End If
-
             If MutiCalChecked Then
                 SetupVNA(True, 2)
                 If VNAStr = "AG_E5071B" Then
@@ -685,7 +684,6 @@
                 ScanGPIB.BusWrite("OPC?;CONT") ' and start another sweep
                 ScanGPIB.BusWrite("DISPDATM;")  'Data and Memory
             End If
-
             If TraceChecked And Not TweakMode Then ' Database Trace Data
                 Title = "Insertion Loss J4"
                 SerialNumber = "UUT" & UUTNum_Reset
@@ -713,7 +711,6 @@
                     Next
                 End If
             End If
-
             'TraceID1 =265
             'TraceID2 =266
             Pts = Points
@@ -723,14 +720,12 @@
             '    GetTracePoints(TraceID2)
             '    IL2Data = YArray
             'End If
-
             For i = 0 To Pts
                 ReDim Preserve ILArray(i)
                 IL1 = 1 / (10 ^ (Math.Abs(IL1Data(i)) * 0.1))
                 IL2 = 1 / (10 ^ (Math.Abs(IL2Data(i)) * 0.1))
                 ILArray(i) = 10 * Log10(IL1 + IL2)
             Next
-
             'IL1 = MaxNoZero(ILArray)
             'IL2 = MinNoZero(ILArray)
 
@@ -753,14 +748,11 @@
                 IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
             End If
             IL = TruncateDecimal(IL, 3)
-
-
             If IL <= Spec Then
                 InsertionLoss3dB = "Pass"
             Else
                 InsertionLoss3dB = "Fail"
             End If
-
             If VNAStr = "AG_E5071B" Then
                 ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:MEM OFF")  'Memory Off"
                 ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:STAT ON")  ' Data On
