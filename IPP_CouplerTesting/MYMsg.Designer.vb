@@ -22,6 +22,7 @@ Partial Class MYMsg
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(MYMsg))
         Me.btOK = New System.Windows.Forms.Button()
         Me.txttitle = New System.Windows.Forms.Label()
         Me.txtprompt = New System.Windows.Forms.Label()
@@ -31,13 +32,15 @@ Partial Class MYMsg
         Me.btABORT = New System.Windows.Forms.Button()
         Me.btIGNORE = New System.Windows.Forms.Button()
         Me.btRETRY = New System.Windows.Forms.Button()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btOK
         '
         Me.btOK.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.btOK.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btOK.Location = New System.Drawing.Point(39, 64)
+        Me.btOK.Location = New System.Drawing.Point(44, 62)
         Me.btOK.Name = "btOK"
         Me.btOK.Size = New System.Drawing.Size(107, 53)
         Me.btOK.TabIndex = 7
@@ -47,7 +50,7 @@ Partial Class MYMsg
         'txttitle
         '
         Me.txttitle.Font = New System.Drawing.Font("Microsoft Sans Serif", 18.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txttitle.Location = New System.Drawing.Point(4, 9)
+        Me.txttitle.Location = New System.Drawing.Point(9, 7)
         Me.txttitle.Name = "txttitle"
         Me.txttitle.Size = New System.Drawing.Size(447, 43)
         Me.txttitle.TabIndex = 8
@@ -57,7 +60,7 @@ Partial Class MYMsg
         'txtprompt
         '
         Me.txtprompt.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtprompt.Location = New System.Drawing.Point(4, 139)
+        Me.txtprompt.Location = New System.Drawing.Point(9, 137)
         Me.txtprompt.Name = "txtprompt"
         Me.txtprompt.Size = New System.Drawing.Size(447, 66)
         Me.txtprompt.TabIndex = 9
@@ -68,7 +71,7 @@ Partial Class MYMsg
         '
         Me.btNO.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.btNO.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btNO.Location = New System.Drawing.Point(165, 64)
+        Me.btNO.Location = New System.Drawing.Point(170, 62)
         Me.btNO.Name = "btNO"
         Me.btNO.Size = New System.Drawing.Size(107, 53)
         Me.btNO.TabIndex = 10
@@ -79,7 +82,7 @@ Partial Class MYMsg
         '
         Me.btCANCEL.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.btCANCEL.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btCANCEL.Location = New System.Drawing.Point(291, 64)
+        Me.btCANCEL.Location = New System.Drawing.Point(296, 62)
         Me.btCANCEL.Name = "btCANCEL"
         Me.btCANCEL.Size = New System.Drawing.Size(107, 53)
         Me.btCANCEL.TabIndex = 11
@@ -90,7 +93,7 @@ Partial Class MYMsg
         '
         Me.btYES.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.btYES.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btYES.Location = New System.Drawing.Point(39, 64)
+        Me.btYES.Location = New System.Drawing.Point(44, 62)
         Me.btYES.Name = "btYES"
         Me.btYES.Size = New System.Drawing.Size(107, 53)
         Me.btYES.TabIndex = 12
@@ -101,7 +104,7 @@ Partial Class MYMsg
         '
         Me.btABORT.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.btABORT.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btABORT.Location = New System.Drawing.Point(291, 64)
+        Me.btABORT.Location = New System.Drawing.Point(296, 62)
         Me.btABORT.Name = "btABORT"
         Me.btABORT.Size = New System.Drawing.Size(107, 53)
         Me.btABORT.TabIndex = 13
@@ -112,7 +115,7 @@ Partial Class MYMsg
         '
         Me.btIGNORE.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.btIGNORE.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btIGNORE.Location = New System.Drawing.Point(291, 64)
+        Me.btIGNORE.Location = New System.Drawing.Point(296, 62)
         Me.btIGNORE.Name = "btIGNORE"
         Me.btIGNORE.Size = New System.Drawing.Size(107, 53)
         Me.btIGNORE.TabIndex = 14
@@ -123,20 +126,31 @@ Partial Class MYMsg
         '
         Me.btRETRY.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.btRETRY.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btRETRY.Location = New System.Drawing.Point(165, 64)
+        Me.btRETRY.Location = New System.Drawing.Point(170, 62)
         Me.btRETRY.Name = "btRETRY"
         Me.btRETRY.Size = New System.Drawing.Size(107, 53)
         Me.btRETRY.TabIndex = 15
         Me.btRETRY.Text = "RETRY"
         Me.btRETRY.UseVisualStyleBackColor = True
         '
+        'PictureBox1
+        '
+        Me.PictureBox1.ErrorImage = CType(resources.GetObject("PictureBox1.ErrorImage"), System.Drawing.Image)
+        Me.PictureBox1.Image = Global.IPP_CouplerTesting.My.Resources.Resources.ipplogo_burst400_jpg
+        Me.PictureBox1.Location = New System.Drawing.Point(14, 206)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(442, 132)
+        Me.PictureBox1.TabIndex = 16
+        Me.PictureBox1.TabStop = False
+        '
         'MYMsg
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Black
-        Me.ClientSize = New System.Drawing.Size(455, 267)
+        Me.ClientSize = New System.Drawing.Size(481, 379)
         Me.ControlBox = False
+        Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.btRETRY)
         Me.Controls.Add(Me.btIGNORE)
         Me.Controls.Add(Me.btABORT)
@@ -153,8 +167,9 @@ Partial Class MYMsg
         Me.Name = "MYMsg"
         Me.ShowIcon = False
         Me.ShowInTaskbar = False
-        Me.Text = "Innovative Power Products"
+        Me.Text = "The choice is yours..... Choose wisely"
         Me.TransparencyKey = System.Drawing.Color.SandyBrown
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -167,4 +182,5 @@ Partial Class MYMsg
     Friend WithEvents btABORT As System.Windows.Forms.Button
     Friend WithEvents btIGNORE As System.Windows.Forms.Button
     Friend WithEvents btRETRY As System.Windows.Forms.Button
+    Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
 End Class

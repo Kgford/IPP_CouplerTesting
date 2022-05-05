@@ -52,7 +52,7 @@ Partial Class AddArtWorkRevision
         Me.Label1.BackColor = System.Drawing.Color.Black
         Me.Label1.Font = New System.Drawing.Font("Arial Black", 26.25!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label1.ForeColor = System.Drawing.Color.White
-        Me.Label1.Location = New System.Drawing.Point(126, 88)
+        Me.Label1.Location = New System.Drawing.Point(133, 117)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(356, 52)
         Me.Label1.TabIndex = 4
@@ -64,7 +64,7 @@ Partial Class AddArtWorkRevision
         Me.PictureBox1.Image = Global.IPP_CouplerTesting.My.Resources.Resources.ipplogo_burst400_jpg
         Me.PictureBox1.Location = New System.Drawing.Point(99, 0)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(422, 93)
+        Me.PictureBox1.Size = New System.Drawing.Size(422, 123)
         Me.PictureBox1.TabIndex = 6
         Me.PictureBox1.TabStop = False
         '
@@ -72,7 +72,7 @@ Partial Class AddArtWorkRevision
         '
         Me.btrev.FlatStyle = System.Windows.Forms.FlatStyle.System
         Me.btrev.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btrev.Location = New System.Drawing.Point(262, 209)
+        Me.btrev.Location = New System.Drawing.Point(269, 238)
         Me.btrev.Name = "btrev"
         Me.btrev.Size = New System.Drawing.Size(75, 30)
         Me.btrev.TabIndex = 7
@@ -82,7 +82,7 @@ Partial Class AddArtWorkRevision
         'txtSector
         '
         Me.txtSector.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtSector.Location = New System.Drawing.Point(377, 159)
+        Me.txtSector.Location = New System.Drawing.Point(384, 188)
         Me.txtSector.MaxLength = 1
         Me.txtSector.Name = "txtSector"
         Me.txtSector.Size = New System.Drawing.Size(47, 24)
@@ -95,7 +95,7 @@ Partial Class AddArtWorkRevision
         Me.TextBox4.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.TextBox4.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox4.ForeColor = System.Drawing.Color.White
-        Me.TextBox4.Location = New System.Drawing.Point(281, 162)
+        Me.TextBox4.Location = New System.Drawing.Point(288, 191)
         Me.TextBox4.Name = "TextBox4"
         Me.TextBox4.Size = New System.Drawing.Size(90, 17)
         Me.TextBox4.TabIndex = 68
@@ -105,7 +105,7 @@ Partial Class AddArtWorkRevision
         'txtPanel
         '
         Me.txtPanel.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtPanel.Location = New System.Drawing.Point(230, 159)
+        Me.txtPanel.Location = New System.Drawing.Point(237, 188)
         Me.txtPanel.MaxLength = 2
         Me.txtPanel.Name = "txtPanel"
         Me.txtPanel.Size = New System.Drawing.Size(45, 24)
@@ -118,7 +118,7 @@ Partial Class AddArtWorkRevision
         Me.TextBox2.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.TextBox2.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox2.ForeColor = System.Drawing.Color.White
-        Me.TextBox2.Location = New System.Drawing.Point(184, 163)
+        Me.TextBox2.Location = New System.Drawing.Point(191, 192)
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.Size = New System.Drawing.Size(40, 17)
         Me.TextBox2.TabIndex = 66
@@ -128,7 +128,7 @@ Partial Class AddArtWorkRevision
         'txtArtwork
         '
         Me.txtArtwork.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtArtwork.Location = New System.Drawing.Point(58, 159)
+        Me.txtArtwork.Location = New System.Drawing.Point(65, 188)
         Me.txtArtwork.MaxLength = 1
         Me.txtArtwork.Name = "txtArtwork"
         Me.txtArtwork.Size = New System.Drawing.Size(29, 24)
@@ -141,7 +141,7 @@ Partial Class AddArtWorkRevision
         Me.lblArtwork.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.lblArtwork.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.lblArtwork.ForeColor = System.Drawing.Color.White
-        Me.lblArtwork.Location = New System.Drawing.Point(-8, 163)
+        Me.lblArtwork.Location = New System.Drawing.Point(-1, 192)
         Me.lblArtwork.Name = "lblArtwork"
         Me.lblArtwork.Size = New System.Drawing.Size(60, 17)
         Me.lblArtwork.TabIndex = 64
@@ -151,7 +151,7 @@ Partial Class AddArtWorkRevision
         'txtLOT
         '
         Me.txtLOT.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtLOT.Location = New System.Drawing.Point(467, 160)
+        Me.txtLOT.Location = New System.Drawing.Point(474, 189)
         Me.txtLOT.MaxLength = 13
         Me.txtLOT.Name = "txtLOT"
         Me.txtLOT.Size = New System.Drawing.Size(114, 24)
@@ -164,7 +164,7 @@ Partial Class AddArtWorkRevision
         Me.TextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.TextBox1.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox1.ForeColor = System.Drawing.Color.White
-        Me.TextBox1.Location = New System.Drawing.Point(431, 163)
+        Me.TextBox1.Location = New System.Drawing.Point(438, 192)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(30, 17)
         Me.TextBox1.TabIndex = 72
@@ -177,7 +177,7 @@ Partial Class AddArtWorkRevision
         Me.TextBox3.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.TextBox3.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox3.ForeColor = System.Drawing.Color.Tan
-        Me.TextBox3.Location = New System.Drawing.Point(47, 144)
+        Me.TextBox3.Location = New System.Drawing.Point(54, 173)
         Me.TextBox3.Name = "TextBox3"
         Me.TextBox3.Size = New System.Drawing.Size(50, 13)
         Me.TextBox3.TabIndex = 73
@@ -190,7 +190,7 @@ Partial Class AddArtWorkRevision
         Me.TextBox5.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.TextBox5.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox5.ForeColor = System.Drawing.Color.Tan
-        Me.TextBox5.Location = New System.Drawing.Point(215, 143)
+        Me.TextBox5.Location = New System.Drawing.Point(222, 172)
         Me.TextBox5.Name = "TextBox5"
         Me.TextBox5.Size = New System.Drawing.Size(70, 13)
         Me.TextBox5.TabIndex = 74
@@ -203,7 +203,7 @@ Partial Class AddArtWorkRevision
         Me.TextBox7.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.TextBox7.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox7.ForeColor = System.Drawing.Color.Tan
-        Me.TextBox7.Location = New System.Drawing.Point(473, 144)
+        Me.TextBox7.Location = New System.Drawing.Point(480, 173)
         Me.TextBox7.Name = "TextBox7"
         Me.TextBox7.Size = New System.Drawing.Size(108, 13)
         Me.TextBox7.TabIndex = 76
@@ -216,7 +216,7 @@ Partial Class AddArtWorkRevision
         Me.TextBox8.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.TextBox8.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox8.ForeColor = System.Drawing.Color.White
-        Me.TextBox8.Location = New System.Drawing.Point(99, 162)
+        Me.TextBox8.Location = New System.Drawing.Point(106, 191)
         Me.TextBox8.Name = "TextBox8"
         Me.TextBox8.Size = New System.Drawing.Size(30, 17)
         Me.TextBox8.TabIndex = 77
@@ -229,7 +229,7 @@ Partial Class AddArtWorkRevision
         Me.TextBox9.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.TextBox9.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox9.ForeColor = System.Drawing.Color.Tan
-        Me.TextBox9.Location = New System.Drawing.Point(131, 144)
+        Me.TextBox9.Location = New System.Drawing.Point(138, 173)
         Me.TextBox9.Name = "TextBox9"
         Me.TextBox9.Size = New System.Drawing.Size(50, 13)
         Me.TextBox9.TabIndex = 78
@@ -239,7 +239,7 @@ Partial Class AddArtWorkRevision
         'txtRev
         '
         Me.txtRev.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtRev.Location = New System.Drawing.Point(135, 160)
+        Me.txtRev.Location = New System.Drawing.Point(142, 189)
         Me.txtRev.MaxLength = 2
         Me.txtRev.Name = "txtRev"
         Me.txtRev.Size = New System.Drawing.Size(36, 24)
@@ -252,7 +252,7 @@ Partial Class AddArtWorkRevision
         Me.TextBox10.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.TextBox10.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox10.ForeColor = System.Drawing.Color.Tan
-        Me.TextBox10.Location = New System.Drawing.Point(343, 185)
+        Me.TextBox10.Location = New System.Drawing.Point(350, 214)
         Me.TextBox10.Name = "TextBox10"
         Me.TextBox10.Size = New System.Drawing.Size(108, 17)
         Me.TextBox10.TabIndex = 80
@@ -265,7 +265,7 @@ Partial Class AddArtWorkRevision
         Me.TextBox6.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.TextBox6.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox6.ForeColor = System.Drawing.Color.Tan
-        Me.TextBox6.Location = New System.Drawing.Point(343, 144)
+        Me.TextBox6.Location = New System.Drawing.Point(350, 173)
         Me.TextBox6.Name = "TextBox6"
         Me.TextBox6.Size = New System.Drawing.Size(108, 13)
         Me.TextBox6.TabIndex = 81
@@ -278,7 +278,7 @@ Partial Class AddArtWorkRevision
         Me.TextBox11.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.TextBox11.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox11.ForeColor = System.Drawing.Color.Tan
-        Me.TextBox11.Location = New System.Drawing.Point(195, 185)
+        Me.TextBox11.Location = New System.Drawing.Point(202, 214)
         Me.TextBox11.Name = "TextBox11"
         Me.TextBox11.Size = New System.Drawing.Size(108, 17)
         Me.TextBox11.TabIndex = 82
@@ -291,7 +291,7 @@ Partial Class AddArtWorkRevision
         Me.TextBox12.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.TextBox12.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBox12.ForeColor = System.Drawing.Color.Tan
-        Me.TextBox12.Location = New System.Drawing.Point(467, 185)
+        Me.TextBox12.Location = New System.Drawing.Point(474, 214)
         Me.TextBox12.Name = "TextBox12"
         Me.TextBox12.Size = New System.Drawing.Size(108, 17)
         Me.TextBox12.TabIndex = 83
@@ -303,7 +303,7 @@ Partial Class AddArtWorkRevision
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Black
-        Me.ClientSize = New System.Drawing.Size(597, 260)
+        Me.ClientSize = New System.Drawing.Size(597, 295)
         Me.Controls.Add(Me.TextBox12)
         Me.Controls.Add(Me.TextBox11)
         Me.Controls.Add(Me.TextBox6)

@@ -17,10 +17,13 @@ Public Class AddArtWorkRevision
         UUTReset = True
         Panel = txtPanel.Text
         If txtRev.Text.Length() = 1 Then
-            txtRev.Text = "0" + txtRev.Text
-            Rev = txtRev.Text
+            If txtRev.Text.Contains("*") Then
+                txtRev.Text = "*" + txtPanel.Text
+            Else
+                txtRev.Text = "0" + txtRev.Text
+            End If
         End If
-       
+        Rev = txtRev.Text
     End Sub
     Private Sub txtsector_TextChanged(sender As Object, e As EventArgs) Handles txtSector.TextChanged
         UUTReset = True
@@ -28,25 +31,40 @@ Public Class AddArtWorkRevision
         txtSector.Text = Trim(txtSector.Text.ToUpper)
         Sector = txtSector.Text
         If txtRev.Text.Length() = 1 Then
-            txtRev.Text = "0" + txtRev.Text
-            Rev = txtRev.Text
+            If txtRev.Text.Contains("*") Then
+                txtRev.Text = "*" + txtPanel.Text
+            Else
+                txtRev.Text = "0" + txtRev.Text
+            End If
         End If
+        Rev = txtRev.Text
         If txtPanel.Text.Length() = 1 Then
-            txtPanel.Text = "0" + txtPanel.Text
-            Panel = txtPanel.Text
+            If txtPanel.Text.Contains("*") Then
+                txtPanel.Text = "*" + txtPanel.Text
+            Else
+                txtPanel.Text = "0" + txtPanel.Text
+            End If
         End If
-        
+        Panel = txtPanel.Text
     End Sub
     Private Sub txtLOT_TextChanged(sender As Object, e As EventArgs) Handles txtLOT.TextChanged
         UUTReset = True
         If txtRev.Text.Length() = 1 Then
-            txtRev.Text = "0" + txtRev.Text
-            Rev = txtRev.Text
+            If txtRev.Text.Contains("*") Then
+                txtRev.Text = "*" + txtPanel.Text
+            Else
+                txtRev.Text = "0" + txtRev.Text
+            End If
         End If
+        Rev = txtRev.Text
         If txtPanel.Text.Length() = 1 Then
-            txtPanel.Text = "0" + txtPanel.Text
-            Panel = txtPanel.Text
+            If txtPanel.Text.Contains("*") Then
+                txtPanel.Text = "*" + txtPanel.Text
+            Else
+                txtPanel.Text = "0" + txtPanel.Text
+            End If
         End If
+        Panel = txtPanel.Text
         LOT = txtLOT.Text
     End Sub
 
@@ -57,18 +75,22 @@ Public Class AddArtWorkRevision
             MYMsgBox("Please enter all data")
             Exit Sub
         End If
-        If txtPanel.Text = "" Then
-            txtPanel.Text = "*"
-            Panel = txtPanel.Text
-        End If
         If txtRev.Text.Length() = 1 Then
-            txtRev.Text = "0" + txtRev.Text
-            Rev = txtRev.Text
+            If txtRev.Text.Contains("*") Then
+                txtRev.Text = "*" + txtPanel.Text
+            Else
+                txtRev.Text = "0" + txtRev.Text
+            End If
         End If
+        Rev = txtRev.Text
         If txtPanel.Text.Length() = 1 Then
-            txtPanel.Text = "0" + txtPanel.Text
-            Panel = txtPanel.Text
+            If txtPanel.Text.Contains("*") Then
+                txtPanel.Text = "*" + txtPanel.Text
+            Else
+                txtPanel.Text = "0" + txtPanel.Text
+            End If
         End If
+        Panel = txtPanel.Text
         If txtLOT.Text.Length() = 1 Then
             txtLOT.Text = "000000000000" + txtLOT.Text
         ElseIf txtLOT.Text.Length() = 2 Then

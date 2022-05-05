@@ -1609,7 +1609,7 @@
             End If
             ExtraAvg(2)
             If TraceChecked And Not TweakMode Then ' Database Trace Data
-                Title = "Insertion Loss J3"
+                Title = "Insertion Loss"
                 SerialNumber = "UUT" & UUTNum_Reset
                 TestID = TestID
                 CalDate = Now
@@ -2046,7 +2046,7 @@
 
             frmAUTOTEST.Refresh()
             If TraceChecked And Not TweakMode Then ' Database Trace Data
-                Title = "Insertion Loss J3"
+                Title = "Insertion Loss "
                 SerialNumber = "UUT" & UUTNum_Reset
                 TestID = TestID
                 CalDate = Now
@@ -5379,19 +5379,6 @@ Round:
                 End If
             End If
             frmAUTOTEST.Refresh()
-            If TraceChecked And Not TweakMode Then
-                t1 = New Trace
-                If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Or (SpecType = "DUAL DIRECTIONAL COUPLER" And Direction = 1) Then t1.Title(TraceID1, "Coupling Flatness J3")
-                If SpecType = "DUAL DIRECTIONAL COUPLER" And Direction = 2 Then t1.Title(TraceID1, "Coupling Flatness J4")
-                t1.SerialNumber(TraceID1, frmAUTOTEST.UUTLabel.Text & frmAUTOTEST.UUTCount.Text)
-                t1.SpecID(TraceID1, SpecificationID)
-                t1.TestID(TraceID1, TestID)
-                t1.CalDate(TraceID1, Now)
-                t1.Workstation(TraceID1, Workstation)
-                t1.Notes(TraceID1, "")
-                t1.SaveTrace(TraceID1, True)
-            End If
-
 
             If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Or Direction = 1 Then
                 CF = MaxNoZero(COUP1FlatData) - COUP1FlatData.Min

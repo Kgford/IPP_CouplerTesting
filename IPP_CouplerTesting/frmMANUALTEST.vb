@@ -100,6 +100,32 @@ Public Class frmMANUALTEST
             txtPanel.Text = Panel
             txtSector.Text = Sector
             txtLOT.Text = LOT
+            If txtLOT.Text.Length() = 1 Then
+                txtLOT.Text = "000000000000" + txtLOT.Text
+            ElseIf txtLOT.Text.Length() = 2 Then
+                txtLOT.Text = "00000000000" + txtLOT.Text
+            ElseIf txtLOT.Text.Length() = 3 Then
+                txtLOT.Text = "0000000000" + txtLOT.Text
+            ElseIf txtLOT.Text.Length() = 4 Then
+                txtLOT.Text = "000000000" + txtLOT.Text
+            ElseIf txtLOT.Text.Length() = 5 Then
+                txtLOT.Text = "00000000" + txtLOT.Text
+            ElseIf txtLOT.Text.Length() = 6 Then
+                txtLOT.Text = "0000000" + txtLOT.Text
+            ElseIf txtLOT.Text.Length() = 7 Then
+                txtLOT.Text = "000000" + txtLOT.Text
+            ElseIf txtLOT.Text.Length() = 8 Then
+                txtLOT.Text = "00000" + txtLOT.Text
+            ElseIf txtLOT.Text.Length() = 9 Then
+                txtLOT.Text = "0000" + txtLOT.Text
+            ElseIf txtLOT.Text.Length() = 10 Then
+                txtLOT.Text = "000" + txtLOT.Text
+            ElseIf txtLOT.Text.Length() = 11 Then
+                txtLOT.Text = "00" + txtLOT.Text
+            ElseIf txtLOT.Text.Length() = 12 Then
+                txtLOT.Text = "0" + txtLOT.Text
+            End If
+            LOT = txtLOT.Text
             Version = "Version: " & GetVersion()
             xTitle = "Freq MHz"
             yTitle = "Signal dBm"
@@ -2713,14 +2739,6 @@ TestReallyComplete:
         UUTReset = True
         txtArtwork.SelectionStart = Len(txtArtwork.Text)
         txtArtwork.Text = Trim(txtArtwork.Text.ToUpper)
-        Artwork = txtArtwork.Text(0)
-        If txtArtwork.Text.Length() > 0 Then
-            Rev = txtArtwork.Text.Substring(1, 2)
-        End If
-        If txtPanel.Text.Length() = 1 Then
-            txtPanel.Text = "0" + txtPanel.Text
-            Panel = txtPanel.Text
-        End If
         If txtLOT.Text.Length() = 1 Then
             txtLOT.Text = "000000000000" + txtLOT.Text
         ElseIf txtLOT.Text.Length() = 2 Then
@@ -2754,17 +2772,19 @@ TestReallyComplete:
         UUTReset = True
         txtPanel.SelectionStart = Len(txtPanel.Text)
         txtPanel.Text = Trim(txtPanel.Text.ToUpper)
-        Panel = txtPanel.Text
         If txtPanel.Text.Length() = 1 Then
-            txtPanel.Text = "0" + txtPanel.Text
-            Panel = txtPanel.Text
+            If txtPanel.Text.Contains("*") Then
+                txtPanel.Text = "*" + txtPanel.Text
+            Else
+                txtPanel.Text = "0" + txtPanel.Text
+            End If
         End If
+        Panel = txtPanel.Text
         If txtArtwork.Text <> "" And txtSector.Text <> "" And txtLOT.Text <> "" Then
             Artwork = txtArtwork.Text(0)
             If txtArtwork.Text.Length() > 0 Then
                 Rev = txtArtwork.Text.Substring(1, 2)
             End If
-            
             Sector = txtSector.Text
             LOT = txtLOT.Text
             ArtworkRevision = Artwork + Rev + Panel + Sector + LOT

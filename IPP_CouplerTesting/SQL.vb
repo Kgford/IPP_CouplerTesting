@@ -537,11 +537,47 @@ SkipDataBase:
 
         End Try
     End Sub
+    Public Sub UpdateArtwork()
+        If LOT.Length() = 1 Then
+            LOT = "000000000000" + LOT
+        ElseIf LOT.Length() = 2 Then
+            LOT = "00000000000" + LOT
+        ElseIf LOT.Length() = 3 Then
+            LOT = "0000000000" + LOT
+        ElseIf LOT.Length() = 4 Then
+            LOT = "000000000" + LOT
+        ElseIf LOT.Length() = 5 Then
+            LOT = "00000000" + LOT
+        ElseIf LOT.Length() = 6 Then
+            LOT = "0000000" + LOT
+        ElseIf LOT.Length() = 7 Then
+            LOT = "000000" + LOT
+        ElseIf LOT.Length() = 8 Then
+            LOT = "00000" + LOT
+        ElseIf LOT.Length() = 9 Then
+            LOT = "0000" + LOT
+        ElseIf LOT.Length() = 10 Then
+            LOT = "000" + LOT
+        ElseIf LOT.Length() = 11 Then
+            LOT = "00" + LOT
+        ElseIf LOT.Length() = 12 Then
+            LOT = "0" + LOT
+        End If
+
+        If Panel.Length() = 1 Then
+            If Panel.Contains("*") Then
+                Panel = "*" + Panel
+            Else
+                Panel = "0" + Panel
+            End If
+        End If
+    End Sub
+   
     Public Sub SaveTestData(Test As String, Value As Double, this_test As Integer)
         Dim SQLStr As String
-
         If TweakMode Then Exit Sub
         Try
+            UpdateArtwork()
             SQLStr = "SELECT * from TestData where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork_rev = '" & ArtworkRevision & "'"
             If SQL.CheckforRow(SQLStr, "NetworkData") = 0 Then
                 SQLStr = "Insert Into TestData (JobNumber, PartNumber,SerialNumber,WorkStation,artwork_rev,artwork,Panel,Sector,LOT) values ('" & Job & "','" & Part & "','" & SerialNumber & "','" & GetComputerName() & "','" & ArtworkRevision & "','" & Artwork & "','" & Panel & "','" & Sector & "','" & LOT & "')"
@@ -569,7 +605,11 @@ SkipDataBase:
             SQLStr = "UPDATE TestData Set LOT  = '" & LOT & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
             SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
 
-            SQLStr = "UPDATE TestData Set Operator  = '" & User & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork_rev = '" & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+            SQLStr = "UPDATE TestData Set Operator  = '" & User & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE TestData SET ActiveDate = '" & Now.Date.ToShortDateString & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
 
             frmAUTOTEST.SaveStatus(this_test)
 
@@ -1210,6 +1250,8 @@ IGNORE2:
         End Try
 
     End Function
+   
+
     Public Sub SaveTrace(Title As String, TestID As Long, TraceID As Long)
         Try
             Dim SQLStr As String = ""
@@ -1217,7 +1259,7 @@ IGNORE2:
             Dim yString As String = ""
             Dim Expression As String
             Dim Index As Integer
-
+            UpdateArtwork()
             'Populate Instrument Row
             If SQLAccess Then
                 Dim ats As SqlConnection = New SqlConnection(SQLConnStr)

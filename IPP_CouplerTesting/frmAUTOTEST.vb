@@ -657,17 +657,17 @@ Skip4:
                 Me.Hide()
                 frmSpecifications.ShowDialog()
             End If
-
-            If Artwork = "" Or Not Job = LastJob Then
+            GetStatus()
+            If Artwork = "" Or (Not Job = LastJob And Not LastJob = "N/A") Then
                 Dim OP As New AddArtWorkRevision
                 OP.StartPosition = FormStartPosition.Manual
                 OP.Location = New Point(globals.XLocation + 450, globals.YLocation + 200)
                 OP.ShowDialog()
-                txtArtwork.Text = Artwork + Rev
-                txtPanel.Text = Panel
-                txtSector.Text = Sector
-                txtLOT.Text = LOT
             End If
+            txtArtwork.Text = Artwork + Rev
+            txtPanel.Text = Panel
+            txtSector.Text = Sector
+            txtLOT.Text = LOT
 
             Me.Refresh()
 
@@ -4306,6 +4306,9 @@ TestReallyComplete:
                 Me.ReTestFrame.BackColor = Drawing.Color.Red
                 Me.UUTLabel.ForeColor = Drawing.Color.Red
                 Me.UUTCount.ForeColor = Drawing.Color.Red
+                Me.Failures4.ForeColor = Drawing.Color.Red
+                Me.FailTotal4.ForeColor = Drawing.Color.Red
+                Me.Total4.ForeColor = Drawing.Color.Red
             End If
             If Color = "Blue" Then
                 PF4.ForeColor = Drawing.Color.CornflowerBlue
@@ -4430,6 +4433,9 @@ TestReallyComplete:
                 Me.ReTestFrame.BackColor = Drawing.Color.Red
                 Me.UUTLabel.ForeColor = Drawing.Color.Red
                 Me.UUTCount.ForeColor = Drawing.Color.Red
+                Me.Failures5.ForeColor = Drawing.Color.Red
+                Me.FailTotal5.ForeColor = Drawing.Color.Red
+                Me.Total5.ForeColor = Drawing.Color.Red
 
             End If
             If Color = "Blue" Then
@@ -7733,21 +7739,15 @@ Skip3:
         SPEC.ShowDialog()
     End Sub
 
-
     Private Sub txtArtwork_TextChanged(sender As Object, e As EventArgs) Handles txtArtwork.TextChanged
         UUTReset = True
         txtArtwork.SelectionStart = Len(txtArtwork.Text)
         txtArtwork.Text = Trim(txtArtwork.Text.ToUpper)
         Artwork = txtArtwork.Text(0)
-        If txtArtwork.Text.Length() > 1 Then
+        If txtArtwork.Text.Length() > 2 Then
             Rev = txtArtwork.Text.Substring(1, 2)
         End If
-        If txtPanel.Text.Length() = 1 Then
-            txtPanel.Text = "0" + txtPanel.Text
-            Panel = txtPanel.Text
-        End If
-       
-        ArtworkRevision = Artwork + Rev + Panel + Sector + LOT
+       ArtworkRevision = Artwork + Rev + Panel + Sector + LOT
     End Sub
     Private Sub txtLOT_TextChanged(sender As Object, e As EventArgs) Handles txtLOT.TextChanged
         UUTReset = True
@@ -7778,6 +7778,14 @@ Skip3:
         ElseIf txtLOT.Text.Length() = 12 Then
             txtLOT.Text = "0" + txtLOT.Text
         End If
+        If txtPanel.Text.Length() = 1 Then
+            If txtPanel.Text.Contains("*") Then
+                txtPanel.Text = "*" + txtPanel.Text
+            Else
+                txtPanel.Text = "0" + txtPanel.Text
+            End If
+        End If
+        Panel = txtPanel.Text
         
         ArtworkRevision = Artwork + Rev + Panel + Sector + LOT
     End Sub
@@ -7786,16 +7794,23 @@ Skip3:
         UUTReset = True
         txtPanel.SelectionStart = Len(txtPanel.Text)
         txtPanel.Text = Trim(txtPanel.Text.ToUpper)
+        
         ArtworkRevision = Artwork + Rev + Panel + Sector + LOT
     End Sub
     Private Sub txtSector_TextChanged(sender As Object, e As EventArgs) Handles txtSector.TextChanged
         UUTReset = True
         txtSector.SelectionStart = Len(txtSector.Text)
         txtSector.Text = Trim(txtSector.Text.ToUpper)
+        If txtPanel.Text.Length() = 1 Then
+            If txtPanel.Text.Contains("*") Then
+                txtPanel.Text = "*" + txtPanel.Text
+            Else
+                txtPanel.Text = "0" + txtPanel.Text
+            End If
+        End If
+        Panel = txtPanel.Text
         ArtworkRevision = Artwork + Rev + Panel + Sector + LOT
     End Sub
-
-
     Private Sub ReportServerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ReportServerToolStripMenuItem.Click
         Process.Start("microsoft-edge:http://inn-sqlexpress:8888/test/")
     End Sub
@@ -7848,6 +7863,14 @@ Skip3:
                     If dr.Item(17) IsNot Nothing Then Me.FailTotal5.Text = dr.Item(17)
                     If dr.Item(18) IsNot Nothing Then statusL = dr.Item(18)
                     If dr.Item(19) IsNot Nothing Then FailureL = dr.Item(19)
+
+                    If dr.Item(20) IsNot Nothing Then Artwork = dr.Item(20)
+                    If dr.Item(21) IsNot Nothing Then Panel = dr.Item(21)
+                    If dr.Item(22) IsNot Nothing Then LOT = dr.Item(22)
+                    If dr.Item(23) IsNot Nothing Then Sector = dr.Item(23)
+                    If dr.Item(24) IsNot Nothing Then Rev = dr.Item(24)
+
+
                     Dim setback As Boolean = False
                     Dim realtotal As Integer = Total1.Text
                     Test1Fail = Me.FailTotal1.Text
@@ -7964,9 +7987,9 @@ Skip3:
                         Me.UUTCount.ForeColor = Drawing.Color.LawnGreen
                         Me.Total5.ForeColor = Drawing.Color.LawnGreen
                     Else
-                        Me.Total4.ForeColor = Drawing.Color.LawnGreen
-                        Me.Failures4.ForeColor = Drawing.Color.LawnGreen
-                        Me.FailTotal4.ForeColor = Drawing.Color.LawnGreen
+                        Me.Total5.ForeColor = Drawing.Color.LawnGreen
+                        Me.Failures5.ForeColor = Drawing.Color.LawnGreen
+                        Me.FailTotal5.ForeColor = Drawing.Color.LawnGreen
                     End If
                     Dim reLst
                     reLst = statusL.Split(",")
@@ -8091,6 +8114,27 @@ Skip3:
 
             Next
             SQLStr = "UPDATE Status Set FailureLog = '" & Trim(failLog) & "' where JobNumber = '" & Job & "' And PartNumber = '" & Part & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE Status Set artwork_rev  = '" & ArtworkRevision & "' where JobNumber = '" & Job & "' And PartNumber = '" & Part & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE Status Set artwork  = '" & Artwork & "' where JobNumber = '" & Job & "' And PartNumber = '" & Part & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE Status Set Revision  = '" & Rev & "' where JobNumber = '" & Job & "' And PartNumber = '" & Part & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE Status Set Panel  = '" & Panel & "' where JobNumber = '" & Job & "' And PartNumber = '" & Part & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE Status Set Sector  = '" & Sector & "' where JobNumber = '" & Job & "' And PartNumber = '" & Part & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE Status Set LOT  = '" & LOT & "' where JobNumber = '" & Job & "' And PartNumber = '" & Part & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+            SQLStr = "UPDATE Status SET ActiveDate = '" & Now.Date.ToShortDateString & "' where JobNumber = '" & Job & "' And PartNumber = '" & Part & "'"
             SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
 
         Catch ex As Exception
