@@ -116,11 +116,12 @@ Public Class frmSpecifications
             '*******************************************************************************
             'Load the Conguration Data
             '*******************************************************************************
+            System.Threading.Thread.Sleep(500)
             If SQLAccess Then
                 Dim ats As SqlConnection = New SqlConnection(SQLConnStr)
                 Dim cmd As SqlCommand = New SqlCommand(SQLstr, ats)
                 ats.Open()
-                System.Threading.Thread.Sleep(10)
+                System.Threading.Thread.Sleep(200)
                 Dim dr As SqlDataReader = cmd.ExecuteReader()
                 While Not dr.Read = Nothing
                     If Index = 0 Then
@@ -646,7 +647,7 @@ Public Class frmSpecifications
                             If Not IsDBNull(dr.GetValue(14)) Then Me.txtTest4_4.Text = dr.Item(14)
                             If Not IsDBNull(dr.GetValue(19)) Then Me.txtTest5_4.Text = dr.Item(19)
                         ElseIf Index = 2 Then
-                            If Not IsDBNull(dr.GetValue(16)) Then Me.txtTest3_3.Text = dr.Item(16)
+                            If Not IsDBNull(dr.GetValue(16)) Then Me.txtTest3_3.Text = dr.Item(15)
                             If Not IsDBNull(dr.GetValue(17)) Then Me.txtTest4_3.Text = dr.Item(17)
                             If Not IsDBNull(dr.GetValue(20)) Then Me.txtTest5_3.Text = dr.Item(20)
                         End If

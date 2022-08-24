@@ -1892,7 +1892,7 @@ Partial Class frmSpecifications
         Me.Frame5.Controls.Add(Me.txtStopFreq_5)
         Me.Frame5.Controls.Add(Me.txtStartFreq_5)
         Me.Frame5.Controls.Add(Me.Label115)
-        Me.Frame5.Location = New System.Drawing.Point(2, 259)
+        Me.Frame5.Location = New System.Drawing.Point(41, 680)
         Me.Frame5.Name = "Frame5"
         Me.Frame5.Size = New System.Drawing.Size(1182, 389)
         Me.Frame5.TabIndex = 120
@@ -2664,7 +2664,7 @@ Partial Class frmSpecifications
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.ClientSize = New System.Drawing.Size(1235, 667)
+        Me.ClientSize = New System.Drawing.Size(1235, 818)
         Me.Controls.Add(Me.Frame5)
         Me.Controls.Add(Me.Label93)
         Me.Controls.Add(Me.Label92)

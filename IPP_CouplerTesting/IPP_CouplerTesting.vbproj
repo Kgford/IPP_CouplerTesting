@@ -26,7 +26,7 @@
     <UpdateUrl>\\ippdc\Test Automation\ATE_Publish\</UpdateUrl>
     <WebPage>publish.htm</WebPage>
     <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>162</ApplicationRevision>
+    <ApplicationRevision>163</ApplicationRevision>
     <ApplicationVersion>4.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -156,6 +156,18 @@
       <DependentUpon>AddArtWorkRevision.vb</DependentUpon>
     </Compile>
     <Compile Include="AddArtWorkRevision.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GoldenList.Designer.vb">
+      <DependentUpon>GoldenList.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GoldenList.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GoldenMsg.Designer.vb">
+      <DependentUpon>GoldenMsg.vb</DependentUpon>
+    </Compile>
+    <Compile Include="GoldenMsg.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MYMsg.Designer.vb">
@@ -290,6 +302,12 @@
   <ItemGroup>
     <EmbeddedResource Include="AddArtWorkRevision.resx">
       <DependentUpon>AddArtWorkRevision.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GoldenList.resx">
+      <DependentUpon>GoldenList.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GoldenMsg.resx">
+      <DependentUpon>GoldenMsg.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MYMsg.resx">
       <DependentUpon>MYMsg.vb</DependentUpon>

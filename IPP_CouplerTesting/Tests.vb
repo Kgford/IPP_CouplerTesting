@@ -500,7 +500,11 @@
         Title = ActiveTitle
         ILSetDone = False
         Workstation = GetComputerName()
-        If frmAUTOTEST.UUTCount.Text = 1 Then SetSwitchesPosition = 1
+        Try
+            If frmAUTOTEST.UUTCount.Text = 1 Then SetSwitchesPosition = 1
+        Catch ex As Exception
+
+        End Try
         If frmAUTOTEST.txtOffset1.Text = "" Then frmAUTOTEST.txtOffset1.Text = 0
         Spec = GetSpecification("InsertionLoss")
         SwitchCom.Connect()
@@ -614,7 +618,7 @@
                 Workstation = GetComputerName()
                 TraceID1 = SQL.GetTraceID(Title, TestID)
                 TraceID = TraceID1
-            End If
+               End If
             ReDim Preserve IL1Data(Pts)
             ReDim Preserve IL2Data(Pts)
             ScanGPIB.GetTrace(Trace1Freq, IL1Data)
@@ -629,6 +633,9 @@
                     YArray = IL1Data
                     SQL.SaveTrace(Title, TestID, TraceID)
                     YArray = IL1Data_offs
+                    If GoldenMode And GoldenData Then 'Looking for a delta change from past golden to present data
+                        FindGoldTraceDeltas("Delta1L", XArray, YArray, Title)
+                    End If
                 End If
             End If
             If MutiCalChecked Then ScanGPIB.GetTraceMem()
@@ -693,7 +700,7 @@
                 Workstation = GetComputerName()
                 TraceID2 = SQL.GetTraceID(Title, TestID)
                 TraceID = TraceID2
-            End If
+           End If
             ScanGPIB.GetTrace(Trace2Freq, IL2Data)
             Trace2Freq = TrimX(Trace2Freq)
             IL2Data_offs = TrimY(IL2Data, CDbl(frmAUTOTEST.txtOffset1.Text))
@@ -709,6 +716,10 @@
                     For x = 0 To YArray.Count - 1
                         IL2_YArray(UUTNum_Reset - 1, x) = YArray(x)
                     Next
+                End If
+
+                If GoldenMode And GoldenData Then 'Looking for a delta change from past golden to present data
+                    FindGoldTraceDeltas("Delta1H", XArray, YArray, Title)
                 End If
             End If
             'TraceID1 =265
@@ -805,7 +816,11 @@
         Title = ActiveTitle
         ILSetDone = False
         Workstation = GetComputerName()
-        If frmAUTOTEST.UUTCount.Text = 1 Then SetSwitchesPosition = 1
+        Try
+            If frmAUTOTEST.UUTCount.Text = 1 Then SetSwitchesPosition = 1
+        Catch ex As Exception
+
+        End Try
         If frmAUTOTEST.txtOffset1.Text = "" Then frmAUTOTEST.txtOffset1.Text = 0
         Spec = GetSpecification("InsertionLoss")
         SwitchCom.Connect()
@@ -921,7 +936,7 @@
                 Workstation = GetComputerName()
                 TraceID1 = SQL.GetTraceID(Title, TestID)
                 TraceID = TraceID1
-            End If
+             End If
             ReDim Preserve Trace1Freq1(Pts)
             ReDim Preserve IL1Data_offs1(Pts)
             ScanGPIB.GetTrace(Trace1Freq1, IL1Data1, SpecAB_start1, SpecAB_stop1)
@@ -936,8 +951,12 @@
                     YArray = IL1Data1
                     SQL.SaveTrace(Title, TestID, TraceID)
                     YArray = IL1Data_offs
+                    If GoldenMode And GoldenData Then 'Looking for a delta change from past golden to present data
+                        FindGoldTraceDeltas("Delta1L", XArray, YArray, Title)
+                    End If
                 End If
             End If
+            
             If MutiCalChecked Then ScanGPIB.GetTraceMem()
             ActiveTitle = "     TESTING INSERTION LOSS    SW POSITION 2       "
             If SwitchedChecked Then  'Auto RF Switching
@@ -1020,6 +1039,9 @@
                     For x = 0 To YArray.Count - 1
                         IL2_YArray(UUTNum_Reset - 1, x) = YArray(x)
                     Next
+                End If
+                If GoldenMode And GoldenData Then 'Looking for a delta change from past golden to present data
+                    FindGoldTraceDeltas("Delta1H", XArray, YArray, Title)
                 End If
             End If
             '~~~~~~~~~~~~~~~~~~~~~~~~second band~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1230,7 +1252,11 @@
         Title = ActiveTitle
         ILSetDone = False
         Workstation = GetComputerName()
-        If frmAUTOTEST.UUTCount.Text = 1 Then SetSwitchesPosition = 1
+        Try
+            If frmAUTOTEST.UUTCount.Text = 1 Then SetSwitchesPosition = 1
+        Catch ex As Exception
+
+        End Try
         If frmAUTOTEST.txtOffset1.Text = "" Then frmAUTOTEST.txtOffset1.Text = 0
         Spec = GetSpecification("InsertionLoss")
         SwitchCom.Connect()
@@ -1529,7 +1555,11 @@
         Title = ActiveTitle
         ActiveTitle = "     TESTING INSERTION LOSS     "
         Workstation = GetComputerName()
-        If frmAUTOTEST.UUTCount.Text = 1 Then SetSwitchesPosition = 1
+        Try
+            If frmAUTOTEST.UUTCount.Text = 1 Then SetSwitchesPosition = 1
+        Catch ex As Exception
+
+        End Try
         If frmAUTOTEST.txtOffset1.Text = "" Then frmAUTOTEST.txtOffset1.Text = 0
         Spec = GetSpecification("InsertionLoss")
         SwitchPorts = SQL.GetSpecification("SwitchPorts")
@@ -1632,6 +1662,9 @@
                     SQL.SaveTrace(Title, TestID, TraceID)
                     YArray = IL1Data_offs
                 End If
+                If GoldenMode And GoldenData Then 'Looking for a delta change from past golden to present data
+                    FindGoldTraceDeltas("Delta1", XArray, YArray, Title)
+                End If
             End If
             Pts = Points
 
@@ -1678,7 +1711,11 @@
         Title = ActiveTitle
         ActiveTitle = "     TESTING INSERTION LOSS     "
         Workstation = GetComputerName()
-        If frmAUTOTEST.UUTCount.Text = 1 Then SetSwitchesPosition = 1
+        Try
+            If frmAUTOTEST.UUTCount.Text = 1 Then SetSwitchesPosition = 1
+        Catch ex As Exception
+
+        End Try
         If frmAUTOTEST.txtOffset1.Text = "" Then frmAUTOTEST.txtOffset1.Text = 0
         Spec = GetSpecification("InsertionLoss")
         SwitchCom.Connect()
@@ -1804,7 +1841,11 @@
         Title = ActiveTitle
         ActiveTitle = "     TESTING INSERTION LOSS     "
         Workstation = GetComputerName()
-        If frmAUTOTEST.UUTCount.Text = 1 Then SetSwitchesPosition = 1
+        Try
+            If frmAUTOTEST.UUTCount.Text = 1 Then SetSwitchesPosition = 1
+        Catch ex As Exception
+
+        End Try
         If frmAUTOTEST.txtOffset1.Text = "" Then frmAUTOTEST.txtOffset1.Text = 0
         Spec = GetSpecification("InsertionLoss")
         SwitchPorts = SQL.GetSpecification("SwitchPorts")
@@ -1880,7 +1921,7 @@
                 Workstation = GetComputerName()
                 TraceID1 = SQL.GetTraceID(Title, TestID)
                 TraceID = TraceID1
-            End If
+           End If
             ReDim Preserve IL1Data(Pts)
             ScanGPIB.GetTrace(Trace1Freq, IL1Data)
 
@@ -1895,6 +1936,9 @@
                     YArray = IL1Data
                     SQL.SaveTrace(Title, TestID, TraceID)
                     YArray = IL1Data_offs
+                End If
+                If GoldenMode And GoldenData Then 'Looking for a delta change from past golden to present data
+                    FindGoldTraceDeltas("Delta1", XArray, YArray, Title)
                 End If
             End If
             Pts = Points
@@ -1952,7 +1996,11 @@
         Title = ActiveTitle
         ILSetDone = False
         Workstation = GetComputerName()
-        If frmAUTOTEST.UUTCount.Text = 1 Then SetSwitchesPosition = 1
+        Try
+            If frmAUTOTEST.UUTCount.Text = 1 Then SetSwitchesPosition = 1
+        Catch ex As Exception
+
+        End Try
         If frmAUTOTEST.txtOffset1.Text = "" Then frmAUTOTEST.txtOffset1.Text = 0
         Spec1 = GetSpecification("InsertionLoss")
         Spec2 = GetSpecification("InsertionLoss2")
@@ -2054,7 +2102,7 @@
                 Workstation = GetComputerName()
                 TraceID1 = SQL.GetTraceID(Title, TestID)
                 TraceID = TraceID1
-            End If
+           End If
             ReDim Preserve IL1Data(Pts)
             ReDim Preserve IL2Data(Pts)
             ScanGPIB.GetTrace(Trace1Freq, IL1Data)
@@ -2069,6 +2117,9 @@
                     YArray = IL1Data
                     SQL.SaveTrace(Title, TestID, TraceID)
                     YArray = IL1Data_offs
+                End If
+                If GoldenMode And GoldenData Then 'Looking for a delta change from past golden to present data
+                    FindGoldTraceDeltas("Delta1", XArray, YArray, Title)
                 End If
             End If
             Pts = Points
@@ -2138,6 +2189,9 @@
                     SQL.SaveTrace(Title, TestID, TraceID)
                     YArray = IL2Data_offs
                 End If
+                If GoldenMode And GoldenData Then 'Looking for a delta change from past golden to present data
+                    FindGoldTraceDeltas("Delta1H", XArray, YArray, Title)
+                End If
             End If
             Pts = Points
 
@@ -2202,7 +2256,11 @@
         Title = ActiveTitle
         ActiveTitle = "     TESTING INSERTION LOSS     "
         Workstation = GetComputerName()
-        If frmAUTOTEST.UUTCount.Text = 1 Then SetSwitchesPosition = 1
+        Try
+            If frmAUTOTEST.UUTCount.Text = 1 Then SetSwitchesPosition = 1
+        Catch ex As Exception
+
+        End Try
         If frmAUTOTEST.txtOffset1.Text = "" Then frmAUTOTEST.txtOffset1.Text = 0
         Spec = GetSpecification("InsertionLoss")
         SwitchCom.Connect()
@@ -2327,7 +2385,11 @@
         Title = ActiveTitle
         ActiveTitle = "     TESTING INSERTION LOSS     "
         Workstation = GetComputerName()
-        If frmAUTOTEST.UUTCount.Text = 1 Then SetSwitchesPosition = 1
+        Try
+            If frmAUTOTEST.UUTCount.Text = 1 Then SetSwitchesPosition = 1
+        Catch ex As Exception
+
+        End Try
         If frmAUTOTEST.txtOffset1.Text = "" Then frmAUTOTEST.txtOffset1.Text = 0
         Spec = GetSpecification("InsertionLoss")
         SwitchCom.Connect()
@@ -2429,6 +2491,9 @@
                         SQL.SaveTrace(Title, TestID, TraceID)
                         YArray = IL1Data_offs
                     End If
+                    If GoldenMode And GoldenData Then 'Looking for a delta change from past golden to present data
+                        FindGoldTraceDeltas("Delta1", XArray, YArray, Title)
+                    End If
                 End If
                 MinData(x - 1) = IL1Data.Min
 
@@ -2486,7 +2551,11 @@
         Title = ActiveTitle
         ActiveTitle = "     TESTING INSERTION LOSS     "
         Workstation = GetComputerName()
-        If frmAUTOTEST.UUTCount.Text = 1 Then SetSwitchesPosition = 1
+        Try
+            If frmAUTOTEST.UUTCount.Text = 1 Then SetSwitchesPosition = 1
+        Catch ex As Exception
+
+        End Try
         If frmAUTOTEST.txtOffset1.Text = "" Then frmAUTOTEST.txtOffset1.Text = 0
         Spec = GetSpecification("InsertionLoss")
         SwitchCom.Connect()
@@ -2738,6 +2807,9 @@
                     SQL.SaveTrace(Title, TestID, TraceID)
                     YArray = TraceData_offs
                 End If
+                If GoldenMode And GoldenData Then 'Looking for a delta change from past golden to present data
+                    FindGoldTraceDeltas("Delta2", XArray, YArray, Title)
+                End If
             End If
             RL = MaxNoZero(TraceData)
             RL = RL + CDbl(frmAUTOTEST.txtOffset2.Text)
@@ -2968,7 +3040,7 @@
                 Workstation = GetComputerName()
                 TraceID1 = SQL.GetTraceID(Title, TestID)
                 TraceID = TraceID1
-            End If
+           End If
             ScanGPIB.GetTrace(TraceFreq, TraceData)
             TraceFreq = TrimX(TraceFreq)
             TraceData_offs = TrimY(TraceData, CDbl(frmAUTOTEST.txtOffset3.Text))
@@ -2981,6 +3053,9 @@
                     YArray = TraceData_offs
                     SQL.SaveTrace(Title, TestID, TraceID)
                     YArray = TraceData
+                End If
+                If GoldenMode And GoldenData Then 'Looking for a delta change from past golden to present data
+                    FindGoldTraceDeltas("Delta3", XArray, YArray, Title)
                 End If
             End If
 
@@ -3272,6 +3347,9 @@
                         YArray = IL1Data
                         SQL.SaveTrace(Title, TestID, TraceID)
                         YArray = IL1Data_offs
+                    End If
+                    If GoldenMode And GoldenData Then 'Looking for a delta change from past golden to present data
+                        FindGoldTraceDeltas("Delta3", XArray, YArray, Title)
                     End If
                 End If
                 SpecCuttoffFreq = 0
@@ -3685,6 +3763,9 @@ SetPoints:
 
                             End Try
                         End If
+                        If GoldenMode And GoldenData Then 'Looking for a delta change from past golden to present data
+                            FindGoldTraceDeltas("Delta3L", XArray, YArray, Title)
+                        End If
                     End If
                 Else
                     If TraceChecked And Not TweakMode Then ' Database Trace Data
@@ -3711,6 +3792,9 @@ SetPoints:
                             For x = 0 To YArray.Count - 1
                                 COUP2_YArray(UUTNum_Reset - 1, x) = YArray(x)
                             Next
+                        End If
+                        If GoldenMode And GoldenData Then 'Looking for a delta change from past golden to present data
+                            FindGoldTraceDeltas("Delta3H", XArray, YArray, Title)
                         End If
                     End If
                 End If
@@ -4364,7 +4448,7 @@ Round:
                         Workstation = GetComputerName()
                         TraceID1 = SQL.GetTraceID(Title, TestID)
                         TraceID = TraceID1
-                    End If
+                   End If
                     ScanGPIB.GetTrace(Trace1Freq, IL1Data)
                     Trace1Freq = TrimX(Trace1Freq)
                     IL1Data_offs = TrimY(IL1Data, CDbl(frmAUTOTEST.txtOffset4.Text))
@@ -4381,6 +4465,9 @@ Round:
                                 AB_XArray(UUTNum_Reset - 1, y) = XArray(y)
                                 AB1_YArray(UUTNum_Reset - 1, y) = YArray(y)
                             Next
+                        End If
+                        If GoldenMode And GoldenData Then 'Looking for a delta change from past golden to present data
+                            FindGoldTraceDeltas("Delta4L", XArray, YArray, Title)
                         End If
                     End If
                     MaxData(x) = MaxNoZero(IL1Data)
@@ -4796,6 +4883,9 @@ Round:
                     SQL.SaveTrace(Title, TestID, TraceID)
                     YArray = COUP1Data_offs
                 End If
+                If GoldenMode And GoldenData Then 'Looking for a delta change from past golden to present data
+                    FindGoldTraceDeltas("Delta4L", XArray, YArray, Title)
+                End If
             End If
 
             If SpecType = "SINGLE DIRECTIONAL COUPLER" Then
@@ -4893,6 +4983,9 @@ Round:
                     For x = 0 To YArray.Count - 1
                         COUP2_YArray(UUTNum_Reset - 1, x) = YArray(x)
                     Next
+                End If
+                If GoldenMode And GoldenData Then 'Looking for a delta change from past golden to present data
+                    FindGoldTraceDeltas("Delta4H", XArray, YArray, Title)
                 End If
             End If
 
@@ -5107,13 +5200,13 @@ Round:
                         End If
                     Else
                         If SwitchedChecked Then  'Auto RF Switching
-                            SetSwitchesPosition = 2
-                            status = SwitchCom.SetSwitchPosition(2) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
+                            SetSwitchesPosition = 5
+                            status = SwitchCom.SetSwitchPosition(5) 'note: Status 0 = Error,Status 1 = Switched, Status 1 = Switch commmand recieved, no 24V
                             status = SwitchCom.GetSwitchPosition(StatusRet) ' note Status Return in Binary
                             System.Threading.Thread.Sleep(500)
-                            frmAUTOTEST.cmbSwitch.SelectedIndex = 1
+                            frmAUTOTEST.cmbSwitch.SelectedIndex = 4
                         Else
-                            MYMsgBox("Move Cables to RF Position 2", vbOKOnly, "Manual Switch")
+                            MYMsgBox("Move Cables to RF Position 5", vbOKOnly, "Manual Switch")
                         End If
                     End If
                 Else '~~~~~~~~~~~~~4 port stuff~~~~~~~~~~~~~~
@@ -5344,7 +5437,7 @@ Round:
                     Workstation = GetComputerName()
                     TraceID1 = SQL.GetTraceID(Title, TestID)
                     TraceID = TraceID1
-                End If
+               End If
                 ScanGPIB.GetTrace(TraceFreq, COUP1FlatData)
                 TraceFreq = TrimX(TraceFreq)
                 COUP1FlatData_offs = TrimY(COUP1FlatData, CDbl(frmAUTOTEST.txtOffset4.Text))
@@ -5355,6 +5448,9 @@ Round:
                     XArray = TraceFreq
                     YArray = COUP1FlatData
                     SQL.SaveTrace(Title, TestID, TraceID)
+                    If GoldenMode And GoldenData Then 'Looking for a delta change from past golden to present data
+                        FindGoldTraceDeltas("Delta5", XArray, YArray, Title)
+                    End If
                 End If
             Else
                 If TraceChecked And Not TweakMode Then ' Database Trace Data
@@ -5376,6 +5472,9 @@ Round:
                     XArray = TraceFreq
                     YArray = COUP2FlatData
                     SQL.SaveTrace(Title, TestID, TraceID)
+                End If
+                If GoldenMode And GoldenData Then 'Looking for a delta change from past golden to present data
+                    FindGoldTraceDeltas("Delta5", XArray, YArray, Title)
                 End If
             End If
             frmAUTOTEST.Refresh()
@@ -5541,7 +5640,7 @@ Round:
                 Workstation = GetComputerName()
                 TraceID1 = SQL.GetTraceID(Title, TestID)
                 TraceID = TraceID1
-            End If
+                End If
             ScanGPIB.GetTrace(Trace1Freq, Trace1Data)
             Trace1Freq = TrimX(Trace1Freq)
             Trace1Data_offs = TrimY(Trace1Data, CDbl(frmAUTOTEST.txtOffset5.Text))
@@ -5555,6 +5654,10 @@ Round:
                     SQL.SaveTrace(Title, TestID, TraceID)
                     YArray = Trace1Data_offs
                 End If
+                If GoldenMode And GoldenData Then 'Looking for a delta change from past golden to present data
+                    FindGoldTraceDeltas("Delta5L", XArray, YArray, Title)
+                End If
+
             End If
 
             frmAUTOTEST.Refresh()
@@ -5684,7 +5787,7 @@ Round:
                 Workstation = GetComputerName()
                 TraceID2 = SQL.GetTraceID(Title, TestID)
                 TraceID = TraceID2
-            End If
+           End If
             ScanGPIB.GetTrace(Trace2Freq, Trace2Data)
             Trace2Freq = TrimX(Trace2Freq)
             Trace2Data_offs = TrimY(Trace2Data, CDbl(frmAUTOTEST.txtOffset5.Text))
@@ -5696,6 +5799,9 @@ Round:
                 YArray = Trace2Data
                 SQL.SaveTrace(Title, TestID, TraceID)
                 YArray = Trace2Data_offs
+                If GoldenMode And GoldenData Then 'Looking for a delta change from past golden to present data
+                    FindGoldTraceDeltas("Delta5H", XArray, YArray, Title)
+                End If
             End If
             System.Threading.Thread.Sleep(500)
             If VNAStr = "AG_E5071B" Then
@@ -5733,6 +5839,9 @@ Round:
                     For x = 0 To YArray.Count - 1
                         PB1_YArray(UUTNum_Reset - 1, x) = YArray(x)
                     Next
+                End If
+                If GoldenMode And GoldenData Then 'Looking for a delta change from past golden to present data
+                    FindGoldTraceDeltas("Delta5", XArray, YArray, Title)
                 End If
             End If
 
@@ -6281,7 +6390,7 @@ Round:
                     Workstation = GetComputerName()
                     TraceID1 = SQL.GetTraceID(Title, TestID)
                     TraceID = TraceID1
-                End If
+                    End If
                 ScanGPIB.GetTrace(Trace1Freq, IL1Data)
                 Trace1Freq = TrimX(Trace1Freq)
                 IL1Data_offs = TrimY(IL1Data, CDbl(frmAUTOTEST.txtOffset5.Text))
@@ -6298,13 +6407,14 @@ Round:
                             PB_XArray(UUTNum_Reset - 1, y) = XArray(y)
                             PB1_YArray(UUTNum_Reset - 1, y) = YArray(y)
                         Next
+                        If GoldenMode And GoldenData Then 'Looking for a delta change from past golden to present data
+                            FindGoldTraceDeltas("Delta5", XArray, YArray, Title)
+                        End If
                     End If
                 End If
                 ReDim Preserve MaxData(x - 1)
                 MaxData(x - 1) = MaxNoZero(IL1Data)
-
                 If MutiCalChecked Then ScanGPIB.GetTraceMem()
-
                 Pts = Points
             Next x
             ExtraAvg(2)
@@ -6316,7 +6426,6 @@ Round:
                     If MaxData(x) > PB Then PB = MaxData(x)
                 End If
             Next x
-
             PB = PB + CDbl(frmAUTOTEST.txtOffset5.Text)
             System.Threading.Thread.Sleep(500)
             If VNAStr = "AG_E5071B" Then

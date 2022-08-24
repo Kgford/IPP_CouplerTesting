@@ -1,8 +1,6 @@
 ﻿
-
 Imports System.Data
 Imports System.Data.SqlClient
-
 
 Module SQL
     Public reader As SqlDataReader
@@ -39,7 +37,6 @@ Module SQL
 
         End Try
     End Function
-
 
     Public Function ExecuteSQLCommand(SQLstr As String, Table As String) As Integer
         Try
@@ -426,6 +423,43 @@ SkipDataBase:
             Return 0
         End Try
     End Function
+    Public Function CheckforFail(SQLStr As String, Table As String) As String
+        Try
+            CheckforFail = "No Fail"
+            If SQLAccess Then
+                Dim ats As SqlConnection = New SqlConnection(SQLConnStr)
+                Dim cmd As SqlCommand = New SqlCommand(SQLStr, ats)
+                ats.Open()
+                System.Threading.Thread.Sleep(0.001)
+                Dim dr As SqlDataReader = cmd.ExecuteReader()
+                While Not dr.Read = Nothing
+                    If dr.Item(34) = "Fail" Then
+                        CheckforFail = dr.Item(4) 'UUTx
+                        Exit While
+                    End If
+                End While
+                ats.Close()
+            Else
+                Dim strConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source= " & AccessDatabaseFolder(Table)
+                Dim atsLocal As New OleDb.OleDbConnection
+                atsLocal.ConnectionString = strConnectionString
+                Dim cmd As OleDb.OleDbCommand = New OleDb.OleDbCommand(SQLStr, atsLocal)
+                atsLocal.Open()
+                System.Threading.Thread.Sleep(0.001)
+                Dim drLocal As OleDb.OleDbDataReader = cmd.ExecuteReader
+                While Not drLocal.Read = Nothing
+                    If drLocal.Item(34) = "Pass" Then
+                        CheckforFail = drLocal.Item(4) 'UUTx
+                        Exit While
+                    End If
+                End While
+                atsLocal.Close()
+            End If
+            Return CheckforFail
+        Catch
+            Return "No Fail"
+        End Try
+    End Function
 
     Public Function GetLoss() As Double
 
@@ -487,7 +521,7 @@ SkipDataBase:
             'Job = frmAUTOTEST.cmbJob.Text
             If SQLAccess Then
                 Dim ats As SqlConnection = New SqlConnection(SQLConnStr)
-                Dim cmd As SqlCommand = New SqlCommand(SQLStr, ats)
+                Dim cmd As SqlCommand = New SqlCommand(SQLstr, ats)
                 ats.Open()
                 System.Threading.Thread.Sleep(0.001)
                 Dim dr As SqlDataReader = cmd.ExecuteReader()
@@ -499,7 +533,7 @@ SkipDataBase:
                 Dim strConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source= " & AccessDatabaseFolder("NetworkSpecs")
                 Dim atsLocal As New OleDb.OleDbConnection
                 atsLocal.ConnectionString = strConnectionString
-                Dim cmd As OleDb.OleDbCommand = New OleDb.OleDbCommand(SQLStr, atsLocal)
+                Dim cmd As OleDb.OleDbCommand = New OleDb.OleDbCommand(SQLstr, atsLocal)
                 atsLocal.Open()
                 System.Threading.Thread.Sleep(0.001)
                 Dim drLocal As OleDb.OleDbDataReader = cmd.ExecuteReader
@@ -512,6 +546,10 @@ SkipDataBase:
             Return 0
         End Try
     End Function
+
+
+
+
 
     Public Sub SetVNAFreq(freq As String)
         Try
@@ -572,51 +610,316 @@ SkipDataBase:
             End If
         End If
     End Sub
-   
-    Public Sub SaveTestData(Test As String, Value As Double, this_test As Integer)
-        Dim SQLStr As String
-        If TweakMode Then Exit Sub
+    Public Sub FailedTests(uutNum As String)
         Try
-            UpdateArtwork()
-            SQLStr = "SELECT * from TestData where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork_rev = '" & ArtworkRevision & "'"
-            If SQL.CheckforRow(SQLStr, "NetworkData") = 0 Then
-                SQLStr = "Insert Into TestData (JobNumber, PartNumber,SerialNumber,WorkStation,artwork_rev,artwork,Panel,Sector,LOT) values ('" & Job & "','" & Part & "','" & SerialNumber & "','" & GetComputerName() & "','" & ArtworkRevision & "','" & Artwork & "','" & Panel & "','" & Sector & "','" & LOT & "')"
+            Dim CountRow As Integer = 0
+            Dim SQLstr As String
+            Dim UUT As String = "UUT" & uutNum
+            TEST1REPASS = True
+            TEST2REPASS = True
+            TEST3REPASS = True
+            TEST4REPASS = True
+            TEST5REPASS = True
+            SQLstr = "SELECT * from TestData where Fail = 'Fail' and JobNumber = '" & Job & "' and SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+
+            'Job = frmAUTOTEST.cmbJob.Text
+            If SQLAccess Then
+                Dim ats As SqlConnection = New SqlConnection(SQLConnStr)
+                Dim cmd As SqlCommand = New SqlCommand(SQLstr, ats)
+                ats.Open()
+                System.Threading.Thread.Sleep(0.001)
+                Dim dr As SqlDataReader = cmd.ExecuteReader()
+                While Not dr.Read = Nothing
+                    If dr.Item(36) IsNot Nothing Then
+                        If dr.Item(36) = 0 Then
+                            TEST1REPASS = False
+                        ElseIf dr.Item(36) = 1 Then
+                            TEST1REPASS = True
+                        End If
+                    End If
+                    If dr.Item(37) IsNot Nothing Then
+                        If dr.Item(37) = 0 Then
+                            TEST2REPASS = False
+                        ElseIf dr.Item(37) = 1 Then
+                            TEST2REPASS = True
+                        End If
+                    End If
+                    If dr.Item(38) IsNot Nothing Then
+                        If dr.Item(38) = 0 Then
+                            TEST3REPASS = False
+                        ElseIf dr.Item(38) = 1 Then
+                            TEST3REPASS = True
+                        End If
+                    End If
+                    If dr.Item(39) IsNot Nothing Then
+                        If dr.Item(39) = 0 Then
+                            TEST4REPASS = False
+                        ElseIf dr.Item(39) = 1 Then
+                            TEST4REPASS = True
+                        End If
+                    End If
+                    If dr.Item(40) IsNot Nothing Then
+                        If dr.Item(40) = 0 Then
+                            TEST5REPASS = False
+                        ElseIf dr.Item(40) = 1 Then
+                            TEST5REPASS = True
+                        End If
+                    End If
+                End While
+                ats.Close()
+            Else
+                Dim strConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source= " & AccessDatabaseFolder("NetworkSpecs")
+                Dim atsLocal As New OleDb.OleDbConnection
+                atsLocal.ConnectionString = strConnectionString
+                Dim cmd As OleDb.OleDbCommand = New OleDb.OleDbCommand(SQLstr, atsLocal)
+                atsLocal.Open()
+                System.Threading.Thread.Sleep(0.001)
+                Dim drLocal As OleDb.OleDbDataReader = cmd.ExecuteReader
+                While Not drLocal.Read = Nothing
+                    If drLocal.Item(36) IsNot Nothing Then
+                        If drLocal.Item(36) = 0 Then
+                            TEST1REPASS = False
+                        ElseIf drLocal.Item(36) = 1 Then
+                            TEST1REPASS = True
+                        End If
+                    End If
+                    If drLocal.Item(37) IsNot Nothing Then
+                        If drLocal.Item(37) = 0 Then
+                            TEST2REPASS = False
+                        ElseIf drLocal.Item(37) = 1 Then
+                            TEST2REPASS = True
+                        End If
+                    End If
+                    If drLocal.Item(38) IsNot Nothing Then
+                        If drLocal.Item(38) = 0 Then
+                            TEST3REPASS = False
+                        ElseIf drLocal.Item(38) = 1 Then
+                            TEST3REPASS = True
+                        End If
+                    End If
+                    If drLocal.Item(39) IsNot Nothing Then
+                        If drLocal.Item(39) = 0 Then
+                            TEST4REPASS = False
+                        ElseIf drLocal.Item(39) = 1 Then
+                            TEST4REPASS = True
+                        End If
+                    End If
+                    If drLocal.Item(40) IsNot Nothing Then
+                        If drLocal.Item(40) = 0 Then
+                            TEST5REPASS = False
+                        ElseIf drLocal.Item(40) = 1 Then
+                            TEST5REPASS = True
+                        End If
+                    End If
+                End While
+                atsLocal.Close()
+            End If
+        Catch
+
+        End Try
+    End Sub
+
+    Public Function FindFailedUUT() As String
+        Dim SQLStr As String
+        SQLStr = "SELECT * from TestData where JobNumber = '" & Job & "' and WorkStation = '" & GetComputerName() & "' and not Reset = 1 and  Fail = 'Fail' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+        Dim test = SQL.CheckforFail(SQLStr, "NetworkData")
+        FindFailedUUT = test
+        
+     End Function
+    Public Sub FlagPFUUT(PassFail As String, Optional bypass As Boolean = False)
+        Dim SQLStr As String
+        If bypass Then
+            SQLStr = "UPDATE TestData Set Fail = '" & PassFail & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+        Else
+            SQLStr = "SELECT * from TestData where Fail = 'Fail' and JobNumber = '" & Job & "' and SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+            If SQL.CheckforRow(SQLStr, "NetworkData") = 0 Then ' if it was flagged as failed once that's it
+                SQLStr = "UPDATE TestData Set Fail = '" & PassFail & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
                 SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
             End If
-
-            SQLStr = "UPDATE TestData Set " & Test & " = '" & Value & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+        End If
+    End Sub
+    Public Sub FlagNoTest(PassFail As Integer)
+        Dim SQLStr As String
+        SQLStr = "UPDATE TestData Set Reset = '" & PassFail & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+        SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+    End Sub
+    Public Sub FlagRetestedUUT(PassFail As String)
+        Dim SQLStr As String
+        SQLStr = "SELECT * from TestData where Reset = 0 and JobNumber = '" & Job & "' and SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+        If SQL.CheckforRow(SQLStr, "NetworkData") = 0 Then ' if it was flagged as failed once that's it
+            'Setting reset to 1 so the first fail in this UUT will be final regardless of passes in other tests
+            If PassFail = "Fail" Then
+                SQLStr = "UPDATE TestData Set Reset = 1 where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+                SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+            End If
+            SQLStr = "UPDATE TestData Set Fail = '" & PassFail & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
             SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
-
-            SQLStr = "UPDATE TestData Set artwork_rev  = '" & ArtworkRevision & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+        End If
+    End Sub
+   
+    Public Sub UpdateTestData(this_test As Integer, PassFail As String)
+        Dim SQLStr As String
+        If this_test = 1 Then
+            SQLStr = "UPDATE TestData SET Test1Pass = 1 where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
             SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
-
-            SQLStr = "UPDATE TestData Set artwork  = '" & Artwork & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+        ElseIf this_test = 2 Then
+            SQLStr = "UPDATE TestData SET Test2Pass = 1 where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
             SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
-
-            SQLStr = "UPDATE TestData Set Revision  = '" & Rev & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+        ElseIf this_test = 3 Then
+            SQLStr = "UPDATE TestData SET Test3Pass = 1 where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
             SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
-
-            SQLStr = "UPDATE TestData Set Panel  = '" & Panel & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+        ElseIf this_test = 4 Then
+            SQLStr = "UPDATE TestData SET Test4Pass = 1 where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
             SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
-
-            SQLStr = "UPDATE TestData Set Sector  = '" & Sector & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+        ElseIf this_test = 5 Then
+            SQLStr = "UPDATE TestData SET Test5Pass = 1 where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
             SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+        End If
 
-            SQLStr = "UPDATE TestData Set LOT  = '" & LOT & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
-            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+    End Sub
 
-            SQLStr = "UPDATE TestData Set Operator  = '" & User & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
-            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
 
-            SQLStr = "UPDATE TestData SET ActiveDate = '" & Now.Date.ToShortDateString & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
-            SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+    Public Sub SaveTestData(Test As String, Value As Double, this_test As Integer, PassFail As String)
+        Dim SQLStr As String
+        If TweakMode Then Exit Sub
 
-            frmAUTOTEST.SaveStatus(this_test)
+        Dim test1 = FindFailedUUT()
+        Try
+            If RetestMode Then
+                If TEST1PASS And TEST2PASS And TEST3PASS And TEST4PASS And TEST4LPASS And TEST4HPASS And TEST5PASS Then
+                    'Only update passes in retest mode
+                    FlagRetestedUUT("Pass")
+                    SQLStr = "SELECT * from TestData where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork_rev = '" & ArtworkRevision & "'"
+                    If SQL.CheckforRow(SQLStr, "NetworkData") = 0 Then
+                        SQLStr = "Insert Into TestData (JobNumber, PartNumber,SerialNumber,WorkStation,artwork_rev,artwork,Panel,Sector,LOT) values ('" & Job & "','" & Part & "','" & SerialNumber & "','" & GetComputerName() & "','" & ArtworkRevision & "','" & Artwork & "','" & Panel & "','" & Sector & "','" & LOT & "')"
+                        SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+                    End If
 
+                    SQLStr = "UPDATE TestData Set " & Test & " = '" & Value & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+                    SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+                    SQLStr = "UPDATE TestData Set artwork_rev  = '" & ArtworkRevision & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+                    SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+                    SQLStr = "UPDATE TestData Set artwork  = '" & Artwork & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+                    SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+                    SQLStr = "UPDATE TestData Set Revision  = '" & Rev & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+                    SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+                    SQLStr = "UPDATE TestData Set Panel  = '" & Panel & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+                    SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+                    SQLStr = "UPDATE TestData Set Sector  = '" & Sector & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+                    SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+                    SQLStr = "UPDATE TestData Set LOT  = '" & LOT & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+                    SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+                    SQLStr = "UPDATE TestData Set Operator  = '" & User & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+                    SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+                    SQLStr = "UPDATE TestData SET ActiveDate = '" & Now.Date.ToShortDateString & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+                    SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+                    frmAUTOTEST.SaveStatus(this_test)
+                Else
+                    FlagRetestedUUT("Fail")
+                    frmAUTOTEST.SaveStatus(this_test)
+                End If
+
+            ElseIf GoldenMode And Not GoldenData Then 'Testing a new Golden UUT and saving the data
+                SQLStr = "SELECT * from TestData where JobNumber = 'Golden Part' and PartNumber = '" & Part & "' And SerialNumber = '" & GoldenRev & "'"
+                If SQL.CheckforRow(SQLStr, "NetworkData") = 0 Then
+                    SQLStr = "Insert Into TestData (JobNumber, PartNumber,SerialNumber) values ('Golden Part','" & Part & "','" & GoldenRev & "')"
+                    SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+                End If
+
+                SQLStr = "UPDATE TestData Set " & Test & " = '" & Value & "' where JobNumber = 'Golden Part' and PartNumber = '" & Part & "' And SerialNumber = '" & GoldenRev & "'"
+                SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+                SQLStr = "UPDATE TestData SET ActiveDate = '" & Now.Date.ToShortDateString & "' where JobNumber = 'Golden Part' and PartNumber = '" & Part & "' And SerialNumber = '" & GoldenRev & "'"
+                SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+            ElseIf Not GoldenMode Then
+                UpdateArtwork()
+                SQLStr = "SELECT * from TestData where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork_rev = '" & ArtworkRevision & "'"
+                If SQL.CheckforRow(SQLStr, "NetworkData") = 0 Then
+                    SQLStr = "Insert Into TestData (JobNumber, PartNumber,SerialNumber,WorkStation,artwork_rev,artwork,Panel,Sector,LOT) values ('" & Job & "','" & Part & "','" & SerialNumber & "','" & GetComputerName() & "','" & ArtworkRevision & "','" & Artwork & "','" & Panel & "','" & Sector & "','" & LOT & "')"
+                    SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+                End If
+
+                SQLStr = "UPDATE TestData Set " & Test & " = '" & Value & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+                SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+                SQLStr = "UPDATE TestData Set artwork_rev  = '" & ArtworkRevision & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+                SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+                SQLStr = "UPDATE TestData Set artwork  = '" & Artwork & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+                SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+                SQLStr = "UPDATE TestData Set Revision  = '" & Rev & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+                SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+                SQLStr = "UPDATE TestData Set Panel  = '" & Panel & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+                SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+                SQLStr = "UPDATE TestData Set Sector  = '" & Sector & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+                SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+                SQLStr = "UPDATE TestData Set LOT  = '" & LOT & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+                SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+                SQLStr = "UPDATE TestData Set Operator  = '" & User & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+                SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+                SQLStr = "UPDATE TestData SET ActiveDate = '" & Now.Date.ToShortDateString & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+                SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+
+                If this_test = 1 And Not PassFail = "Pass" Then
+                    SQLStr = "UPDATE TestData SET Test1Pass = 0 where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+                    SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+                ElseIf this_test = 1 And PassFail = "Pass" Then
+                    SQLStr = "UPDATE TestData SET Test1Pass = 1 where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+                    SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+                End If
+                If this_test = 2 And Not PassFail = "Pass" Then
+                    SQLStr = "UPDATE TestData SET Test2Pass = 0 where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+                    SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+                ElseIf this_test = 2 And PassFail = "Pass" Then
+                    SQLStr = "UPDATE TestData SET Test2Pass = 1 where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+                    SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+                End If
+
+                If this_test = 3 And Not PassFail = "Pass" Then
+                    SQLStr = "UPDATE TestData SET Test3Pass = 0 where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+                    SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+                ElseIf this_test = 3 And PassFail = "Pass" Then
+                    SQLStr = "UPDATE TestData SET Test3Pass = 1 where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+                    SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+                End If
+                If this_test = 4 And Not PassFail = "Pass" Then
+                    SQLStr = "UPDATE TestData SET Test4Pass = 0 where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+                    SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+                ElseIf this_test = 4 And PassFail = "Pass" Then
+                    SQLStr = "UPDATE TestData SET Test4Pass = 1 where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+                    SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+                End If
+                If this_test = 5 And Not PassFail = "Pass" Then
+                    SQLStr = "UPDATE TestData SET Test5Pass = 0 where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+                    SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+                ElseIf this_test = 5 And PassFail = "Pass" Then
+                    SQLStr = "UPDATE TestData SET Test5Pass = 1 where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "' and artwork = '" & Artwork & "' and Panel = '" & Panel & "' and Sector = '" & Sector & "' and artwork_rev = '" & ArtworkRevision & "'"
+                    SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+                End If
+
+
+                frmAUTOTEST.SaveStatus(this_test)
+            End If
         Catch ex As Exception
 
         End Try
     End Sub
+
     Public Sub SaveTuning(KitQty As Integer, QtyTest As String, KitQtyTuned As String, Percent As String, item1 As String, part1 As String, Desc1 As String, item2 As String, part2 As String, Desc2 As String, item3 As String, part3 As String, Desc3 As String)
         Dim SQLStr As String
 
@@ -643,7 +946,7 @@ SkipDataBase:
             SQLStr = "UPDATE TuningLog Set percentage  = '" & Percent & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "'"
             SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
 
-            SQLStr = "UPDATE TuningLog Set Item1  = '" & Item1 & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "'"
+            SQLStr = "UPDATE TuningLog Set Item1  = '" & item1 & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "'"
             SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
 
             SQLStr = "UPDATE TuningLog Set part1  = '" & part1 & "' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "'"
@@ -848,6 +1151,19 @@ IGNORE2:
             SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
 
 
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
+    Public Sub DeleteFailureLog()
+        Dim SQLStr As String
+        Try
+            SQLStr = "SELECT * from TestData  where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "'"
+            If SQL.CheckforRow(SQLStr, "NetworkData") > 0 Then
+                SQLStr = "UPDATE TestData Set FailureLog = '' where JobNumber = '" & Job & "' And SerialNumber = '" & SerialNumber & "' and WorkStation = '" & GetComputerName() & "'"
+                SQL.ExecuteSQLCommand(SQLStr, "NetworkData")
+            End If
         Catch ex As Exception
 
         End Try
@@ -1250,7 +1566,7 @@ IGNORE2:
         End Try
 
     End Function
-   
+
 
     Public Sub SaveTrace(Title As String, TestID As Long, TraceID As Long)
         Try
@@ -1272,8 +1588,15 @@ IGNORE2:
                 cmd.ExecuteNonQuery()
                 cmd.CommandText = "UPDATE Trace SET Points = '" & globals.Pts & "'" & Expression
                 cmd.ExecuteNonQuery()
-                cmd.CommandText = "UPDATE Trace SET JobNumber = '" & globals.Job & "'" & Expression
-                cmd.ExecuteNonQuery()
+                If GoldenMode And Not GoldenData Then 'Testing a new Golden UUT and saving the historic data
+                    cmd.CommandText = "UPDATE Trace SET JobNumber = 'Golden Part'" & Expression
+                    cmd.ExecuteNonQuery()
+                    cmd.CommandText = "UPDATE Trace SET PartNumber = '" & globals.Part & "'" & Expression
+                    cmd.ExecuteNonQuery()
+                Else
+                    cmd.CommandText = "UPDATE Trace SET JobNumber = '" & globals.Job & "'" & Expression
+                    cmd.ExecuteNonQuery()
+                End If
                 cmd.CommandText = "UPDATE Trace SET SerialNumber = '" & globals.SerialNumber & "'" & Expression
                 cmd.ExecuteNonQuery()
                 cmd.CommandText = "UPDATE Trace SET ActiveDate = '" & Now.Date.ToShortDateString & "'" & Expression
@@ -1342,8 +1665,16 @@ IGNORE2:
                 cmd.ExecuteNonQuery()
                 cmd.CommandText = "UPDATE Trace SET Points = '" & Pts & "'" & Expression
                 cmd.ExecuteNonQuery()
-                cmd.CommandText = "UPDATE Trace SET JobNumber = '" & globals.Job & "'" & Expression
-                cmd.ExecuteNonQuery()
+                If GoldenMode And Not GoldenData Then 'Testing a new Golden UUT and saving the historic data
+                    cmd.CommandText = "UPDATE Trace SET JobNumber = 'Golden Part History'" & Expression
+                    cmd.ExecuteNonQuery()
+                ElseIf GoldenMode And GoldenData Then 'Testing an old Golden UUT and saving the present data for comparison
+                    cmd.CommandText = "UPDATE Trace SET JobNumber = 'Golden Part Now'" & Expression
+                    cmd.ExecuteNonQuery()
+                Else
+                    cmd.CommandText = "UPDATE Trace SET JobNumber = '" & globals.Job & "'" & Expression
+                    cmd.ExecuteNonQuery()
+                End If
                 cmd.CommandText = "UPDATE Trace SET SerialNumber = '" & globals.SerialNumber & "'" & Expression
                 cmd.ExecuteNonQuery()
                 cmd.CommandText = "UPDATE Trace SET ActiveDate = '" & Now.Date.ToShortDateString & "'" & Expression
@@ -1576,6 +1907,52 @@ IGNORE2:
         Catch
         End Try
     End Sub
+    Public Sub GetGoldenTrace(ByVal Title As String, Optional points As Integer = 201)
+        Try
+            Dim SQLStr As String
+            Dim Count As Integer = 0
+            Dim thisTraceID As Integer = 0
+            'SEARCH BY BAND AND UUTType
+            SQLStr = "Select * from Trace where Title = '" & Title & "' and JobNumber = 'Golden Part' and PartNumber = '" & globals.Part & "'"
+            '*******************************************************************************
+            'Load the Conguration Data
+            '*******************************************************************************
+            If SQLAccess Then
+                Dim ats As SqlConnection = New SqlConnection(SQLConnStr)
+                Dim cmd As SqlCommand = New SqlCommand(SQLStr, ats)
+                ats.Open()
+                System.Threading.Thread.Sleep(0.001)
+                Dim dr As SqlDataReader = cmd.ExecuteReader()
+                globals.Notes = Nothing
+                While Not dr.Read = Nothing
+                    thisTraceID = CType(dr.Item(0), String)
+                End While
+                ats.Close()
+
+            Else
+                Dim strConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & AccessDatabaseFolder("NetworkTraceData")
+                Dim atsLocal As New OleDb.OleDbConnection
+                atsLocal.ConnectionString = strConnectionString
+                Dim cmd As OleDb.OleDbCommand = New OleDb.OleDbCommand(SQLStr, atsLocal)
+                atsLocal.Open()
+                System.Threading.Thread.Sleep(0.001)
+                Dim drLocal As OleDb.OleDbDataReader = cmd.ExecuteReader
+                globals.Notes = Nothing
+                While Not drLocal.Read = Nothing
+                    thisTraceID = CType(drLocal.Item(0), String)
+                End While
+                atsLocal.Close()
+            End If
+            If thisTraceID > 171666 Then
+                GetTracePoints2(thisTraceID, points)
+            Else
+                GetTracePoints(thisTraceID, points)
+            End If
+
+
+        Catch
+        End Try
+    End Sub
 
     Public Function GetTraceString(TraceID As Integer, Optional points As Integer = 201) As Boolean
         Dim SQLStr As String
@@ -1636,10 +2013,17 @@ IGNORE2:
                 System.Threading.Thread.Sleep(0.001)
                 Dim dr1 As SqlDataReader = cmd1.ExecuteReader()
                 While Not dr1.Read = Nothing
-                    ReDim Preserve XArray(Count)
-                    ReDim Preserve YArray(Count)
-                    If Not IsDBNull(dr1.GetValue(3)) Then XArray(Count) = CType(dr1.Item(3), String)
-                    If Not IsDBNull(dr1.GetValue(4)) Then YArray(Count) = CType(dr1.Item(4), String)
+                    If GoldenMode Then
+                        ReDim Preserve GoldenXArray(Count)
+                        ReDim Preserve GoldenYArray(Count)
+                        If Not IsDBNull(dr1.GetValue(3)) Then GoldenXArray(Count) = CType(dr1.Item(3), String)
+                        If Not IsDBNull(dr1.GetValue(4)) Then GoldenYArray(Count) = CType(dr1.Item(4), String)
+                    Else
+                        ReDim Preserve XArray(Count)
+                        ReDim Preserve YArray(Count)
+                        If Not IsDBNull(dr1.GetValue(3)) Then XArray(Count) = CType(dr1.Item(3), String)
+                        If Not IsDBNull(dr1.GetValue(4)) Then YArray(Count) = CType(dr1.Item(4), String)
+                    End If
                     Count = Count + 1
                     If Count > points Then Exit While
                 End While
@@ -1656,10 +2040,17 @@ IGNORE2:
                 System.Threading.Thread.Sleep(0.001)
                 Dim drLocal1 As OleDb.OleDbDataReader = cmd1.ExecuteReader
                 While Not drLocal1.Read = Nothing
-                    ReDim Preserve XArray(Count)
-                    ReDim Preserve YArray(Count)
-                    If Not IsDBNull(drLocal1.GetValue(3)) Then XArray(Count) = CType(drLocal1.Item(3), String)
-                    If Not IsDBNull(drLocal1.GetValue(4)) Then YArray(Count) = CType(drLocal1.Item(4), String)
+                    If GoldenMode Then
+                        ReDim Preserve GoldenXArray(Count)
+                        ReDim Preserve GoldenYArray(Count)
+                        If Not IsDBNull(drLocal1.GetValue(3)) Then GoldenXArray(Count) = CType(drLocal1.Item(3), String)
+                        If Not IsDBNull(drLocal1.GetValue(4)) Then GoldenYArray(Count) = CType(drLocal1.Item(4), String)
+                    Else
+                        ReDim Preserve XArray(Count)
+                        ReDim Preserve YArray(Count)
+                        If Not IsDBNull(drLocal1.GetValue(3)) Then XArray(Count) = CType(drLocal1.Item(3), String)
+                        If Not IsDBNull(drLocal1.GetValue(4)) Then YArray(Count) = CType(drLocal1.Item(4), String)
+                    End If
                     Count = Count + 1
                     If Count > points Then Exit While
                 End While
@@ -1683,11 +2074,18 @@ IGNORE2:
                 System.Threading.Thread.Sleep(0.001)
                 Dim dr1 As SqlDataReader = cmd1.ExecuteReader()
                 While Not dr1.Read = Nothing
-                    ReDim Preserve XArray(Count)
-                    ReDim Preserve YArray(Count)
-                    If Not IsDBNull(dr1.GetValue(3)) Then XArray(Count) = CType(dr1.Item(3), String)
-                    If Not IsDBNull(dr1.GetValue(4)) Then YArray(Count) = CType(dr1.Item(4), String)
-                    Count = Count + 1
+                    If GoldenMode Then
+                        ReDim Preserve GoldenXArray(Count)
+                        ReDim Preserve GoldenYArray(Count)
+                        If Not IsDBNull(dr1.GetValue(3)) Then GoldenXArray(Count) = CType(dr1.Item(3), String)
+                        If Not IsDBNull(dr1.GetValue(4)) Then GoldenYArray(Count) = CType(dr1.Item(4), String)
+                    Else
+                        ReDim Preserve XArray(Count)
+                        ReDim Preserve YArray(Count)
+                        If Not IsDBNull(dr1.GetValue(3)) Then XArray(Count) = CType(dr1.Item(3), String)
+                        If Not IsDBNull(dr1.GetValue(4)) Then YArray(Count) = CType(dr1.Item(4), String)
+                    End If
+                   Count = Count + 1
                     If Count > points Then Exit While
                 End While
 
@@ -1703,12 +2101,20 @@ IGNORE2:
                 System.Threading.Thread.Sleep(0.001)
                 Dim drLocal1 As OleDb.OleDbDataReader = cmd1.ExecuteReader
                 While Not drLocal1.Read = Nothing
-                    ReDim Preserve XArray(Count)
-                    ReDim Preserve YArray(Count)
-                    If Not IsDBNull(drLocal1.GetValue(3)) Then XArray(Count) = CType(drLocal1.Item(3), String)
-                    If Not IsDBNull(drLocal1.GetValue(4)) Then YArray(Count) = CType(drLocal1.Item(4), String)
+                    If GoldenMode Then
+                        ReDim Preserve GoldenXArray(Count)
+                        ReDim Preserve GoldenYArray(Count)
+                        If Not IsDBNull(drLocal1.GetValue(3)) Then GoldenXArray(Count) = CType(drLocal1.Item(3), String)
+                        If Not IsDBNull(drLocal1.GetValue(4)) Then GoldenYArray(Count) = CType(drLocal1.Item(4), String)
+                    Else
+                        ReDim Preserve XArray(Count)
+                        ReDim Preserve YArray(Count)
+                        If Not IsDBNull(drLocal1.GetValue(3)) Then XArray(Count) = CType(drLocal1.Item(3), String)
+                        If Not IsDBNull(drLocal1.GetValue(4)) Then YArray(Count) = CType(drLocal1.Item(4), String)
+                    End If
                     Count = Count + 1
                     If Count > points Then Exit While
+
                 End While
             End If
             '*******************************************************************************

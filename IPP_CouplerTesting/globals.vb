@@ -14,6 +14,61 @@ Module globals
     Public Daqboard As New MccDaq.MccBoard()
     Public ulstat As MccDaq.ErrorInfo
     Public Status As Boolean
+    Public GoldenMode As Boolean = False
+    Public GoldenData As Boolean = False
+    Public GoldenModeBypass As Boolean = False
+    Public GoldenRunComplete As Boolean = False
+    Public GoldenRunPass As Boolean = False
+    Public GoldenHistory As Boolean = False
+    Public GoldenRev As String = "N/A"
+    Public Goldenfixture As String = "N/A"
+    Public GoldenDate As String = "00/00/00"
+    Public GoldenPN As String
+    Public GoldenPlunger As String
+    Public Goldenfixture_num As Integer
+    Public GoldenListDone As Boolean = False
+
+    Public GoldenData1 As String = ""
+    Public GoldenData1H As String = ""
+    Public GoldenData1L As String = ""
+    Public GoldenData2 As String = ""
+    Public GoldenData3 As String = ""
+    Public GoldenData3H As String = ""
+    Public GoldenData3L As String = ""
+    Public GoldenData4 As String = ""
+    Public GoldenData4L As String = ""
+    Public GoldenData4H As String = ""
+    Public GoldenData5 As String = ""
+    Public GoldenData5H As String = ""
+    Public GoldenData5L As String = ""
+    Public GoldentraceDelta1 As Double = 0.0
+    Public GoldentraceDelta1H As Double = 0.0
+    Public GoldentraceDelta1L As Double = 0.0
+    Public GoldentraceDelta2 As Double = 0.0
+    Public GoldentraceDelta3 As Double = 0.0
+    Public GoldentraceDelta3H As Double = 0.0
+    Public GoldentraceDelta3L As Double = 0.0
+    Public GoldentraceDelta4 As Double = 0.0
+    Public GoldentraceDelta4L As Double = 0.0
+    Public GoldentraceDelta4H As Double = 0.0
+    Public GoldentraceDelta5 As Double = 0.0
+    Public GoldentraceDelta5H As Double = 0.0
+    Public GoldentraceDelta5L As Double = 0.0
+    Public Dir1_test4_Failed As Boolean = False
+
+    Public TEST1PASS As Boolean = True
+    Public TEST2PASS As Boolean = True
+    Public TEST3PASS As Boolean = True
+    Public TEST4PASS As Boolean = True
+    Public TEST4LPASS As Boolean = True
+    Public TEST4HPASS As Boolean = True
+    Public TEST5PASS As Boolean = True
+    Public TEST1REPASS As Boolean = True
+    Public TEST2REPASS As Boolean = True
+    Public TEST3REPASS As Boolean = True
+    Public TEST4REPASS As Boolean = True
+    Public TEST5REPASS As Boolean = True
+    Public RetestMode As Boolean = False
     Public RobotStatus As Boolean = False
     Public MCCLoaded As Boolean = True
     Public Robot As Boolean = True
@@ -200,12 +255,15 @@ Module globals
     'Trace
     Public UUTNum As Integer
     Public FirstPart As Boolean = True
+    Public FirstEndLot As Boolean = False
     Public UUTReset As Boolean = False
     Public UUTNum_Reset As Integer
     Public TestID As String
     Public DataID As String
     Public XArray(1001) As Double 'Frequency Data Array 
     Public YArray(1001) As Double 'Amplitude Data Array
+    Public GoldenXArray(1001) As Double 'Frequency Data Array 
+    Public GoldenYArray(1001) As Double 'Amplitude Data Array
     Public YArray1(1001) As Double 'Amplitude Data Array
     Public YArray2(1001) As Double 'Amplitude Data Array
     Public IL_XArray(5, 201) As Double 'Frequency Data Array 
@@ -416,6 +474,44 @@ Module globals
             TrimX = TempArray
         End If
     End Function
+    Public Sub FindGoldTraceDeltas(test As String, xArr As Double(), YArr As Double(), title As String)
+        Dim TempArray(200) As Double
+        GetGoldenTrace(title)
+        For x = 0 To YArr.Count - 1
+            ReDim Preserve TempArray(x)
+            TempArray(x) = Math.Abs(YArr(x) - GoldenYArray(x))
+        Next
+
+        If test = "Delta1" Then
+            GoldentraceDelta1 = Max(TempArray)
+        ElseIf test = "Delta1H" Then
+            GoldentraceDelta1H = Max(TempArray)
+        ElseIf test = "Delta1L" Then
+            GoldentraceDelta1L = Max(TempArray)
+        ElseIf test = "Delta1" Then
+            GoldentraceDelta2 = Max(TempArray)
+        ElseIf test = "Delta2" Then
+            GoldentraceDelta3 = Max(TempArray)
+        ElseIf test = "Delta3" Then
+            GoldentraceDelta3L = Max(TempArray)
+        ElseIf test = "Delta3L" Then
+            GoldentraceDelta3H = Max(TempArray)
+        ElseIf test = "Delta3L" Then
+            GoldentraceDelta4 = Max(TempArray)
+        ElseIf test = "Delta4" Then
+            GoldentraceDelta4L = Max(TempArray)
+        ElseIf test = "Delta4L" Then
+            GoldentraceDelta4H = Max(TempArray)
+        ElseIf test = "Delta4H" Then
+            GoldentraceDelta4H = Max(TempArray)
+        ElseIf test = "Delta5" Then
+            GoldentraceDelta5 = Max(TempArray)
+        ElseIf test = "Delta5H" Then
+            GoldentraceDelta5H = Max(TempArray)
+        ElseIf test = "Delta5L" Then
+            GoldentraceDelta5L = Max(TempArray)
+        End If
+    End Sub
     Public Function SplitTraceY(xArr As Double(), YArr As Double(), str As Double, stp As Double, Optional offset As Double = 0) As Double()
         Dim TempxArray(200) As Double
         Dim TempyArray(200) As Double
@@ -540,9 +636,21 @@ Module globals
 
     End Function
 
-    Public Function Max(DataPts() As Double) As Double
+    Public Function Int_Max(DataPts() As Double) As Double
         Dim intMax, i As Integer
 
+        For i = 0 To UBound(DataPts) - 1
+            If DataPts(i) = 0 Then Exit For
+            If DataPts(i) > IntMax Then
+                IntMax = DataPts(i)
+            End If
+        Next
+        Int_Max = intMax
+
+    End Function
+    Public Function Max(DataPts() As Double) As Double
+        Dim intMax As Double
+        Dim i As Integer
         For i = 0 To UBound(DataPts) - 1
             If DataPts(i) = 0 Then Exit For
             If DataPts(i) > intMax Then
@@ -959,6 +1067,7 @@ Trap:
                 MSGB.StartPosition = FormStartPosition.Manual
                 MSGB.Location = New Point(globals.XLocation + 450, globals.YLocation + 200)
                 MSGB.ShowDialog()
+                Return MYMSG_RTN
             Else
                 Dim MSGB As New MYMsg
                 MSGB.StartPosition = FormStartPosition.Manual

@@ -73,3 +73,5 @@ C:\SRC\IPP_CouplerTesting_ver 4.0.83\obj\Release\IPP_CouplerTesting.exe.manifest
 C:\SRC\IPP_CouplerTesting_ver 4.0.83\obj\Release\IPP_CouplerTesting.application
 C:\SRC\IPP_CouplerTesting\IPP_CouplerTesting\obj\Release\IPP_CouplerTesting.frmMANUALTEST.resources
 C:\SRC\IPP_CouplerTesting\IPP_CouplerTesting\obj\Release\IPP_CouplerTesting.MYMsg.resources
+C:\SRC\IPP_CouplerTesting\IPP_CouplerTesting\obj\Release\IPP_CouplerTesting.GoldenMsg.resources
+C:\SRC\IPP_CouplerTesting\IPP_CouplerTesting\obj\Release\IPP_CouplerTesting.GoldenList.resources

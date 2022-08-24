@@ -673,7 +673,7 @@ Skip4:
             Me.cmbVNA.Text = ScanGPIB.GetModel
             If Me.cmbVNA.Text = "HP_8753C" Or Me.cmbVNA.Text = "HP_8753E" Then
                 If SpecStopFreq > 6000 Then
-                    MYMsgBox(SpecStopFreq & "MHz  Exceeds the Frequency Range of the " & Me.cmbVNA.Text & ".  Please move to capible workstation or choose another Job")
+                    MYMsgBox(SpecStopFreq & "MHz  Exceeds the Frequency Range of the " & Me.cmbVNA.Text & ".  Please move to capable workstation or choose another Job")
                     Exit Sub
                 End If
             End If
@@ -1083,7 +1083,7 @@ Skip4:
             Me.cmbVNA.Text = ScanGPIB.GetModel
             If Me.cmbVNA.Text = "HP_8753C" Or Me.cmbVNA.Text = "HP_8753E" Then
                 If SpecStopFreq > 6000 Then
-                    MYMsgBox(SpecStopFreq & "MHz  Exceeds the Frequency Range of the " & Me.cmbVNA.Text & ".  Please move to capible workstation or choose another Job")
+                    MYMsgBox(SpecStopFreq & "MHz  Exceeds the Frequency Range of the " & Me.cmbVNA.Text & ".  Please move to capable workstation or choose another Job")
                     Exit Sub
                 End If
             End If
@@ -1594,14 +1594,14 @@ Skip4:
 
                 If IL_TF Then
                     RetrnVal1 = IL1
-                    If SaveData Then SaveTestData("Manual " & TestRun & "Manual " & TestRun & "InsertionLoss", RetrnVal1, 1)
+                    If SaveData Then SaveTestData("Manual " & TestRun & "Manual " & TestRun & "InsertionLoss", RetrnVal1, 1, PassFail)
                     RetrnVal = IL2
-                    If SaveData Then SaveTestData("Manual " & TestRun & "Manual " & TestRun & "InsertionLoss2", RetrnVal, 1)
+                    If SaveData Then SaveTestData("Manual " & TestRun & "Manual " & TestRun & "InsertionLoss2", RetrnVal, 1, PassFail)
                     Data1L.Text = IL1
                     Data1H.Text = IL2
                 Else
                     RetrnVal = IL
-                    If SaveData Then SaveTestData("Manual " & TestRun & "InsertionLoss", RetrnVal, 1)
+                    If SaveData Then SaveTestData("Manual " & TestRun & "InsertionLoss", RetrnVal, 1, PassFail)
                     RetrnStr = CStr(TruncateDecimal(RetrnVal, 2))
                     Data1.Text = Format(RetrnVal, "0.00")
                 End If
@@ -1628,7 +1628,7 @@ Skip4:
             Else
                 TEST1PASS = True
                 status("Blue", "TEST1")
-                SaveTestData("Manual " & TestRun & "InsertionLoss", GetSpecification("InsertionLoss"), 1)
+                SaveTestData("Manual " & TestRun & "InsertionLoss", GetSpecification("InsertionLoss"), 1, PassFail)
             End If
             Me.Refresh()
 
@@ -1640,7 +1640,7 @@ Skip4:
                     PassFail = ManualTests.ReturnLoss_Marker(TestRun, , TestID)
                 End If
                 RetrnVal = RL
-                SaveTestData("Manual " & TestRun & "ReturnLoss", RetrnVal, 2)
+                SaveTestData("Manual " & TestRun & "ReturnLoss", RetrnVal, 2, PassFail)
                 status("Blue", "TEST2")
                 PF2.Text = PassFail
                 RetrnStr = CStr(TruncateDecimal(RetrnVal, 1))
@@ -1660,7 +1660,7 @@ Skip4:
                     TEST2FailRetest = TEST2FailRetest + 1
                     UUTFail = 1
                 End If
-                If SaveData Then SaveTestData("Manual " & TestRun & "ReturnLoss_Manual", VSWRtoRL(SQL.GetSpecification("VSWR")), 2)
+                If SaveData Then SaveTestData("Manual " & TestRun & "ReturnLoss_Manual", VSWRtoRL(SQL.GetSpecification("VSWR")), 2, PassFail)
             Else
                 TEST2PASS = True
                 status("Blue", "TEST2")
@@ -1686,21 +1686,22 @@ Test2SubRet:
                 If SpecType <> "SINGLE DIRECTIONAL COUPLER" Then
                     If SpecType = "BI DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Then
                         RetrnVal = DIR
-                        If SaveData Then SaveTestData("Manual " & TestRun & "Directivity", RetrnVal, 3)
+                        If SaveData Then SaveTestData("Manual " & TestRun & "Directivity", RetrnVal, 3, PassFail)
                     Else
                         If SpecAB_TF Then
+                            If AB1Pass = "Pass" And AB2Pass = "Pass" Then PassFail = "Pass"
                             RetrnVal = AB1
-                            If SaveData Then SaveTestData("Manual " & TestRun & "AmplitudeBalance1", RetrnVal, 3)
+                            If SaveData Then SaveTestData("Manual " & TestRun & "AmplitudeBalance1", RetrnVal, 3, PassFail)
                             RetrnVal = AB2
-                            If SaveData Then SaveTestData("Manual " & TestRun & "AmplitudeBalance2", RetrnVal, 3)
+                            If SaveData Then SaveTestData("Manual " & TestRun & "AmplitudeBalance2", RetrnVal, 3, PassFail)
                             'remove later
                             RetrnVal = AB
-                            If SaveData Then SaveTestData("Manual " & TestRun & "AmplitudeBalance", RetrnVal, 3)
+                            If SaveData Then SaveTestData("Manual " & TestRun & "AmplitudeBalance", RetrnVal, 3, PassFail)
                         Else
                             RetrnVal = AB
-                            If SaveData Then SaveTestData("Manual " & TestRun & "AmplitudeBalance", RetrnVal, 3)
+                            If SaveData Then SaveTestData("Manual " & TestRun & "AmplitudeBalance", RetrnVal, 3, PassFail)
                         End If
-                    End If
+                        End If
                     status("Blue", "TEST4")
                     If SpecAB_TF Then
                         AB1 = Format(AB1, "0.00")
@@ -1765,10 +1766,10 @@ Test2SubRet:
                 End If
                 If InStr(SpecType, "DIRECTIONAL COUPLER") Then
                     RetrnVal = CF
-                    If SaveData Then SaveTestData("Manual " & TestRun & "CoupledFlatness", RetrnVal, 5)
+                    If SaveData Then SaveTestData("Manual " & TestRun & "CoupledFlatness", RetrnVal, 5, PassFail)
                 Else
                     RetrnVal = PB
-                    If SaveData Then SaveTestData("Manual " & TestRun & "PhaseBalance", RetrnVal, 5)
+                    If SaveData Then SaveTestData("Manual " & TestRun & "PhaseBalance", RetrnVal, 5, PassFail)
                 End If
                 status("Blue", "TEST5")
                 PF5.Text = PassFail
@@ -1797,8 +1798,8 @@ Test2SubRet:
             Else
                 TEST5PASS = True
                 status("Blue", "TEST5")
-                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") Then If SaveData Then SaveTestData("Manual " & TestRun & "PhaseBalance", GetSpecification("PhaseBalance"), 5)
-                If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then If SaveData Then SaveTestData("Manual " & TestRun & "CoupledFlatness", GetSpecification("CoupledFlatness"), 5)
+                If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") Then If SaveData Then SaveTestData("Manual " & TestRun & "PhaseBalance", GetSpecification("PhaseBalance"), 5, PassFail)
+                If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then If SaveData Then SaveTestData("Manual " & TestRun & "CoupledFlatness", GetSpecification("CoupledFlatness"), 5, PassFail)
             End If
 
             If SpecType <> "COMBINER/DIVIDER" Then
@@ -1858,28 +1859,28 @@ Test2Sub:
                         End If
 
                         If SQLAccess Then
-                            If SaveData Then SaveTestData("Manual " & TestRun & "IsolationL", ISoL, 3)
+                            If SaveData Then SaveTestData("Manual " & TestRun & "IsolationL", ISoL, 3, PassFail)
                             RetrnStr = CStr(TruncateDecimal(ISoL, 1))
-                            If SaveData Then SaveTestData("Manual " & TestRun & "IsolationH", ISoH, 3)
+                            If SaveData Then SaveTestData("Manual " & TestRun & "IsolationH", ISoH, 3, PassFail)
                             RetrnStr = CStr(TruncateDecimal(ISoH, 1))
                         Else
-                            If SaveData Then SaveTestData("Manual " & TestRun & "IsoL", ISoL, 3)
+                            If SaveData Then SaveTestData("Manual " & TestRun & "IsoL", ISoL, 3, PassFail)
                             RetrnStr = CStr(TruncateDecimal(ISoL, 1))
-                            If SaveData Then SaveTestData("Manual " & TestRun & "IsoH", ISoH, 3)
+                            If SaveData Then SaveTestData("Manual " & TestRun & "IsoH", ISoH, 3, PassFail)
                             RetrnStr = CStr(TruncateDecimal(ISoH, 1))
                         End If
                     ElseIf SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("COMBINER/DIVIDER") Or SpecType.Contains("BALUN") Then
                         RetrnVal = ISo
                         If SQLAccess Then
-                            If SaveData Then SaveTestData("Manual " & TestRun & "Isolation", RetrnVal, 3)
+                            If SaveData Then SaveTestData("Manual " & TestRun & "Isolation", RetrnVal, 3, PassFail)
                             RetrnStr = CStr(TruncateDecimal(RetrnVal, 1))
                         Else
-                            If SaveData Then SaveTestData("Manual " & TestRun & "Iso", RetrnVal, 3)
+                            If SaveData Then SaveTestData("Manual " & TestRun & "Iso", RetrnVal, 3, PassFail)
                             RetrnStr = CStr(TruncateDecimal(RetrnVal, 1))
                         End If
                     Else
                         RetrnVal = COuP
-                        If SaveData Then SaveTestData("Manual " & TestRun & "Coupling", RetrnVal, 3)
+                        If SaveData Then SaveTestData("Manual " & TestRun & "Coupling", RetrnVal, 3, PassFail)
                         RetrnStr = CStr(TruncateDecimal(RetrnVal, 1))
                     End If
                     If Not ISO_TF Then
@@ -1910,14 +1911,14 @@ Test2Sub:
                     TEST3PASS = True
                     status("Blue", "TEST3")
                     If SQLAccess Then
-                        If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") And SQLAccess Then If SaveData Then SaveTestData("Manual " & TestRun & "Isolation", 0 - GetSpecification("Isolation"), 3)
-                        If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") And Not SQLAccess Then If SaveData Then SaveTestData("Manual " & TestRun & "Isolation", 0 - GetSpecification("Isolation"), 3)
+                        If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") And SQLAccess Then If SaveData Then SaveTestData("Manual " & TestRun & "Isolation", 0 - GetSpecification("Isolation"), 3, PassFail)
+                        If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") And Not SQLAccess Then If SaveData Then SaveTestData("Manual " & TestRun & "Isolation", 0 - GetSpecification("Isolation"), 3, PassFail)
                     Else
-                        If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") And SQLAccess Then If SaveData Then SaveTestData("Manual " & TestRun & "Iso", 0 - GetSpecification("Isolation"), 3)
-                        If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") And Not SQLAccess Then If SaveData Then SaveTestData("Manual " & TestRun & "Iso", 0 - GetSpecification("Isolation"), 3)
+                        If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") And SQLAccess Then If SaveData Then SaveTestData("Manual " & TestRun & "Iso", 0 - GetSpecification("Isolation"), 3, PassFail)
+                        If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") And Not SQLAccess Then If SaveData Then SaveTestData("Manual " & TestRun & "Iso", 0 - GetSpecification("Isolation"), 3, PassFail)
                     End If
 
-                    If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then If SaveData Then SaveTestData("Manual " & TestRun & "Coupling", 0 - GetSpecification("Coupling"), 3)
+                    If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then If SaveData Then SaveTestData("Manual " & TestRun & "Coupling", 0 - GetSpecification("Coupling"), 3, PassFail)
                 End If
                 Me.Refresh()
             End If
@@ -1946,7 +1947,7 @@ TestComplete:  ' For everything except Directional Couplers
                 PassFail = ManualTests.Coupling(TestRun, 2, SpecType, , TestID)
                 RetrnVal = COuP
                 RetrnStr = CStr(TruncateDecimal(RetrnVal, 1))
-                If SaveData Then SaveTestData("Manual " & TestRun & "Coupling", RetrnVal, 3)
+                If SaveData Then SaveTestData("Manual " & TestRun & "Coupling", RetrnVal, 3, PassFail)
                 status("Blue", "TEST3")
                 PF3.Text = PassFail
                 Data3.Text = Format(RetrnVal, "0.00")
@@ -1976,7 +1977,7 @@ TestComplete:  ' For everything except Directional Couplers
                 status("Blue", "TEST4")
                 PF4.Text = PassFail
                 RetrnVal = DIR
-                If SaveData Then SaveTestData("Manual " & TestRun & "Directivity", RetrnVal, 4)
+                If SaveData Then SaveTestData("Manual " & TestRun & "Directivity", RetrnVal, 4, PassFail)
                 RetrnStr = CStr(TruncateDecimal(RetrnVal, 1))
                 Data4.Text = Format(RetrnVal, "0.0")
                 If PassFail = "Pass" Then
@@ -1998,7 +1999,7 @@ TestComplete:  ' For everything except Directional Couplers
             If SpecType = "DUAL DIRECTIONAL COUPLER" And RunTest5 Then
                 PassFail = ManualTests.CoupledFlatness(TestRun, 2, SpecType, , TestID)
                 RetrnVal = CF
-                SaveTestData("Manual " & TestRun & "CoupledFlatness", RetrnVal, 5)
+                SaveTestData("Manual " & TestRun & "CoupledFlatness", RetrnVal, 5, PassFail)
                 status("Blue", "TEST5")
                 PF5.Text = PassFail
                 RetrnStr = CStr(TruncateDecimal(RetrnVal, 1))
@@ -2248,16 +2249,22 @@ TestReallyComplete:
         End Try
     End Function
     Private Sub status(Color As String, Test As String, Optional Retest As Boolean = False)
+        Dim GoldenColor
+        If GoldenMode Then
+            GoldenColor = Drawing.Color.Gold
+        Else
+            GoldenColor = Drawing.Color.LawnGreen
+        End If
         If Test = "TEST1" Then
             If Color = "Green" Then
-                If UUTFail = 0 And Me.UUTStatusColor.BackColor = Drawing.Color.LawnGreen Then Me.UUTStatusColor.BackColor = Drawing.Color.LawnGreen
-                If UUTFail = 0 Then Me.UUTStatusColor.BackColor = Drawing.Color.LawnGreen
-                Me.PF1.ForeColor = Drawing.Color.LawnGreen
+                If UUTFail = 0 And Me.UUTStatusColor.BackColor = GoldenColor Then Me.UUTStatusColor.BackColor = GoldenColor
+                If UUTFail = 0 Then Me.UUTStatusColor.BackColor = GoldenColor
+                Me.PF1.ForeColor = GoldenColor
                 If IL_TF Then
-                    Me.Data1L.ForeColor = Drawing.Color.LawnGreen
-                    Me.Data1H.ForeColor = Drawing.Color.LawnGreen
+                    Me.Data1L.ForeColor = GoldenColor
+                    Me.Data1H.ForeColor = GoldenColor
                 Else
-                    Me.Data1.ForeColor = Drawing.Color.LawnGreen
+                    Me.Data1.ForeColor = GoldenColor
                 End If
             End If
 
@@ -2265,12 +2272,12 @@ TestReallyComplete:
                 Me.PF1.ForeColor = Drawing.Color.Red
                 If IL_TF Then
                     If IL1_status = "Pass" Then
-                        Me.Data1L.ForeColor = Drawing.Color.LawnGreen
+                        Me.Data1L.ForeColor = GoldenColor
                     Else
                         Me.Data1L.ForeColor = Drawing.Color.Red
                     End If
                     If IL2_status = "Pass" Then
-                        Me.Data1H.ForeColor = Drawing.Color.LawnGreen
+                        Me.Data1H.ForeColor = GoldenColor
                     Else
                         Me.Data1H.ForeColor = Drawing.Color.Red
                     End If
@@ -2297,9 +2304,9 @@ TestReallyComplete:
 
         If Test = "TEST2" Then
             If Color = "Green" Then
-                If UUTFail = 0 Then Me.UUTStatusColor.BackColor = Drawing.Color.LawnGreen
-                Me.PF2.ForeColor = Drawing.Color.LawnGreen
-                Me.Data2.ForeColor = Drawing.Color.LawnGreen
+                If UUTFail = 0 Then Me.UUTStatusColor.BackColor = GoldenColor
+                Me.PF2.ForeColor = GoldenColor
+                Me.Data2.ForeColor = GoldenColor
             End If
             If Color = "Red" Then
                 Me.UUTStatusColor.BackColor = Drawing.Color.Red
@@ -2317,9 +2324,9 @@ TestReallyComplete:
         End If
         If Test = "TEST3" Then
             If Color = "Green" Then
-                If UUTFail = 0 Then Me.UUTStatusColor.BackColor = Drawing.Color.LawnGreen
-                Me.PF3.ForeColor = Drawing.Color.LawnGreen
-                Me.Data3.ForeColor = Drawing.Color.LawnGreen
+                If UUTFail = 0 Then Me.UUTStatusColor.BackColor = GoldenColor
+                Me.PF3.ForeColor = GoldenColor
+                Me.Data3.ForeColor = GoldenColor
             End If
             If Color = "Red" Then
                 Me.PF3.ForeColor = Drawing.Color.Red
@@ -2337,9 +2344,9 @@ TestReallyComplete:
         End If
         If Test = "TEST3L" Then
             If Color = "Green" Then
-                If UUTFail = 0 Then Me.UUTStatusColor.BackColor = Drawing.Color.LawnGreen
-                Me.PF3.ForeColor = Drawing.Color.LawnGreen
-                Me.Data3L.ForeColor = Drawing.Color.LawnGreen
+                If UUTFail = 0 Then Me.UUTStatusColor.BackColor = GoldenColor
+                Me.PF3.ForeColor = GoldenColor
+                Me.Data3L.ForeColor = GoldenColor
             End If
             If Color = "Red" Then
                 Me.PF3.ForeColor = Drawing.Color.Red
@@ -2357,9 +2364,9 @@ TestReallyComplete:
         End If
         If Test = "TEST3H" Then
             If Color = "Green" Then
-                If UUTFail = 0 Then Me.UUTStatusColor.BackColor = Drawing.Color.LawnGreen
-                Me.PF3.ForeColor = Drawing.Color.LawnGreen
-                Me.Data3H.ForeColor = Drawing.Color.LawnGreen
+                If UUTFail = 0 Then Me.UUTStatusColor.BackColor = GoldenColor
+                Me.PF3.ForeColor = GoldenColor
+                Me.Data3H.ForeColor = GoldenColor
             End If
             If Color = "Red" Then
                 Me.PF3.ForeColor = Drawing.Color.Red
@@ -2378,9 +2385,9 @@ TestReallyComplete:
 
         If Test = "TEST4" Then
             If Color = "Green" Then
-                If UUTFail = 0 Then Me.UUTStatusColor.BackColor = Drawing.Color.LawnGreen
-                Me.PF4.ForeColor = Drawing.Color.LawnGreen
-                Me.Data4.ForeColor = Drawing.Color.LawnGreen
+                If UUTFail = 0 Then Me.UUTStatusColor.BackColor = GoldenColor
+                Me.PF4.ForeColor = GoldenColor
+                Me.Data4.ForeColor = GoldenColor
             End If
             If Color = "Red" Then
                 Me.PF4.ForeColor = Drawing.Color.Red
@@ -2398,9 +2405,9 @@ TestReallyComplete:
         End If
         If Test = "TEST4L" Then
             If Color = "Green" Then
-                If UUTFail = 0 Then Me.UUTStatusColor.BackColor = Drawing.Color.LawnGreen
-                Me.PF4.ForeColor = Drawing.Color.LawnGreen
-                Me.Data4L.ForeColor = Drawing.Color.LawnGreen
+                If UUTFail = 0 Then Me.UUTStatusColor.BackColor = GoldenColor
+                Me.PF4.ForeColor = GoldenColor
+                Me.Data4L.ForeColor = GoldenColor
             End If
             If Color = "Red" Then
                 Me.PF4.ForeColor = Drawing.Color.Red
@@ -2417,9 +2424,9 @@ TestReallyComplete:
         End If
         If Test = "TEST4H" Then
             If Color = "Green" Then
-                If UUTFail = 0 Then Me.UUTStatusColor.BackColor = Drawing.Color.LawnGreen
-                Me.PF4.ForeColor = Drawing.Color.LawnGreen
-                Me.Data4H.ForeColor = Drawing.Color.LawnGreen
+                If UUTFail = 0 Then Me.UUTStatusColor.BackColor = GoldenColor
+                Me.PF4.ForeColor = GoldenColor
+                Me.Data4H.ForeColor = GoldenColor
             End If
             If Color = "Red" Then
                 Me.PF4.ForeColor = Drawing.Color.Red
@@ -2438,9 +2445,9 @@ TestReallyComplete:
 
         If Test = "TEST5" Then
             If Color = "Green" Then
-                If UUTFail = 0 Then Me.UUTStatusColor.BackColor = Drawing.Color.LawnGreen
-                Me.PF5.ForeColor = Drawing.Color.LawnGreen
-                Me.Data5.ForeColor = Drawing.Color.LawnGreen
+                If UUTFail = 0 Then Me.UUTStatusColor.BackColor = GoldenColor
+                Me.PF5.ForeColor = GoldenColor
+                Me.Data5.ForeColor = GoldenColor
             End If
             If Color = "Red" Then
                 Me.PF5.ForeColor = Drawing.Color.Red

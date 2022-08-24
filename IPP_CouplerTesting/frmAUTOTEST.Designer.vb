@@ -1664,7 +1664,7 @@ Partial Class frmAUTOTEST
         Me.FailureLog.Location = New System.Drawing.Point(6, 25)
         Me.FailureLog.Name = "FailureLog"
         Me.FailureLog.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple
-        Me.FailureLog.Size = New System.Drawing.Size(1318, 90)
+        Me.FailureLog.Size = New System.Drawing.Size(1318, 120)
         Me.FailureLog.TabIndex = 0
         Me.FailureLog.UseTabStops = False
         '
