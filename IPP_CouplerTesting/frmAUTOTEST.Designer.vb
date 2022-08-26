@@ -180,6 +180,7 @@ Partial Class frmAUTOTEST
         Me.TextBox3 = New System.Windows.Forms.TextBox()
         Me.txtSector = New System.Windows.Forms.TextBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.ToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.UUTMessage.SuspendLayout()
         Me.UUTStatusColor.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -1672,7 +1673,7 @@ Partial Class frmAUTOTEST
         '
         Me.MenuStrip3.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.MenuStrip3.Font = New System.Drawing.Font("Segoe UI", 9.75!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Italic), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.MenuStrip3.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AutotestToolStripSetupTrace, Me.ScanGPIBToolStripMenuItem, Me.ManualTuningToolStripMenuItem, Me.SpecificationsToolStripMenuItem, Me.SupervisorPasswordToolStripMenuItem, Me.ROBOTToolStripMenuItem, Me.ReportServerToolStripMenuItem, Me.UpdateToolStripMenuItem, Me.HelpToolStripMenuItem})
+        Me.MenuStrip3.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.AutotestToolStripSetupTrace, Me.ScanGPIBToolStripMenuItem, Me.ManualTuningToolStripMenuItem, Me.SpecificationsToolStripMenuItem, Me.SupervisorPasswordToolStripMenuItem, Me.ROBOTToolStripMenuItem, Me.ReportServerToolStripMenuItem, Me.UpdateToolStripMenuItem, Me.ToolStripMenuItem1, Me.HelpToolStripMenuItem})
         Me.MenuStrip3.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip3.Name = "MenuStrip3"
         Me.MenuStrip3.Size = New System.Drawing.Size(1368, 25)
@@ -2008,6 +2009,12 @@ Partial Class frmAUTOTEST
         Me.PictureBox1.TabIndex = 50
         Me.PictureBox1.TabStop = False
         '
+        'ToolStripMenuItem1
+        '
+        Me.ToolStripMenuItem1.Name = "ToolStripMenuItem1"
+        Me.ToolStripMenuItem1.Size = New System.Drawing.Size(99, 21)
+        Me.ToolStripMenuItem1.Text = "Test Fixtures"
+        '
         'frmAUTOTEST
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 13.0!)
@@ -2248,5 +2255,6 @@ Partial Class frmAUTOTEST
     Friend WithEvents txtLOT As System.Windows.Forms.TextBox
     Friend WithEvents TextBox3 As System.Windows.Forms.TextBox
     Friend WithEvents txtSector As System.Windows.Forms.TextBox
+    Friend WithEvents ToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
 
 End Class

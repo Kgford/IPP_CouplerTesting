@@ -1642,11 +1642,18 @@ IGNORE2:
 
                 'Load Trace Points
                 'Note: switched to TracePoints2 after TraceID 171666
+                Dim TempxArray As String = ""
+                Dim TempyArray As String = ""
                 For Index = 0 To XArray.Count - 1 Step 1
+                    TempxArray = TempxArray & XArray(Index) & ","
+                    TempyArray = TempyArray & YArray(Index) & ","
                     cmd.CommandText = "Insert Into TracePoints2 (TraceID, Idx, xData,YData) values (" & TraceID & "," & Index & "," & XArray(Index) & "," & YArray(Index) & ")"
                     cmd.ExecuteNonQuery()
                 Next
-
+                cmd.CommandText = "UPDATE Trace SET  XArr = '" & TempxArray & "'" & Expression
+                cmd.ExecuteNonQuery()
+                cmd.CommandText = "UPDATE Trace SET  YArr = '" & TempyArray & "'" & Expression
+                cmd.ExecuteNonQuery()
                 ats.Close()
             Else
                 Dim strConnectionString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" & AccessDatabaseFolder("NetworkTraceData")
@@ -1718,11 +1725,18 @@ IGNORE2:
 
                 'Load Trace Points
                 'Note: switched to TracePoints2 after TraceID 171666
+                Dim TempxArray As String = ""
+                Dim TempyArray As String = ""
                 For Index = 0 To XArray.Count - 1 Step 1
+                    TempxArray = TempxArray & XArray(Index) & ","
+                    TempxArray = TempyArray & YArray(Index) & ","
                     cmd.CommandText = "Insert Into TracePoints2 (TraceID, Idx, xData,YData) values (" & TraceID & "," & Index & "," & XArray(Index) & "," & YArray(Index) & ")"
                     cmd.ExecuteNonQuery()
                 Next
-
+                cmd.CommandText = "UPDATE Trace SET  XArr = '" & TempxArray & "'" & Expression
+                cmd.ExecuteNonQuery()
+                cmd.CommandText = "UPDATE Trace SET  YArr = '" & TempyArray & "'" & Expression
+                cmd.ExecuteNonQuery()
                 atsLocal.Close()
             End If
         Catch ex As Exception
@@ -1912,6 +1926,11 @@ IGNORE2:
             Dim SQLStr As String
             Dim Count As Integer = 0
             Dim thisTraceID As Integer = 0
+            Dim thisXArray As String = ""
+            Dim thisYArray As String = ""
+            Dim XArrayStr() As String
+            Dim YArrayStr() As String
+
             'SEARCH BY BAND AND UUTType
             SQLStr = "Select * from Trace where Title = '" & Title & "' and JobNumber = 'Golden Part' and PartNumber = '" & globals.Part & "'"
             '*******************************************************************************
@@ -1926,6 +1945,8 @@ IGNORE2:
                 globals.Notes = Nothing
                 While Not dr.Read = Nothing
                     thisTraceID = CType(dr.Item(0), String)
+                    If Not IsDBNull(dr.GetValue(29)) Then thisXArray = CType(dr.Item(29), String)
+                    If Not IsDBNull(dr.GetValue(30)) Then thisYArray = CType(dr.Item(30), String)
                 End While
                 ats.Close()
 
@@ -1940,14 +1961,32 @@ IGNORE2:
                 globals.Notes = Nothing
                 While Not drLocal.Read = Nothing
                     thisTraceID = CType(drLocal.Item(0), String)
+                    If Not IsDBNull(drLocal.GetValue(29)) Then thisXArray = CType(drLocal.Item(29), String)
+                    If Not IsDBNull(drLocal.GetValue(30)) Then thisYArray = CType(drLocal.Item(30), String)
                 End While
                 atsLocal.Close()
             End If
-            If thisTraceID > 171666 Then
-                GetTracePoints2(thisTraceID, points)
+
+            If Not thisYArray = "" Then
+                XArrayStr = thisYArray.Split(",")
+                YArrayStr = thisYArray.Split(",")
+                For x = 0 To YArrayStr.Count - 1
+                    ReDim Preserve XArray(x)
+                    ReDim Preserve YArray(x)
+                    If IsNumeric(XArrayStr(x)) Then XArray(x) = CDbl(XArrayStr(x))
+                    If IsNumeric(YArrayStr(x)) Then YArray(x) = CDbl(YArrayStr(x))
+                Next
             Else
-                GetTracePoints(thisTraceID, points)
+                If thisTraceID > 171666 Then
+                    GetTracePoints2(thisTraceID, points)
+                Else
+                    GetTracePoints(thisTraceID, points)
+                End If
             End If
+
+
+
+           
 
 
         Catch

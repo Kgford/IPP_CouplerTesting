@@ -483,33 +483,32 @@ Module globals
         Next
 
         If test = "Delta1" Then
-            GoldentraceDelta1 = Max(TempArray)
+            GoldentraceDelta1 = TruncateDecimal(MaxNoZero(TempArray), 2)
         ElseIf test = "Delta1H" Then
-            GoldentraceDelta1H = Max(TempArray)
+            GoldentraceDelta1H = TruncateDecimal(MaxNoZero(TempArray), 2)
         ElseIf test = "Delta1L" Then
-            GoldentraceDelta1L = Max(TempArray)
-        ElseIf test = "Delta1" Then
-            GoldentraceDelta2 = Max(TempArray)
+            GoldentraceDelta1L = TruncateDecimal(MaxNoZero(TempArray), 2)
         ElseIf test = "Delta2" Then
-            GoldentraceDelta3 = Max(TempArray)
+            GoldentraceDelta2 = TruncateDecimal(MaxNoZero(TempArray), 2)
         ElseIf test = "Delta3" Then
-            GoldentraceDelta3L = Max(TempArray)
+            GoldentraceDelta3 = TruncateDecimal(MaxNoZero(TempArray), 2)
         ElseIf test = "Delta3L" Then
-            GoldentraceDelta3H = Max(TempArray)
-        ElseIf test = "Delta3L" Then
-            GoldentraceDelta4 = Max(TempArray)
+            GoldentraceDelta3L = TruncateDecimal(MaxNoZero(TempArray), 2)
+        ElseIf test = "Delta3H" Then
+            GoldentraceDelta3H = TruncateDecimal(MaxNoZero(TempArray), 2)
         ElseIf test = "Delta4" Then
-            GoldentraceDelta4L = Max(TempArray)
+            GoldentraceDelta4 = TruncateDecimal(MaxNoZero(TempArray), 2)
         ElseIf test = "Delta4L" Then
-            GoldentraceDelta4H = Max(TempArray)
+            GoldentraceDelta4L = TruncateDecimal(MaxNoZero(TempArray), 2)
         ElseIf test = "Delta4H" Then
-            GoldentraceDelta4H = Max(TempArray)
+            GoldentraceDelta4H = TruncateDecimal(MaxNoZero(TempArray), 2)
+
         ElseIf test = "Delta5" Then
-            GoldentraceDelta5 = Max(TempArray)
+            GoldentraceDelta5 = TruncateDecimal(MaxNoZero(TempArray), 2)
         ElseIf test = "Delta5H" Then
-            GoldentraceDelta5H = Max(TempArray)
+            GoldentraceDelta5H = TruncateDecimal(MaxNoZero(TempArray), 2)
         ElseIf test = "Delta5L" Then
-            GoldentraceDelta5L = Max(TempArray)
+            GoldentraceDelta5L = TruncateDecimal(MaxNoZero(TempArray), 2)
         End If
     End Sub
     Public Function SplitTraceY(xArr As Double(), YArr As Double(), str As Double, stp As Double, Optional offset As Double = 0) As Double()

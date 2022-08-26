@@ -47,6 +47,12 @@ Partial Class GoldenMsg
         Me.txtFixNum = New System.Windows.Forms.TextBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.UUTStatusColor = New System.Windows.Forms.Panel()
+        Me.Label10 = New System.Windows.Forms.Label()
+        Me.PFTrace5 = New System.Windows.Forms.Label()
+        Me.PFTrace4 = New System.Windows.Forms.Label()
+        Me.PFTrace3 = New System.Windows.Forms.Label()
+        Me.PFTrace2 = New System.Windows.Forms.Label()
+        Me.PFTrace1 = New System.Windows.Forms.Label()
         Me.Data3 = New System.Windows.Forms.Label()
         Me.Data3_old = New System.Windows.Forms.Label()
         Me.Data1 = New System.Windows.Forms.Label()
@@ -89,22 +95,19 @@ Partial Class GoldenMsg
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
         Me.Spec1Min = New System.Windows.Forms.Label()
-        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.txttitle = New System.Windows.Forms.Label()
-        Me.picImage = New System.Windows.Forms.PictureBox()
-        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
-        Me.Label10 = New System.Windows.Forms.Label()
-        Me.PFTrace5 = New System.Windows.Forms.Label()
-        Me.PFTrace4 = New System.Windows.Forms.Label()
-        Me.PFTrace3 = New System.Windows.Forms.Label()
-        Me.PFTrace2 = New System.Windows.Forms.Label()
-        Me.PFTrace1 = New System.Windows.Forms.Label()
+        Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.picImage = New System.Windows.Forms.PictureBox()
+        Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.SpecPF = New System.Windows.Forms.TextBox()
+        Me.DeltaPF = New System.Windows.Forms.TextBox()
+        Me.TracePF = New System.Windows.Forms.TextBox()
         Me.UUTStatusColor.SuspendLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.picImage, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.picImage, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btBypass
@@ -131,11 +134,11 @@ Partial Class GoldenMsg
         '
         'txtprompt
         '
-        Me.txtprompt.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.txtprompt.Font = New System.Drawing.Font("Microsoft Sans Serif", 15.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.txtprompt.ForeColor = System.Drawing.SystemColors.Desktop
         Me.txtprompt.Location = New System.Drawing.Point(-3, 268)
         Me.txtprompt.Name = "txtprompt"
-        Me.txtprompt.Size = New System.Drawing.Size(962, 29)
+        Me.txtprompt.Size = New System.Drawing.Size(992, 29)
         Me.txtprompt.TabIndex = 18
         Me.txtprompt.Text = "Test The Golden UUT before you begin"
         Me.txtprompt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
@@ -324,11 +327,11 @@ Partial Class GoldenMsg
         '
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label5.ForeColor = System.Drawing.SystemColors.Desktop
-        Me.Label5.Location = New System.Drawing.Point(263, 328)
+        Me.Label5.Location = New System.Drawing.Point(216, 327)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(447, 28)
+        Me.Label5.Size = New System.Drawing.Size(399, 28)
         Me.Label5.TabIndex = 149
-        Me.Label5.Text = "Golden Unit Data"
+        Me.Label5.Text = "                                  Golden Unit Data"
         Me.Label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'txtPartNumber
@@ -416,6 +419,84 @@ Partial Class GoldenMsg
         Me.UUTStatusColor.Name = "UUTStatusColor"
         Me.UUTStatusColor.Size = New System.Drawing.Size(708, 221)
         Me.UUTStatusColor.TabIndex = 154
+        '
+        'Label10
+        '
+        Me.Label10.AutoSize = True
+        Me.Label10.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.Label10.Cursor = System.Windows.Forms.Cursors.Default
+        Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label10.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.Label10.Location = New System.Drawing.Point(620, 11)
+        Me.Label10.Name = "Label10"
+        Me.Label10.Size = New System.Drawing.Size(81, 15)
+        Me.Label10.TabIndex = 156
+        Me.Label10.Text = "Trace Delta"
+        '
+        'PFTrace5
+        '
+        Me.PFTrace5.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.PFTrace5.Cursor = System.Windows.Forms.Cursors.Default
+        Me.PFTrace5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PFTrace5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.PFTrace5.Location = New System.Drawing.Point(620, 183)
+        Me.PFTrace5.Name = "PFTrace5"
+        Me.PFTrace5.Size = New System.Drawing.Size(70, 17)
+        Me.PFTrace5.TabIndex = 155
+        Me.PFTrace5.Text = "TBD"
+        Me.PFTrace5.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        '
+        'PFTrace4
+        '
+        Me.PFTrace4.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.PFTrace4.Cursor = System.Windows.Forms.Cursors.Default
+        Me.PFTrace4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PFTrace4.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.PFTrace4.Location = New System.Drawing.Point(620, 145)
+        Me.PFTrace4.Name = "PFTrace4"
+        Me.PFTrace4.Size = New System.Drawing.Size(70, 20)
+        Me.PFTrace4.TabIndex = 154
+        Me.PFTrace4.Text = "TBD"
+        Me.PFTrace4.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        '
+        'PFTrace3
+        '
+        Me.PFTrace3.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.PFTrace3.Cursor = System.Windows.Forms.Cursors.Default
+        Me.PFTrace3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PFTrace3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.PFTrace3.Location = New System.Drawing.Point(620, 110)
+        Me.PFTrace3.Name = "PFTrace3"
+        Me.PFTrace3.Size = New System.Drawing.Size(70, 23)
+        Me.PFTrace3.TabIndex = 153
+        Me.PFTrace3.Text = "TBD"
+        Me.PFTrace3.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        '
+        'PFTrace2
+        '
+        Me.PFTrace2.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.PFTrace2.Cursor = System.Windows.Forms.Cursors.Default
+        Me.PFTrace2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PFTrace2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.PFTrace2.Location = New System.Drawing.Point(620, 79)
+        Me.PFTrace2.Name = "PFTrace2"
+        Me.PFTrace2.Size = New System.Drawing.Size(70, 20)
+        Me.PFTrace2.TabIndex = 152
+        Me.PFTrace2.Text = "TBD"
+        Me.PFTrace2.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        '
+        'PFTrace1
+        '
+        Me.PFTrace1.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.PFTrace1.Cursor = System.Windows.Forms.Cursors.Default
+        Me.PFTrace1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PFTrace1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
+        Me.PFTrace1.Location = New System.Drawing.Point(620, 43)
+        Me.PFTrace1.Name = "PFTrace1"
+        Me.PFTrace1.Size = New System.Drawing.Size(70, 18)
+        Me.PFTrace1.TabIndex = 151
+        Me.PFTrace1.Text = "TBD"
+        Me.PFTrace1.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'Data3
         '
@@ -572,7 +653,7 @@ Partial Class GoldenMsg
         Me.Data5.Cursor = System.Windows.Forms.Cursors.Default
         Me.Data5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Data5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Data5.Location = New System.Drawing.Point(268, 175)
+        Me.Data5.Location = New System.Drawing.Point(268, 180)
         Me.Data5.Name = "Data5"
         Me.Data5.Size = New System.Drawing.Size(82, 20)
         Me.Data5.TabIndex = 138
@@ -638,11 +719,11 @@ Partial Class GoldenMsg
         Me.Label17.Cursor = System.Windows.Forms.Cursors.Default
         Me.Label17.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label17.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label17.Location = New System.Drawing.Point(503, 11)
+        Me.Label17.Location = New System.Drawing.Point(517, 11)
         Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(41, 15)
+        Me.Label17.Size = New System.Drawing.Size(75, 15)
         Me.Label17.TabIndex = 131
-        Me.Label17.Text = "Delta"
+        Me.Label17.Text = "Data Delta"
         '
         'Data1H_old
         '
@@ -734,7 +815,7 @@ Partial Class GoldenMsg
         Me.PF5.Cursor = System.Windows.Forms.Cursors.Default
         Me.PF5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.PF5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.PF5.Location = New System.Drawing.Point(492, 183)
+        Me.PF5.Location = New System.Drawing.Point(517, 183)
         Me.PF5.Name = "PF5"
         Me.PF5.Size = New System.Drawing.Size(70, 17)
         Me.PF5.TabIndex = 125
@@ -747,7 +828,7 @@ Partial Class GoldenMsg
         Me.PF4.Cursor = System.Windows.Forms.Cursors.Default
         Me.PF4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.PF4.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.PF4.Location = New System.Drawing.Point(492, 145)
+        Me.PF4.Location = New System.Drawing.Point(517, 145)
         Me.PF4.Name = "PF4"
         Me.PF4.Size = New System.Drawing.Size(70, 20)
         Me.PF4.TabIndex = 124
@@ -760,7 +841,7 @@ Partial Class GoldenMsg
         Me.PF3.Cursor = System.Windows.Forms.Cursors.Default
         Me.PF3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.PF3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.PF3.Location = New System.Drawing.Point(492, 110)
+        Me.PF3.Location = New System.Drawing.Point(517, 110)
         Me.PF3.Name = "PF3"
         Me.PF3.Size = New System.Drawing.Size(70, 23)
         Me.PF3.TabIndex = 123
@@ -773,7 +854,7 @@ Partial Class GoldenMsg
         Me.PF2.Cursor = System.Windows.Forms.Cursors.Default
         Me.PF2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.PF2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.PF2.Location = New System.Drawing.Point(492, 79)
+        Me.PF2.Location = New System.Drawing.Point(517, 79)
         Me.PF2.Name = "PF2"
         Me.PF2.Size = New System.Drawing.Size(70, 20)
         Me.PF2.TabIndex = 122
@@ -786,7 +867,7 @@ Partial Class GoldenMsg
         Me.PF1.Cursor = System.Windows.Forms.Cursors.Default
         Me.PF1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.PF1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.PF1.Location = New System.Drawing.Point(492, 43)
+        Me.PF1.Location = New System.Drawing.Point(517, 43)
         Me.PF1.Name = "PF1"
         Me.PF1.Size = New System.Drawing.Size(70, 18)
         Me.PF1.TabIndex = 121
@@ -812,7 +893,7 @@ Partial Class GoldenMsg
         Me.Data5_old.Cursor = System.Windows.Forms.Cursors.Default
         Me.Data5_old.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Data5_old.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Data5_old.Location = New System.Drawing.Point(113, 175)
+        Me.Data5_old.Location = New System.Drawing.Point(113, 183)
         Me.Data5_old.Name = "Data5_old"
         Me.Data5_old.Size = New System.Drawing.Size(83, 20)
         Me.Data5_old.TabIndex = 119
@@ -976,17 +1057,6 @@ Partial Class GoldenMsg
         Me.Spec1Min.Text = "N/A"
         Me.Spec1Min.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
-        'PictureBox1
-        '
-        Me.PictureBox1.ErrorImage = CType(resources.GetObject("PictureBox1.ErrorImage"), System.Drawing.Image)
-        Me.PictureBox1.Image = Global.IPP_CouplerTesting.My.Resources.Resources.ipplogo_burst400_jpg
-        Me.PictureBox1.Location = New System.Drawing.Point(1, 102)
-        Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(260, 68)
-        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox1.TabIndex = 155
-        Me.PictureBox1.TabStop = False
-        '
         'txttitle
         '
         Me.txttitle.Font = New System.Drawing.Font("Arial Black", 26.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -997,25 +1067,6 @@ Partial Class GoldenMsg
         Me.txttitle.TabIndex = 156
         Me.txttitle.Text = "GOLDEN UNIT MODE"
         Me.txttitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
-        '
-        'picImage
-        '
-        Me.picImage.Location = New System.Drawing.Point(280, 44)
-        Me.picImage.Name = "picImage"
-        Me.picImage.Size = New System.Drawing.Size(428, 221)
-        Me.picImage.TabIndex = 157
-        Me.picImage.TabStop = False
-        '
-        'PictureBox2
-        '
-        Me.PictureBox2.ErrorImage = CType(resources.GetObject("PictureBox2.ErrorImage"), System.Drawing.Image)
-        Me.PictureBox2.Image = Global.IPP_CouplerTesting.My.Resources.Resources.ipplogo_burst400_jpg
-        Me.PictureBox2.Location = New System.Drawing.Point(729, 102)
-        Me.PictureBox2.Name = "PictureBox2"
-        Me.PictureBox2.Size = New System.Drawing.Size(260, 68)
-        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
-        Me.PictureBox2.TabIndex = 158
-        Me.PictureBox2.TabStop = False
         '
         'Label9
         '
@@ -1041,91 +1092,79 @@ Partial Class GoldenMsg
         Me.Label8.Text = "TEST FIXTURE"
         Me.Label8.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
-        'Label10
+        'PictureBox2
         '
-        Me.Label10.AutoSize = True
-        Me.Label10.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.Label10.Cursor = System.Windows.Forms.Cursors.Default
-        Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label10.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.Label10.Location = New System.Drawing.Point(587, 11)
-        Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(81, 15)
-        Me.Label10.TabIndex = 156
-        Me.Label10.Text = "Trace Delta"
+        Me.PictureBox2.ErrorImage = CType(resources.GetObject("PictureBox2.ErrorImage"), System.Drawing.Image)
+        Me.PictureBox2.Image = Global.IPP_CouplerTesting.My.Resources.Resources.ipplogo_burst400_jpg
+        Me.PictureBox2.Location = New System.Drawing.Point(729, 102)
+        Me.PictureBox2.Name = "PictureBox2"
+        Me.PictureBox2.Size = New System.Drawing.Size(260, 68)
+        Me.PictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox2.TabIndex = 158
+        Me.PictureBox2.TabStop = False
         '
-        'PFTrace5
+        'picImage
         '
-        Me.PFTrace5.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.PFTrace5.Cursor = System.Windows.Forms.Cursors.Default
-        Me.PFTrace5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PFTrace5.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.PFTrace5.Location = New System.Drawing.Point(586, 183)
-        Me.PFTrace5.Name = "PFTrace5"
-        Me.PFTrace5.Size = New System.Drawing.Size(70, 17)
-        Me.PFTrace5.TabIndex = 155
-        Me.PFTrace5.Text = "TBD"
-        Me.PFTrace5.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.picImage.Location = New System.Drawing.Point(280, 44)
+        Me.picImage.Name = "picImage"
+        Me.picImage.Size = New System.Drawing.Size(428, 221)
+        Me.picImage.TabIndex = 157
+        Me.picImage.TabStop = False
         '
-        'PFTrace4
+        'PictureBox1
         '
-        Me.PFTrace4.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.PFTrace4.Cursor = System.Windows.Forms.Cursors.Default
-        Me.PFTrace4.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PFTrace4.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.PFTrace4.Location = New System.Drawing.Point(586, 145)
-        Me.PFTrace4.Name = "PFTrace4"
-        Me.PFTrace4.Size = New System.Drawing.Size(70, 20)
-        Me.PFTrace4.TabIndex = 154
-        Me.PFTrace4.Text = "TBD"
-        Me.PFTrace4.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.PictureBox1.ErrorImage = CType(resources.GetObject("PictureBox1.ErrorImage"), System.Drawing.Image)
+        Me.PictureBox1.Image = Global.IPP_CouplerTesting.My.Resources.Resources.ipplogo_burst400_jpg
+        Me.PictureBox1.Location = New System.Drawing.Point(1, 102)
+        Me.PictureBox1.Name = "PictureBox1"
+        Me.PictureBox1.Size = New System.Drawing.Size(260, 68)
+        Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
+        Me.PictureBox1.TabIndex = 155
+        Me.PictureBox1.TabStop = False
         '
-        'PFTrace3
+        'SpecPF
         '
-        Me.PFTrace3.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.PFTrace3.Cursor = System.Windows.Forms.Cursors.Default
-        Me.PFTrace3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PFTrace3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.PFTrace3.Location = New System.Drawing.Point(586, 110)
-        Me.PFTrace3.Name = "PFTrace3"
-        Me.PFTrace3.Size = New System.Drawing.Size(70, 23)
-        Me.PFTrace3.TabIndex = 153
-        Me.PFTrace3.Text = "TBD"
-        Me.PFTrace3.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.SpecPF.BackColor = System.Drawing.Color.Gold
+        Me.SpecPF.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.SpecPF.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.SpecPF.Location = New System.Drawing.Point(614, 338)
+        Me.SpecPF.Name = "SpecPF"
+        Me.SpecPF.Size = New System.Drawing.Size(81, 17)
+        Me.SpecPF.TabIndex = 162
+        Me.SpecPF.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
-        'PFTrace2
+        'DeltaPF
         '
-        Me.PFTrace2.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.PFTrace2.Cursor = System.Windows.Forms.Cursors.Default
-        Me.PFTrace2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PFTrace2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.PFTrace2.Location = New System.Drawing.Point(586, 79)
-        Me.PFTrace2.Name = "PFTrace2"
-        Me.PFTrace2.Size = New System.Drawing.Size(70, 20)
-        Me.PFTrace2.TabIndex = 152
-        Me.PFTrace2.Text = "TBD"
-        Me.PFTrace2.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.DeltaPF.BackColor = System.Drawing.Color.Gold
+        Me.DeltaPF.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.DeltaPF.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.DeltaPF.Location = New System.Drawing.Point(720, 338)
+        Me.DeltaPF.Name = "DeltaPF"
+        Me.DeltaPF.Size = New System.Drawing.Size(81, 17)
+        Me.DeltaPF.TabIndex = 163
+        Me.DeltaPF.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
-        'PFTrace1
+        'TracePF
         '
-        Me.PFTrace1.BackColor = System.Drawing.SystemColors.ControlLightLight
-        Me.PFTrace1.Cursor = System.Windows.Forms.Cursors.Default
-        Me.PFTrace1.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PFTrace1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText
-        Me.PFTrace1.Location = New System.Drawing.Point(586, 43)
-        Me.PFTrace1.Name = "PFTrace1"
-        Me.PFTrace1.Size = New System.Drawing.Size(70, 18)
-        Me.PFTrace1.TabIndex = 151
-        Me.PFTrace1.Text = "TBD"
-        Me.PFTrace1.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.TracePF.BackColor = System.Drawing.Color.Gold
+        Me.TracePF.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TracePF.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TracePF.Location = New System.Drawing.Point(818, 338)
+        Me.TracePF.Name = "TracePF"
+        Me.TracePF.Size = New System.Drawing.Size(81, 17)
+        Me.TracePF.TabIndex = 164
+        Me.TracePF.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'GoldenMsg
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.Gold
-        Me.ClientSize = New System.Drawing.Size(997, 703)
+        Me.ClientSize = New System.Drawing.Size(993, 699)
         Me.ControlBox = False
+        Me.Controls.Add(Me.TracePF)
+        Me.Controls.Add(Me.DeltaPF)
+        Me.Controls.Add(Me.SpecPF)
         Me.Controls.Add(Me.Label8)
         Me.Controls.Add(Me.Label9)
         Me.Controls.Add(Me.PictureBox2)
@@ -1156,20 +1195,19 @@ Partial Class GoldenMsg
         Me.Controls.Add(Me.btBypass)
         Me.Controls.Add(Me.btOK)
         Me.Controls.Add(Me.txtprompt)
-        Me.ForeColor = System.Drawing.SystemColors.HighlightText
-        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
+        Me.ForeColor = System.Drawing.Color.Gold
+        Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "GoldenMsg"
         Me.ShowIcon = False
-        Me.ShowInTaskbar = False
-        Me.Text = "Golden Unit Baseline "
-        Me.TransparencyKey = System.Drawing.Color.SandyBrown
+        Me.Text = "    "
+        Me.TransparencyKey = System.Drawing.Color.OliveDrab
         Me.UUTStatusColor.ResumeLayout(False)
         Me.UUTStatusColor.PerformLayout()
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.picImage, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.picImage, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1252,4 +1290,7 @@ Partial Class GoldenMsg
     Friend WithEvents PFTrace3 As System.Windows.Forms.Label
     Friend WithEvents PFTrace2 As System.Windows.Forms.Label
     Friend WithEvents PFTrace1 As System.Windows.Forms.Label
+    Friend WithEvents SpecPF As System.Windows.Forms.TextBox
+    Friend WithEvents DeltaPF As System.Windows.Forms.TextBox
+    Friend WithEvents TracePF As System.Windows.Forms.TextBox
 End Class

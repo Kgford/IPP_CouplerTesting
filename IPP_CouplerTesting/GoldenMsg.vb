@@ -37,11 +37,10 @@ Public Class GoldenMsg
     Private offset5 As String
     Private FixtureSaved As Boolean = True
 
-
-
     Public Sub New()
         InitializeComponent()
         Dim DeltaPass As Boolean = True
+        Dim TraceDeltaPass As Boolean = True
         GoldenRev = "N/A"
         Try
             TestFixture()
@@ -67,26 +66,126 @@ Public Class GoldenMsg
             If GoldenHistory Then ' There is gold unit data in the database
                 If GoldenRunComplete Then ' Recent test completed
                     If PF1.Text > Test1_limit Or PF2.Text > Test2_limit Or PF3.Text > Test3_limit Or PF4.Text > Test4_limit Or PF5.Text > Test5_limit Then DeltaPass = False
-                    If GoldenRunPass And DeltaPass Then
+                    If PFTrace1.Text > Test1_limit Or PFTrace2.Text > Test2_limit Or PFTrace3.Text > Test3_limit Or PFTrace4.Text > Test4_limit Or PFTrace5.Text > Test5_limit Then TraceDeltaPass = False
+                    If GoldenRunPass And DeltaPass And TraceDeltaPass Then
                         GoldenMode = False
                         btTest.Visible = False
                         btBypass.Visible = False
                         Label6.Visible = False
                         Password.Visible = False
-                    ElseIf GoldenRunPass And Not DeltaPass Then
+                        SpecPF.BackColor = Color.Gold
+                        DeltaPF.BackColor = Color.Gold
+                        TracePF.BackColor = Color.Gold
+                    ElseIf GoldenRunPass And Not DeltaPass And Not TraceDeltaPass Then
                         txtprompt.Text = "The Golden Unit Passes, but it has changed. Contact your supervisor"
                         GoldenMode = True
                         btOK.Visible = False
                         btBypass.Visible = True
                         Label6.Visible = True
                         Password.Visible = True
-                    ElseIf Not GoldenRunPass Then
-                        txtprompt.Text = "The Golden Unit Fails. Contact your supervisor"
+                        SpecPF.BackColor = Color.Gold
+                        DeltaPF.BackColor = Color.Red
+                        DeltaPF.ForeColor = Color.Gold
+                        DeltaPF.Text = "FAILED"
+                        TracePF.BackColor = Color.Red
+                        TracePF.Text = "FAILED"
+                    ElseIf GoldenRunPass And Not DeltaPass Then
+                        txtprompt.Text = "The Golden Unit Passes, but data has changed. Contact your supervisor"
                         GoldenMode = True
                         btOK.Visible = False
                         btBypass.Visible = True
                         Label6.Visible = True
                         Password.Visible = True
+                        SpecPF.BackColor = Color.Gold
+                        DeltaPF.BackColor = Color.Red
+                        DeltaPF.ForeColor = Color.Gold
+                        DeltaPF.Text = "FAILED"
+                        TracePF.BackColor = Color.Gold
+                    ElseIf GoldenRunPass And Not TraceDeltaPass Then
+                        txtprompt.Text = "The Golden Unit Passes, but The trace data has changed. Contact your supervisor"
+                        GoldenMode = True
+                        btOK.Visible = False
+                        btBypass.Visible = True
+                        Label6.Visible = True
+                        Password.Visible = True
+                        SpecPF.BackColor = Color.Gold
+                        SpecPF.BackColor = Color.Gold
+                        TracePF.BackColor = Color.Red
+                        TracePF.ForeColor = Color.Gold
+                        TracePF.Text = "FAILED"
+                    ElseIf Not GoldenRunPass And DeltaPass And TraceDeltaPass Then
+                        txtprompt.Text = "The Golden Unit Fails Specification. Contact your supervisor"
+                        txtprompt.ForeColor = Color.Red
+                        GoldenMode = True
+                        btOK.Visible = False
+                        btBypass.Visible = True
+                        Label6.Visible = True
+                        Password.Visible = True
+                        SpecPF.BackColor = Color.Red
+                        SpecPF.ForeColor = Color.Gold
+                        SpecPF.Text = "FAILED"
+                        DeltaPF.BackColor = Color.Gold
+                        TracePF.BackColor = Color.Gold
+                    ElseIf Not GoldenRunPass And DeltaPass And TraceDeltaPass Then
+                        txtprompt.Text = "The Golden Unit Fails Specification. Contact your supervisor"
+                        txtprompt.ForeColor = Color.Red
+                        GoldenMode = True
+                        btOK.Visible = False
+                        btBypass.Visible = True
+                        Label6.Visible = True
+                        Password.Visible = True
+                        SpecPF.BackColor = Color.Red
+                        SpecPF.ForeColor = Color.Gold
+                        SpecPF.Text = "FAILED"
+                        DeltaPF.BackColor = Color.Gold
+                        TracePF.BackColor = Color.Gold
+                    ElseIf Not GoldenRunPass And Not DeltaPass And TraceDeltaPass Then
+                        txtprompt.Text = "The Golden Unit Fails Specification and Data delta. Contact your supervisor"
+                        txtprompt.ForeColor = Color.Red
+                        GoldenMode = True
+                        btOK.Visible = False
+                        btBypass.Visible = True
+                        Label6.Visible = True
+                        Password.Visible = True
+                        SpecPF.BackColor = Color.Red
+                        SpecPF.ForeColor = Color.Gold
+                        SpecPF.Text = "FAILED"
+                        DeltaPF.BackColor = Color.Red
+                        DeltaPF.ForeColor = Color.Gold
+                        DeltaPF.Text = "FAILED"
+                        TracePF.BackColor = Color.Gold
+                    ElseIf Not GoldenRunPass And DeltaPass And Not TraceDeltaPass Then
+                        txtprompt.Text = "The Golden Unit Fails Specification and Trace delta. Contact your supervisor"
+                        txtprompt.ForeColor = Color.Red
+                        GoldenMode = True
+                        btOK.Visible = False
+                        btBypass.Visible = True
+                        Label6.Visible = True
+                        Password.Visible = True
+                        SpecPF.BackColor = Color.Red
+                        SpecPF.ForeColor = Color.Gold
+                        SpecPF.Text = "FAILED"
+                        DeltaPF.BackColor = Color.Gold
+                        TracePF.BackColor = Color.Red
+                        TracePF.ForeColor = Color.Gold
+                        TracePF.Text = "FAILED"
+                    ElseIf Not GoldenRunPass And Not DeltaPass And Not TraceDeltaPass Then
+                        txtprompt.Text = "The Golden Unit Fails Everything. Contact your supervisor"
+                        txtprompt.ForeColor = Color.Red
+                        GoldenMode = True
+                        btOK.Visible = False
+                        btBypass.Visible = True
+                        Label6.Visible = True
+                        Password.Visible = True
+                        SpecPF.BackColor = Color.Red
+                        SpecPF.ForeColor = Color.Gold
+                        SpecPF.Text = "FAILED"
+                        DeltaPF.BackColor = Color.Red
+                        DeltaPF.ForeColor = Color.Gold
+                        DeltaPF.Text = "FAILED"
+                        TracePF.BackColor = Color.Red
+                        TracePF.ForeColor = Color.Gold
+                        TracePF.Text = "FAILED"
                     End If
                 Else
                     txtprompt.Text = "Test The Golden UUT before you begin"
@@ -330,6 +429,8 @@ Public Class GoldenMsg
                 If GoldenRunComplete Then ' Recent test completed
                     Dim change1 As Double
                     Dim change2 As Double
+                    Dim change1Trace As Double
+                    Dim change2Trace As Double
                     If GoldenData1L = "" Or ThisData1L_old = "" Then
                         change1 = 0
                         change2 = 0
@@ -348,6 +449,13 @@ Public Class GoldenMsg
                     Me.Data1L.Text = GoldenData1L
                     Me.Data1H_old.Text = ThisData1H_old
                     Me.Data1L_old.Text = ThisData1L_old
+                    change1Trace = GoldentraceDelta1L
+                    change2Trace = GoldentraceDelta1H
+                    If change1 > change2 Then
+                        Me.PFTrace1.Text = change1
+                    Else
+                        Me.PFTrace1.Text = change2
+                    End If
                 Else
                     Me.Data1H.Text = ""
                     Me.Data1L.Text = ""
@@ -374,7 +482,8 @@ Public Class GoldenMsg
                         change = Math.Abs(CDbl(ThisData1_old) - CDbl(GoldenData1))
                         Me.Data1.Text = GoldenData1
                         Me.Data1_old.Text = ThisData1_old
-                            PF1.Text = TruncateDecimal(change, 2)
+                        PF1.Text = TruncateDecimal(change, 2)
+                        Me.PFTrace1.Text = GoldentraceDelta1
                     End If
                    
                 Else
@@ -408,6 +517,7 @@ Public Class GoldenMsg
 
                 Me.Data2.Text = GoldenData2
                 Me.Data2_old.Text = ThisData2_old
+                Me.PFTrace2.Text = GoldentraceDelta2
             Else
                 Me.Data2.Text = ""
                 Me.Data2_old.Text = ThisData2_old
@@ -430,6 +540,8 @@ Public Class GoldenMsg
                     If GoldenRunComplete Then ' Recent test completed
                         Dim change1 As Double
                         Dim change2 As Double
+                        Dim change1Trace As Double
+                        Dim change2Trace As Double
                         If GoldenData3L = "" Or ThisData3L_old = "" Then
                             change1 = 0
                             change2 = 0
@@ -447,6 +559,13 @@ Public Class GoldenMsg
                         Me.Data3L.Text = GoldenData3L
                         Me.Data3H_old.Text = ThisData3H_old
                         Me.Data3L_old.Text = ThisData3L_old
+                        change1Trace = GoldentraceDelta3L
+                        change2Trace = GoldentraceDelta3H
+                        If change1 > change2 Then
+                            Me.PFTrace3.Text = change1
+                        Else
+                            Me.PFTrace3.Text = change2
+                        End If
                     Else
                         Me.Data3H.Text = ""
                         Me.Data3L.Text = ""
@@ -479,6 +598,7 @@ Public Class GoldenMsg
 
                         Me.Data3.Text = GoldenData3
                         Me.Data3_old.Text = ThisData3_old
+                        Me.PFTrace3.Text = GoldentraceDelta3
                     Else
                         Me.Data3.Text = ""
                         Me.Data3_old.Text = ThisData3_old
@@ -511,6 +631,7 @@ Public Class GoldenMsg
 
                     Me.Data3.Text = GoldenData3
                     Me.Data3_old.Text = ThisData3_old
+                    Me.PFTrace3.Text = GoldentraceDelta3
                 Else
                     Me.Data3.Text = ""
                     Me.Data3_old.Text = ThisData3_old
@@ -538,6 +659,8 @@ Public Class GoldenMsg
                         If GoldenRunComplete Then ' Recent test completed
                             Dim change1 As Double
                             Dim change2 As Double
+                            Dim change1Trace As Double
+                            Dim change2Trace As Double
                             If GoldenData4L = "" Or ThisData4L_old = "" Then
                                 change1 = 0
                                 change2 = 0
@@ -556,6 +679,13 @@ Public Class GoldenMsg
                             Me.Data4L.Text = GoldenData4L
                             Me.Data4H_old.Text = ThisData4H_old
                             Me.Data4L_old.Text = ThisData4L_old
+                            change1Trace = GoldentraceDelta4L
+                            change2Trace = GoldentraceDelta4H
+                            If change1 > change2 Then
+                                Me.PFTrace4.Text = change1
+                            Else
+                                Me.PFTrace4.Text = change2
+                            End If
                         Else
                             Me.Data4H.Text = ""
                             Me.Data4L.Text = ""
@@ -584,6 +714,7 @@ Public Class GoldenMsg
 
                             Me.Data4.Text = GoldenData4
                             Me.Data4_old.Text = ThisData4_old
+                            Me.PFTrace4.Text = GoldentraceDelta4
                         Else
                             Me.Data4.Text = ""
                             Me.Data4_old.Text = ThisData4_old
@@ -615,6 +746,7 @@ Public Class GoldenMsg
                     
                     Me.Data4.Text = GoldenData4
                     Me.Data4_old.Text = ThisData4_old
+                    Me.PFTrace4.Text = GoldentraceDelta1
                 Else
                     Me.Data4.Text = ""
                     Me.Data4_old.Text = ThisData4_old
@@ -639,28 +771,24 @@ Public Class GoldenMsg
                 Me.Spec5Min.Text = Me.Spec5Max.Text
                 SpecTest5 = Me.Spec5Min.Text
             End If
+            Dim change As Double
             If GoldenHistory Then ' There is gold unit data in the database
-                If GoldenRunComplete Then ' Recent test completed
-                    Dim change As Double
+               If GoldenRunComplete Then ' Recent test completed
                     If GoldenData5 = "" Or ThisData5_old = "" Then
-                        change = 0
                         PF5.Text = 0
                     Else
                         change = Math.Abs(CDbl(ThisData5_old) - CDbl(GoldenData5))
-                        PF5.Text = TruncateDecimal(change, 2)
+                        PF5.Text = change
                     End If
 
                     Me.Data5.Text = GoldenData5
                     Me.Data5_old.Text = ThisData5_old
+                    Me.PFTrace5.Text = GoldentraceDelta5
                 Else
                     Me.Data5.Text = ""
                     Me.Data5_old.Text = ThisData5_old
                 End If
-                Else
-                    Me.Data5.Text = ""
-                    Me.Data5_old.Text = ""
-                End If
-
+            End If
         ElseIf SpecIndex = 2 Then
             TestLabel5.Text = "Coupled Flatness dB"
             Test5_limit = 0.5
@@ -684,6 +812,7 @@ Public Class GoldenMsg
 
                     Me.Data5.Text = GoldenData5
                     Me.Data5_old.Text = ThisData5_old
+                    Me.PFTrace5.Text = GoldentraceDelta5
                 Else
                     Me.Data5.Text = ""
                     Me.Data5_old.Text = ThisData5_old
@@ -887,7 +1016,5 @@ Public Class GoldenMsg
         Process.Start("msedge.exe", url)
     End Sub
 
-    Private Sub GoldenMsg_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-    End Sub
+   
 End Class

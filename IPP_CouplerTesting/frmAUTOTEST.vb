@@ -718,6 +718,7 @@ Skip4:
                     If GoldenMode And Not GoldenModeBypass Then
                         ClearFailureLog()
                         ClearStatusLog()
+                        StatusLog.Items.Add("Inovative Power Products ATE")
                         loadform()
                         ConfigureDualBands()
                         If SpecType = "" Then
@@ -734,6 +735,7 @@ Skip4:
             End If
             ClearFailureLog()
             ClearStatusLog()
+            StatusLog.Items.Add("Inovative Power Products ATE")
             loadform()
 
             If Part = "" Or Part = "Part Number" Then
@@ -1297,7 +1299,8 @@ Skip4:
             TEST5PASS = True
 
             RunningOffsets = False
-            DontclickTheButton = True
+            If Not RetestMode Then DontclickTheButton = True
+
             ILSetDone = False
             LoadSpecs()
             SQLstr = "SELECT * from Specifications where PartNumber = '" & Me.cmbPart.Text & "'"
@@ -1962,6 +1965,7 @@ GetOut:
             Me.Total5.Text = "0"
             ClearFailureLog()
             ClearStatusLog()
+            StatusLog.Items.Add("Inovative Power Products ATE")
             ExpectedProgress.Value = 0
             ActualProgress.Value = 0
             If Not remove Then EndLot.Enabled = False
@@ -2075,7 +2079,7 @@ GetOut:
             System.Threading.Thread.Sleep(500)
             ' StatusLog.Items.Add("Switch POS 4:" & "" & DateTime.Now.ToString)
         End If
-        ClearStatusLog()
+        ' ClearStatusLog()
     End Sub
     Private Sub cmbVNA_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbVNA.SelectedIndexChanged
         VNAClicked()
@@ -2985,13 +2989,14 @@ ReallyComplete:
                 MYMsgBox("Please Choose the Job Number first", , "Not Ready to Start")
                 MutiCal.Checked = False
                 ClearStatusLog()
+                StatusLog.Items.Add("Inovative Power Products ATE")
                 Exit Sub
             Else
                 If cmdStartTest.Text = " Find  Offsets" Then
                     FindOffsets()
                     Exit Sub
                 End If
-                If Not TweakMode And Not RetestMode And (Not TEST1PASS Or Not TEST2PASS Or Not TEST3PASS Or Not TEST4PASS Or Not TEST5PASS) Then
+                If Not TweakMode And Not RetestMode And Not UUTNum = 0 And (Not TEST1PASS Or Not TEST2PASS Or Not TEST3PASS Or Not TEST4PASS Or Not TEST5PASS) Then
                     If MYMsgBox("Are you sure you want to fail UUT" & UUTNum, vbYesNo, "Are you sure??") = vbNo Then Exit Sub
                 End If
                 TestExist = False
@@ -3034,7 +3039,6 @@ ReallyComplete:
             If UUTNum = 0 And Not Resumed Then
                 ResetTests()
                 ClearFailureLog()
-                ClearStatusLog()
                 stopTest = False
                 LastTest = Date.Now.Ticks
                 ClearStatusLog()
@@ -4052,7 +4056,7 @@ TestReallyComplete:
                     Me.GetTrace.Checked = True
                 End If
             End If
-
+            DontclickTheButton = False
             TestCompleteSignal(True) ' Note False/False tells the Robot to continue
             StopTime = Now()
             TestTime = StartTime - StopTime
@@ -4082,6 +4086,7 @@ TestReallyComplete:
             If Me.cmbJob.Text = " " Then Exit Sub
             Job = Me.cmbJob.Text
             Part = Me.cmbPart.Text
+            Pts = 201
             SerialNumber = "UUT" & UUTNum_Reset
             SQLstr = "SELECT * from TestData where JobNumber = 'Golden Part' and PartNumber = '" & Part & "' And SerialNumber = '" & GoldenRev & "'"
             If SQL.CheckforRow(SQLstr, "NetworkData") = 0 Then
@@ -4631,11 +4636,7 @@ TestComplete:  ' For everything except Directional Couplers
 
             End If
 
-            If Not TweakMode And (Not TEST2PASS Or Not TEST1PASS Or Not TEST3PASS Or Not TEST4PASS Or Not TEST5PASS) Then
-                UpdateFailureLog(Me.PF1.Text, Me.PF2.Text, Me.PF3.Text, Me.PF4.Text, Me.PF5.Text)
-                SaveFailureLog("UUT Number: " & UUTNum & " Job Number: " & Me.cmbJob.Text & " Part Number: " & Me.cmbPart.Text & "  Insertion Loss: " & Me.PF1.Text & "  Return Loss: " & Me.PF2.Text & "  Coupling: " & Me.PF3.Text & "  Directivity: " & TEST4PASS & "  Coupled Balance: " & Me.PF5.Text)
-                LOTFail = LOTFail + 1
-            End If
+            
 
             If LOTFail = 0 Then LotTestFrame.BackColor = Color.LawnGreen
             If LOTFail = 0 Then LotFailureFrame.BackColor = Color.LawnGreen
@@ -8792,7 +8793,10 @@ Skip3:
     End Sub
 
     Private Sub NewToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles NewToolStripMenuItem.Click
-        Process.Start("http://innpriority:8888/tickets/inquiry/?task_type=Trouble Ticket&selected_group=Test")
+        Process.Start("microsoft-edge:http://innpriority:8888/tickets/inquiry/?task_type=Trouble Ticket&selected_group=Test")
+    End Sub
+    Private Sub ToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ToolStripMenuItem1.Click
+        Process.Start("microsoft-edge:http://inn-sqlexpress:8888/testfixtures/")
     End Sub
     Public Sub DeleteStatus()
         Dim SQLstr As String
@@ -8810,7 +8814,7 @@ Skip3:
             Dim statusL As String = ""
             Dim FailureL As String = ""
             ClearStatusLog()
-            ClearFailureLog()
+            'ClearFailureLog()
 
             SQLstr = "SELECT * from Status where JobNumber = '" & Job & "' And PartNumber = '" & Part & "'"
             'Job = frmAUTOTEST.cmbJob.Text
@@ -9144,4 +9148,5 @@ Skip3:
     End Sub
 
 
+    
 End Class
