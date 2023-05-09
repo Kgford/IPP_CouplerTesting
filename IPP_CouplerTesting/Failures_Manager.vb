@@ -15,7 +15,7 @@
             test3 = "Isolation"
             test4 = "Amplitude balance"
             test5 = "Phase Balance"
-        ElseIf SpecType = "TRANSFORMER" Then
+        ElseIf SpecType.Contains("TRANSFORMER") Then
             test1 = "Insertion Loss"
             test2 = "Return Loss"
        ElseIf InStr(SpecType, "DIRECTIONAL COUPLER") Then

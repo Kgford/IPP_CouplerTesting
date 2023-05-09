@@ -13,7 +13,12 @@ Module SQL
     Private MissingStr_Array(30) As String
     Public LibName As String
 
-    Public SQLConnStr As String = "Data Source=INN-SQLEXPRESS\SQLEXPRESS;Initial Catalog=ATE;User Id='developer';Password='secure';" 'Development Server
+    'Public SQLConnStr As String = "Data Source=INN-SQLEXPRESS\SQLEXPRESS;Initial Catalog=ATE;User Id='developer';Password='secure1!';" 'Development Server
+
+    Public SQLConnStr As String = "Data Source=INN-SQLEXPRESS;Initial Catalog=ATE;User Id='developer';Password='secure';" 'New E2 Server
+
+    'Public SQLE2ConnStr As String = "Data Source=IPP-E2;Initial Catalog=IPPMFGSQL;User Id='sa';Password='Secure1!';" 'New E2 Server
+
 
     Public Function CheckDatabaseExists(ByVal server As String, ByVal database As String) As Boolean
         Try
@@ -157,6 +162,12 @@ Module SQL
             ElseIf Test = "CoupPlusMinus" And SpecCOUPPM <> Nothing Then
                 GetSpecification = TruncateDecimal(SpecCOUPPM, 1)
                 GoTo SkipDataBase
+            ElseIf Test = "CoupPlus" And SpecCOUPP <> Nothing Then
+                GetSpecification = TruncateDecimal(SpecCOUPP, 1)
+                GoTo SkipDataBase
+            ElseIf Test = "CoupMinus" And SpecCOUPM <> Nothing Then
+                GetSpecification = TruncateDecimal(SpecCOUPM, 1)
+                GoTo SkipDataBase
             ElseIf Test = "Directivity" And SpecDIRECT <> Nothing Then
                 GetSpecification = TruncateDecimal(SpecDIRECT, 1)
                 GoTo SkipDataBase
@@ -241,6 +252,9 @@ Retry:
                     If Not IsDBNull(dr.Item(18)) Then SpecPB = TruncateDecimal(CDbl(dr.Item(18)), 1)
                     If Not IsDBNull(dr.Item(15)) Then SpecCOUP = TruncateDecimal(CDbl(dr.Item(15)), 1)
                     If Not IsDBNull(dr.Item(16)) Then SpecCOUPPM = TruncateDecimal(CDbl(dr.Item(16)), 1)
+                    If Not IsDBNull(dr.Item(101)) Then SpecCOUPP = TruncateDecimal(CDbl(dr.Item(101)), 1)
+                    If Not IsDBNull(dr.Item(102)) Then SpecCOUPM = TruncateDecimal(CDbl(dr.Item(102)), 1)
+                    'If Not IsDBNull(dr.Item(103)) Then COupDualSpec = dr.Item(103)
                     If Not IsDBNull(dr.Item(17)) Then SpecDIRECT = TruncateDecimal(CDbl(dr.Item(17)), 1)
                     If Not IsDBNull(dr.Item(19)) Then SpecCOUPFLAT = TruncateDecimal(CDbl(dr.Item(19)), 2)
                     If Not IsDBNull(dr.Item(9)) Then SpecPorts = CInt(dr.Item(9))
@@ -480,7 +494,11 @@ SkipDataBase:
                     If Temp(0).Contains("J") Then
                         GetLoss = 0
                     Else
-                        GetLoss = CDbl(Temp(0))
+                        If SpecType.Contains("BALUN") Or SpecType.Contains("TRANSFORMER") Then
+                            GetLoss = CDbl(Temp(0)) - 3
+                        Else
+                            GetLoss = CDbl(Temp(0))
+                        End If
                     End If
                 End While
                 ats.Close()
@@ -498,7 +516,11 @@ SkipDataBase:
                     If InStr(Temp(0), "J") Then
                         GetLoss = 0
                     Else
-                        GetLoss = CDbl(Temp(0))
+                        If SpecType.Contains("BALUN") Or SpecType.Contains("TRANSFORMER") And Not Part = "IPP-4488" Then
+                            GetLoss = CDbl(Temp(0)) - 3
+                        Else
+                            GetLoss = CDbl(Temp(0))
+                        End If
                     End If
                 End While
                 atsLocal.Close()

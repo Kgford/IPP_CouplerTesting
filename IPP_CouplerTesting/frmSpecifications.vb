@@ -49,6 +49,8 @@ Public Class frmSpecifications
             Me.cmbSpecType.Items.Clear()
             Me.cmbSpecType.Items.Add("90 DEGREE COUPLER")
             Me.cmbSpecType.Items.Add("90 DEGREE COUPLER SMD")
+            Me.cmbSpecType.Items.Add("180 DEGREE COUPLER")
+            Me.cmbSpecType.Items.Add("180 DEGREE COUPLER SMD")
             Me.cmbSpecType.Items.Add("BALUN")
             Me.cmbSpecType.Items.Add("BALUN SMD")
             Me.cmbSpecType.Items.Add("BI DIRECTIONAL COUPLER")
@@ -198,6 +200,14 @@ Public Class frmSpecifications
                         If Not IsDBNull(dr.GetValue(5)) Then Me.txtQuantity.Text = dr.Item(5)
                         If Not IsDBNull(dr.GetValue(32)) Then Me.txtPPH.Text = dr.Item(32)
                         If Not IsDBNull(dr.GetValue(16)) Then Me.COUPPlusMinus.Text = dr.Item(16)
+                        If Not IsDBNull(dr.GetValue(101)) Then Me.COUPPlus.Text = dr.Item(101)
+                        If Not IsDBNull(dr.GetValue(102)) Then Me.COUPMinus.Text = dr.Item(102)
+                        If Not IsDBNull(dr.GetValue(103)) Then COupDualSpec = dr.Item(103)
+                        If COupDualSpec = True Then
+                            ckPlusMinus.CheckState = CheckState.Checked
+                        Else
+                            ckPlusMinus.CheckState = CheckState.Unchecked
+                        End If
                         If Not IsDBNull(dr.GetValue(11)) Then Me.txtTest1_3.Text = dr.Item(11)
                         If Not IsDBNull(dr.GetValue(10)) Then Me.txtTest2_3.Text = dr.Item(10)
                         If Index = 0 Or Index = 1 Or Index = 3 Then
@@ -434,6 +444,24 @@ Public Class frmSpecifications
                 Me.txtJ3J4_1.Text = "ISOLATION"
                 Me.txtJ4J1_1.Text = "-6dB < -90 DEG"
                 Me.txtJ4J2_1.Text = "-6dB < 0 DEG"
+                Me.txtJ4J3_1.Text = "ISOLATION"
+                Me.txtJ4J4_1.Text = "----"
+            ElseIf Index = 0 And Me.cmbSpecType.Text = "180 DEGREE COUPLER" Or Me.cmbSpecType.Text = "180 DEGREE COUPLER SMD" Then
+                Label5.Text = "180 DEGREE COUPLER"
+                Me.txtJ1J1_1.Text = "----"
+                Me.txtJ1J2_1.Text = "ISOLATION"
+                Me.txtJ1J3_1.Text = "-3dB < 0 DEG"
+                Me.txtJ1J4_1.Text = "-3dB < -90 DEG"
+                Me.txtJ2J1_1.Text = "ISOLATION"
+                Me.txtJ2J2_1.Text = "----"
+                Me.txtJ2J3_1.Text = "-3dB < -180 DEG"
+                Me.txtJ2J4_1.Text = "-3dB < 0 DEG"
+                Me.txtJ3J1_1.Text = "-3dB < 0 DEG"
+                Me.txtJ3J2_1.Text = "-3dB < -90 DEG"
+                Me.txtJ3J3_1.Text = "----"
+                Me.txtJ3J4_1.Text = "ISOLATION"
+                Me.txtJ4J1_1.Text = "-3dB < -90 DEG"
+                Me.txtJ4J2_1.Text = "-3dB< 0 DEG"
                 Me.txtJ4J3_1.Text = "ISOLATION"
                 Me.txtJ4J4_1.Text = "----"
             ElseIf Index = 0 Then
@@ -857,7 +885,7 @@ Public Class frmSpecifications
     End Sub
 
     Private Sub LoadSpecType()
-        If Me.cmbSpecType.Text = "90 DEGREE COUPLER" Or Me.cmbSpecType.Text = "90 DEGREE COUPLER SMD" Then
+        If Me.cmbSpecType.Text = "90 DEGREE COUPLER" Or Me.cmbSpecType.Text = "90 DEGREE COUPLER SMD" Or Me.cmbSpecType.Text = "180 DEGREE COUPLER" Or Me.cmbSpecType.Text = "180 DEGREE COUPLER SMD" Then
             Frame1.Visible = True
             Frame2.Visible = False
             Frame3.Visible = False
@@ -865,6 +893,26 @@ Public Class frmSpecifications
             Frame5.Visible = False
             txtTitle.Text = cmbSpecType.Text
             Index = 0
+            If Me.cmbSpecType.Text = "180 DEGREE COUPLER" Or Me.cmbSpecType.Text = "180 DEGREE COUPLER SMD" Then
+                Label5.Text = "180 DEGREE COUPLER"
+                Me.txtJ1J1_1.Text = "----"
+                Me.txtJ1J2_1.Text = "ISOLATION"
+                Me.txtJ1J3_1.Text = "-3dB < 0 DEG"
+                Me.txtJ1J4_1.Text = "-3dB < -90 DEG"
+                Me.txtJ2J1_1.Text = "ISOLATION"
+                Me.txtJ2J2_1.Text = "----"
+                Me.txtJ2J3_1.Text = "-3dB < -180 DEG"
+                Me.txtJ2J4_1.Text = "-3dB < 0 DEG"
+                Me.txtJ3J1_1.Text = "-3dB < 0 DEG"
+                Me.txtJ3J2_1.Text = "-3dB < -90 DEG"
+                Me.txtJ3J3_1.Text = "----"
+                Me.txtJ3J4_1.Text = "ISOLATION"
+                Me.txtJ4J1_1.Text = "-3dB < -90 DEG"
+                Me.txtJ4J2_1.Text = "-3dB< 0 DEG"
+                Me.txtJ4J3_1.Text = "ISOLATION"
+                Me.txtJ4J4_1.Text = "----"
+            End If
+
         ElseIf Me.cmbSpecType.Text = "BALUN" Or Me.cmbSpecType.Text = "BALUN SMD" Then
             Frame1.Visible = False
             Frame2.Visible = True
@@ -1134,8 +1182,7 @@ Public Class frmSpecifications
                         cmd.ExecuteNonQuery()
                         cmd.CommandText = "UPDATE Specifications SET  Directivity = '" & Me.txtTest4_3.Text & "'" & Expression
                         cmd.ExecuteNonQuery()
-                        cmd.CommandText = "UPDATE Specifications SET  COUPPlusMinus = '" & Me.COUPPlusMinus.Text & "'" & Expression
-                        cmd.ExecuteNonQuery()
+                        
                         cmd.CommandText = "UPDATE Specifications SET  CoupledFlatness = '" & Me.txtTest5_3.Text & "'" & Expression
                         cmd.ExecuteNonQuery()
                         cmd.CommandText = "UPDATE Specifications SET  Bypass = '" & M_bypass & "'" & Expression
@@ -1147,6 +1194,19 @@ Public Class frmSpecifications
                             cmd.ExecuteNonQuery()
                         Else
                             cmd.CommandText = "UPDATE Specifications SET  SwPorts = 0" & Expression
+                            cmd.ExecuteNonQuery()
+                        End If
+                        If ckPlusMinus.CheckState = CheckState.Checked Then
+                            cmd.CommandText = "UPDATE Specifications SET  COUPPlus = '" & Me.COUPPlus.Text & "'" & Expression
+                            cmd.ExecuteNonQuery()
+                            cmd.CommandText = "UPDATE Specifications SET  COUPMinus = '" & Me.COUPMinus.Text & "'" & Expression
+                            cmd.ExecuteNonQuery()
+                            cmd.CommandText = "UPDATE Specifications SET  COUP_DualSpec = 1" & Expression
+                            cmd.ExecuteNonQuery()
+                        Else
+                            cmd.CommandText = "UPDATE Specifications SET  COUPPlusMinus = '" & Me.COUPPlusMinus.Text & "'" & Expression
+                            cmd.ExecuteNonQuery()
+                            cmd.CommandText = "UPDATE Specifications SET  COUP_DualSpec = 0" & Expression
                             cmd.ExecuteNonQuery()
                         End If
 
@@ -1912,9 +1972,27 @@ NotNumber:
         End If
     End Sub
 
-    Private Sub cmbJob_TextChanged(sender As Object, e As EventArgs) Handles cmbJob.TextChanged
-
+   
+    Private Sub ckPlusMinus_CheckedChanged(sender As Object, e As EventArgs) Handles ckPlusMinus.CheckedChanged
+        If ckPlusMinus.CheckState = CheckState.Checked Then
+            COupDualSpec = True
+            COUPPlusMinus.Visible = False
+            PlusMinus.Visible = False
+            Plus.Visible = True
+            Minus.Visible = True
+            COUPPlus.Visible = True
+            COUPMinus.Visible = True
+        Else
+            COupDualSpec = False
+            COUPPlusMinus.Visible = True
+            PlusMinus.Visible = True
+            Plus.Visible = False
+            Minus.Visible = False
+            COUPPlus.Visible = False
+            COUPMinus.Visible = False
+        End If
     End Sub
+
 End Class
 
 

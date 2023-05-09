@@ -43,7 +43,8 @@ Public Class GoldenMsg
         Dim TraceDeltaPass As Boolean = True
         GoldenRev = "N/A"
         Try
-            TestFixture()
+
+           TestFixture()
             LoadSpecs()
             TestData()
             If GoldenHistory Then
@@ -58,15 +59,30 @@ Public Class GoldenMsg
             If Not IsDBNull(GetSpecification("Offset3")) Then offset3 = GetSpecification("Offset3")
             If Not IsDBNull(GetSpecification("Offset4")) Then offset4 = GetSpecification("Offset4")
             If Not IsDBNull(GetSpecification("Offset5")) Then offset5 = GetSpecification("Offset5")
+            If Not IsDBNull(GetSpecification("Offset1")) Then Me.txtOffset1.Text = GetSpecification("Offset1")
+            If Not IsDBNull(GetSpecification("Offset2")) Then Me.txtOffset2.Text = GetSpecification("Offset2")
+            If Not IsDBNull(GetSpecification("Offset3")) Then Me.txtOffset3.Text = GetSpecification("Offset3")
+            If Not IsDBNull(GetSpecification("Offset4")) Then Me.txtOffset4.Text = GetSpecification("Offset4")
+            If Not IsDBNull(GetSpecification("Offset5")) Then Me.txtOffset5.Text = GetSpecification("Offset5")
             Test1()
             Test2()
-            Test3()
-            Test4()
-            Test5()
+            If Not SpecType.Contains("BALUN") And Not SpecType.Contains("TRANSFORMER") Then
+                Test3()
+                Test4()
+                Test5()
+            End If
+
             If GoldenHistory Then ' There is gold unit data in the database
                 If GoldenRunComplete Then ' Recent test completed
-                    If PF1.Text > Test1_limit Or PF2.Text > Test2_limit Or PF3.Text > Test3_limit Or PF4.Text > Test4_limit Or PF5.Text > Test5_limit Then DeltaPass = False
-                    If PFTrace1.Text > Test1_limit Or PFTrace2.Text > Test2_limit Or PFTrace3.Text > Test3_limit Or PFTrace4.Text > Test4_limit Or PFTrace5.Text > Test5_limit Then TraceDeltaPass = False
+                    If SpecType.Contains("BALUN") Or SpecType.Contains("TRANSFORMER") Then
+                        If PF1.Text > Test1_limit Or PF2.Text > Test2_limit Then DeltaPass = False
+                        If PFTrace1.Text > Test1_limit Or PFTrace2.Text > Test2_limit Then TraceDeltaPass = False
+                    Else
+                        If PF1.Text > Test1_limit Or PF2.Text > Test2_limit Or PF3.Text > Test3_limit Or PF4.Text > Test4_limit Or PF5.Text > Test5_limit Then DeltaPass = False
+                        If PFTrace1.Text > Test1_limit Or PFTrace2.Text > Test2_limit Or PFTrace3.Text > Test3_limit Or PFTrace4.Text > Test4_limit Or PFTrace5.Text > Test5_limit Then TraceDeltaPass = False
+                    End If
+
+                    TraceDeltaPass = True ' Note this is a bandaide. I need TJ's to provide equations for moving traces traces ex. RL & Phase & Isolation
                     If GoldenRunPass And DeltaPass And TraceDeltaPass Then
                         GoldenMode = False
                         btTest.Visible = False
@@ -192,108 +208,200 @@ Public Class GoldenMsg
                     GoldenMode = True
                     btOK.Visible = False
                 End If
-            Else
-                If GoldenRev = "N/A" And txtFixture.Text = "" Then
-                    txtprompt.Text = "There is no Test Fixture listed and no Golden UUT data on record. Create both now"
-                    btOK.Visible = False
-                    btTest.Visible = False
-                    btBypass.Visible = True
-                    Label6.Visible = True
-                    Password.Visible = True
-                ElseIf GoldenRev = "N/A" Then
-                    txtprompt.Text = "There is a Test Fixture, but no Golden UUT data on record. Create a Golden Unit and test it now"
-                    btOK.Visible = False
-                    btTest.Visible = False
-                    btBypass.Visible = True
-                    Label6.Visible = True
-                    Password.Visible = True
                 Else
-                    txtprompt.Text = "There is a Test Fixture and a Golden UUT, but no Golden UUT data on record. Test it now"
-                    btOK.Visible = False
-                    btTest.Visible = False
-                    btBypass.Visible = True
-                    Label6.Visible = True
-                    Password.Visible = True
+                    If GoldenRev = "N/A" And txtFixture.Text = "" Then
+                        txtprompt.Text = "There is no Test Fixture listed and no Golden UUT data on record. Create both now"
+                        btOK.Visible = False
+                        btTest.Visible = False
+                        btBypass.Visible = True
+                        Label6.Visible = True
+                        Password.Visible = True
+                    ElseIf GoldenRev = "N/A" Then
+                        txtprompt.Text = "There is a Test Fixture, but no Golden UUT data on record. Create a Golden Unit and test it now"
+                        btOK.Visible = False
+                        btTest.Visible = False
+                        btBypass.Visible = True
+                        Label6.Visible = True
+                        Password.Visible = True
+                    Else
+                        txtprompt.Text = "There is a Test Fixture and a Golden UUT, but no Golden UUT data on record. Test it now"
+                        btOK.Visible = False
+                        btTest.Visible = False
+                        btBypass.Visible = True
+                        Label6.Visible = True
+                        Password.Visible = True
+                    End If
+                    GoldenMode = True
                 End If
-                GoldenMode = True
-            End If
         Catch ex As Exception
 
         End Try
     End Sub
     Private Sub loadpanel()
-        If SpecAB_TF Then
-            Data4L.Visible = True
-            Data4H.Visible = True
-            Data4.Visible = False
-            Data4L_old.Visible = True
-            Data4H_old.Visible = True
-            Data4_old.Visible = False
-        Else
-            Data4L.Visible = False
-            Data4H.Visible = False
-            Data4.Visible = True
-            Data4L_old.Visible = False
-            Data4H_old.Visible = False
-            Data4_old.Visible = True
-        End If
-        If ISO_TF Then
-            Data3L.Visible = True
-            Data3H.Visible = True
-            Data3.Visible = False
-            Data3L_old.Visible = True
-            Data3H_old.Visible = True
-            Data3_old.Visible = False
-        Else
-            Data3L.Visible = False
-            Data3H.Visible = False
-            Data3.Visible = True
-            Data3L_old.Visible = False
-            Data3H_old.Visible = False
-            Data3_old.Visible = True
-        End If
-        If IL_TF Then
-            Data1L.Visible = True
-            Data1H.Visible = True
-            Data1.Visible = False
-            Data1L_old.Visible = True
-            Data1H_old.Visible = True
-            Data1_old.Visible = False
-        Else
-            Data1L_old.Visible = False
-            Data1H_old.Visible = False
-            Data1_old.Visible = True
-            Data1L.Visible = False
-            Data1H.Visible = False
-            Data1.Visible = True
-        End If
+        Try
+            If SpecAB_TF Then
+                Data4L.Visible = True
+                Data4H.Visible = True
+                Data4.Visible = False
+                Data4L_old.Visible = True
+                Data4H_old.Visible = True
+                Data4_old.Visible = False
+            Else
+                Data4L.Visible = False
+                Data4H.Visible = False
+                Data4.Visible = True
+                Data4L_old.Visible = False
+                Data4H_old.Visible = False
+                Data4_old.Visible = True
+            End If
+
+            If ISO_TF Then
+                Data3L.Visible = True
+                Data3H.Visible = True
+                Data3.Visible = False
+                Data3L_old.Visible = True
+                Data3H_old.Visible = True
+                Data3_old.Visible = False
+            Else
+                Data3L.Visible = False
+                Data3H.Visible = False
+                Data3.Visible = True
+                Data3L_old.Visible = False
+                Data3H_old.Visible = False
+                Data3_old.Visible = True
+            End If
+            If IL_TF Then
+                Data1L.Visible = True
+                Data1H.Visible = True
+                Data1.Visible = False
+                Data1L_old.Visible = True
+                Data1H_old.Visible = True
+                Data1_old.Visible = False
+            Else
+                Data1L_old.Visible = False
+                Data1H_old.Visible = False
+                Data1_old.Visible = True
+                Data1L.Visible = False
+                Data1H.Visible = False
+                Data1.Visible = True
+            End If
+            If SpecType.Contains("BALUN") Or SpecType.Contains("TRANSFORMER") Then
+                Spec3Min.Visible = False
+                Spec3Max.Visible = False
+                txtOffset3.Visible = False
+                PF3.Visible = False
+                PFTrace3.Visible = False
+                TestLabel3.Visible = False
+                Spec4Min.Visible = False
+                Spec4Max.Visible = False
+                txtOffset4.Visible = False
+                PF4.Visible = False
+                PFTrace4.Visible = False
+                TestLabel4.Visible = False
+                Spec5Min.Visible = False
+                Spec5Max.Visible = False
+                txtOffset5.Visible = False
+                PF5.Visible = False
+                PFTrace5.Visible = False
+                TestLabel5.Visible = False
+                Data3_old.Visible = False
+                Data3L.Visible = False
+                Data3H.Visible = False
+                Data3.Visible = False
+                Data3L_old.Visible = False
+                Data3H_old.Visible = False
+                Data3_old.Visible = False
+                Data4L.Visible = False
+                Data4H.Visible = False
+                Data4.Visible = False
+                Data4L_old.Visible = False
+                Data4H_old.Visible = False
+                Data4_old.Visible = False
+                Data5.Visible = False
+                Data5_old.Visible = False
+            End If
+        Catch ex As Exception
+
+        End Try
     End Sub
 
     Private Sub TestFixture()
         Dim SQLstr As String
-        txtPartNumber.Text = ""
-        txtFixture.Text = ""
-        txtPlunger.Text = ""
-        txtGoldRev.Text = ""
-        SQLstr = "SELECT * from TestFixtures where PartNumber = '" & Part & "'"
-        If GoldenListDone Then
-            txtPartNumber.Text = GoldenPN
-            txtFixture.Text = Goldenfixture
-            txtPlunger.Text = GoldenPlunger
-            txtGoldRev.Text = GoldenRev
-            txtFixNum.Text = Goldenfixture_num
-        ElseIf CheckforRow(SQLstr, "NetworkSpecs") > 1 Then
-            Dim OP As New GoldenList
-            OP.StartPosition = FormStartPosition.Manual
-            OP.Location = New Point(globals.XLocation + 450, globals.YLocation + 200)
-            OP.ShowDialog()
-            txtPartNumber.Text = GoldenPN
-            txtFixture.Text = Goldenfixture
-            txtPlunger.Text = GoldenPlunger
-            txtGoldRev.Text = GoldenRev
-            txtFixNum.Text = Goldenfixture_num
-            GoldenListDone = True
-        Else
+        Try
+            txtPartNumber.Text = ""
+            txtFixture.Text = ""
+            txtPlunger.Text = ""
+            txtGoldRev.Text = ""
+            SQLstr = "SELECT * from TestFixtures where PartNumber = '" & Part & "'"
+            If GoldenListDone Then
+                txtPartNumber.Text = GoldenPN
+                txtFixture.Text = Goldenfixture
+                txtPlunger.Text = GoldenPlunger
+                txtGoldRev.Text = GoldenRev
+                txtFixNum.Text = Goldenfixture_num
+            ElseIf CheckforRow(SQLstr, "NetworkSpecs") > 1 Then
+                Dim OP As New GoldenList
+                OP.StartPosition = FormStartPosition.Manual
+                OP.Location = New Point(globals.XLocation + 450, globals.YLocation + 200)
+                OP.ShowDialog()
+                txtPartNumber.Text = GoldenPN
+                txtFixture.Text = Goldenfixture
+                txtPlunger.Text = GoldenPlunger
+                txtGoldRev.Text = GoldenRev
+                txtFixNum.Text = Goldenfixture_num
+                GoldenListDone = True
+            Else
+                If SQLAccess Then
+                    Dim ats As SqlConnection = New SqlConnection(SQLConnStr)
+                    Dim cmd As SqlCommand = New SqlCommand(SQLstr, ats)
+                    ats.Open()
+                    System.Threading.Thread.Sleep(10)
+                    Dim dr As SqlDataReader = cmd.ExecuteReader()
+                    While Not dr.Read = Nothing
+                        txtPartNumber.Text = dr.Item(1)
+                        txtFixture.Text = dr.Item(2)
+                        txtPlunger.Text = dr.Item(3)
+                        txtGoldRev.Text = dr.Item(4)
+                        txtFixNum.Text = dr.Item(5)
+                        GoldenRev = txtGoldRev.Text
+                        ' Compose the picture's file name.
+                    End While
+                End If
+            End If
+            If txtPartNumber.Text = "" Then
+                txtPartNumber.Text = Part
+                FixtureSaved = False
+            End If
+            Dim file_name As String = "\\ippdc\Data\Test Data\Test Department\FINAL TFS\" & txtPartNumber.Text & "_" & txtFixture.Text & ".JPG"
+            If Not FileExists(file_name) Then
+                file_name = "\\ippdc\Data\Test Data\Test Department\FINAL TFS\no_pic.JPG"
+            End If
+            ' Load the picture into a Bitmap.
+            Dim bm As New Bitmap(file_name)
+
+            ' Display the results.
+            picImage.Image = bm
+            picImage.SizeMode = PictureBoxSizeMode.StretchImage
+        Catch ex As Exception
+
+        End Try
+    End Sub
+    Private Function SaveTestFixture() As Boolean
+        Try
+            Dim SQLstr As String
+            If Not txtPartNumber.Text = "" And Not txtFixture.Text = "" And Not txtPlunger.Text = "" And Not txtGoldRev.Text = "" Then
+                SQLstr = "SELECT * from TestFixtures where PartNumber = '" & Part & "'"
+                If SQL.CheckforRow(SQLstr, "NetworkData") = 0 Then
+                    SQLstr = "Insert Into TestFixtures (FixtureNumber, PartNumber, Plunger, Revision, FixNum) values ('" & txtFixture.Text & "','" & txtPartNumber.Text & "','" & txtPlunger.Text & "','" & txtGoldRev.Text & "'," & txtFixNum.Text & ")"
+                    SQL.ExecuteSQLCommand(SQLstr, "NetworkSpecs")
+                End If
+                SaveTestFixture = True
+            Else
+                MYMsgBox("Please fill in all of the fields", MsgBoxStyle.Critical, "All Data Required!")
+                SaveTestFixture = False
+                Exit Function
+            End If
+
             If SQLAccess Then
                 Dim ats As SqlConnection = New SqlConnection(SQLConnStr)
                 Dim cmd As SqlCommand = New SqlCommand(SQLstr, ats)
@@ -305,58 +413,12 @@ Public Class GoldenMsg
                     txtFixture.Text = dr.Item(2)
                     txtPlunger.Text = dr.Item(3)
                     txtGoldRev.Text = dr.Item(4)
-                    txtFixNum.Text = dr.Item(5)
                     GoldenRev = txtGoldRev.Text
-                    ' Compose the picture's file name.
                 End While
             End If
-        End If
-        If txtPartNumber.Text = "" Then
-            txtPartNumber.Text = Part
-            FixtureSaved = False
-        End If
-        Dim file_name As String = "\\ippdc\Data\Test Data\Test Department\FINAL TFS\" & txtPartNumber.Text & "_" & txtFixture.Text & ".JPG"
-        If Not FileExists(file_name) Then
-            file_name = "\\ippdc\Data\Test Data\Test Department\FINAL TFS\no_pic.JPG"
-        End If
-        ' Load the picture into a Bitmap.
-        Dim bm As New Bitmap(file_name)
-
-        ' Display the results.
-        picImage.Image = bm
-        picImage.SizeMode = PictureBoxSizeMode.StretchImage
-    End Sub
-    Private Function SaveTestFixture() As Boolean
-        Dim SQLstr As String
-        If Not txtPartNumber.Text = "" And Not txtFixture.Text = "" And Not txtPlunger.Text = "" And Not txtGoldRev.Text = "" Then
-            SQLstr = "SELECT * from TestFixtures where PartNumber = '" & Part & "'"
-            If SQL.CheckforRow(SQLstr, "NetworkData") = 0 Then
-                SQLstr = "Insert Into Effeciency (FixtureNumber, PartNumber, Plunger, Revision, FixNum) values ('" & txtFixture.Text & "','" & txtPartNumber.Text & "','" & txtPlunger.Text & "','" & txtGoldRev.Text & "'," & txtFixNum.Text & ")"
-                SQL.ExecuteSQLCommand(SQLstr, "NetworkSpecs")
-            End If
-
-        Else
-            MYMsgBox("Please fill in all of the fields", MsgBoxStyle.Critical, "All Data Required!")
+        Catch ex As Exception
             SaveTestFixture = False
-            Exit Function
-        End If
-
-
-
-        If SQLAccess Then
-            Dim ats As SqlConnection = New SqlConnection(SQLConnStr)
-            Dim cmd As SqlCommand = New SqlCommand(SQLstr, ats)
-            ats.Open()
-            System.Threading.Thread.Sleep(10)
-            Dim dr As SqlDataReader = cmd.ExecuteReader()
-            While Not dr.Read = Nothing
-                txtPartNumber.Text = dr.Item(1)
-                txtFixture.Text = dr.Item(2)
-                txtPlunger.Text = dr.Item(3)
-                txtGoldRev.Text = dr.Item(4)
-                GoldenRev = txtGoldRev.Text
-            End While
-        End If
+        End Try
     End Function
 
     Private Sub TestData()
@@ -382,7 +444,7 @@ Public Class GoldenMsg
                     If Not IsDBNull(dr.Item(6)) Then ThisData1_old = dr.Item(6) 'IL
                 End If
                 If Not IsDBNull(dr.Item(7)) Then ThisData2_old = CDbl(dr.Item(7)) 'RL
-                If SpecType.Contains("90 DEGREE COUPLER") Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") Then
+                If SpecType.Contains("90 DEGREE COUPLER") Or SpecType.Contains("COMBINER/DIVIDER") Then
                     If ISO_TF Then
                         If Not IsDBNull(dr.Item(9)) Then ThisData3L_old = CStr(dr.Item(9)) 'IsoL
                         If Not IsDBNull(dr.Item(18)) Then ThisData3H_old = CStr(dr.Item(18)) 'IsoH
@@ -405,12 +467,12 @@ Public Class GoldenMsg
 
                 If Not IsDBNull(dr.Item(6)) Then ThisData1_old = dr.Item(6) 'IL
                 If Not IsDBNull(dr.Item(7)) Then ThisData2_old = dr.Item(7) 'RL
-                If SpecType.Contains("90 DEGREE COUPLER") Or SpecType.Contains("BALUN") Or SpecType.Contains("COMBINER/DIVIDER") Then
+                If SpecType.Contains("90 DEGREE COUPLER") Or SpecType.Contains("COMBINER/DIVIDER") Or SpecType.Contains("180 DEGREE COUPLER") Then
                     If Not IsDBNull(dr.Item(9)) Then ThisData3_old = CStr(dr.Item(9)) 'Iso
                     If Not IsDBNull(dr.Item(11)) Then ThisData4_old = CStr(dr.Item(11)) 'AB
                     If Not IsDBNull(dr.Item(13)) Then ThisData5_old = CStr(dr.Item(13)) 'PB
                 Else
-                    If Not IsDBNull(dr.Item(9)) Then ThisData3_old = CStr(dr.Item(8)) 'coup
+                    If Not IsDBNull(dr.Item(8)) Then ThisData3_old = CStr(dr.Item(8)) 'coup
                     If Not IsDBNull(dr.Item(10)) Then ThisData4_old = CStr(dr.Item(10)) 'dir
                     If Not IsDBNull(dr.Item(12)) Then ThisData5_old = CStr(dr.Item(12)) 'cf
                 End If
@@ -485,15 +547,15 @@ Public Class GoldenMsg
                         PF1.Text = TruncateDecimal(change, 2)
                         Me.PFTrace1.Text = GoldentraceDelta1
                     End If
-                   
+
                 Else
                     Me.Data1.Text = ""
                     Me.Data1_old.Text = ThisData1_old
                 End If
-                Else
-                    Me.Data1.Text = ""
-                    Me.Data1_old.Text = ""
-                End If
+            Else
+                Me.Data1.Text = ""
+                Me.Data1_old.Text = ""
+            End If
         End If
     End Sub
     Private Sub Test2()
@@ -613,8 +675,14 @@ Public Class GoldenMsg
             TestLabel3.Text = "Coupling:  dB"
             Test3_limit = 1.0
             If Not IsDBNull(GetSpecification("Coupling")) Then
-                Me.Spec3Min.Text = Format(GetSpecification("Coupling") - GetSpecification("CoupPlusMinus"), "0.0")
-                Me.Spec3Max.Text = Format(GetSpecification("Coupling") + GetSpecification("CoupPlusMinus"), "0.0")
+                If Not COupDualSpec = True Then
+                    Me.Spec3Min.Text = Format(GetSpecification("Coupling") - GetSpecification("CoupPlusMinus"), "0.0")
+                    Me.Spec3Max.Text = Format(GetSpecification("Coupling") + GetSpecification("CoupPlusMinus"), "0.0")
+                    Me.Spec3Max.ForeColor = Color.CornflowerBlue
+                Else
+                    Me.Spec3Min.Text = Format(GetSpecification("Coupling") - GetSpecification("CoupMinus"), "0.0")
+                    Me.Spec3Max.Text = Format(GetSpecification("Coupling") + GetSpecification("CoupPlus"), "0.0")
+                  End If
                 SpecCOUP = GetSpecification("Coupling")
             End If
             If GoldenHistory Then ' There is gold unit data in the database
@@ -838,6 +906,84 @@ Public Class GoldenMsg
         GoldenData5H = ""
         GoldenData5L = ""
     End Sub
+
+    'Golden Part'
+    Private Sub txtOffset1_TextChanged(sender As Object, e As EventArgs) Handles txtOffset1.DoubleClick
+        Dim SQLStr As String
+
+        If Not IsNumeric(Me.txtOffset1.Text) Then Exit Sub
+        SQLStr = "SELECT * from Specifications where PartNumber = '" & Me.txtPartNumber.Text & "' And JobNumber = '" & Job & "'"
+        If SQL.CheckforRow(SQLStr, "NetworkSpecs") = 0 Then
+            SQLStr = "Insert Into Specifications (JobNumber, PartNumber) values ('" & Job & "','" & Me.txtPartNumber.Text & "')"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkSpecs")
+        End If
+
+        SQLStr = "UPDATE Specifications Set Offset1 = " & Me.txtOffset1.Text & " where PartNumber = '" & Me.txtPartNumber.Text & "' And JobNumber = '" & Job & "'"
+        SQL.ExecuteSQLCommand(SQLStr, "NetworkSpecs")
+        
+    End Sub
+
+    Private Sub txtOffset2_TextChanged(sender As Object, e As EventArgs) Handles txtOffset2.DoubleClick
+        Dim SQLStr As String
+
+        If Not IsNumeric(Me.txtOffset2.Text) Then Exit Sub
+        SQLStr = "SELECT * from Specifications where PartNumber = '" & Me.txtPartNumber.Text & "' And JobNumber = '" & Job & "'"
+        If SQL.CheckforRow(SQLStr, "NetworkSpecs") = 0 Then
+            SQLStr = "Insert Into Specifications (JobNumber, PartNumber) values ('" & Job & "','" & Me.txtPartNumber.Text & "')"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkSpecs")
+        End If
+
+        SQLStr = "UPDATE Specifications Set Offset2 = " & Me.txtOffset2.Text & " where PartNumber = '" & Me.txtPartNumber.Text & "' And JobNumber = '" & Job & "'"
+        SQL.ExecuteSQLCommand(SQLStr, "NetworkSpecs")
+       
+    End Sub
+
+    Private Sub txtOffset3_TextChanged(sender As Object, e As EventArgs) Handles txtOffset3.DoubleClick
+        Dim SQLStr As String
+
+        If Not IsNumeric(Me.txtOffset3.Text) Then Exit Sub
+        SQLStr = "SELECT * from Specifications where PartNumber = '" & Me.txtPartNumber.Text & "' And JobNumber = '" & Job & "'"
+        If SQL.CheckforRow(SQLStr, "NetworkSpecs") = 0 Then
+            SQLStr = "Insert Into Specifications (JobNumber, PartNumber) values ('" & Job & "','" & Me.txtPartNumber.Text & "')"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkSpecs")
+        End If
+
+        SQLStr = "UPDATE Specifications Set Offset3 = " & Me.txtOffset3.Text & " where PartNumber = '" & Me.txtPartNumber.Text & "' And JobNumber = '" & Job & "'"
+        SQL.ExecuteSQLCommand(SQLStr, "NetworkSpecs")
+        
+    End Sub
+
+    Private Sub txtOffset4_TextChanged(sender As Object, e As EventArgs) Handles txtOffset4.DoubleClick
+        Dim SQLStr As String
+
+        If Not IsNumeric(Me.txtOffset4.Text) Then Exit Sub
+        SQLStr = "SELECT * from Specifications where PartNumber = '" & Me.txtPartNumber.Text & "' And JobNumber = '" & Job & "'"
+        If SQL.CheckforRow(SQLStr, "NetworkSpecs") = 0 Then
+            SQLStr = "Insert Into Specifications (JobNumber, PartNumber) values ('" & Job & "','" & Me.txtPartNumber.Text & "')"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkSpecs")
+        End If
+
+        SQLStr = "UPDATE Specifications Set Offset4 = " & Me.txtOffset4.Text & " where PartNumber = '" & Me.txtPartNumber.Text & "' And JobNumber = '" & Job & "'"
+        SQL.ExecuteSQLCommand(SQLStr, "NetworkSpecs")
+        
+    End Sub
+
+    Private Sub txtOffset5_TextChanged(sender As Object, e As EventArgs) Handles txtOffset5.DoubleClick
+        Dim SQLStr As String
+
+        If Not IsNumeric(Me.txtOffset5.Text) Then Exit Sub
+        SQLStr = "SELECT * from Specifications where PartNumber = '" & Me.txtPartNumber.Text & "' And JobNumber = '" & Job & "'"
+        If SQL.CheckforRow(SQLStr, "NetworkSpecs") = 0 Then
+            SQLStr = "Insert Into Specifications (JobNumber, PartNumber) values (''" & Job & "','" & Me.txtPartNumber.Text & "')"
+            SQL.ExecuteSQLCommand(SQLStr, "NetworkSpecs")
+        End If
+
+        SQLStr = "UPDATE Specifications Set Offset5 = " & Me.txtOffset5.Text & " where PartNumber = '" & Me.txtPartNumber.Text & "' And JobNumber = '" & Job & "'"
+        SQL.ExecuteSQLCommand(SQLStr, "NetworkSpecs")
+        
+    End Sub
+
+
     Private Sub LoadSpecs()
         Dim SQLstr As String
         SQLstr = "SELECT * from Specifications where PartNumber = '" & Part & "'"
@@ -857,6 +1003,19 @@ Public Class GoldenMsg
                         End If
                         SpecIndex = 0
                         SpecType = "90 DEGREE COUPLER"
+                        TestLabel3.Visible = True
+                        Spec3Min.Visible = True
+                        Spec3Max.Visible = True
+                        Data3.Visible = True
+                        PF3.Visible = True
+                    ElseIf dr.Item(1) = "180 DEGREE COUPLER" Or dr.Item(1) = "180 DEGREE COUPLER SMD" Then
+                        If dr.Item(1) = "180 DEGREE COUPLER SMD" Then
+                            SMD = True
+                        Else
+                            SMD = False
+                        End If
+                        SpecIndex = 0
+                        SpecType = "180 DEGREE COUPLER"
                         TestLabel3.Visible = True
                         Spec3Min.Visible = True
                         Spec3Max.Visible = True
@@ -900,6 +1059,17 @@ Public Class GoldenMsg
                         Spec3Max.Visible = False
                         Data3.Visible = False
                         PF3.Visible = False
+                        TestLabel4.Visible = False
+                        Spec4Min.Visible = False
+                        Spec4Max.Visible = False
+                        Data4.Visible = False
+                        PF4.Visible = False
+                        TestLabel5.Visible = False
+                        Spec5Min.Visible = False
+                        Spec5Max.Visible = False
+                        Data5.Visible = False
+                        PF5.Visible = False
+
                     ElseIf dr.Item(1) = "SINGLE DIRECTIONAL COUPLER" Or dr.Item(1) = "SINGLE DIRECTIONAL COUPLER SMD" Then
                         If dr.Item(1) = "SINGLE DIRECTIONAL COUPLER SMD" Then
                             SMD = True

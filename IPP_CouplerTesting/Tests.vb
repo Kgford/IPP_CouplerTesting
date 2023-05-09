@@ -545,8 +545,10 @@
                 Else
                     IL = IL2
                 End If
-                If SpecType.Contains("BALUN") Or Part.Contains("IT") Then
+                If Part.Contains("IT") Then
                     IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text) - 3
+                ElseIf SpecType.Contains("BALUN") Or Part.Contains("TRANSFORMER") Then
+                    IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text) - 6
                 Else
                     IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
                 End If
@@ -753,8 +755,10 @@
             ' End If
 
             IL = ILArray(Pts - 1)
-            If SpecType.Contains("BALUN") Or Part.Contains("IT") Then
+            If Part.Contains("IT") Then
                 IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text) - 3
+            ElseIf SpecType.Contains("BALUN") Or SpecType.Contains("TRANSFORMER") Then
+                IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text) - 6
             Else
                 IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
             End If
@@ -1179,6 +1183,14 @@
             IL2 = TruncateDecimal(IL2, 2)
             If Right(IL2, 1) = "." Then IL2 = "0" & IL2
 
+            If Part.Contains("IT") Then
+                IL1 = Math.Abs(IL1) - 3
+                IL2 = Math.Abs(IL2) - 3
+            ElseIf SpecType.Contains("BALUN") Or SpecType.Contains("TRANSFORMER") Then
+                IL1 = Math.Abs(IL1) - 6
+                IL2 = Math.Abs(IL2) - 6
+            End If
+
             If IL1 < IL2 Then
                 IL = IL1
             Else
@@ -1298,12 +1310,13 @@
                     IL = IL2
                 End If
 
-                If SpecType.Contains("BALUN") Or Part.Contains("IT") Then
+                If Part.Contains("IT") Then
                     IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text) - 3
+                ElseIf SpecType.Contains("BALUN") Or SpecType.Contains("TRANSFORMER") Then
+                    IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text) - 6
                 Else
                     IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
                 End If
-                IL = TruncateDecimal(IL, 2)
 
                 If IL <= Spec Then
                     InsertionLoss3dB_marker = "Pass"
@@ -1495,11 +1508,15 @@
         End If
         IL = 10 * Log10(IL1 + IL2)
         IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
-        If SpecType.Contains("BALUN") Or Part.Contains("IT") Then
-            IL = TruncateDecimal(IL, 2) - 3
+        
+        If Part.Contains("IT") Then
+            IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text) - 3
+        ElseIf SpecType.Contains("BALUN") Or SpecType.Contains("TRANSFORMER") Then
+            IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text) - 6
         Else
-            IL = TruncateDecimal(IL, 2)
+            IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
         End If
+        IL = TruncateDecimal(IL, 2)
 
         If IL <= Spec Then
             InsertionLoss3dB_marker = "Pass"
@@ -1871,7 +1888,14 @@
                 IL1 = TruncateDecimal(IL1, 2)
                 If Right(IL1, 1) = "." Then IL1 = "0" & IL1
 
-                IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
+
+                If Part.Contains("IT") Then
+                    IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text) - 3
+                ElseIf SpecType.Contains("BALUN") Or SpecType.Contains("TRANSFORMER") Then
+                    IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text) - 6
+                Else
+                    IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
+                End If
                 IL = TruncateDecimal(IL, 2)
 
                 If IL <= Spec Then
@@ -1897,18 +1921,17 @@
                     ScanGPIB.BusWrite(":CALC1:PAR2:SEL")
                     ScanGPIB.BusWrite(":CALC1:FORM MLOG")
                     ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV 0")
-                    ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:PDIV 10")
+                    ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:PDIV " & GetSpecification("InsertionLoss"))
                 ElseIf VNAStr = "N3383A" Then
                     ScanGPIB.BusWrite("CALC1:PAR:SEL 'CH1_S21_1'")
                     ScanGPIB.BusWrite(":CALC1:FORM MLOG")
                     ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:RLEV 0")
-                    ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:PDIV 10")
+                    ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:PDIV " & GetSpecification("insertionloss"))
                 Else
                     ScanGPIB.BusWrite("OPC?;CHAN2;")
                     ScanGPIB.BusWrite("OPC?;LOGM;")
                     ScanGPIB.BusWrite("OPC?;REFV 0")
-                    ScanGPIB.BusWrite("OPC?;SCAL 10")
-
+                    ScanGPIB.BusWrite("OPC?;SCAL " & GetSpecification("insertionloss"))
                 End If
             End If
             ExtraAvg(2)
@@ -2002,6 +2025,8 @@
 
         End Try
         If frmAUTOTEST.txtOffset1.Text = "" Then frmAUTOTEST.txtOffset1.Text = 0
+
+
         Spec1 = GetSpecification("InsertionLoss")
         Spec2 = GetSpecification("InsertionLoss2")
 
@@ -2053,9 +2078,13 @@
                 End If
             ElseIf PassChecked Then
                 IL = Spec1
+                IL1 = Spec1
+                IL2 = Spec2
                 InsertionLossTRANS_multiband = "Pass"
             ElseIf FailChecked Then
                 IL = Spec1 + 10
+                IL1 = Spec1 + 10
+                IL2 = Spec2 + 10
                 InsertionLossTRANS_multiband = "Fail"
             End If
             frmAUTOTEST.Refresh()
@@ -2072,14 +2101,14 @@
                     ScanGPIB.BusWrite(":CALC1:PAR2:SEL")
                     ScanGPIB.BusWrite(":CALC1:FORM MLOG")
                     ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV " & GetLoss())
-                    ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:PDIV " & GetSpecification("IL2"))
+                    ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:PDIV " & GetSpecification("InsertionLoss2"))
                 ElseIf VNAStr = "N3383A" Then
                     ScanGPIB.BusWrite("SENS1:FREQ:STAR " & SpecIL_start1 & "E6;")
                     ScanGPIB.BusWrite("SENS1:FREQ:STOP " & SpecIL_stop1 & "E6;")
                     ScanGPIB.BusWrite("CALC:PAR:SEL 'CH1_S21_1'")
                     ScanGPIB.BusWrite(":CALC:FORM MLOG")
                     ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:RLEV " & GetLoss())
-                    ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:PDIV " & GetSpecification("insertionloss"))
+                    ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:PDIV " & GetSpecification("insertionloss2"))
                 Else
                     If VNAStr = "HP_8753C" Then System.Threading.Thread.Sleep(2000)
                     ScanGPIB.BusWrite("STAR " & SpecIL_start1 & "MHZ;")
@@ -2087,7 +2116,7 @@
                     ScanGPIB.BusWrite("OPC?;CHAN2;")
                     ScanGPIB.BusWrite("OPC?;LOGM;")
                     ScanGPIB.BusWrite("OPC?;REFV " & GetLoss())
-                    ScanGPIB.BusWrite("OPC?;SCAL " & GetSpecification("insertionloss"))
+                    ScanGPIB.BusWrite("OPC?;SCAL " & GetSpecification("insertionloss2"))
                 End If
             End If
             ExtraAvg(2)
@@ -2208,6 +2237,15 @@
             IL2 = TruncateDecimal(IL2, 2)
             Pts = Points
 
+            If Part.Contains("IT") Then
+                IL1 = Math.Abs(IL1) - 3
+                IL2 = Math.Abs(IL2) - 3
+            ElseIf SpecType.Contains("BALUN") Or SpecType.Contains("TRANSFORMER") Then
+                IL1 = Math.Abs(IL1) - 6
+                IL2 = Math.Abs(IL2) - 6
+            End If
+
+
             If IL1 > Spec1 Then
                 IL1_status = "Fail"
             End If
@@ -2313,7 +2351,7 @@
                     ScanGPIB.BusWrite(":CALC1:PAR2:SEL")
                     ScanGPIB.BusWrite(":CALC1:FORM MLOG")
                     ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV 0")
-                    ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:PDIV 10")
+                    ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:PDIV " & GetSpecification("InsertionLoss"))
                     ScanGPIB.BusWrite(":CALC1:MARK1 ON")  'Marker 1 on
                     ExtraAvg()
                     ScanGPIB.BusWrite(":CALC1:MARK1:FUNC:TYPE MIN")  'Marker 1 min
@@ -2324,7 +2362,7 @@
                     ScanGPIB.BusWrite("CALC1:PAR:SEL 'CH1_S21_1'")
                     ScanGPIB.BusWrite(":CALC1:FORM MLOG")
                     ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:RLEV 0")
-                    ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:PDIV 10")
+                    ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:PDIV " & GetSpecification("insertionloss"))
                     ScanGPIB.BusWrite(":CALC1:MARK1 ON")  'Marker 1 on
                     ExtraAvg()
                     ScanGPIB.BusWrite(":CALC1:MARK1:FUNC:TYPE MIN")  'Marker 1 min
@@ -2333,18 +2371,24 @@
                     ScanGPIB.BusWrite("OPC?;CHAN2;")
                     ScanGPIB.BusWrite("OPC?;LOGM;")
                     ScanGPIB.BusWrite("OPC?;REFV 0")
-                    ScanGPIB.BusWrite("OPC?;SCAL 10")
+                    ScanGPIB.BusWrite("OPC?;SCAL " & GetSpecification("insertionloss"))
                     ScanGPIB.BusWrite("MARK1;")  'Marker 1 on
                     ExtraAvg(2)
                     ScanGPIB.BusWrite("MARKMINI;")  'Marker 1 min
                     IL1 = ScanGPIB.MarkerQuery("OUTPMARK;")  'Get Marker1 val
                 End If
             End If
-
+           
             frmAUTOTEST.Refresh()
             IL1 = TruncateDecimal(IL1, 2)
 
-            IL = Math.Abs(IL1) + CDbl(frmAUTOTEST.txtOffset1.Text)
+            If Part.Contains("IT") Then
+                IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text) - 3
+            ElseIf SpecType.Contains("BALUN") Or SpecType.Contains("TRANSFORMER") Then
+                IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text) - 6
+            Else
+                IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
+            End If
             IL = TruncateDecimal(IL, 2)
 
             If IL <= Spec Then
@@ -3810,11 +3854,20 @@ SetPoints:
 
                 COuP = COuP + CDbl(frmAUTOTEST.txtOffset3.Text)
 
-                If COuP <= Spec + SpecPM And COuP >= Spec - SpecPM Then
-                    Coupling = "Pass"
+                If COupDualSpec Then
+                    If COuP <= Spec + SpecCOUPP And COuP >= Spec - SpecCOUPM Then
+                        Coupling = "Pass"
+                    Else
+                        Coupling = "Fail"
+                    End If
                 Else
-                    Coupling = "Fail"
+                    If COuP <= Spec + SpecPM And COuP >= Spec - SpecPM Then
+                        Coupling = "Pass"
+                    Else
+                        Coupling = "Fail"
+                    End If
                 End If
+                
             Else
                 For x = 0 To 200
                     If x = 0 Then Direction1Value = Math.Abs(COUP1Data(x))
@@ -3838,10 +3891,18 @@ SetPoints:
 
                 COuP = COuP + CDbl(frmAUTOTEST.txtOffset3.Text)
 
-                If COuP <= (Spec + SpecPM) And COuP >= (Spec - SpecPM) Then
-                    Coupling = "Pass"
+                If COupDualSpec Then
+                    If COuP <= Spec + SpecCOUPP And COuP >= Spec - SpecCOUPM Then
+                        Coupling = "Pass"
+                    Else
+                        Coupling = "Fail"
+                    End If
                 Else
-                    Coupling = "Fail"
+                    If COuP <= Spec + SpecPM And COuP >= Spec - SpecPM Then
+                        Coupling = "Pass"
+                    Else
+                        Coupling = "Fail"
+                    End If
                 End If
             End If
         End If
@@ -3965,7 +4026,6 @@ Round:
         If AB <= Spec Then
             AmplitudeBalance = "Pass"
         Else
-            AB = Spec + 10
             AmplitudeBalance = "Fail"
         End If
 
@@ -5712,7 +5772,7 @@ Round:
                     ScanGPIB.BusWrite(":CALC1:MATH:MEM") 'Data into Memory
                     If SpecType = "90 DEGREE COUPLER" Then
                         ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -90")
-                    ElseIf SpecType.Contains("BALUN") Then
+                    ElseIf SpecType.Contains("BALUN") Or SpecType = "180 DEGREE COUPLER" Then
                         ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -180")
                     End If
                     ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:MEM OFF") 'Memory On"
@@ -5726,7 +5786,7 @@ Round:
                     ScanGPIB.BusWrite(gBuffer & ";")
                     If SpecType = "90 DEGREE COUPLER" Then
                         ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -90")
-                    ElseIf SpecType.Contains("BALUN") Then
+                    ElseIf SpecType.Contains("BALUN") Or SpecType = "180 DEGREE COUPLER" Then
                         ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -180")
                     End If
                     ScanGPIB.BusWrite("OPC?;DATI;") 'Data into Memory
@@ -5741,7 +5801,7 @@ Round:
                 End If
                 If SpecType = "90 DEGREE COUPLER" Then
                     ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -90")
-                ElseIf SpecType.Contains("BALUN") Then
+                ElseIf SpecType.Contains("BALUN") Or SpecType = "180 DEGREE COUPLER" Then
                     ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -180")
                 End If
 
@@ -5752,7 +5812,7 @@ Round:
                 End If
                 If SpecType = "90 DEGREE COUPLER" Then
                     ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -90")
-                ElseIf SpecType.Contains("BALUN") Then
+                ElseIf SpecType.Contains("BALUN") Or SpecType = "180 DEGREE COUPLER" Then
                     ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -180")
                 End If
             Else
@@ -5762,7 +5822,7 @@ Round:
                 'If VNAStr = "HP_8753C" Then ScanGPIB.BusRead()
                 If SpecType = "90 DEGREE COUPLER" Then
                     ScanGPIB.BusWrite("OPC?;REFV 90")
-                ElseIf SpecType.Contains("BALUN") Then
+                ElseIf SpecType.Contains("BALUN") Or SpecType = "180 DEGREE COUPLER" Then
                     ScanGPIB.BusWrite("OPC?;REFV -180")
                 End If
             End If
@@ -6045,7 +6105,7 @@ Round:
                     ScanGPIB.BusWrite(":INIT1:CONT ON") ' and start another sweep
                     ScanGPIB.BusWrite(":CALC1:MATH:MEM") 'Data into Memory
                     If SpecType = "90 DEGREE COUPLER" Then ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -90")
-                    If SpecType.Contains("BALUN") Then ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -180")
+                    If SpecType.Contains("BALUN") Or SpecType = "180 DEGREE COUPLER" Then ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -180")
                     Delay(100)
                     ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:MEM OFF") 'Memory On"
                     ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:STAT ON") ' Data On
@@ -6058,7 +6118,7 @@ Round:
                     ScanGPIB.BusWrite(":INIT1:CONT ON") ' and start another sweep
                     ScanGPIB.BusWrite(":CALC1:MATH:MEM") 'Data into Memory
                     If SpecType = "90 DEGREE COUPLER" Then ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:RLEV -90")
-                    If SpecType.Contains("BALUN") Then ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:RLEV -180")
+                    If SpecType.Contains("BALUN") Or SpecType = "180 DEGREE COUPLER" Then ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:RLEV -180")
                     ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:MEM OFF") 'Memory On"
                     ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:STAT ON")  ' Data On
                 Else
@@ -6079,18 +6139,18 @@ Round:
                     ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:STAT ON") ' Data On
                 End If
                 If SpecType = "90 DEGREE COUPLER" Then ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -90")
-                If SpecType.Contains("BALUN") Then ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -180")
+                If SpecType.Contains("BALUN") Or SpecType = "180 DEGREE COUPLER" Then ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -180")
             ElseIf (VNAStr = "N3383A") And Not MutiCalChecked Then
                 If MutiCalChecked = 0 Then
                     ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:MEM ON") 'Data On
                     ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:STAT ON") ' Data On
                 End If
                 If SpecType = "90 DEGREE COUPLER" Then ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:RLEV -90")
-                If SpecType.Contains("BALUN") Then ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:RLEV -180")
+                If SpecType.Contains("BALUN") Or SpecType = "180 DEGREE COUPLER" Then ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:RLEV -180")
             Else
                 If MutiCalChecked = 0 Then ScanGPIB.BusWrite("OPC?;DISPDATM;") 'Data and Memory
                 If SpecType = "90 DEGREE COUPLER" Then ScanGPIB.BusWrite("OPC?;REFV -90")
-                If SpecType.Contains("BALUN") Then ScanGPIB.BusWrite("OPC?;REFV -180")
+                If SpecType.Contains("BALUN") Or SpecType = "180 DEGREE COUPLER" Then ScanGPIB.BusWrite("OPC?;REFV -180")
             End If
 
             If (VNAStr = "AG_E5071B") And Not MutiCalChecked Then

@@ -303,10 +303,12 @@
                 Else
                     IL = IL2
                 End If
-                If SpecType.Contains("BALUN") Or Part.Contains("IT") Then
-                    IL = Math.Abs(IL) + CDbl(frmMANUALTEST.txtOffset1.Text) - 3
+                If Part.Contains("IT") Then
+                    IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text) - 3
+                ElseIf SpecType.Contains("BALUN") Or SpecType.Contains("TRANSFORMER") Then
+                    IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text) - 6
                 Else
-                    IL = Math.Abs(IL) + CDbl(frmMANUALTEST.txtOffset1.Text)
+                    IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
                 End If
                 IL = TruncateDecimal(IL, 2)
 
@@ -509,10 +511,12 @@
             ' End If
 
             IL = ILArray(Pts - 1)
-            If SpecType.Contains("BALUN") Or Part.Contains("IT") Then
-                IL = Math.Abs(IL) + CDbl(frmMANUALTEST.txtOffset1.Text) - 3
+            If Part.Contains("IT") Then
+                IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text) - 3
+            ElseIf SpecType.Contains("BALUN") Or SpecType.Contains("TRANSFORMER") Then
+                IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text) - 6
             Else
-                IL = Math.Abs(IL) + CDbl(frmMANUALTEST.txtOffset1.Text)
+                IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
             End If
             IL = TruncateDecimal(IL, 3)
 
@@ -1040,10 +1044,12 @@
                     IL = IL2
                 End If
 
-                If SpecType.Contains("BALUN") Or Part.Contains("IT") Then
-                    IL = Math.Abs(IL) + CDbl(frmMANUALTEST.txtOffset1.Text) - 3
+                If Part.Contains("IT") Then
+                    IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text) - 3
+                ElseIf SpecType.Contains("BALUN") Or SpecType.Contains("TRANSFORMER") Then
+                    IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text) - 6
                 Else
-                    IL = Math.Abs(IL) + CDbl(frmMANUALTEST.txtOffset1.Text)
+                    IL = Math.Abs(IL) + CDbl(frmAUTOTEST.txtOffset1.Text)
                 End If
                 IL = TruncateDecimal(IL, 2)
 
@@ -1237,8 +1243,10 @@
         End If
         IL = 10 * Log10(IL1 + IL2)
         IL = Math.Abs(IL) + CDbl(frmMANUALTEST.txtOffset1.Text)
-        If SpecType.Contains("BALUN") Or Part.Contains("IT") Then
+        If Part.Contains("IT") Then
             IL = TruncateDecimal(IL, 2) - 3
+        ElseIf SpecType.Contains("BALUN") Or SpecType.Contains("TRANSFORMER") Then
+            IL = TruncateDecimal(IL, 2) - 6
         Else
             IL = TruncateDecimal(IL, 2)
         End If
@@ -1720,7 +1728,6 @@
         If frmMANUALTEST.txtOffset1.Text = "" Then frmMANUALTEST.txtOffset1.Text = 0
         Spec1 = GetSpecification("InsertionLoss")
         Spec2 = GetSpecification("InsertionLoss2")
-
         SwitchCom.Connect()
         If ResumeTesting Then
             RetrnVal = RetrnVal + CDbl(frmMANUALTEST.txtOffset1.Text)
@@ -5366,7 +5373,7 @@ Round:
                     ScanGPIB.BusWrite(":CALC1:MATH:MEM") 'Data into Memory
                     If SpecType = "90 DEGREE COUPLER" Then
                         ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -90")
-                    ElseIf SpecType.Contains("BALUN") Then
+                    ElseIf SpecType.Contains("BALUN") Or SpecType = "180 DEGREE COUPLER" Then
                         ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -180")
                     End If
                     ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:MEM OFF") 'Memory On"
@@ -5395,7 +5402,7 @@ Round:
                     ScanGPIB.BusWrite(gBuffer & ";")
                     If SpecType = "90 DEGREE COUPLER" Then
                         ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -90")
-                    ElseIf SpecType.Contains("BALUN") Then
+                    ElseIf SpecType.Contains("BALUN") Or SpecType = "180 DEGREE COUPLER" Then
                         ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -180")
                     End If
                     ScanGPIB.BusWrite("OPC?;DATI;") 'Data into Memory
@@ -5421,7 +5428,7 @@ Round:
                 End If
                 If SpecType = "90 DEGREE COUPLER" Then
                     ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -90")
-                ElseIf SpecType.Contains("BALUN") Then
+                ElseIf SpecType.Contains("BALUN") Or SpecType = "180 DEGREE COUPLER" Then
                     ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -180")
                 End If
             Else
@@ -5708,7 +5715,7 @@ Round:
                     ScanGPIB.BusWrite(":INIT1:CONT ON") ' and start another sweep
                     ScanGPIB.BusWrite(":CALC1:MATH:MEM") 'Data into Memory
                     If SpecType = "90 DEGREE COUPLER" Then ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -90")
-                    If SpecType.Contains("BALUN") Then ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -180")
+                    If SpecType.Contains("BALUN") Or SpecType = "180 DEGREE COUPLER" Then ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -180")
                     Delay(100)
                     ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:MEM OFF") 'Memory On"
                     ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:STAT ON") ' Data On
@@ -5721,7 +5728,7 @@ Round:
                     ScanGPIB.BusWrite(":INIT1:CONT ON") ' and start another sweep
                     ScanGPIB.BusWrite(":CALC1:MATH:MEM") 'Data into Memory
                     If SpecType = "90 DEGREE COUPLER" Then ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:RLEV -90")
-                    If SpecType.Contains("BALUN") Then ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:RLEV -180")
+                    If SpecType.Contains("BALUN") Or SpecType = "180 DEGREE COUPLER" Then ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:RLEV -180")
                     ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:MEM OFF") 'Memory On"
                     ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:STAT ON")  ' Data On
                 Else
@@ -5742,18 +5749,18 @@ Round:
                     ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:STAT ON") ' Data On
                 End If
                 If SpecType = "90 DEGREE COUPLER" Then ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -90")
-                If SpecType.Contains("BALUN") Then ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -180")
+                If SpecType.Contains("BALUN") Or SpecType = "180 DEGREE COUPLER" Then ScanGPIB.BusWrite(":DISP:WIND1:TRAC2:Y:RLEV -180")
             ElseIf (VNAStr = "N3383A") And Not MutiCalChecked Then
                 If MutiCalChecked = 0 Then
                     ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:MEM ON") 'Data On
                     ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:STAT ON") ' Data On
                 End If
                 If SpecType = "90 DEGREE COUPLER" Then ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:RLEV -90")
-                If SpecType.Contains("BALUN") Then ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:RLEV -180")
+                If SpecType.Contains("BALUN") Or SpecType = "180 DEGREE COUPLER" Then ScanGPIB.BusWrite(":DISP:WIND2:TRAC2:Y:RLEV -180")
             Else
                 If MutiCalChecked = 0 Then ScanGPIB.BusWrite("OPC?;DISPDATM;") 'Data and Memory
                 If SpecType = "90 DEGREE COUPLER" Then ScanGPIB.BusWrite("OPC?;REFV -90")
-                If SpecType.Contains("BALUN") Then ScanGPIB.BusWrite("OPC?;REFV -180")
+                If SpecType.Contains("BALUN") Or SpecType = "180 DEGREE COUPLER" Then ScanGPIB.BusWrite("OPC?;REFV -180")
             End If
 
             If (VNAStr = "AG_E5071B") And Not MutiCalChecked Then

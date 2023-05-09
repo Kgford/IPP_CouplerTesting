@@ -433,6 +433,21 @@ Skip4:
                             PF3.Visible = True
                             txtOffset3.Visible = True
                             SwPos = "          J3(3dB) = SW1, J4(3dB) = SW2, J2(ISO) = SW3"
+                        ElseIf dr.Item(1) = "180 DEGREE COUPLER" Or dr.Item(1) = "180 DEGREE COUPLER SMD" Then
+                            If dr.Item(1) = "180 DEGREE COUPLER SMD" Then
+                                SMD = True
+                            Else
+                                SMD = False
+                            End If
+                            SpecIndex = 0
+                            SpecType = "180 DEGREE COUPLER"
+                            TestLabel3.Visible = True
+                            Spec3Min.Visible = True
+                            Spec3Max.Visible = True
+                            Data3.Visible = True
+                            PF3.Visible = True
+                            txtOffset3.Visible = True
+                            SwPos = "          J3(3dB) = SW1, J4(3dB) = SW2, J2(ISO) = SW3"
                         ElseIf dr.Item(1) = "TRANSFORMER" Or dr.Item(1) = "TRANSFORMER SMD" Then
                             If dr.Item(1) = "TRANSFORMER SMD" Then
                                 SMD = True
@@ -441,7 +456,7 @@ Skip4:
                             End If
                             IL_TF = dr.Item(91)
                             SpecIndex = 1
-                            SpecType = "TRANSFORMER"
+                            SpecType.Contains("TRANSFORMER")
                             SwPos = ""
 
                             TestLabel3.Visible = False
@@ -781,10 +796,17 @@ Skip4:
             ElseIf SpecIndex = 2 Then
                 TestLabel3.Text = "Coupling:  dB"
                 If Not IsDBNull(GetSpecification("Coupling")) Then
-                    Me.Spec3Min.Text = Format(GetSpecification("Coupling") - GetSpecification("CoupPlusMinus"), "0.0")
-                    Me.Spec3Min.ForeColor = Color.CornflowerBlue
-                    Me.Spec3Max.Text = Format(GetSpecification("Coupling") + GetSpecification("CoupPlusMinus"), "0.0")
-                    Me.Spec3Max.ForeColor = Color.CornflowerBlue
+                    If Not COupDualSpec = True Then
+                        Me.Spec3Min.Text = Format(GetSpecification("Coupling") - GetSpecification("CoupPlusMinus"), "0.0")
+                        Me.Spec3Min.ForeColor = Color.CornflowerBlue
+                        Me.Spec3Max.Text = Format(GetSpecification("Coupling") + GetSpecification("CoupPlusMinus"), "0.0")
+                        Me.Spec3Max.ForeColor = Color.CornflowerBlue
+                    Else
+                        Me.Spec3Min.Text = Format(GetSpecification("Coupling") - GetSpecification("CoupMinus"), "0.0")
+                        Me.Spec3Min.ForeColor = Color.CornflowerBlue
+                        Me.Spec3Max.Text = Format(GetSpecification("Coupling") + GetSpecification("CoupPlus"), "0.0")
+                        Me.Spec3Max.ForeColor = Color.CornflowerBlue
+                    End If
                     SpecCOUP = GetSpecification("Coupling")
                 End If
                 Me.Data3.Text = ""
@@ -1576,15 +1598,15 @@ Skip4:
             'Insertion Loss
             If RunTest1 Then
                 If TraceChecked Then
-                    If (SpecType = "TRANSFORMER") And IL_TF Then PassFail = ManualTests.InsertionLossTRANS_multiband(TestRun, , TestID)
-                    If SpecType = "TRANSFORMER" And Not IL_TF Then PassFail = ManualTests.InsertionLossTRANS(TestRun, , TestID)
+                    If (SpecType.Contains("TRANSFORMER")) And IL_TF Then PassFail = ManualTests.InsertionLossTRANS_multiband(TestRun, , TestID)
+                    If SpecType.Contains("TRANSFORMER") And Not IL_TF Then PassFail = ManualTests.InsertionLossTRANS(TestRun, , TestID)
                     If (SpecType = "90 DEGREE COUPLER" Or SpecType = "BALUN") And SpecAB_TF Then PassFail = ManualTests.InsertionLoss3dB_multiband(TestRun, , TestID)
                     If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = ManualTests.InsertionLoss3dB(TestRun, , TestID)
                     If SpecType.Contains("COMBINER/DIVIDER") Then PassFail = ManualTests.InsertionLossCOMB(TestRun, , TestID)
                     If SpecType = "SINGLE DIRECTIONAL COUPLER" Or SpecType = "DUAL DIRECTIONAL COUPLER" Or SpecType = "BI DIRECTIONAL COUPLER" Then PassFail = ManualTests.InsertionLossDIR(TestRun, , TestID)
                 ElseIf Not MutiCalChecked Then
-                    If (SpecType = "TRANSFORMER") And IL_TF Then PassFail = ManualTests.InsertionLossTRANS_multiband(TestRun, , TestID)
-                    If SpecType = "TRANSFORMER" And Not IL_TF Then PassFail = ManualTests.InsertionLossTRANS_Marker(TestRun, , TestID)
+                    If (SpecType.Contains("TRANSFORMER")) And IL_TF Then PassFail = ManualTests.InsertionLossTRANS_multiband(TestRun, , TestID)
+                    If SpecType.Contains("TRANSFORMER") And Not IL_TF Then PassFail = ManualTests.InsertionLossTRANS_Marker(TestRun, , TestID)
                     If (SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN")) And SpecAB_TF Then PassFail = ManualTests.InsertionLoss3dB_multiband(TestRun, , TestID)
                     If SpecType = "90 DEGREE COUPLER" Or SpecType.Contains("BALUN") Then PassFail = ManualTests.InsertionLoss3dB_marker(TestRun, , TestID)
                     If SpecType.Contains("COMBINER/DIVIDER") Then PassFail = ManualTests.InsertionLossCOMB_Marker(TestRun, , TestID)
@@ -2093,7 +2115,7 @@ TestReallyComplete:
         Me.PF2.ForeColor = Color.CornflowerBlue
         Me.PF2.Text = "TBD"
         Me.Data2.Text = ""
-        If Not SpecType = "TRANSFORMER" Then
+        If Not SpecType.Contains("TRANSFORMER") Then
             Me.Data3.Visible = True
             Me.Spec3Min.Visible = True
             Me.Spec3Max.Visible = True

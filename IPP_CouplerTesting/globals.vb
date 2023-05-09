@@ -152,7 +152,11 @@ Module globals
     Public ISO_TF As Boolean = False
     Public SpecCuttoffFreq As Double
     Public SpecCOUP As Double
+    Public COuP As Double
+    Public COupDualSpec As Boolean = False
     Public SpecCOUPPM As Double
+    Public SpecCOUPP As Double
+    Public SpecCOUPM As Double
     Public SpecDIRECT As Double
     Public SpecCOUPFLAT As Double
     Public Offset1 As Double
@@ -238,7 +242,7 @@ Module globals
     Public ISoH As Double
     Public ISoLPass As String
     Public ISoHPass As String
-    Public COuP As Double
+   
 
     Public DebugLevel As Integer
     Public gCmdPrompt As Boolean
